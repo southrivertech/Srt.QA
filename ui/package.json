@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "next-gen ui tests",
   "scripts": {
+    "cy:open:prod": "cypress open --config-file ./cypress/config/prod.config.js"
     },
   "author": "",
   "license": "ISC",
