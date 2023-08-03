@@ -4,8 +4,16 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents (on, config) {
       return require('../plugins/index.js')(on, config)
+    }
+  },
+  env: {
+    admin: {
+      adminBaseUrl: 'https://beta.southrivertech.com:41443/',
+      adminUsername: 'srtadmin',
+      adminPassword: 'SrtSoft21401!'
     },
-    userBaseUrl: 'https://beta.southrivertech.com/',
-    adminBaseUrl: 'https://beta.southrivertech.com:41443/'
+    user: {
+      userBaseUrl: 'https://beta.southrivertech.com/'
+    }
   }
 })

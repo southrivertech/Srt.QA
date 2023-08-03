@@ -13,8 +13,16 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+/** SUPPORT COMMANDS */
 // Import commands.js using ES2015 syntax:
-import './commands'
+import 'cypress-network-idle'
+import 'cypress-file-upload'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+/** API INTERCEPT COMMANDS */
+import '../../../ui/components/apis/login/login-api-get'
+
+/** UI COMPONENT COMMANDS */
+import './commands'
