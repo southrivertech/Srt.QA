@@ -1,0 +1,35 @@
+_jest-editor/
+.vscode/symbols.json
+/coverage/
+**/node_modules/
+out/
+**/.vscode/
+
+**/.DS_Store
+*.vsix
+.DS_Store
+.idea
+
+*/allure-report/
+results
+
+# Ignore vim tempfiles
+*.sw[npo]
+
+# Ignore environment specific settings
+**/.env
+
+# Ignore files used by apps for navigating code
+**/.projections.json
+
+# Ignore local fixture data
+**/config.local.js
+
+**/test-results
+**/screenshots
+**/videos
+
+# Ignore lib/ within local node modules
+qa-foundry-api-matchers/lib/*
+qa-foundry-api-tools/lib/*
+adminifi/ui/cypress/downloads
