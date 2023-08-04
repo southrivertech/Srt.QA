@@ -11,6 +11,7 @@ describe('Login Functionality Test', () => {
   const homeUrlText = '/Console'
 
   beforeEach(() => {
+    cy.getApiLogin()
     cy.waitForNetworkIdlePrepare({
       method: 'POST',
       pattern: '**WebApi/Login**',

@@ -13,5 +13,5 @@ Cypress.Commands.add('getApiLogin', (variable = 'getApiLogin') => {
     name: 'getApiLogin'
   })
 
-  cy.intercept('GET', '**WebApi/Login**').as(variable)
+  cy.intercept('POST', '**WebApi/Login**').as(variable)
 })
