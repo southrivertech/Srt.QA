@@ -8,9 +8,9 @@
  * cy.waitForNetworkIdle('@postApiLogin', 200);
  */
 
-Cypress.Commands.add('posApiLogin', (variable = 'posApiLogin') => {
+Cypress.Commands.add('postApiLogin', (variable = 'postApiLogin') => {
   Cypress.log({
-    name: 'posApiLogin'
+    name: 'postApiLogin'
   })
 
   cy.intercept('POST', '**WebApi/Login**').as(variable)
