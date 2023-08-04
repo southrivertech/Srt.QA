@@ -11,11 +11,11 @@ describe('Login Functionality Test', () => {
   const homeUrlText = '/Console'
 
   beforeEach(() => {
-    cy.getApiLogin()
+    cy.posApiLogin()
     cy.waitForNetworkIdlePrepare({
       method: 'POST',
       pattern: '**WebApi/Login**',
-      alias: 'getApiLogin',
+      alias: 'posApiLogin',
       log: false
     })
     cy.visit(adminData.adminBaseUrl)
@@ -25,8 +25,8 @@ describe('Login Functionality Test', () => {
     cy.get(loginSelectors.inputUsername).type(userInfo.username)
     cy.get(loginSelectors.inputPassword).type(userInfo.password)
     cy.get(loginSelectors.loginButton).contains(loginText).click()
-    cy.waitForNetworkIdle('@getApiLogin', 500).its('callCount').should('equal', 1)
+    cy.waitForNetworkIdle('@posApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', homeUrlText)
-    cy.waitApiResponseStatusCode('@getApiLogin', 200)
+    cy.waitApiResponseStatusCode('@posApiLogin', 200)
   })
 })

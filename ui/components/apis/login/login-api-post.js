@@ -1,16 +1,16 @@
 /**
- * getApiLogin
+ * postApiLogin
  *
  * When navigating to the dashboard page, it helps to wait for the request to the Login endpoint
  *
  * @example
- * cy.getApiLogin()
- * cy.waitForNetworkIdle('@getApiLogin', 200);
+ * cy.postApiLogin()
+ * cy.waitForNetworkIdle('@postApiLogin', 200);
  */
 
-Cypress.Commands.add('getApiLogin', (variable = 'getApiLogin') => {
+Cypress.Commands.add('posApiLogin', (variable = 'posApiLogin') => {
   Cypress.log({
-    name: 'getApiLogin'
+    name: 'posApiLogin'
   })
 
   cy.intercept('POST', '**WebApi/Login**').as(variable)
