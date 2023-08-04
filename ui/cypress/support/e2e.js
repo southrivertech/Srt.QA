@@ -23,6 +23,7 @@ import 'cypress-file-upload'
 
 /** API INTERCEPT COMMANDS */
 import '../../../ui/components/apis/login/login-api-get'
+import '../../../ui/components/apis/wait-api-response-status-code'
 
 /** UI COMPONENT COMMANDS */
 import './commands'
