@@ -22,7 +22,8 @@ import 'cypress-file-upload'
 // require('./commands')
 
 /** API INTERCEPT COMMANDS */
-import '../../../ui/components/apis/login/login-api-get'
+import '../../components/apis/login/login-api-post'
+import '../../../ui/components/apis/wait-api-response-status-code'
 
 /** UI COMPONENT COMMANDS */
 import './commands'
