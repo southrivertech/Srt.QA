@@ -1,11 +1,10 @@
 # Welcome To NextGen Automated Test Suite
 
 ## Getting Started
-- Setup Local Environment
--- Install NodeJS
--- Clone Github repo
--- Install dependencies 
--- Executing test scripts
+- Install NodeJS
+- Clone Github repo
+- Install dependencies 
+- Executing test scripts
 
 ### Install NodeJS
 
