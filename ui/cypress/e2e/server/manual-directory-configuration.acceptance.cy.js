@@ -1,0 +1,1 @@
+Verify that user must provide the Manual directory configuration values before moving to the next page (positive, negative)

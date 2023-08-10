@@ -1,4 +1,4 @@
-import loginSelectors from '../../selectors/login-selectors.json'
+import loginSelectors from '../../../selectors/login-selectors.json'
 
 describe('Login Functionality Test', () => {
     const adminData = Cypress.env('admin')

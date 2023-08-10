@@ -1,0 +1,1 @@
+Verify that user can set any value for ZLIB Compression Level (set the value and check if the value is present or not)
