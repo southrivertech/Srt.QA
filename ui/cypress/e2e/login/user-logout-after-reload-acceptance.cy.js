@@ -1,4 +1,22 @@
 import loginSelectors from '../../../selectors/login-selectors.json'
+/**
+ * @description
+ * This spec file contains tests to ensure that user stays logged in the site after a reload
+ *
+ * @file
+ * ui/cypress/e2e/login/user-logout-after-reload-acceptance.cy.js
+ *
+ * @breadcrumb
+ * - Login to the application
+ *
+ * @assertions
+ * - To verify that admin usewr stays in the site after a reload
+ *
+ * @prerequisites
+ * Pre-Requisite data:
+ * - user should have valid credentials
+ */
+
 
 describe('Login Functionality Test', () => {
     const adminData = Cypress.env('admin')
@@ -7,8 +25,7 @@ describe('Login Functionality Test', () => {
       username: adminData.adminUsername,
       password: adminData.adminPassword
     }
-    const loginText = 'Login'
-    /* const homeUrlText = '/Console'  */
+    const homeUrlText = '/Console' 
   
     beforeEach(() => {
       cy.postApiLogin()
@@ -22,21 +39,18 @@ describe('Login Functionality Test', () => {
     })
   
     it('verify that admin user can login successfully with correct credentials', () => {
-      /* cy.get(loginSelectors.inputUsername).type(userInfo.username)
-      cy.get(loginSelectors.inputPassword).type(userInfo.password)
-      cy.get(loginSelectors.loginButton).contains(loginText).click()
+      cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
       cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
       cy.url().should('include', homeUrlText)
-      cy.waitApiResponseStatusCode('@postApiLogin', 200) */
-      cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+      cy.waitApiResponseStatusCode('@postApiLogin', 200)
     })
 
     it('Reload the server', () => {
       cy.reload()
     })
 
-    it('Check if the reloaded page contains the Home button', () => {
-      cy.get('MuiTypography-body2').contains('Home')
+    it('Check if the user stays in the site', () => {
+      cy.url().should('include', homeUrlText)
     })
 })
 

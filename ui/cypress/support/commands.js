@@ -27,7 +27,6 @@ import loginSelectors from '../../selectors/login-selectors.json'
 //! Login Function
 Cypress.Commands.add('login', (baseUrl, username, password) => {
     const loginText = 'Login'
-    const homeUrlText = '/Console'
 
     //? Visit the URL
     cy.visit(baseUrl)
@@ -36,8 +35,4 @@ Cypress.Commands.add('login', (baseUrl, username, password) => {
     cy.get(loginSelectors.inputUsername).type(username)
     cy.get(loginSelectors.inputPassword).type(password)
     cy.get(loginSelectors.loginButton).contains(loginText).click()
-    cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', homeUrlText)
-    cy.waitApiResponseStatusCode('@postApiLogin', 200)
-
 })

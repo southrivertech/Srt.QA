@@ -3,7 +3,7 @@
  * This spec file contains tests to ensure that user is able to login successfully.
  *
  * @file
- ui/cypress/e2e/login-acceptance.cy.js
+ * ui/cypress/e2e/login/login-valid-credentials-acceptance.cy.js
  *
  * @breadcrumb
  * - Login to the application
@@ -22,6 +22,7 @@ describe('Login Functionality Test', () => {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
+  const homeUrlText = '/Console'
 
 beforeEach(() => {
     cy.postApiLogin()
@@ -35,17 +36,9 @@ beforeEach(() => {
 
 it('verify that admin user can login successfully with correct credentials', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+    cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
+    cy.url().should('include', homeUrlText)
+    cy.waitApiResponseStatusCode('@postApiLogin', 200)
 })
 
-it('verify that admin user cannot login with incorrect credentials', () => {
-    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-})
-
-it('verify that submit button is enabled only if user provide both username and password', () => {
-    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-})
-
-it('verify that submit button is disable if user does not provide both username and password', () => {
-    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-})
 })
