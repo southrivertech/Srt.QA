@@ -1,11 +1,11 @@
 import loginSelectors from '../../../../selectors/login-selectors.json'
 /**
  * @description
- * This spec file contains tests to ensure that the submit button is enabled or disbled based on the
+ * This spec file contains tests to ensure that the submit button is enabled or disable based on the
  * credentials's validity
  *
  * @file
-ui/cypress/e2e/login/submit-button/submit-button-working-acceptence.cy.js
+ * ui/cypress/e2e/login/submit-button/submit-button-working-acceptance.cy.js
  *
  * @breadcrumb
  * - Login to the application

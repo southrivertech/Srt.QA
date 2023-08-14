@@ -9,7 +9,7 @@
  * - Login to the application
  *
  * @assertions
- * - To verify that admin usewr stays in the site after a reload
+ * - To verify that admin user stays in the site after a reload
  *
  * @prerequisites
  * Pre-Requisite data:
@@ -18,7 +18,6 @@
 
 describe('Login Functionality Test', () => {
   const adminData = Cypress.env('admin')
-  // These should come from secrets, I need admin permissions for that
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
@@ -33,7 +32,6 @@ describe('Login Functionality Test', () => {
       alias: 'postApiLogin',
       log: false
     })
-    /* cy.visit(adminData.adminBaseUrl) */
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', homeUrlText)

@@ -1,6 +1,6 @@
 /**
  * @description
- * This spec file contains tests to ensure that user stays in the site after pressing back button in the browser
+ * This spec file contains tests to ensure that user doesn't redirected to the login page even after pressing back button in the browser
  *
  * @file
  * ui/cypress/e2e/login/user-navigate-to-login.cy-acceptance.cy.js
@@ -18,7 +18,6 @@
 
 describe('Login Functionality Test', () => {
   const adminData = Cypress.env('admin')
-  // These should come from secrets, I need admin permissions for that
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword

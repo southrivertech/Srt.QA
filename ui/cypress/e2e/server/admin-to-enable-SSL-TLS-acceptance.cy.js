@@ -9,22 +9,29 @@
  * - Login > Add New > Server > Database > Server Info > > FTPS Configuration
  *
  * @assertions
- * - To verify that admin user can enable the checkboxes in FTPS configuration after disabling the default checkbox
- *
+ * - To verify that admin user can Enable Explicit SSL/TLS Access checkboxes on (Setup FTPS Access for this Server) page after disabling it
+ * - To verify that admin user can Enable Implicit SSL/TLS Access checkboxes on (Setup FTPS Access for this Server) page after disabling it
  * @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
  */
 
-describe('Enable Checkbox Functionality Test', () => {
+describe('Login > Add New > Server > Database > Server Info > > FTPS Configuration', () => {
   const adminData = Cypress.env('admin')
-  // These should come from secrets, I need admin permissions for that
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
   const homeUrlText = '/Console'
-  const serverName = 'server58'
+  const serverName = `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
+  const nextText = 'Next'
+  const lookForText = {
+    AddNew: 'Add New'
+  }
+
+  function nameofFunction(parameter) {
+
+  };
 
   beforeEach(() => {
     cy.postApiLogin()
@@ -34,44 +41,43 @@ describe('Enable Checkbox Functionality Test', () => {
       alias: 'postApiLogin',
       log: false
     })
-    // ? Login using valid credentials
+    // Login using valid credentials
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
-  it('verify that admin user can login successfully with correct credentials', () => {
-    // ? Press the add new button
-    cy.get('.MuiFab-label div').contains('Add New').click()
+  it('verify that admin user can Enable Explicit SSL/TLS Access checkboxes on (Setup FTPS Access for this Server) page after disabling it', () => {
+    nameofFunction(asdf)
+    
+    cy.get('.MuiFab-label div').contains(lookForText.AddNew).click()
 
-    // ? Click next twice
     cy.get('.MuiButton-label').contains('Next').click()
     cy.get('.MuiButton-label').contains('Next').click()
 
-    // ? Enter Server Information
     cy.get('.MuiInputLabel-formControl').contains('Server Name').parent('div').within(() => {
       cy.get('input').type(serverName)
     })
 
-    // ? Click next
     cy.get('.MuiButton-label').contains('Next').click()
 
-    // ? Click on all checkboxes
     cy.get('.MuiFormControlLabel-root')
       .find('.MuiCheckbox-root')
       .find('.MuiIconButton-label')
       .get('input[type=checkbox]').click({ multiple: true })
 
-    // ? Click next
-    cy.get('.MuiButton-label').contains('Next').click()
+    cy.get('.MuiButton-label').contains(nextText).click()
     cy.get('.MuiButton-label').contains('Next').click()
 
-    // ? Check all the boxes
     cy.get('.MuiFormControlLabel-root')
       .find('.MuiCheckbox-root')
       .find('.MuiIconButton-label')
       .get('input[type=checkbox]')
       .click({ multiple: true })
+  })
+
+  it('verify that admin user can Enable Implicit SSL/TLS Access checkboxes on (Setup FTPS Access for this Server) page after disabling it', () => {
+    sfadsf
   })
 })
