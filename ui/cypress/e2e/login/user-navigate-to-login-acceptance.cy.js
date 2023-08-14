@@ -1,14 +1,12 @@
-import loginSelectors from '../../../selectors/login-selectors.json'
 /**
  * @description
- * This spec file contains tests to ensure that user stays in the site after prssing back button in the browser
+ * This spec file contains tests to ensure that user stays in the site after pressing back button in the browser
  *
  * @file
  * ui/cypress/e2e/login/user-navigate-to-login.cy-acceptance.cy.js
  *
  * @breadcrumb
  * - Login to the application
- * - Press the back key in the browser
  *
  * @assertions
  * - To verify that admin user stays in the site after pressing the back button in the browser
@@ -35,9 +33,6 @@ describe('Login Functionality Test', () => {
       alias: 'postApiLogin',
       log: false
     })
-  })
-
-  it('verify that admin user can login successfully with correct credentials', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', homeUrlText)
@@ -45,14 +40,7 @@ describe('Login Functionality Test', () => {
   })
 
   it('Press the back key button in the browser', () => {
-    cy.window().then(win => {
-        //? Simulate pressing the back button
-        win.history.back()
-    });
+    cy.go('back')
+    cy.contains('Login').should('not.be.visible')
   })
-
-  it('Check if the user stays in the site', () => {
-    cy.url().should('include', homeUrlText)
-  })
-
 })

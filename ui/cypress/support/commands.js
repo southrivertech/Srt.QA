@@ -26,13 +26,13 @@ import loginSelectors from '../../selectors/login-selectors.json'
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //! Login Function
 Cypress.Commands.add('login', (baseUrl, username, password) => {
-    const loginText = 'Login'
+  const loginText = 'Login'
 
-    //? Visit the URL
-    cy.visit(baseUrl)
+  // ? Visit the URL
+  cy.visit(baseUrl)
 
-    //? Find and fill in the username and password fields
-    cy.get(loginSelectors.inputUsername).type(username)
-    cy.get(loginSelectors.inputPassword).type(password)
-    cy.get(loginSelectors.loginButton).contains(loginText).click()
+  // ? Find and fill in the username and password fields
+  cy.get(loginSelectors.inputUsername).type(username)
+  cy.get(loginSelectors.inputPassword).type(password)
+  cy.get(loginSelectors.loginButton).contains(loginText).click()
 })

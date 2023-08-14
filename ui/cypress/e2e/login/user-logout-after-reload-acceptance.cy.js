@@ -1,4 +1,3 @@
-import loginSelectors from '../../../selectors/login-selectors.json'
 /**
  * @description
  * This spec file contains tests to ensure that user stays logged in the site after a reload
@@ -17,42 +16,32 @@ import loginSelectors from '../../../selectors/login-selectors.json'
  * - user should have valid credentials
  */
 
-
 describe('Login Functionality Test', () => {
-    const adminData = Cypress.env('admin')
-    // These should come from secrets, I need admin permissions for that
-    const userInfo = {
-      username: adminData.adminUsername,
-      password: adminData.adminPassword
-    }
-    const homeUrlText = '/Console' 
-  
-    beforeEach(() => {
-      cy.postApiLogin()
-      cy.waitForNetworkIdlePrepare({
-        method: 'POST',
-        pattern: '**WebApi/Login**',
-        alias: 'postApiLogin',
-        log: false
-      })
-      cy.visit(adminData.adminBaseUrl)
-    })
-  
-    it('verify that admin user can login successfully with correct credentials', () => {
-      cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-      cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-      cy.url().should('include', homeUrlText)
-      cy.waitApiResponseStatusCode('@postApiLogin', 200)
-    })
+  const adminData = Cypress.env('admin')
+  // These should come from secrets, I need admin permissions for that
+  const userInfo = {
+    username: adminData.adminUsername,
+    password: adminData.adminPassword
+  }
+  const homeUrlText = '/Console'
 
-    it('Reload the server', () => {
-      cy.reload()
+  beforeEach(() => {
+    cy.postApiLogin()
+    cy.waitForNetworkIdlePrepare({
+      method: 'POST',
+      pattern: '**WebApi/Login**',
+      alias: 'postApiLogin',
+      log: false
     })
+    /* cy.visit(adminData.adminBaseUrl) */
+    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+    cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
+    cy.url().should('include', homeUrlText)
+    cy.waitApiResponseStatusCode('@postApiLogin', 200)
+  })
 
-    it('Check if the user stays in the site', () => {
-      cy.url().should('include', homeUrlText)
-    })
+  it('Reload the server', () => {
+    cy.reload()
+    cy.contains('Login').should('not.be.visible')
+  })
 })
-
-
-

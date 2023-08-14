@@ -1,18 +1,13 @@
 /**
  * @description
- * This spec file contains tests to ensure that user must provide the Manual directory configuration values before moving to the next page
+ * This spec file contains tests to ensure that user must provide the Manual Directory Configuration values before moving to the next page
  *
  * @file
  * ui/cypress/e2e/server/manual-directory-configuration.acceptance.cy.js
  *
  * @breadcrumb
- * - Login to the application
+ * - Login > Add New > Server > Database > Server Info
  * - Press the add-new button
- * - Select server and click next
- * - Select database
- * - Enter server information, select manually configure directory locations
- * - Remove all paths form the tabs
- * - Click next
  *
  * @assertions
  * - To verify that admin user cannot navigate to next without manually configuring the directory
@@ -29,6 +24,7 @@ describe('Manual directory Configuration Test', () => {
     password: adminData.adminPassword
   }
   const homeUrlText = '/Console'
+  const serverName = 'server52'
 
   beforeEach(() => {
     cy.postApiLogin()
@@ -38,15 +34,14 @@ describe('Manual directory Configuration Test', () => {
       alias: 'postApiLogin',
       log: false
     })
-  })
-
-  it('Verify that the user cannot navigate to the next page, until he/she configures directories manually', () => {
     // ? Login as an admin with valid credentials
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
+  })
 
+  it('Verify that the user cannot navigate to the next page, until he/she configures directories manually', () => {
     // ? Press the add new button
     cy.get('.MuiFab-label div').contains('Add New').click()
 
@@ -56,7 +51,7 @@ describe('Manual directory Configuration Test', () => {
 
     // ? Enter Server Information
     cy.get('.MuiInputLabel-formControl').contains('Server Name').parent('div').within(() => {
-      cy.get('input').type('server19')
+      cy.get('input').type(serverName)
     })
 
     // ? Click on the Manually Configure Directory Locations checkbox
@@ -68,10 +63,10 @@ describe('Manual directory Configuration Test', () => {
     // ? Clear all the texts inside the input areas
     cy.get('.MuiGrid-grid-xs-10').each(($outerContainer) => {
       cy.wrap($outerContainer).within(() => {
-        // Navigate through the nested containers
+        // ? Navigate through the nested containers
         cy.get('.MuiTextField-root').within(() => {
           cy.get('.MuiInputBase-formControl').within(() => {
-            // Clear the text from the input element within the innermost container
+            // ? Clear the text from the input element within the innermost container
             cy.get('.MuiInputBase-input').clear()
           })
         })

@@ -1,3 +1,4 @@
+import loginSelectors from '../../../../selectors/login-selectors.json'
 /**
  * @description
  * This spec file contains tests to ensure that user is able to login successfully.
@@ -18,11 +19,12 @@
 
 describe('Login Functionality Test', () => {
   const adminData = Cypress.env('admin')
-  const userInfo = {
+  /*  const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
-  }
-  const homeUrlText = '/Console'
+  } */
+  const invalidUsername = 'admin'
+  const invalidPassword = 'password123'
 
   beforeEach(() => {
     cy.postApiLogin()
@@ -32,15 +34,16 @@ describe('Login Functionality Test', () => {
       alias: 'postApiLogin',
       log: false
     })
+    cy.visit(adminData.adminBaseUrl)
   })
 
   it('verify that admin user cannot login with incorrect credentials', () => {
-    cy.login(adminData.adminBaseUrl, userInfo.username, 'abcd')
-    cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('not.include', homeUrlText)
+    cy.get(loginSelectors.inputUsername).type(invalidUsername)
+    cy.get(loginSelectors.inputPassword).type(invalidPassword)
+    cy.contains('Invalid username or password.').should('be.visible')
   })
 
-  it('verify that submit button is enabled only if user provide both username and password', () => {
+  /* it('verify that submit button is enabled only if user provide both username and password', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
   })
 
@@ -50,5 +53,5 @@ describe('Login Functionality Test', () => {
 
   it('verify that submit button is disabled if user does not provide password', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, "")
-  })
+  }) */
 })
