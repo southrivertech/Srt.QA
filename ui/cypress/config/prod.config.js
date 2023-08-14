@@ -6,6 +6,7 @@ module.exports = defineConfig({
       return require('../plugins/index.js')(on, config)
     }
   },
+  watchForFileChanges: false,
   env: {
     admin: {
       adminBaseUrl: 'https://beta.southrivertech.com:41443/',

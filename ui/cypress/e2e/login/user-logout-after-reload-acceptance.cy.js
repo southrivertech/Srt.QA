@@ -1,13 +1,27 @@
-import loginSelectors from '../../selectors/login-selectors.json'
+/**
+ * @description
+ * This spec file contains tests to ensure that user stays logged in the site after a reload
+ *
+ * @file
+ * ui/cypress/e2e/login/user-logout-after-reload-acceptance.cy.js
+ *
+ * @breadcrumb
+ * - Login to the application
+ *
+ * @assertions
+ * - To verify that admin user stays login after reloading a website
+ *
+ * @prerequisites
+ * Pre-Requisite data:
+ * - user should have valid credentials
+ */
 
 describe('Login Functionality Test', () => {
   const adminData = Cypress.env('admin')
-  // These should come from secrets, I need admin permissions for that
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const loginText = 'Login'
   const homeUrlText = '/Console'
 
   beforeEach(() => {
@@ -18,15 +32,14 @@ describe('Login Functionality Test', () => {
       alias: 'postApiLogin',
       log: false
     })
-    cy.visit(adminData.adminBaseUrl)
-  })
-
-  it('verify that admin user can login successfully with correct credentials', () => {
-    cy.get(loginSelectors.inputUsername).type(userInfo.username)
-    cy.get(loginSelectors.inputPassword).type(userInfo.password)
-    cy.get(loginSelectors.loginButton).contains(loginText).click()
+    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
+  })
+
+  it('Reload the server', () => {
+    cy.reload()
+    cy.contains('Login').should('not.be.visible')
   })
 })

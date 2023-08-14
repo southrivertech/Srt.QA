@@ -27,3 +27,13 @@ import '../../../ui/components/apis/wait-api-response-status-code'
 
 /** UI COMPONENT COMMANDS */
 import './commands'
+
+/* Importing the cypress-iframe plugin. */
+import 'cypress-iframe'
+
+/* Importing the cypress-real-events. */
+import 'cypress-real-events'
+
+const dayjs = require('dayjs')
+
+Cypress.dayjs = dayjs
