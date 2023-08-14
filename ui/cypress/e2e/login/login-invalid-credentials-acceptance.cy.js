@@ -40,7 +40,7 @@ describe('Login Functionality Test', () => {
     cy.url().should('not.include', homeUrlText)
   })
 
-  /* it('verify that submit button is enabled only if user provide both username and password', () => {
+  it('verify that submit button is enabled only if user provide both username and password', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
   })
 
@@ -50,5 +50,5 @@ describe('Login Functionality Test', () => {
 
   it('verify that submit button is disabled if user does not provide password', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, "")
-  }) */
+  })
 })
