@@ -9,7 +9,7 @@
  * - Login to the application
  *
  * @assertions
- * - To verify that admin user stays in the site after a reload
+ * - To verify that admin user stays login after reloading a website
  *
  * @prerequisites
  * Pre-Requisite data:
