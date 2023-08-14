@@ -1,0 +1,9 @@
+{
+    "addButtonContainer": ".MuiFab-label div",
+    "nextButtonContainer": ".MuiButton-label",
+    "serverNameInputContainer": ".MuiInputLabel-formControl",
+    "serviceRootContainer": ".MuiFormControlLabel-root",
+    "serviceRootLabelContainer": "label.MuiFormControlLabel-root",
+    "serviceCheckboxContainer": ".MuiCheckbox-root",
+    "serviceButtonLabelContainer": ".MuiIconButton-label"
+}
