@@ -7,8 +7,7 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * ui/cypress/e2e/server/manual-directory-configuration.acceptance.cy.js
  *
  * @breadcrumb
- * - Login > Add New > Server > Database > Server Info
- * - Press the add-new button
+ * Login > Add New > Server > Database > Server Info > Add New
  *
  * @assertions
  * - To verify that admin user cannot navigate to next without manually configuring the directory
@@ -18,7 +17,7 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * - user should have valid credentials
  */
 
-describe('Manual directory Configuration Test', () => {
+describe('Login > Add New > Server > Database > Server Info > Add New', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -26,37 +25,9 @@ describe('Manual directory Configuration Test', () => {
   }
   const homeUrlText = '/Console'
   const serverName = `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
-
-  function clearText () {
-    cy.get(serverSelectors.addButtonContainer).contains('Add New').click()
-
-    cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-    cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-
-    cy.get(serverSelectors.serverNameInputContainer).contains('Server Name').parent('div').within(() => {
-      cy.get('input').type(serverName)
-    })
-
-    cy.get('input[type=checkbox]').eq(1).click()
-
-    cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-
-    cy.get(serverSelectors.gridContainerXS10).each(($outerContainer) => {
-      cy.wrap($outerContainer).within(() => {
-        cy.get(serverSelectors.textFieldRootContainer).within(() => {
-          cy.get(serverSelectors.inputBaseContainer).within(() => {
-            cy.get(serverSelectors.inputContainer).clear()
-          })
-        })
-      })
-    })
-
-    cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-
-    cy.get(serverSelectors.gridContainerXS10)
-      .find(serverSelectors.inputBaseContainer)
-      .get(serverSelectors.inputContainer).should('exist')
-  }
+  const addNew = 'Add New'
+  const next = 'Next'
+  const serverNameText = 'Server Name'
 
   beforeEach(() => {
     cy.postApiLogin()
@@ -74,6 +45,33 @@ describe('Manual directory Configuration Test', () => {
   })
 
   it('Verify that the user cannot navigate to the next page, until he/she configures directories manually', () => {
-    clearText()
+    cy.get(serverSelectors.addButtonContainer).contains(addNew).click()
+
+    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+
+    cy.get(serverSelectors.serverNameInputContainer).contains(serverNameText).parent('div').within(() => {
+      cy.get('input').type(serverName)
+    })
+
+    cy.get('input[type=checkbox]').eq(1).click()
+
+    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+
+    cy.get(serverSelectors.gridContainerXS10).each(($outerContainer) => {
+      cy.wrap($outerContainer).within(() => {
+        cy.get(serverSelectors.textFieldRootContainer).within(() => {
+          cy.get(serverSelectors.inputBaseContainer).within(() => {
+            cy.get(serverSelectors.inputContainer).clear()
+          })
+        })
+      })
+    })
+
+    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+
+    cy.get(serverSelectors.gridContainerXS10)
+      .find(serverSelectors.inputBaseContainer)
+      .get(serverSelectors.inputContainer).should('exist')
   })
 })

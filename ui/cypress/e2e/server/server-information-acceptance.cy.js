@@ -7,7 +7,7 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * ui/cypress/e2e/login/user-navigate-to-login-acceptance.cy.js
  *
  * @breadcrumb
- * - Login > Add New > Server > Database > Server Info
+ * - Login > Add New > Server > Database > Server Info >
  *
  * @assertions
  * - To verify that server information is not removed when user navigates back from services to database
@@ -24,34 +24,11 @@ describe('Server Information Preservation Test', () => {
   }
   const homeUrlText = '/Console'
   const serverName = `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
-
-  function isServerInfoPreserved () {
-    cy.get(serverSelectors.addButtonContainer).contains('Add New').click()
-
-    cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-    cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-
-    cy.get(serverSelectors.serverNameInputContainer).contains('Server Name').parent('div').within(() => {
-      cy.get('input').type(serverName)
-    })
-    cy.get(serverSelectors.serverNameInputContainer).contains('Server Description').parent('div').within(() => {
-      cy.get('input').type('server info')
-    })
-
-    cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-
-    cy.wait(1000)
-    cy.get(serverSelectors.nextButtonContainer).contains('Back').click()
-    cy.wait(1000)
-    cy.get(serverSelectors.nextButtonContainer).contains('Back').click()
-
-    cy.wait(1000)
-    cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-
-    cy.get(serverSelectors.serverNameInputContainer).contains('Server Name').parent('div').within(() => {
-      cy.get('input').should('contain', serverName)
-    })
-  }
+  const addNew = 'Add New'
+  const next = 'Next'
+  const back = 'Back'
+  const serverNameText = 'Server Name'
+  const serverDescriptionText = 'Server Description'
 
   beforeEach(() => {
     cy.postApiLogin()
@@ -69,6 +46,30 @@ describe('Server Information Preservation Test', () => {
   })
 
   it('Verify that server information is not removed when user navigates back from services to database', () => {
-    isServerInfoPreserved()
+    cy.get(serverSelectors.addButtonContainer).contains(addNew).click()
+
+    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+
+    cy.get(serverSelectors.serverNameInputContainer).contains(serverNameText).parent('div').within(() => {
+      cy.get('input').type(serverName)
+    })
+    cy.get(serverSelectors.serverNameInputContainer).contains(serverDescriptionText).parent('div').within(() => {
+      cy.get('input').type('server info')
+    })
+
+    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+
+    cy.wait(1000)
+    cy.get(serverSelectors.nextButtonContainer).contains(back).click()
+    cy.wait(1000)
+    cy.get(serverSelectors.nextButtonContainer).contains(back).click()
+
+    cy.wait(1000)
+    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+
+    cy.get(serverSelectors.serverNameInputContainer).contains(serverNameText).parent('div').within(() => {
+      cy.get('input').should('contain', serverName)
+    })
   })
 })
