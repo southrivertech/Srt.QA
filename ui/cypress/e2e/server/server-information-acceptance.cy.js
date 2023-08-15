@@ -16,7 +16,7 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * Pre-Requisite data:
  * - user should have valid credentials
  */
-describe('Server Information Preservation Test', () => {
+describe('Login > Add New > Server > Database > Server Info >', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
