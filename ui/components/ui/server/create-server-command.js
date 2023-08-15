@@ -89,8 +89,11 @@ const serverDetails = {
     isHTTP: true,
     isWEBDAV: true,
     enableFTP: true,
-    
 }
-
- *
  */
+
+Cypress.Commands.add('createSurver', (variable = 'createSurver') => {
+  Cypress.log({
+    name: 'createSurver'
+  })
+})
