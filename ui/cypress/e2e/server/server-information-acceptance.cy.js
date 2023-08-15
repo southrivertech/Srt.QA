@@ -4,7 +4,7 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * This spec file contains tests to verify that server information is not removed when user navigates back from services to database
  *
  * @file
- * ui/cypress/e2e/login/user-navigate-to-login-acceptance.cy.js
+ * ui/cypress/e2e/server/server-information-acceptance.cy.js
  *
  * @breadcrumb
  * - Login > Add New > Server > Database > Server Info >
