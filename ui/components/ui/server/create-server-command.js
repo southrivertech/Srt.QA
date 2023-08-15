@@ -68,32 +68,11 @@
  * @param SMSPhoneNumber // A variable containing the SMS phone number
  *
  * @example
- * cy.visit(assignmentListPage);
- * cy.createManualAssignment(assignmentDetails, assignmentContent, learners, communications, advancedSettings);
- *
- * @sample
-const serverDetails = {
-    serverName: "",
-    serverDescription: "",
-    startServerAutomatically: true,
-    enableManualConfiguration: false,
-    serverBackupDirectory: "",
-    serverDatabaseCacheDirectory: "",
-    reportsDirectory: "",
-    temporaryCacheDirectory: "",
-    quickSendCacheDirectory: "",
-    quarantineDirectory: "",
-    isFTP: true,
-    isFTPS: true,
-    isSSH: true,
-    isHTTP: true,
-    isWEBDAV: true,
-    enableFTP: true,
-}
+ * cy.createSurver(serverDetails)
  */
 
-Cypress.Commands.add('createSurver', (variable = 'createSurver') => {
+Cypress.Commands.add('createSurver', ($surverDetails) => {
   Cypress.log({
-    name: 'createSurver'
+    name: 'createSurverCommand'
   })
 })
