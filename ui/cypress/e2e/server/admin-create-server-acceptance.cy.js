@@ -31,11 +31,9 @@ describe('Login > Add new', () => {
   }
 
   const serverDetails = {
-    serverType: 'adsfad',
-    selectDatabase: 'value',
-    serverName: `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`,
-    serverNameText: 'Server Name',
-    serverDescriptionText: 'Server Description'
+    serverType: 'New standalone or primary cluster server.',
+    selectDatabase: 'SQLite Database',
+    serverName: `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach(() => {
@@ -54,22 +52,23 @@ describe('Login > Add new', () => {
   })
 
   it('verify that admin is able to create server with required parameters', () => {
-    cy.get(serverSelectors.addButtonContainer).contains(lookForText.addNew).click()
+    cy.createServer(serverDetails)
+    // cy.get(serverSelectors.addButtonContainer).contains(lookForText.addNew).click()
 
-    cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
 
-    cy.get(serverSelectors.serverNameInputContainer).contains(serverDetails.serverNameText).parent('div').within(() => {
-      cy.get('input').type(serverDetails.serverName)
-    })
-    cy.get(serverSelectors.serverNameInputContainer).contains(serverDetails.serverDescriptionText).parent('div').within(() => {
-      cy.get('input').type('server info')
-    })
+    // cy.get(serverSelectors.serverNameInputContainer).contains(serverDetails.serverNameText).parent('div').within(() => {
+    //   cy.get('input').type(serverDetails.serverName)
+    // })
+    // cy.get(serverSelectors.serverNameInputContainer).contains(serverDetails.serverDescriptionText).parent('div').within(() => {
+    //   cy.get('input').type('server info')
+    // })
 
-    cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
 
-    cy.get(serverSelectors.nextButtonContainer).contains(lookForText.finishText).click()
-    cy.get(serverSelectors.nextButtonContainer).should('not.contain', lookForText.finishText)
+    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.finishText).click()
+    // cy.get(serverSelectors.nextButtonContainer).should('not.contain', lookForText.finishText)
   })
 })

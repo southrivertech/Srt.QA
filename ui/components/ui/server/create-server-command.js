@@ -11,9 +11,9 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * Login > Add New
  *
  * @params
- * @param serverType    // A variable containing the server type to select
- * @param serverDatabase   // An variable containing the type of database
- * @param serverName  // A variable containing server name and information
+ * @param {required} serverType    // A variable containing the server type to select
+ * @param {required} serverDatabase   // An variable containing the type of database
+ * @param {required} serverName  // A variable containing server name and information
  * @param serverDescription // An variable containing server description
  * @param startServerAutomatically // A boolean value to check whether the server start automatically or not
  * @param enableManualConfiguration  // A boolean value to check to manually configure directory locations
@@ -71,9 +71,35 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * @example
  * cy.createSurver(serverDetails)
  */
+const lookForText = {
+  addNew: 'Add New',
+  nextText: 'Next',
+  homeUrlText: '/Console',
+  serverNameText: 'Server Name',
+  finishText: 'Finish',
+  databaseText: 'Select Database Type',
+  finish: 'Finish'
+}
 
-Cypress.Commands.add('createServer', ($serverDetails) => {
+Cypress.Commands.add('createServer', (serverDetails) => {
   Cypress.log({
     name: 'createServerCommand'
   })
+  cy.log(JSON.stringify(serverDetails))
+  cy.get(serverSelectors.addButtonContainer).contains(lookForText.addNew).click()
+  cy.get(serverSelectors.serviceRootLabelContainer).contains(serverDetails.serverType).parent('label').within(() => {
+    cy.get('input').click()
+  })
+  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+  cy.get('.MuiInputLabel-root').contains(lookForText.databaseText).parent('div').within(() => {
+    cy.get('[container="SqlParams"]').click()
+  })
+  cy.get('[data-value="SQLite"]').click()
+  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+  cy.get(serverSelectors.serverNameInputContainer).contains(lookForText.serverNameText).parent('div').within(() => {
+    cy.get('input').type(serverDetails.serverName)
+  })
+  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.finish).click()
 })
