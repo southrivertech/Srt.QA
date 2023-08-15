@@ -16,6 +16,12 @@
  * @param serverDescription // An variable containing server description
  * @param startServerAutomatically // A boolean value to check whether the server start automatically or not
  * @param enableManualConfiguration  // A boolean value to check to manually configure directory locations
+ * @param serverBackupDirectory // A variable containing the backup directory
+ * @param serverDatabaseCacheDirectory // A variable containing the database cache directory
+ * @param reportsDirectory // A variable containing the reports directory
+ * @param temporaryCacheDirectory // A variable containing the temporary cache directory
+ * @param quickSendCacheDirectory // A variable containing the quick send cache directory
+ * @param quarantineDirectory // A variable containing the quarantine directory
  * @param isFTP // A boolean value to allow FTP service
  * @param isFTPS // A boolean value to allow FTPS service
  * @param isSSH // A boolean value to allow SSH service
@@ -66,26 +72,25 @@
  * cy.createManualAssignment(assignmentDetails, assignmentContent, learners, communications, advancedSettings);
  *
  * @sample
-const assignmentDetails = {
-    assignmentName: "",
-    trainingPeriod: "",
-    startDate: "YYYY/MM/DD",
-    endDate: "YYYY/MM/DD",
-    dueDate: "YYYY/MM/DD"  // For manual assignments
-    dueDuration: "YYYY/MM/DD",  // for dynamic assignments
-    archiveDate: "YYYY/MM/DD"
-};
-const assignmentContent = [];
-const learners = [];
-const communications = {
-    invitations: true,
-    reminders: true,
-    pastDueReminders: true,
-    pastDueReminderInterval: 'Two weeks'
-};
-const advancedSettings = {
-    sendSurveys: false
-    sendSupplemental: false
-};
+const serverDetails = {
+    serverName: "",
+    serverDescription: "",
+    startServerAutomatically: true,
+    enableManualConfiguration: false,
+    serverBackupDirectory: "",
+    serverDatabaseCacheDirectory: "",
+    reportsDirectory: "",
+    temporaryCacheDirectory: "",
+    quickSendCacheDirectory: "",
+    quarantineDirectory: "",
+    isFTP: true,
+    isFTPS: true,
+    isSSH: true,
+    isHTTP: true,
+    isWEBDAV: true,
+    enableFTP: true,
+    
+}
+
  *
  */
