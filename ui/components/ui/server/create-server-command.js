@@ -1,3 +1,4 @@
+import serverSelectors from '../../../selectors/server-selectors.json'
 /**
  * Server Creation Command
  *
@@ -71,8 +72,8 @@
  * cy.createSurver(serverDetails)
  */
 
-Cypress.Commands.add('createSurver', ($surverDetails) => {
+Cypress.Commands.add('createServer', ($serverDetails) => {
   Cypress.log({
-    name: 'createSurverCommand'
+    name: 'createServerCommand'
   })
 })
