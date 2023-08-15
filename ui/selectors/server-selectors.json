@@ -5,5 +5,9 @@
     "serviceRootContainer": ".MuiFormControlLabel-root",
     "serviceRootLabelContainer": "label.MuiFormControlLabel-root",
     "serviceCheckboxContainer": ".MuiCheckbox-root",
-    "serviceButtonLabelContainer": ".MuiIconButton-label"
+    "serviceButtonLabelContainer": ".MuiIconButton-label",
+    "gridContainerXS10": ".MuiGrid-grid-xs-10",
+    "textFieldRootContainer": ".MuiTextField-root",
+    "inputBaseContainer": ".MuiInputBase-formControl",
+    "inputContainer": ".MuiInputBase-input"
 }
