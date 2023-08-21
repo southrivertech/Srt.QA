@@ -3,10 +3,9 @@ import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
 /**
  * Server Creation Command
  *
- * This command is used to create servers by automation.
+ * This command is used to create a server
  *
- * This command takes server details and creates a new server based on the given parameters
- *
+ * This command takes server details as a parameter, (serverName, serverType and serverDatabase are required parameters)
  *
  * @location
  * Login > Add New
@@ -72,12 +71,11 @@ import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
  * @example
  * cy.createSurver(serverDetails)
  */
+
 const lookForText = {
   addNew: 'Add New',
   nextText: 'Next',
-  homeUrlText: '/Console',
   serverNameText: 'Server Name',
-  finishText: 'Finish',
   databaseText: 'Select Database Type',
   finish: 'Finish'
 }
