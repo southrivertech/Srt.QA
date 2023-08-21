@@ -1,4 +1,5 @@
 import serverSelectors from '../../../selectors/server-selectors.json'
+import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
 /**
  * Server Creation Command
  *
@@ -87,19 +88,21 @@ Cypress.Commands.add('createServer', (serverDetails) => {
   })
   cy.log(JSON.stringify(serverDetails))
   cy.get(serverSelectors.addButtonContainer).contains(lookForText.addNew).click()
-  cy.get(serverSelectors.serviceRootLabelContainer).contains(serverDetails.serverType).parent('label').within(() => {
-    cy.get('input').click()
+  cy.get(serverSelectors.serviceRootLabelContainer).contains(serverDetails.serverType).parent(htmlTagSelectors.label).within(() => {
+    cy.get(htmlTagSelectors.input).click()
   })
   cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-  cy.get('.MuiInputLabel-root').contains(lookForText.databaseText).parent('div').within(() => {
-    cy.get('[container="SqlParams"]').click()
+  cy.get(serverSelectors.serverNameInputContainer).contains(lookForText.databaseText).parent(htmlTagSelectors.div).within(() => {
+    cy.get(serverSelectors.selectDatabaseDropdown).click()
   })
-  cy.get('[data-value="SQLite"]').click()
+  cy.get(serverSelectors.sqlLite).click()
   cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-  cy.get(serverSelectors.serverNameInputContainer).contains(lookForText.serverNameText).parent('div').within(() => {
-    cy.get('input').type(serverDetails.serverName)
+  cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
+  cy.get(serverSelectors.serverNameInputContainer).contains(lookForText.serverNameText).parent(htmlTagSelectors.div).within(() => {
+    cy.get(htmlTagSelectors.input).type(serverDetails.serverName)
   })
   cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+  cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
   cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
   cy.get(serverSelectors.nextButtonContainer).contains(lookForText.finish).click()
 })

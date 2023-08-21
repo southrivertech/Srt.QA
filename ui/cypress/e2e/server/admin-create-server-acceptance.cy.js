@@ -36,7 +36,7 @@ describe('Login > Add new', () => {
     serverName: `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
-  beforeEach(() => {
+  beforeEach('login', () => {
     cy.postApiLogin()
     cy.waitForNetworkIdlePrepare({
       method: 'POST',
@@ -44,7 +44,6 @@ describe('Login > Add new', () => {
       alias: 'postApiLogin',
       log: false
     })
-    // Login using valid credentials
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', lookForText.homeUrlText)
@@ -53,22 +52,11 @@ describe('Login > Add new', () => {
 
   it('verify that admin is able to create server with required parameters', () => {
     cy.createServer(serverDetails)
-    // cy.get(serverSelectors.addButtonContainer).contains(lookForText.addNew).click()
+    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
+  })
 
-    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-
-    // cy.get(serverSelectors.serverNameInputContainer).contains(serverDetails.serverNameText).parent('div').within(() => {
-    //   cy.get('input').type(serverDetails.serverName)
-    // })
-    // cy.get(serverSelectors.serverNameInputContainer).contains(serverDetails.serverDescriptionText).parent('div').within(() => {
-    //   cy.get('input').type('server info')
-    // })
-
-    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-
-    // cy.get(serverSelectors.nextButtonContainer).contains(lookForText.finishText).click()
-    // cy.get(serverSelectors.nextButtonContainer).should('not.contain', lookForText.finishText)
+  afterEach('deleting a server', () => {
+    cy.deleteServer(serverDetails.serverName)
+    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.be.visible')
   })
 })

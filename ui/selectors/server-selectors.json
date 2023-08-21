@@ -10,5 +10,9 @@
     "textFieldRootContainer": ".MuiTextField-root",
     "inputBaseContainer": ".MuiInputBase-formControl",
     "inputContainer": ".MuiInputBase-input",
-    "spinner": ".MuiCircularProgress-svg"
+    "spinner": ".MuiCircularProgress-root",
+    "sqlLite": "[data-value='SQLite']",
+    "selectDatabaseDropdown": "[container='SqlParams']",
+    "serverName": ".MuiTypography-root",
+    "serverDeleteButton": "button[title='Delete Server']"
 }
