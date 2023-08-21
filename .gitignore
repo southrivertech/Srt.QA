@@ -10,3 +10,16 @@ cypress.env.json
 test-results/
 acceptance/tests-results.xml
 adminifi/acceptance/cypress/screenshots
+
+_jest-editor/
+.vscode/symbols.json
+/coverage/
+**/node_modules/
+out/
+**/.vscode/
+
+**/.DS_Store
+*.vsix
+.DS_Store
+**/cypress/downloads/**.pdf
+!results/.gitkeep
