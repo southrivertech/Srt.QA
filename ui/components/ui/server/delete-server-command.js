@@ -3,10 +3,9 @@ import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
 /**
  * Server Deletion Command
  *
- * This command is used to delete
+ * This command is used to delete a server
  *
  * This command takes server name as a parameter
- *
  *
  * @location
  * Login > Delete Server

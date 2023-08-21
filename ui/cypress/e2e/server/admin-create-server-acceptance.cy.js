@@ -1,7 +1,7 @@
 import serverSelectors from '../../../selectors/server-selectors.json'
 /**
  * @description
- * This spec file contains test to verify that admin user can create server
+ * This spec file contains test to verify that admin user can create a server
  *
  * @file
  * ui/cypress/e2e/server/admin-create-server-acceptance.cy.js
@@ -10,24 +10,21 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * Login > Add new
  *
  * @assertions
- * To verify that admin user can create server
- * @prerequisites
+ * To verify that admin user can create a server
+ *
+ *  @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
  */
 
-describe('Login > Add new', () => {
+describe('login > add new server ', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
   const lookForText = {
-    addNew: 'Add New',
-    nextText: 'Next',
-    homeUrlText: '/Console',
-    serverNameText: 'Server Name',
-    finishText: 'Finish'
+    homeUrlText: '/Console'
   }
 
   const serverDetails = {
@@ -57,6 +54,6 @@ describe('Login > Add new', () => {
 
   afterEach('deleting a server', () => {
     cy.deleteServer(serverDetails.serverName)
-    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.be.visible')
+    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
   })
 })
