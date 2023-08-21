@@ -1,31 +1,12 @@
-_jest-editor/
-.vscode/symbols.json
-/coverage/
-**/node_modules/
-out/
 **/.vscode/
 
 **/.DS_Store
 *.vsix
 .DS_Store
-.idea
 
-*/allure-report/
-results
-
-# Ignore vim tempfiles
-*.sw[npo]
-
-# Ignore environment specific settings
-**/.env
-
-# Ignore files used by apps for navigating code
-**/.projections.json
-
-# Ignore local fixture data
-**/config.local.js
-
-**/test-results
-**/screenshots
-**/videos
-
+cypress/screenshots/
+cypress/videos/
+cypress.env.json
+test-results/
+acceptance/tests-results.xml
+adminifi/acceptance/cypress/screenshots
