@@ -4,7 +4,9 @@
   "description": "next-gen ui tests",
   "scripts": {
     "cy:open:prod": "cypress open --config-file ./cypress/config/prod.config.js",
-    "record:test": "cypress run --config-file ./cypress/config/prod.config.js --record --key"
+    "test": "node_modules\\.bin\\cypress run ",
+    "cy:open": "cypress open --config-file ./cypress/config/prod.config.js",
+    "record:test": "cypress run --record --key"
     },
   "author": "",
   "license": "ISC",
