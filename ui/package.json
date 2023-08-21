@@ -6,7 +6,7 @@
     "cy:open:prod": "cypress open --config-file ./cypress/config/prod.config.js",
     "test": "node_modules\\.bin\\cypress run ",
     "cy:open": "cypress open --config-file ./cypress/config/prod.config.js",
-    "record:test": "cypress run --record --key"
+    "record:test": "npx cypress run --record --key 610cd67a-310e-438b-9fff-4070a3042ac5"
     },
   "author": "",
   "license": "ISC",
