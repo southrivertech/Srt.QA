@@ -6,6 +6,7 @@ module.exports = defineConfig({
       return require('../plugins/index.js')(on, config)
     }
   },
+  projectId: 'vdwu1o',
   chromeWebSecurity: false,
   video: true,
   viewportWidth: 1440,
