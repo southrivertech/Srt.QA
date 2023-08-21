@@ -1,23 +1,18 @@
-name: Shell Commands
+name: Cypress Tests
 
 on: [push]
 env:
   CYPRESS_RECORD_KEY: ${{secrets.CYPRESS_RECORD_KEY}}
 
 jobs:
-  cypress-e2e-chrome81:
+  cypress-e2e:
     name: Run on Chrome 81
     runs-on: ubuntu-latest
-    container: cypress/browsers:node12.16.2-chrome81-ff75
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Install a project with a clean slate
-        run: |
-          npm ci
-          $(npm bin)/cypress cache path
-          $(npm bin)/cypress cache list
-          $(npm bin)/cypress verify
-      - name: Run Cypress tests
-        run: npm run record:test ${CYPRESS_RECORD_KEY}
-        continue-on-error: true
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          record: true
