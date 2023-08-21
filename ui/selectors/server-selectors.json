@@ -9,5 +9,10 @@
     "gridContainerXS10": ".MuiGrid-grid-xs-10",
     "textFieldRootContainer": ".MuiTextField-root",
     "inputBaseContainer": ".MuiInputBase-formControl",
-    "inputContainer": ".MuiInputBase-input"
+    "inputContainer": ".MuiInputBase-input",
+    "spinner": ".MuiCircularProgress-root",
+    "sqlLite": "[data-value='SQLite']",
+    "selectDatabaseDropdown": "[container='SqlParams']",
+    "serverName": ".MuiTypography-root",
+    "serverDeleteButton": "button[title='Delete Server']"
 }

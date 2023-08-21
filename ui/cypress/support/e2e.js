@@ -17,6 +17,7 @@
 // Import commands.js using ES2015 syntax:
 import 'cypress-network-idle'
 import 'cypress-file-upload'
+import 'cypress-wait-until'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -26,6 +27,8 @@ import '../../components/apis/login/login-api-post'
 import '../../../ui/components/apis/wait-api-response-status-code'
 
 /** UI COMPONENT COMMANDS */
+import '../../components/ui/server/create-server-command'
+import '../../components/ui/server/delete-server-command'
 import './commands'
 
 /* Importing the cypress-iframe plugin. */

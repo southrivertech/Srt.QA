@@ -6,7 +6,15 @@ module.exports = defineConfig({
       return require('../plugins/index.js')(on, config)
     }
   },
+  chromeWebSecurity: false,
+  video: true,
+  viewportWidth: 1440,
+  viewportHeight: 768,
   watchForFileChanges: false,
+  defaultCommandTimeout: 5000,
+  pageLoadTimeout: 5000,
+  responseTimeout: 5000,
+  requestTimeout: 5000,
   env: {
     admin: {
       adminBaseUrl: 'https://beta.southrivertech.com:41443/',
