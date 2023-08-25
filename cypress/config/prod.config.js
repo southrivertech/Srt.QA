@@ -18,13 +18,13 @@ module.exports = defineConfig({
   responseTimeout: 5000,
   requestTimeout: 5000,
   env: {
+    baseUrl: 'https://beta.southrivertech.com',
     admin: {
       adminBaseUrl: ':41443/',
       adminUsername: 'srtadmin',
       adminPassword: 'SrtSoft21401!'
     },
     user: {
-      userBaseUrl: 'https://beta.southrivertech.com/'
     }
   }
 })

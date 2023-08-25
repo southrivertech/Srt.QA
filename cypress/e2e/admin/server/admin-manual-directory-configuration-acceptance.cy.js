@@ -1,4 +1,4 @@
-import serverSelectors from '../../../selectors/server-selectors.json'
+import serverSelectors from '../../../../selectors/server-selectors.json'
 /**
  * @description
  * This spec file contains tests to ensure that user must provide the Manual Directory Configuration values before moving to the next page

@@ -1,4 +1,4 @@
-import serverSelectors from '../../../selectors/server-selectors.json'
+import serverSelectors from '../../../../selectors/server-selectors.json'
 /**
  * @description
  * This spec file contains tests to verify that server information is not removed when user navigates back from services to database

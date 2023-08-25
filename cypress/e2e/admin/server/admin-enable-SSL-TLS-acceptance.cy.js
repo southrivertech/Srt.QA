@@ -1,4 +1,4 @@
-import serverSelectors from '../../../selectors/server-selectors.json'
+import serverSelectors from '../../../../selectors/server-selectors.json'
 /**
  * @description
  * This spec file contains a test to ensure that user can click the checkboxes after disabling the default checkbox during FTPS configuration

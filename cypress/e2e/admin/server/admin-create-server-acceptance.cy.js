@@ -1,4 +1,4 @@
-import serverSelectors from '../../../selectors/server-selectors.json'
+import serverSelectors from '../../../../selectors/server-selectors.json'
 /**
  * @description
  * This spec file contains test to verify that admin user can create a server
