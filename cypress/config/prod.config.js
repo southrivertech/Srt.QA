@@ -4,7 +4,8 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents (on, config) {
       return require('../plugins/index.js')(on, config)
-    }
+    },
+    baseUrl: 'https://beta.southrivertech.com'
   },
   projectId: 'vdwu1o',
   chromeWebSecurity: false,
@@ -18,7 +19,7 @@ module.exports = defineConfig({
   requestTimeout: 5000,
   env: {
     admin: {
-      adminBaseUrl: 'https://beta.southrivertech.com:41443/',
+      adminBaseUrl: ':41443/',
       adminUsername: 'srtadmin',
       adminPassword: 'SrtSoft21401!'
     },
