@@ -24,7 +24,6 @@ describe('Login > Add New > Server > Database > Server Info > > FTPS Configurati
     password: adminData.adminPassword
   }
   const homeUrlText = '/Console'
-  const serverName = `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   const nextText = 'Next'
   const lookForText = {
     AddNew: 'Add New'
@@ -37,7 +36,7 @@ describe('Login > Add New > Server > Database > Server Info > > FTPS Configurati
     cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()
 
     cy.get(serverSelectors.serverNameInputContainer).contains('Server Name').parent('div').within(() => {
-      cy.get('input').type(serverName)
+      cy.get('input').type(`qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`)
     })
 
     cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()
