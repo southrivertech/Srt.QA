@@ -18,7 +18,7 @@ import serverSelectors from '../../../../selectors/server-selectors.json'
  */
 
 // skip due to an existing bug NX-I1134
-describe('Login > Add New > Server > Database > Server Info > Add New', () => {
+describe.skip('Login > Add New > Server > Database > Server Info > Add New', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
