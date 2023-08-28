@@ -14,5 +14,6 @@
     "sqlLite": "[data-value='SQLite']",
     "selectDatabaseDropdown": "[container='SqlParams']",
     "serverName": ".MuiTypography-root",
-    "serverDeleteButton": "button[title='Delete Server']"
+    "serverDeleteButton": "button[title='Delete Server']",
+    "serverPageHeading": ".MuiTypography-colorSecondary"
 }

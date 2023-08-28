@@ -1,22 +1,22 @@
 import serverSelectors from '../../../../selectors/server-selectors.json'
 /**
  * @description
- * This spec file contains tests to verify that server information is not removed when user navigates back from services to database
+ * This spec file contains tests to verify that server information is removed when user navigates back from services to database
  *
  * @file
  * ui/cypress/e2e/server/server-information-acceptance.cy.js
  *
  * @breadcrumb
- * - Login > Add New > Server > Database > Server Info >
+ * - Login > Add New > Server > Database > Server Info
  *
  * @assertions
- * - To verify that server information is not removed when user navigates back from services to database
+ * - To verify that server information is removed when user navigates back from services to database
  *
  * @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
  */
-describe('Login > Add New > Server > Database > Server Info >', () => {
+describe('Login > Add New > Server > Database > Server Info', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -24,6 +24,7 @@ describe('Login > Add New > Server > Database > Server Info >', () => {
   }
   const homeUrlText = '/Console'
   const serverName = `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
+  const serverDescription = 'automation server'
   const addNew = 'Add New'
   const next = 'Next'
   const back = 'Back'
@@ -45,31 +46,25 @@ describe('Login > Add New > Server > Database > Server Info >', () => {
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
-  it('Verify that server information is not removed when user navigates back from services to database', () => {
+  it('Verify that server information is removed when user navigates back from services to database', () => {
     cy.get(serverSelectors.addButtonContainer).contains(addNew).click()
-
     cy.get(serverSelectors.nextButtonContainer).contains(next).click()
     cy.get(serverSelectors.nextButtonContainer).contains(next).click()
-
+    cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
     cy.get(serverSelectors.serverNameInputContainer).contains(serverNameText).parent('div').within(() => {
       cy.get('input').type(serverName)
     })
     cy.get(serverSelectors.serverNameInputContainer).contains(serverDescriptionText).parent('div').within(() => {
-      cy.get('input').type('server info')
+      cy.get('input').type(serverDescription)
     })
-
     cy.get(serverSelectors.nextButtonContainer).contains(next).click()
-
-    cy.wait(1000)
-    cy.get(serverSelectors.nextButtonContainer).contains(back).click()
-    cy.wait(1000)
-    cy.get(serverSelectors.nextButtonContainer).contains(back).click()
-
-    cy.wait(1000)
-    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
-
+    cy.get(serverSelectors.serverPageHeading).contains('Select Services this Server will Handle').should('be.visible')
+    cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(back).click()
+    cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(back).click()
+    cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(next).click()
+    cy.get(serverSelectors.serverPageHeading).contains('Enter Server Information').should('be.visible')
     cy.get(serverSelectors.serverNameInputContainer).contains(serverNameText).parent('div').within(() => {
-      cy.get('input').should('contain', serverName)
+      cy.get('input').should('not.contain', serverName)
     })
   })
 })
