@@ -23,7 +23,7 @@ describe('Login > Add New > Server > Database > Server Info', () => {
     password: adminData.adminPassword
   }
   const homeUrlText = '/Console'
-  const serverName = `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
+  const serverName = `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   const serverDescription = 'automation server'
   const addNew = 'Add New'
   const next = 'Next'
