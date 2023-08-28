@@ -60,8 +60,14 @@ describe('Login > Add New > Server > Database > Server Info', () => {
     cy.get(serverSelectors.nextButtonContainer).contains(next).click()
     cy.get(serverSelectors.serverPageHeading).contains('Select Services this Server will Handle').should('be.visible')
     cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(back).click()
+    cy.get(serverSelectors.serverNameInputContainer).contains(serverNameText).parent('div').within(() => {
+      cy.get('input').invoke('val').should('equal', serverName)
+    })
+    // Select Database
     cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(back).click()
+    cy.get(serverSelectors.serverPageHeading).contains('Select Database').should('be.visible')
     cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(next).click()
+    cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
     cy.get(serverSelectors.serverPageHeading).contains('Enter Server Information').should('be.visible')
     cy.get(serverSelectors.serverNameInputContainer).contains(serverNameText).parent('div').within(() => {
       cy.get('input').should('not.contain', serverName)
