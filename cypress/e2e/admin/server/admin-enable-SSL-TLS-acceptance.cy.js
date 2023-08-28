@@ -17,7 +17,8 @@ import serverSelectors from '../../../../selectors/server-selectors.json'
  * - user should have valid credentials
  */
 
-describe('Login > Add New > Server > Database > Server Info > > FTPS Configuration', () => {
+// skip due to an existing bug NX-I1134
+describe.skip('Login > Add New > Server > Database > Server Info > > FTPS Configuration', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,

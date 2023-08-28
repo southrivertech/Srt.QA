@@ -16,6 +16,8 @@ import serverSelectors from '../../../../selectors/server-selectors.json'
  * Pre-Requisite data:
  * - user should have valid credentials
  */
+
+// skip due to an existing bug NX-I1134
 describe('Login > Add New > Server > Database > Server Info', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
