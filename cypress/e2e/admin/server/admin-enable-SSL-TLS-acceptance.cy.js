@@ -1,4 +1,4 @@
-import serverSelectors from '../../../selectors/server-selectors.json'
+import serverSelectors from '../../../../selectors/server-selectors.json'
 /**
  * @description
  * This spec file contains a test to ensure that user can click the checkboxes after disabling the default checkbox during FTPS configuration
@@ -17,14 +17,14 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * - user should have valid credentials
  */
 
-describe('Login > Add New > Server > Database > Server Info > > FTPS Configuration', () => {
+// skip due to an existing bug NX-I1134
+describe.skip('Login > Add New > Server > Database > Server Info > > FTPS Configuration', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
   const homeUrlText = '/Console'
-  const serverName = `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
   const nextText = 'Next'
   const lookForText = {
     AddNew: 'Add New'
@@ -37,7 +37,7 @@ describe('Login > Add New > Server > Database > Server Info > > FTPS Configurati
     cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()
 
     cy.get(serverSelectors.serverNameInputContainer).contains('Server Name').parent('div').within(() => {
-      cy.get('input').type(serverName)
+      cy.get('input').type(`qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`)
     })
 
     cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()

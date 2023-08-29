@@ -84,7 +84,6 @@ Cypress.Commands.add('createServer', (serverDetails) => {
   Cypress.log({
     name: 'createServerCommand'
   })
-  cy.log(JSON.stringify(serverDetails))
   cy.get(serverSelectors.addButtonContainer).contains(lookForText.addNew).click()
   cy.get(serverSelectors.serviceRootLabelContainer).contains(serverDetails.serverType).parent(htmlTagSelectors.label).within(() => {
     cy.get(htmlTagSelectors.input).click()

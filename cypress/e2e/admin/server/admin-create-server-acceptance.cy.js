@@ -1,4 +1,4 @@
-import serverSelectors from '../../../selectors/server-selectors.json'
+import serverSelectors from '../../../../selectors/server-selectors.json'
 /**
  * @description
  * This spec file contains test to verify that admin user can create a server
@@ -30,7 +30,7 @@ describe('login > add new server ', () => {
   const serverDetails = {
     serverType: 'New standalone or primary cluster server.',
     selectDatabase: 'SQLite Database',
-    serverName: `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
+    serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach('login', () => {

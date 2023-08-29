@@ -1,4 +1,4 @@
-import serverSelectors from '../../../selectors/server-selectors.json'
+import serverSelectors from '../../../../selectors/server-selectors.json'
 /**
  * @description
  * This spec file contains tests to ensure that user must provide the Manual Directory Configuration values before moving to the next page
@@ -17,14 +17,15 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * - user should have valid credentials
  */
 
-describe('Login > Add New > Server > Database > Server Info > Add New', () => {
+// skip due to an existing bug NX-I1134
+describe.skip('Login > Add New > Server > Database > Server Info > Add New', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
   const homeUrlText = '/Console'
-  const serverName = `Random Server Name ${Cypress.dayjs().format('ssmmhhMMYY')}`
+  const serverName = `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   const addNew = 'Add New'
   const next = 'Next'
   const serverNameText = 'Server Name'

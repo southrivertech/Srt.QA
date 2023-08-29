@@ -1,4 +1,4 @@
-import loginSelectors from '../../../../selectors/login-selectors.json'
+import loginSelectors from '../../../../../selectors/login-selectors.json'
 /**
  * @description
  * This spec file contains tests to ensure that the submit button is enabled or disable based on the
