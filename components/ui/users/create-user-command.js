@@ -33,25 +33,33 @@ import serverSelectors from '../../../selectors/server-selectors.json'
  * @param {optional} checkboxAccountEnabled  // A variable containing server name
  *
  * @example
- * cy.deleteServer(userDetails)
+ * cy.createUser(userDetails)
  */
 
 Cypress.Commands.add('createUser', (userDetails) => {
-  cy.get(userSelectors.requiredLabel).contains('User Name').parent(htmlTagSelectors.div).within(() => {
-    cy.get(htmlTagSelectors.input).type(userDetails.userName)
+  Cypress.log({
+    name: 'createUserCommand'
   })
+  cy.enterText('User Name', userDetails.userName)
+  cy.enterText('Password', userDetails.password)
+  cy.enterText('Confirm Password', userDetails.password)
+  cy.clickButton('Next')
+  cy.checkTextVisibility('Assign to Groups')
+  cy.clickButton('Next')
+  cy.checkTextVisibility('Configure User Options')
+  cy.clickButton('Finish')
+})
 
-  cy.get(userSelectors.requiredLabel).contains('Password').parent(htmlTagSelectors.div).within(() => {
-    cy.get(htmlTagSelectors.input).type(userDetails.password)
+Cypress.Commands.add('enterText', (inputField, inputText) => {
+  cy.get(userSelectors.requiredLabel).contains(inputField).parent(htmlTagSelectors.div).within(() => {
+    cy.get(htmlTagSelectors.input).type(inputText)
   })
+})
 
-  cy.get(userSelectors.requiredLabel).contains('Confirm Password').parent(htmlTagSelectors.div).within(() => {
-    cy.get(htmlTagSelectors.input).type(userDetails.password)
-  })
+Cypress.Commands.add('clickButton', (buttonText) => {
+  cy.get(serverSelectors.nextButtonContainer).contains(buttonText).click()
+})
 
-  cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-  cy.get(serverSelectors.serverPageHeading).contains('Assign to Groups').should('be.visible')
-  cy.get(serverSelectors.nextButtonContainer).contains('Next').click()
-  cy.get(serverSelectors.serverPageHeading).contains('Configure User Options').should('be.visible')
-  cy.get(serverSelectors.nextButtonContainer).contains('Finish').click()
+Cypress.Commands.add('checkTextVisibility', (text) => {
+  cy.get(serverSelectors.serverPageHeading).contains(text).should('be.visible')
 })
