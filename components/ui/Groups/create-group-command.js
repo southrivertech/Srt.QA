@@ -21,6 +21,6 @@ Cypress.Commands.add('createGroup', (groupDetails) => {
     name: 'createGroupCommand'
   })
   cy.enterText('Group Name', groupDetails.groupName)
-  cy.enterText('Group Description', groupDetails.groupDescription)
   cy.clickButton('Next')
+  cy.clickButton('Finish')
 })

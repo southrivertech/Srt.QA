@@ -54,11 +54,11 @@ describe('Login > {existing server} > users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
     cy.get(userSelectors.addButton).should('be.visible').click()
     cy.createUser(userDetails)
-    // cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
+    cy.get(userSelectors.parentCell).contains(userDetails.userName).should('be.visible')
   })
 
   afterEach('deleting a user', () => {
     cy.delete(userDetails.userName)
-    cy.get(userSelectors.userName).contains(userDetails.userName).should('not.exist')
+    cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')
   })
 })

@@ -31,6 +31,6 @@ Cypress.Commands.add('checkTextVisibility', (text) => {
 })
 
 Cypress.Commands.add('delete', (inputName) => {
-  cy.contains(inputName).parents('.MuiTableCell-root').click()
-  cy.get(userSelectors.deleteButton).click()
+  cy.contains(inputName).parents(userSelectors.parentCell).click()
+  cy.wait(5000).get(userSelectors.deleteButton).click()
 })

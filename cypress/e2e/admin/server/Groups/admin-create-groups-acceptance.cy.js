@@ -1,6 +1,5 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import groupSelectors from '../../../../../selectors/groups/groups-selectors.json'
-import userSelectors from '../../../../../selectors/user/user-selectors.json'
 
 /**
  * @description
@@ -49,18 +48,19 @@ describe('Login > {existing server} > users', () => {
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
-  it('verify that admin can create users', () => {
+  it('verify that admin can create groups', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
     cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Groups').should('be.visible').click()
     cy.get(groupSelectors.addButton).should('be.visible').click()
-    cy.get("div[role='presentation']").eq(3).invoke('remove')
+    cy.get(groupSelectors.parent).eq(3).invoke('remove')
     cy.createGroup(groupDetails)
-    // cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
+    cy.wait(3000)
+    cy.get(groupSelectors.parentCell).contains(groupDetails.groupName).should('be.visible')
   })
 
   afterEach('deleting a group', () => {
     cy.delete(groupDetails.groupName)
-    cy.get(userSelectors.userName).contains(groupDetails.groupName).should('not.exist')
+    cy.get(groupSelectors.parentCell).contains(groupDetails.groupName).should('not.exist')
   })
 })
