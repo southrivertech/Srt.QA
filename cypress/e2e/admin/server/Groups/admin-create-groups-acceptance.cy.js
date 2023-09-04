@@ -53,6 +53,7 @@ describe('Login > {existing server} > users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Groups').should('be.visible').click()
     cy.get(groupSelectors.addButton).should('be.visible').click()
+    cy.get("div[role='presentation']").eq(3).invoke('remove')
     cy.createGroup(groupDetails)
   })
 
