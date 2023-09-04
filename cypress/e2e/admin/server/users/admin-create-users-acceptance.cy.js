@@ -1,5 +1,6 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import userSelectors from '../../../../../selectors/user/user-selectors.json'
+
 /**
  * @description
  * This spec file contains test to verify that admin user can create users for an existing server
@@ -57,7 +58,7 @@ describe('Login > {existing server} > users', () => {
   })
 
   afterEach('deleting a user', () => {
-    // cy.deleteServer(serverDetails.serverName)
-    // cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
+    cy.delete(userDetails.userName)
+    cy.get(userSelectors.userName).contains(userDetails.userName).should('not.exist')
   })
 })

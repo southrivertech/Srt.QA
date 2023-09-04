@@ -12,8 +12,6 @@
  * parameters on enter group information page
  * @param {required} groupName  // A variable containing user full name
  * @param {optional} groupDescription  // A variable containing user name
- *  
- *
  * @example
  * cy.createGroup(groupDetails)
  */
@@ -23,8 +21,6 @@ Cypress.Commands.add('createGroup', (groupDetails) => {
     name: 'createGroupCommand'
   })
   cy.enterText('Group Name', groupDetails.groupName)
-  cy.enterText('Group Description', groupDetails.groupDescription)  
+  cy.enterText('Group Description', groupDetails.groupDescription)
   cy.clickButton('Next')
 })
-
-

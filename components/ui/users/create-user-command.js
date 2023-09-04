@@ -1,6 +1,3 @@
-import userSelectors from '../../../selectors/user/user-selectors.json'
-import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
-import serverSelectors from '../../../selectors/server-selectors.json'
 /**
  * User Creation Command
  *
@@ -48,18 +45,4 @@ Cypress.Commands.add('createUser', (userDetails) => {
   cy.clickButton('Next')
   cy.checkTextVisibility('Configure User Options')
   cy.clickButton('Finish')
-})
-
-Cypress.Commands.add('enterText', (inputField, inputText) => {
-  cy.get(userSelectors.requiredLabel).contains(inputField).parent(htmlTagSelectors.div).within(() => {
-    cy.get(htmlTagSelectors.input).type(inputText)
-  })
-})
-
-Cypress.Commands.add('clickButton', (buttonText) => {
-  cy.get(serverSelectors.nextButtonContainer).contains(buttonText).click()
-})
-
-Cypress.Commands.add('checkTextVisibility', (text) => {
-  cy.get(serverSelectors.serverPageHeading).contains(text).should('be.visible')
 })
