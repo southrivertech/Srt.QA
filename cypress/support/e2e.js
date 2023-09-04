@@ -29,6 +29,7 @@ import '../../components/apis/wait-api-response-status-code'
 /** UI COMPONENT COMMANDS */
 import '../../components/ui/login/login-command'
 import '../../components/ui/users/create-user-command'
+import '../../components/ui/Groups/create-group-command'
 import '../../components/ui/server/create-server-command'
 import '../../components/ui/server/delete-server-command'
 import './commands'
