@@ -1,5 +1,6 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import groupSelectors from '../../../../../selectors/groups/groups-selectors.json'
+import userSelectors from '../../../../../selectors/user/user-selectors.json'
 
 /**
  * @description
@@ -55,10 +56,11 @@ describe('Login > {existing server} > users', () => {
     cy.get(groupSelectors.addButton).should('be.visible').click()
     cy.get("div[role='presentation']").eq(3).invoke('remove')
     cy.createGroup(groupDetails)
+    // cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
   })
 
-  afterEach('deleting a user', () => {
-    // cy.deleteServer(serverDetails.serverName)
-    // cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
+  afterEach('deleting a group', () => {
+    cy.delete(groupDetails.groupName)
+    cy.get(userSelectors.userName).contains(groupDetails.groupName).should('not.exist')
   })
 })
