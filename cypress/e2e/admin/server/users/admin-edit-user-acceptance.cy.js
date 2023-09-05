@@ -1,18 +1,17 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
-import userSelectors from '../../../../../selectors/user/user-selectors.json'
 
 /**
  * @description
- * This spec file contains test to verify that admin user can create users for an existing server
+ * This spec file contains test to verify that admin user can Edit users for an existing server
  *
  * @file
- * cypress/e2e/admin/server/users/admin-create-users-acceptance.cy.js
+ * cypress/e2e/admin/server/users/admin-edit-user-acceptance.cy.js
  *
  * @breadcrumb
  * Login > {existing server} > users
  *
  * @assertions
- * To verify that admin can create users
+ * To verify that admin can Edit users
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -47,26 +46,11 @@ describe('Login > {existing server} > users', () => {
     cy.url().should('include', lookForText.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
-  /*
-  it('verify that admin can create users', () => {
+
+  it('Verify that during user edit, admin can assign a group to an existing user', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
     cy.get(navigationSelectors.textLabelSelector).contains('qa acceptance server do not delete').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
-    cy.get(userSelectors.addButton).should('be.visible').click()
-    cy.createUser(userDetails)
-    cy.get(userSelectors.parentCell).contains(userDetails.userName).should('be.visible')
+    cy.editUser('qa acceptance user do not delete')
   })
-  */
-  it('Verify that during user creation, admin can assign an existing group to a user', () => {
-    cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa acceptance server do not delete').should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
-    cy.get(userSelectors.addButton).should('be.visible').click()
-    cy.createUserAndAssignGroup(userDetails)
-  })
-  /* afterEach('deleting a user', () => {
-    cy.delete(userDetails.userName)
-    cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')
-  })
-  */
 })

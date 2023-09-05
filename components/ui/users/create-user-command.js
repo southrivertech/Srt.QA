@@ -1,3 +1,4 @@
+import userSelectors from '../../../selectors/user/user-selectors.json'
 /**
  * User Creation Command
  *
@@ -44,5 +45,18 @@ Cypress.Commands.add('createUser', (userDetails) => {
   cy.checkTextVisibility('Assign to Groups')
   cy.clickButton('Next')
   cy.checkTextVisibility('Configure User Options')
+  cy.clickButton('Finish')
+})
+Cypress.Commands.add('createUserAndAssignGroup', (userDetails) => {
+  Cypress.log({
+    name: 'createUserAndAssignGroupCommand'
+  })
+  cy.enterText('User Name', userDetails.userName)
+  cy.enterText('Password', userDetails.password)
+  cy.enterText('Confirm Password', userDetails.password)
+  cy.clickButton('Next')
+  cy.checkTextVisibility('Assign to Groups')
+  cy.get(userSelectors.addButtonAssign).click()
+  cy.clickButton('Next')
   cy.clickButton('Finish')
 })
