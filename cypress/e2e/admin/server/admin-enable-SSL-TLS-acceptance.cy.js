@@ -1,4 +1,5 @@
 import serverSelectors from '../../../../selectors/server-selectors.json'
+import label from '../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains a test to ensure that user can click the checkboxes after disabling the default checkbox during FTPS configuration
@@ -24,31 +25,26 @@ describe.skip('Login > Add New > Server > Database > Server Info > > FTPS Config
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const homeUrlText = '/Console'
-  const nextText = 'Next'
-  const lookForText = {
-    AddNew: 'Add New'
-  }
 
   function checkBoxSelector (optionText) {
-    cy.get(serverSelectors.addButtonContainer).contains(lookForText.AddNew).click()
+    cy.get(serverSelectors.addButtonContainer).contains(label.addNew).click()
 
-    cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
 
-    cy.get(serverSelectors.serverNameInputContainer).contains('Server Name').parent('div').within(() => {
+    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent('div').within(() => {
       cy.get('input').type(`qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`)
     })
 
-    cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
 
     cy.get(serverSelectors.serviceRootContainer)
       .find(serverSelectors.serviceCheckboxContainer)
       .find(serverSelectors.serviceButtonLabelContainer)
       .get('input[type=checkbox]').click({ multiple: true })
 
-    cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(nextText).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
 
     cy.get(serverSelectors.serviceRootLabelContainer)
       .contains(optionText).parent().within(() => {
@@ -68,15 +64,15 @@ describe.skip('Login > Add New > Server > Database > Server Info > > FTPS Config
     // Login using valid credentials
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', homeUrlText)
+    cy.url().should('include', label.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
   it('verify that admin user can Enable Explicit SSL/TLS Access checkboxes on (Setup FTPS Access for this Server) page after disabling it', () => {
-    checkBoxSelector('Enable Explicit SSL/TLS Access')
+    checkBoxSelector(label.enableExSSLTLSAccess)
   })
 
   it('verify that admin user can Enable Implicit SSL/TLS Access checkboxes on (Setup FTPS Access for this Server) page after disabling it', () => {
-    checkBoxSelector('Enable Implicit SSL/TLS Access')
+    checkBoxSelector(label.enableImpSSLTLSAccess)
   })
 })

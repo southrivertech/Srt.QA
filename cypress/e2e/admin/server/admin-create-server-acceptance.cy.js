@@ -1,4 +1,5 @@
 import serverSelectors from '../../../../selectors/server-selectors.json'
+import label from '../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains test to verify that admin user can create a server
@@ -23,9 +24,6 @@ describe('login > add new server ', () => {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const lookForText = {
-    homeUrlText: '/Console'
-  }
 
   const serverDetails = {
     serverType: 'New standalone or primary cluster server.',
@@ -43,7 +41,7 @@ describe('login > add new server ', () => {
     })
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', lookForText.homeUrlText)
+    cy.url().should('include', label.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 

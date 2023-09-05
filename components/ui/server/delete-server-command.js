@@ -1,5 +1,6 @@
 import serverSelectors from '../../../selectors/server-selectors.json'
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
+
 /**
  * Server Deletion Command
  *
@@ -18,7 +19,7 @@ import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
  */
 
 Cypress.Commands.add('deleteServer', (serverName) => {
-  cy.contains(htmlTagSelectors.div, serverName).parents('.MuiTableCell-root')
+  cy.contains(htmlTagSelectors.div, serverName).parents(serverSelectors.parent)
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')

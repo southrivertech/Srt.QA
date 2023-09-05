@@ -1,5 +1,6 @@
 import serverSelectors from '../../../selectors/server-selectors.json'
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
+import label from '../../../cypress/fixtures/label.json'
 /**
  * Server Creation Command
  *
@@ -71,35 +72,26 @@ import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
  * @example
  * cy.createSurver(serverDetails)
  */
-
-const lookForText = {
-  addNew: 'Add New',
-  nextText: 'Next',
-  serverNameText: 'Server Name',
-  databaseText: 'Select Database Type',
-  finish: 'Finish'
-}
-
 Cypress.Commands.add('createServer', (serverDetails) => {
   Cypress.log({
     name: 'createServerCommand'
   })
-  cy.get(serverSelectors.addButtonContainer).contains(lookForText.addNew).click()
+  cy.get(serverSelectors.addButtonContainer).contains(label.addNew).click()
   cy.get(serverSelectors.serviceRootLabelContainer).contains(serverDetails.serverType).parent(htmlTagSelectors.label).within(() => {
     cy.get(htmlTagSelectors.input).click()
   })
-  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-  cy.get(serverSelectors.serverNameInputContainer).contains(lookForText.databaseText).parent(htmlTagSelectors.div).within(() => {
+  cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+  cy.get(serverSelectors.serverNameInputContainer).contains(label.databaseText).parent(htmlTagSelectors.div).within(() => {
     cy.get(serverSelectors.selectDatabaseDropdown).click()
   })
   cy.get(serverSelectors.sqlLite).click()
-  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+  cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
   cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
-  cy.get(serverSelectors.serverNameInputContainer).contains(lookForText.serverNameText).parent(htmlTagSelectors.div).within(() => {
+  cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
     cy.get(htmlTagSelectors.input).type(serverDetails.serverName)
   })
-  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
+  cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
   cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
-  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.nextText).click()
-  cy.get(serverSelectors.nextButtonContainer).contains(lookForText.finish).click()
+  cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+  cy.get(serverSelectors.nextButtonContainer).contains(label.finish).click()
 })

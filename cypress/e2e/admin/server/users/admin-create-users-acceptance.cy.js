@@ -1,6 +1,6 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import userSelectors from '../../../../../selectors/user/user-selectors.json'
-
+import label from '../../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains test to verify that admin user can create users for an existing server
@@ -13,6 +13,8 @@ import userSelectors from '../../../../../selectors/user/user-selectors.json'
  *
  * @assertions
  * To verify that admin can create users
+ * To verify that during user creation, admin can assign an existing group to a user
+ * To verify that admin can delete a user
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -24,9 +26,6 @@ describe('Login > {existing server} > users', () => {
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
-  }
-  const lookForText = {
-    homeUrlText: '/Console'
   }
 
   const userDetails = {
@@ -44,10 +43,10 @@ describe('Login > {existing server} > users', () => {
     })
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', lookForText.homeUrlText)
+    cy.url().should('include', label.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
-  /*
+
   it('verify that admin can create users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
     cy.get(navigationSelectors.textLabelSelector).contains('qa acceptance server do not delete').should('be.visible').click()
@@ -56,17 +55,16 @@ describe('Login > {existing server} > users', () => {
     cy.createUser(userDetails)
     cy.get(userSelectors.parentCell).contains(userDetails.userName).should('be.visible')
   })
-  */
+
   it('Verify that during user creation, admin can assign an existing group to a user', () => {
-    cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa acceptance server do not delete').should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
     cy.get(userSelectors.addButton).should('be.visible').click()
     cy.createUserAndAssignGroup(userDetails)
   })
-  /* afterEach('deleting a user', () => {
+  afterEach('deleting a user', () => {
     cy.delete(userDetails.userName)
     cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')
   })
-  */
 })

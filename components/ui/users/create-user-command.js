@@ -1,10 +1,11 @@
 import userSelectors from '../../../selectors/user/user-selectors.json'
+import label from '../../../cypress/fixtures/label.json'
 /**
- * User Creation Command
+ * User creation command
  *
  * This command is used to create a user
  *
- * This command takes server name as a parameter
+ * This command takes user details as a parameter
  *
  * @location
  * Login > {existing server} > users
@@ -38,25 +39,25 @@ Cypress.Commands.add('createUser', (userDetails) => {
   Cypress.log({
     name: 'createUserCommand'
   })
-  cy.enterText('User Name', userDetails.userName)
-  cy.enterText('Password', userDetails.password)
-  cy.enterText('Confirm Password', userDetails.password)
-  cy.clickButton('Next')
-  cy.checkTextVisibility('Assign to Groups')
-  cy.clickButton('Next')
-  cy.checkTextVisibility('Configure User Options')
-  cy.clickButton('Finish')
+  cy.enterText(label.userName, userDetails.userName)
+  cy.enterText(label.password, userDetails.password)
+  cy.enterText(label.confirmPassword, userDetails.password)
+  cy.clickButton(label.next)
+  cy.checkTextVisibility(label.assignToGroups)
+  cy.clickButton(label.next)
+  cy.checkTextVisibility(label.configureUserOptions)
+  cy.clickButton(label.finish)
 })
 Cypress.Commands.add('createUserAndAssignGroup', (userDetails) => {
   Cypress.log({
     name: 'createUserAndAssignGroupCommand'
   })
-  cy.enterText('User Name', userDetails.userName)
-  cy.enterText('Password', userDetails.password)
-  cy.enterText('Confirm Password', userDetails.password)
-  cy.clickButton('Next')
-  cy.checkTextVisibility('Assign to Groups')
+  cy.enterText(label.userName, userDetails.userName)
+  cy.enterText(label.password, userDetails.password)
+  cy.enterText(label.confirmPassword, userDetails.password)
+  cy.clickButton(label.next)
+  cy.checkTextVisibility(label.assignToGroups)
   cy.get(userSelectors.addButtonAssign).click()
-  cy.clickButton('Next')
-  cy.clickButton('Finish')
+  cy.clickButton(label.next)
+  cy.clickButton(label.finish)
 })

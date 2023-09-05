@@ -1,5 +1,6 @@
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
 import userSelectors from '../../../selectors/user/user-selectors.json'
+import label from '../../../cypress/fixtures/label.json'
 /**
  * User Edit Command
  *
@@ -17,17 +18,30 @@ import userSelectors from '../../../selectors/user/user-selectors.json'
 * @example
 * cy.editUser(userDetails)
 */
-Cypress.Commands.add('editUser', (username) => {
-  cy.contains(htmlTagSelectors.div, username).parents('.MuiTableCell-root')
+Cypress.Commands.add('addAssignedGroup', (username) => {
+  cy.contains(htmlTagSelectors.div, username).parents(userSelectors.parentCell)
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).click()
-  cy.get('.MuiListItemText-root').contains('Edit User & Assigned Groups').click()
-  cy.clickButton('Next')
-  cy.checkTextVisibility('Assign to Groups')
+  cy.get(userSelectors.parentUsers).contains(label.editUserAssignedGroups).click()
+  cy.clickButton(label.next)
+  cy.checkTextVisibility(label.assignToGroups)
   cy.get(userSelectors.addButtonAssign).click()
-  cy.clickButton('Next')
-  cy.clickButton('Finish')
+  cy.clickButton(label.next)
+  cy.clickButton(label.finish)
+})
+Cypress.Commands.add('removeAssignedGroup', (groupName) => {
+  cy.contains(htmlTagSelectors.div, label.autoUserName).parents(userSelectors.parentCell)
+    .next(htmlTagSelectors.div).should('exist')
+    .next(htmlTagSelectors.div).should('exist')
+    .next(htmlTagSelectors.div).should('exist')
+    .next(htmlTagSelectors.div).should('exist')
+    .next(htmlTagSelectors.div).click()
+  cy.get(userSelectors.parentUsers).contains(label.editUserAssignedGroups).click()
+  cy.clickButton(label.next)
+  cy.checkTextVisibility(label.assignToGroups)
+  cy.contains(htmlTagSelectors.div, groupName).parents(userSelectors.assignedGroupParent)
+    .next(htmlTagSelectors.div).click()
 })

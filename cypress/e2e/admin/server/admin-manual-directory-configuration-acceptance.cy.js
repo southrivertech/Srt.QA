@@ -1,4 +1,5 @@
 import serverSelectors from '../../../../selectors/server-selectors.json'
+import label from '../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains tests to ensure that user must provide the Manual Directory Configuration values before moving to the next page
@@ -24,11 +25,8 @@ describe.skip('Login > Add New > Server > Database > Server Info > Add New', () 
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const homeUrlText = '/Console'
+
   const serverName = `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
-  const addNew = 'Add New'
-  const next = 'Next'
-  const serverNameText = 'Server Name'
 
   beforeEach(() => {
     cy.postApiLogin()
@@ -41,23 +39,23 @@ describe.skip('Login > Add New > Server > Database > Server Info > Add New', () 
     // ? Login as an admin with valid credentials
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', homeUrlText)
+    cy.url().should('include', label.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
   it('Verify that the user cannot navigate to the next page, until he/she configures directories manually', () => {
-    cy.get(serverSelectors.addButtonContainer).contains(addNew).click()
+    cy.get(serverSelectors.addButtonContainer).contains(label.addNew).click()
 
-    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
 
-    cy.get(serverSelectors.serverNameInputContainer).contains(serverNameText).parent('div').within(() => {
+    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent('div').within(() => {
       cy.get('input').type(serverName)
     })
 
     cy.get('input[type=checkbox]').eq(1).click()
 
-    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
 
     cy.get(serverSelectors.gridContainerXS10).each(($outerContainer) => {
       cy.wrap($outerContainer).within(() => {
@@ -69,7 +67,7 @@ describe.skip('Login > Add New > Server > Database > Server Info > Add New', () 
       })
     })
 
-    cy.get(serverSelectors.nextButtonContainer).contains(next).click()
+    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
 
     cy.get(serverSelectors.gridContainerXS10)
       .find(serverSelectors.inputBaseContainer)
