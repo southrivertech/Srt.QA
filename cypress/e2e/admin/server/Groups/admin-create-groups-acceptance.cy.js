@@ -42,7 +42,7 @@ describe('Login > {existing server} > users', () => {
       alias: 'postApiLogin',
       log: false
     })
-    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+    cy.login('https://beta.southrivertech.com:41443/', userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', lookForText.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
@@ -50,7 +50,7 @@ describe('Login > {existing server} > users', () => {
 
   it('verify that admin can create groups', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains('qa acceptance server do not delete').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Groups').should('be.visible').click()
     cy.get(groupSelectors.addButton).should('be.visible').click()
     cy.get('body div.MuiDialog-root').eq(1).within(() => {

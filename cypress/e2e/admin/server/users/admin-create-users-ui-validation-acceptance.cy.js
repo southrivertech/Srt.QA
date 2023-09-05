@@ -47,7 +47,7 @@ describe('Login > {existing server} > users', () => {
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
     // Navigate to users page
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains('qa acceptance server do not delete').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
     cy.get(userSelectors.addButton).should('be.visible').click()
   })
