@@ -45,49 +45,33 @@ describe('Login > {existing server} > users', () => {
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', lookForText.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
-  })
-
-  it('Verify that Error Message is displayed when User didn\'t enter Username ', () => {
+    // Navigate to users page
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
     cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
     cy.get(userSelectors.addButton).should('be.visible').click()
+  })
+
+  it('Verify that Error Message is displayed when User didn\'t enter Username ', () => {
     cy.clickButton('Next')
     cy.get(userSelectors.usernameRequiredMessage).should('have.text', 'Required')
   })
 
   it('Verify that Error Message is displayed when User didn\'t enter Password  ', () => {
-    cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
-    cy.get(userSelectors.addButton).should('be.visible').click()
     cy.clickButton('Next')
     cy.get(userSelectors.passwordRequiredMessage).should('have.text', 'Required')
   })
 
   it('Verify that Error Message is displayed when User didn\'t enter Confirm Password  ', () => {
-    cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
-    cy.get(userSelectors.addButton).should('be.visible').click()
     cy.clickButton('Next')
     cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', 'Required')
   })
 
   it('Verify that Error Message is displayed when Confirm Password doesn\'t match with Password  ', () => {
-    cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
-    cy.get(userSelectors.addButton).should('be.visible').click()
     cy.enterText('User Name', userDetails.userName)
     cy.enterText('Password', userDetails.password)
     cy.enterText('Confirm Password', userDetails.userName)
     cy.clickButton('Next')
     cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', 'Passwords do not match')
-  })
-
-  afterEach('deleting a user', () => {
-    cy.delete(userDetails.userName)
-    cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')
   })
 })
