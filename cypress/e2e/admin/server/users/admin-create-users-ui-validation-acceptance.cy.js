@@ -53,16 +53,22 @@ describe('Login > {existing server} > users', () => {
   })
 
   it('Verify that Error Message is displayed when User didn\'t enter Username ', () => {
+    cy.enterText('Password', userDetails.password)
+    cy.enterText('Confirm Password', userDetails.userName)
     cy.clickButton('Next')
     cy.get(userSelectors.usernameRequiredMessage).should('have.text', 'Required')
   })
 
   it('Verify that Error Message is displayed when User didn\'t enter Password  ', () => {
+    cy.enterText('User Name', userDetails.userName)
+    cy.enterText('Confirm Password', userDetails.userName)
     cy.clickButton('Next')
     cy.get(userSelectors.passwordRequiredMessage).should('have.text', 'Required')
   })
 
   it('Verify that Error Message is displayed when User didn\'t enter Confirm Password  ', () => {
+    cy.enterText('User Name', userDetails.userName)
+    cy.enterText('Password', userDetails.password)
     cy.clickButton('Next')
     cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', 'Required')
   })
