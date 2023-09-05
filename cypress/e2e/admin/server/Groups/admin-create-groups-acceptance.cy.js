@@ -53,9 +53,11 @@ describe('Login > {existing server} > users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Groups').should('be.visible').click()
     cy.get(groupSelectors.addButton).should('be.visible').click()
-    cy.get(groupSelectors.parent).eq(3).invoke('remove')
-    cy.createGroup(groupDetails)
-    cy.wait(3000)
+    cy.get('body div.MuiDialog-root').eq(1).within(() => {
+      cy.get("input[id='Group Name']").type(groupDetails.groupName)
+      cy.clickButton('Next')
+      cy.clickButton('Finish')
+    })
     cy.get(groupSelectors.parentCell).contains(groupDetails.groupName).should('be.visible')
   })
 

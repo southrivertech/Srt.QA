@@ -11,7 +11,7 @@ import userSelectors from '../../../../../selectors/user/user-selectors.json'
  * Login > {existing server} > users
  *
  * @assertions
- * To verify UI Validation Error Messages while creating users on exixting server
+ * To verify UI Validation Error Messages while creating users on existing server
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -47,7 +47,7 @@ describe('Login > {existing server} > users', () => {
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
-  it('Verify that Error Message is displayed when User didnt enter Username ', () => {
+  it('Verify that Error Message is displayed when User didn\'t enter Username ', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
     cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
@@ -56,7 +56,7 @@ describe('Login > {existing server} > users', () => {
     cy.get(userSelectors.usernameRequiredMessage).should('have.text', 'Required')
   })
 
-  it('Verify that Error Message is displayed when User didnt enter Password  ', () => {
+  it('Verify that Error Message is displayed when User didn\'t enter Password  ', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
     cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
@@ -65,7 +65,7 @@ describe('Login > {existing server} > users', () => {
     cy.get(userSelectors.passwordRequiredMessage).should('have.text', 'Required')
   })
 
-  it('Verify that Error Message is displayed when User didnt enter Confirm Password  ', () => {
+  it('Verify that Error Message is displayed when User didn\'t enter Confirm Password  ', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
     cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
@@ -74,7 +74,7 @@ describe('Login > {existing server} > users', () => {
     cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', 'Required')
   })
 
-  it('Verify that Error Message is displayed when Confirm Password doesnt match with Password  ', () => {
+  it('Verify that Error Message is displayed when Confirm Password doesn\'t match with Password  ', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
     cy.get(navigationSelectors.textLabelSelector).contains('qa auto DO NOT DELETE').should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
