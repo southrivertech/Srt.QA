@@ -42,7 +42,7 @@ describe('Login > {existing server} > users', () => {
       alias: 'postApiLogin',
       log: false
     })
-    cy.login('https://beta.southrivertech.com:41443/', userInfo.username, userInfo.password)
+    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', lookForText.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
@@ -54,9 +54,7 @@ describe('Login > {existing server} > users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains('Groups').should('be.visible').click()
     cy.get(groupSelectors.addButton).should('be.visible').click()
     cy.get('body div.MuiDialog-root').eq(1).within(() => {
-      cy.get("input[id='Group Name']").type(groupDetails.groupName)
-      cy.clickButton('Next')
-      cy.clickButton('Finish')
+      cy.createGroup(groupDetails)
     })
     cy.get(groupSelectors.parentCell).contains(groupDetails.groupName).should('be.visible')
   })
