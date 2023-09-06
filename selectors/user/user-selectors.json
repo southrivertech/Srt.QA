@@ -9,5 +9,6 @@
     "parentCell": ".MuiTableCell-root",
     "addButtonAssign"  : "#add",
     "parentUsers" : ".MuiListItemText-root",
-    "assignedGroupParent" : ".ReactVirtualized__Grid__innerScrollContainer"
+    "assignedGroupParent" : ".ReactVirtualized__Grid__innerScrollContainer",
+    "successMessage"  : "#client-snackbar"
 }

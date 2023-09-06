@@ -1,5 +1,6 @@
 {
     "input" : "input",
     "div": "div",
-    "label": "label"
+    "label": "label",
+    "span" : "span"
 }

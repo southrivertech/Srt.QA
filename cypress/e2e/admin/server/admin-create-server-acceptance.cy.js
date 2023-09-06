@@ -11,7 +11,8 @@ import label from '../../../fixtures/label.json'
  * Login > Add new
  *
  * @assertions
- * To verify that admin user can create a server
+ * To verify that admin is able to create server with required parameters
+ * To verify user can delete a server
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -50,7 +51,7 @@ describe('login > add new server ', () => {
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
   })
 
-  afterEach('deleting a server', () => {
+  afterEach('Verify user can delete a server', () => {
     cy.deleteServer(serverDetails.serverName)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
   })

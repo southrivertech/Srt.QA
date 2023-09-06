@@ -32,6 +32,24 @@ Cypress.Commands.add('addAssignedGroup', (username) => {
   cy.clickButton(label.next)
   cy.clickButton(label.finish)
 })
+
+Cypress.Commands.add('editUser', (username, option) => {
+  cy.contains(htmlTagSelectors.div, username).parents(userSelectors.parentCell)
+    .next(htmlTagSelectors.div).should('exist')
+    .next(htmlTagSelectors.div).should('exist')
+    .next(htmlTagSelectors.div).should('exist')
+    .next(htmlTagSelectors.div).should('exist')
+    .next(htmlTagSelectors.div).click()
+  cy.get(userSelectors.parentUsers).contains(option).click()
+})
+
+Cypress.Commands.add('setNewPassword', (password) => {
+  cy.enterText(label.password, password)
+  cy.enterText(label.confirmPassword, password)
+  cy.clickButton(label.save)
+  cy.wait(2000)
+})
+
 Cypress.Commands.add('removeAssignedGroup', (groupName) => {
   cy.contains(htmlTagSelectors.div, label.autoUserName).parents(userSelectors.parentCell)
     .next(htmlTagSelectors.div).should('exist')

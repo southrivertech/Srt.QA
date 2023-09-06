@@ -45,24 +45,21 @@ describe('Login > {existing server} > users', () => {
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', label.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
+    cy.get(userSelectors.addButton).should('be.visible').click()
   })
 
   it('verify that admin can create users', () => {
-    cy.get(navigationSelectors.textLabelSelector).contains('ws01').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa acceptance server do not delete').should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains('Users').should('be.visible').click()
-    cy.get(userSelectors.addButton).should('be.visible').click()
     cy.createUser(userDetails)
     cy.get(userSelectors.parentCell).contains(userDetails.userName).should('be.visible')
   })
 
   it('Verify that during user creation, admin can assign an existing group to a user', () => {
-    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
-    cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
-    cy.get(userSelectors.addButton).should('be.visible').click()
     cy.createUserAndAssignGroup(userDetails)
   })
+
   afterEach('deleting a user', () => {
     cy.delete(userDetails.userName)
     cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')

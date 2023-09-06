@@ -4,7 +4,7 @@
   "body" : "Fixtures are a great way to mock data for responses to routes",
   "autoDomainName": "ws01",
   "autoServerName": "qa acceptance server do not delete",
-  "autoUserName": "qa acceptance user do not delete",
+  "autoUserName": "qa-acceptance-user-do-not-delete",
   "autoGroupName" : "qa acceptance group do not delete",
   "groupName" : "Group Name",
   "next"      : "Next",
@@ -30,5 +30,14 @@
   "passwordsDoNotMatch" : "Passwords do not match",
   "enableExSSLTLSAccess" : "Enable Explicit SSL/TLS Access",
   "enableImpSSLTLSAccess" : "Enable Implicit SSL/TLS Access",
-  "selectServices" : "Select Services this Server will Handle"
+  "selectServices" : "Select Services this Server will Handle",
+  "setUserPassword" : "Set User Password",
+  "save" : "Save",
+  "success" : "Success",
+  "sendResetEmailButtonText" : "Send Reset Email",
+  "sendPassResetEmail" : "Send Password Reset Email",
+  "manuallyConfigDirLocations" : "Manually Configure Directory Locations"
+
+  
+  
 }

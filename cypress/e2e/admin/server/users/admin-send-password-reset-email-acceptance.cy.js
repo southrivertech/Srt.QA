@@ -1,18 +1,18 @@
-import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../fixtures/label.json'
+import userSelectors from '../../../../../selectors/user/user-selectors.json'
+import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 /**
  * @description
- * This spec file contains test to verify that admin user can edit users for an existing server
+ * This spec file contains test to verify that admin user can send password reset email
  *
  * @file
- * cypress/e2e/admin/server/users/admin-edit-user-acceptance.cy.js
+ * cypress/e2e/admin/server/users/admin-send-password-reset-email-acceptance.cy.js
  *
  * @breadcrumb
  * Login > {existing server} > users
  *
  * @assertions
- * To verify that during user edit, admin can assign a group to an existing user
- * To verify that user can Remove Assigned group
+ * To Verify admin can send password reset email
  *  @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
@@ -38,17 +38,15 @@ describe('Login > {existing server} > existing users', () => {
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', label.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
-  })
-
-  it('Verify that during user edit, admin can assign a group to an existing user', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
-    cy.addAssignedGroup(label.autoUserName)
+    cy.editUser(label.autoUserName, label.sendPassResetEmail)
   })
 
-  afterEach('verify that user can Remove Assigned group', () => {
-    cy.removeAssignedGroup(label.autoGroupName)
-  // cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')
+  it('Verify admin can send password reset email', () => {
+    cy.clickButton(label.sendResetEmailButtonText)
+    cy.wait(2000)
+    cy.get(userSelectors.successMessage).should('exist')
   })
 })
