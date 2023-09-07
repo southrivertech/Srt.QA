@@ -30,7 +30,8 @@ describe('Login > {existing server} > users', () => {
 
   const userDetails = {
     userName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`,
-    password: 'testing123'
+    password: 'testing123',
+    groupName: label.autoGroupName
   }
 
   beforeEach('login', () => {
@@ -49,15 +50,18 @@ describe('Login > {existing server} > users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
     cy.get(userSelectors.addButton).should('be.visible').click()
+    cy.wait(2000)
   })
 
   it('verify that admin can create users', () => {
     cy.createUser(userDetails)
+    cy.get(userSelectors.successMessage).should('be.visible')
     cy.get(userSelectors.parentCell).contains(userDetails.userName).should('be.visible')
   })
 
   it('Verify that during user creation, admin can assign an existing group to a user', () => {
-    cy.createUserAndAssignGroup(userDetails)
+    cy.createUser(userDetails, true)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
 
   afterEach('deleting a user', () => {

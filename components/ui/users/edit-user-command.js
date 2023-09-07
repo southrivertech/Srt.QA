@@ -6,60 +6,68 @@ import label from '../../../cypress/fixtures/label.json'
  *
  * This command is used to Edit a user
  *
- * This command takes user name as a parameter
+ * This command takes user name,Menu option as a parameter and assign group , password as optional parameter
  *
  * @location
  * Login > {existing server} > users
- * @params
- * @param {required} username  // A variable containing server name
+ * @param {optional} userFullName  // A variable containing user full name
+ * @param {required} userName  // A variable containing user name
+ * @param {required} password  // A variable containing password
+ * @param {required} confirmPassword  // A variable containing confirm password
+ * @param {optional} emailAddress  // A variable containing email address
+ * @param {optional} mobileNumber  // A variable containing mobile number
+ * @param {required} checkboxPreferredNotificationMethod  // A variable containing preferred notification method, by default email is selected
+ * @param {optional} additionalUserRoles  // A variable containing additional user roles
+ * @param {optional} userDescription  // A variable containing server name
+ * parameters on assign to groups page
+ * @param {optional} currentGroups  // A variable containing server name
+ * @param {optional} availableGroups  // A variable containing server name
+ * parameters on configure user options page
+ * @param {optional} primaryGroup  // A variable containing server name
+ * @param {optional} homeDirectory  // A variable containing server name
+ * @param {optional} checkboxCreateHomeDirectoryNow  // A variable containing server name
+ * @param {optional} checkboxAlwaysAllowUserLogin  // A variable containing server name
+ * @param {optional} checkboxAccountEnabled  // A variable containing server name
+ *
  * @example
  * cy.createUser(userDetails)
  *
 * @example
 * cy.editUser(userDetails)
 */
-Cypress.Commands.add('addAssignedGroup', (username) => {
+
+Cypress.Commands.add('editUser', (username, menuOption = label.editUserAssignedGroups, assignGroup = false, password = label.password) => {
   cy.contains(htmlTagSelectors.div, username).parents(userSelectors.parentCell)
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).click()
-  cy.get(userSelectors.parentUsers).contains(label.editUserAssignedGroups).click()
-  cy.clickButton(label.next)
-  cy.checkTextVisibility(label.assignToGroups)
-  cy.get(userSelectors.addButtonAssign).click()
-  cy.clickButton(label.next)
-  cy.clickButton(label.finish)
-})
 
-Cypress.Commands.add('editUser', (username, option) => {
-  cy.contains(htmlTagSelectors.div, username).parents(userSelectors.parentCell)
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).click()
-  cy.get(userSelectors.parentUsers).contains(option).click()
-})
-
-Cypress.Commands.add('setNewPassword', (password) => {
-  cy.enterText(label.password, password)
-  cy.enterText(label.confirmPassword, password)
-  cy.clickButton(label.save)
-  cy.wait(2000)
-})
-
-Cypress.Commands.add('removeAssignedGroup', (groupName) => {
-  cy.contains(htmlTagSelectors.div, label.autoUserName).parents(userSelectors.parentCell)
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).click()
-  cy.get(userSelectors.parentUsers).contains(label.editUserAssignedGroups).click()
-  cy.clickButton(label.next)
-  cy.checkTextVisibility(label.assignToGroups)
-  cy.contains(htmlTagSelectors.div, groupName).parents(userSelectors.assignedGroupParent)
-    .next(htmlTagSelectors.div).click()
+  switch (menuOption) {
+    case label.editUserAssignedGroups: cy.get(userSelectors.parentUsers).contains(menuOption).click()
+      cy.clickButton(label.next)
+      cy.checkTextVisibility(label.assignToGroups, userSelectors.userPageHeading)
+      if (assignGroup) {
+        cy.contains(htmlTagSelectors.div, label.autoGroupName).parents(userSelectors.parentCell)
+          .prev(htmlTagSelectors.div).click()
+        cy.clickButton(label.next)
+        cy.clickButton(label.finish)
+      } else {
+        cy.contains(htmlTagSelectors.div, label.autoGroupName).parents(userSelectors.parentCell)
+          .next(htmlTagSelectors.div).click()
+        cy.clickButton(label.next)
+        cy.clickButton(label.finish)
+      }
+      break
+    case label.setUserPassword: cy.get(userSelectors.parentUsers).contains(menuOption).click()
+      cy.enterText(label.password, password)
+      cy.enterText(label.confirmPassword, password)
+      cy.clickButton(label.save)
+      break
+    case label.sendPassResetEmail: cy.get(userSelectors.parentUsers).contains(menuOption).click()
+      cy.get(userSelectors.emailAddressField).type(label.email)
+      cy.clickButton(label.sendResetEmailButtonText)
+      break
+  }
 })

@@ -1,11 +1,12 @@
 import userSelectors from '../../../selectors/user/user-selectors.json'
 import label from '../../../cypress/fixtures/label.json'
+import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
 /**
  * User creation command
  *
  * This command is used to create a user
  *
- * This command takes user details as a parameter
+ * This command takes user details as a parameter and assign group as optional parameter
  *
  * @location
  * Login > {existing server} > users
@@ -33,9 +34,10 @@ import label from '../../../cypress/fixtures/label.json'
  *
  * @example
  * cy.createUser(userDetails)
+ * cy.createUser(userDetails,true)
  */
 
-Cypress.Commands.add('createUser', (userDetails) => {
+Cypress.Commands.add('createUser', (userDetails, assignGroup = false) => {
   Cypress.log({
     name: 'createUserCommand'
   })
@@ -43,21 +45,12 @@ Cypress.Commands.add('createUser', (userDetails) => {
   cy.enterText(label.password, userDetails.password)
   cy.enterText(label.confirmPassword, userDetails.password)
   cy.clickButton(label.next)
-  cy.checkTextVisibility(label.assignToGroups)
+  cy.checkTextVisibility(label.assignToGroups, userSelectors.userPageHeading)
+  if (assignGroup) {
+    cy.contains(htmlTagSelectors.div, userDetails.groupName).parents(userSelectors.parentCell)
+      .prev(htmlTagSelectors.div).click()
+  }
   cy.clickButton(label.next)
-  cy.checkTextVisibility(label.configureUserOptions)
-  cy.clickButton(label.finish)
-})
-Cypress.Commands.add('createUserAndAssignGroup', (userDetails) => {
-  Cypress.log({
-    name: 'createUserAndAssignGroupCommand'
-  })
-  cy.enterText(label.userName, userDetails.userName)
-  cy.enterText(label.password, userDetails.password)
-  cy.enterText(label.confirmPassword, userDetails.password)
-  cy.clickButton(label.next)
-  cy.checkTextVisibility(label.assignToGroups)
-  cy.get(userSelectors.addButtonAssign).click()
-  cy.clickButton(label.next)
+  cy.checkTextVisibility(label.configureUserOptions, userSelectors.userPageHeading)
   cy.clickButton(label.finish)
 })

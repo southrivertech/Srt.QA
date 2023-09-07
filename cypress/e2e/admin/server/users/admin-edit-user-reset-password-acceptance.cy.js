@@ -1,6 +1,8 @@
 import label from '../../../../fixtures/label.json'
 import userSelectors from '../../../../../selectors/user/user-selectors.json'
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
+import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
+
 /**
  * @description
  * This spec file contains test to verify that admin user can edit existing users and reset their password.
@@ -9,18 +11,19 @@ import navigationSelectors from '../../../../../selectors/navigation/left-naviga
  * cypress/e2e/admin/server/users/admin-edit-user-reset-password-acceptance.cy.js
  *
  * @breadcrumb
- * Login > {existing server} > users
+ * Login > {existing server} > existing users > edit > set user password
  *
  * @assertions
  * To verify ui-validation for required and password not match error messages
  * To verify admin can set new password for existing user
+ *
  *  @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
  * - existing user should be exist for editing
  */
 
-describe('Login > {existing server} > existing users', () => {
+describe('Login > {existing server} > existing users > edit > set user password', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -35,6 +38,7 @@ describe('Login > {existing server} > existing users', () => {
       alias: 'postApiLogin',
       log: false
     })
+
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', label.homeUrlText)
@@ -42,11 +46,16 @@ describe('Login > {existing server} > existing users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
-    cy.editUser(label.autoUserName, label.setUserPassword)
   })
 
   it('verify ui-validation for required and password not match error messages', () => {
-    cy.wait(1000)
+    cy.contains(htmlTagSelectors.div, label.autoUserName).parents(userSelectors.parentCell)
+      .next(htmlTagSelectors.div).should('exist')
+      .next(htmlTagSelectors.div).should('exist')
+      .next(htmlTagSelectors.div).should('exist')
+      .next(htmlTagSelectors.div).should('exist')
+      .next(htmlTagSelectors.div).click()
+    cy.get(userSelectors.parentUsers).contains(label.setUserPassword).click()
     cy.enterText(label.password, label.password)
     cy.clickButton(label.save)
     cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', label.required)
@@ -56,10 +65,9 @@ describe('Login > {existing server} > existing users', () => {
   })
 
   it('Verify admin can set new password for existing user', () => {
-    cy.wait(1000)
-    cy.setNewPassword(label.password)
+    cy.editUser(label.autoUserName, label.setUserPassword, false, label.password)
     cy.get(userSelectors.successMessage).should('exist')
     cy.wait(5000)
-    cy.login(label.autoUserName, label.autoUserName, label.password)
+    cy.login(label.users, label.autoUserName, label.password)
   })
 })

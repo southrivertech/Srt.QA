@@ -9,7 +9,7 @@ import navigationSelectors from '../../../../../selectors/navigation/left-naviga
  * cypress/e2e/admin/server/users/admin-send-password-reset-email-acceptance.cy.js
  *
  * @breadcrumb
- * Login > {existing server} > users
+ * Login > {existing server} > users > edit > send reset password email
  *
  * @assertions
  * To Verify admin can send password reset email
@@ -45,8 +45,7 @@ describe('Login > {existing server} > existing users', () => {
   })
 
   it('Verify admin can send password reset email', () => {
-    cy.clickButton(label.sendResetEmailButtonText)
-    cy.wait(2000)
-    cy.get(userSelectors.successMessage).should('exist')
+    cy.editUser(label.autoUserName, label.sendPassResetEmail, false, label.password)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
 })

@@ -10,5 +10,7 @@
     "addButtonAssign"  : "#add",
     "parentUsers" : ".MuiListItemText-root",
     "assignedGroupParent" : ".ReactVirtualized__Grid__innerScrollContainer",
-    "successMessage"  : "#client-snackbar"
+    "successMessage"  : "#client-snackbar",
+    "userPageHeading": ".MuiTypography-colorSecondary",
+    "emailAddressField" : "[id='Email Address']"
 }

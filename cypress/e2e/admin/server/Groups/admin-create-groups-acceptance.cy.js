@@ -1,6 +1,6 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import groupSelectors from '../../../../../selectors/groups/groups-selectors.json'
-import label from '../../../../..//fixtures/labels.json'
+import label from '../../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains test to verify that admin user can create Groups for an existing server

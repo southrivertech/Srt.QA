@@ -1,5 +1,6 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../fixtures/label.json'
+import userSelectors from '../../../../../selectors/user/user-selectors.json'
 /**
  * @description
  * This spec file contains test to verify that admin user can edit users for an existing server
@@ -8,7 +9,7 @@ import label from '../../../../fixtures/label.json'
  * cypress/e2e/admin/server/users/admin-edit-user-acceptance.cy.js
  *
  * @breadcrumb
- * Login > {existing server} > users
+ * Login > {existing server} > users > edit
  *
  * @assertions
  * To verify that during user edit, admin can assign a group to an existing user
@@ -16,7 +17,7 @@ import label from '../../../../fixtures/label.json'
  *  @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
- * - existing user should be exist for editing
+ * - an existing user should exist
  */
 
 describe('Login > {existing server} > existing users', () => {
@@ -44,11 +45,12 @@ describe('Login > {existing server} > existing users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
-    cy.addAssignedGroup(label.autoUserName)
+    cy.editUser(label.autoUserName, label.editUserAssignedGroups, true)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
 
   afterEach('verify that user can Remove Assigned group', () => {
-    cy.removeAssignedGroup(label.autoGroupName)
-  // cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')
+    cy.editUser(label.autoUserName, label.editUserAssignedGroups, false)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
 })

@@ -70,7 +70,7 @@ import label from '../../../cypress/fixtures/label.json'
  * @param SMSPhoneNumber // A variable containing the SMS phone number
  *
  * @example
- * cy.createSurver(serverDetails)
+ * cy.createServer(serverDetails)
  */
 Cypress.Commands.add('createServer', (serverDetails) => {
   Cypress.log({
@@ -94,15 +94,4 @@ Cypress.Commands.add('createServer', (serverDetails) => {
   cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
   cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
   cy.get(serverSelectors.nextButtonContainer).contains(label.finish).click()
-})
-Cypress.Commands.add('clearManualDir', () => {
-  Cypress.log({
-    name: 'clearManualDirCommand'
-  })
-  cy.get(serverSelectors.serverBackDir).clear()
-  cy.get(serverSelectors.systemDatabaseCacheDirectory).clear()
-  cy.get(serverSelectors.reportsDirectory).clear()
-  cy.get(serverSelectors.temporaryCacheDirectory).clear()
-  cy.get(serverSelectors.quickSendCacheDirectory).clear()
-  cy.get(serverSelectors.aVQuarantineDirectory).clear()
 })
