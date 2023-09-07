@@ -9,7 +9,7 @@ import label from '../../../../fixtures/label.json'
  * cypress/e2e/admin/server/users/admin-create-users-acceptance.cy.js
  *
  * @breadcrumb
- * Login > {existing server} > users
+ * Login > {existing server} > users > add new user
  *
  * @assertions
  * To verify that admin can create users
@@ -21,7 +21,7 @@ import label from '../../../../fixtures/label.json'
  * - user should have valid credentials
  */
 
-describe('Login > {existing server} > users', () => {
+describe('Login > {existing server} > users > add new user', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -50,7 +50,6 @@ describe('Login > {existing server} > users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
     cy.get(userSelectors.addButton).should('be.visible').click()
-    cy.wait(2000)
   })
 
   it('verify that admin can create users', () => {
@@ -66,6 +65,7 @@ describe('Login > {existing server} > users', () => {
 
   afterEach('deleting a user', () => {
     cy.delete(userDetails.userName)
+    cy.get(userSelectors.successMessage).should('be.visible')
     cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')
   })
 })
