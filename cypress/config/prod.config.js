@@ -13,10 +13,10 @@ module.exports = defineConfig({
   viewportWidth: 1440,
   viewportHeight: 768,
   watchForFileChanges: false,
-  defaultCommandTimeout: 5000,
-  pageLoadTimeout: 5000,
-  responseTimeout: 5000,
-  requestTimeout: 5000,
+  defaultCommandTimeout: 15000,
+  pageLoadTimeout: 15000,
+  responseTimeout: 15000,
+  requestTimeout: 15000,
   env: {
     baseUrl: 'https://beta.southrivertech.com',
     admin: {

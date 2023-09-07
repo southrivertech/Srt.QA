@@ -1,5 +1,5 @@
 import loginSelectors from '../../../selectors/login-selectors.json'
-
+import label from '../../../cypress/fixtures/label.json'
 /**
  * Login Command
  *
@@ -28,13 +28,10 @@ Cypress.Commands.add('login', (baseUrl, username, password) => {
   } else {
     loginURL = `${Cypress.env('baseUrl')}`
   }
-
-  const loginText = 'Login'
-
   // Visit the URL
   cy.visit(loginURL)
   // Find and fill in the username and password fields
   cy.get(loginSelectors.inputUsername).type(username)
   cy.get(loginSelectors.inputPassword).type(password)
-  cy.get(loginSelectors.loginButton).contains(loginText).click()
+  cy.get(loginSelectors.loginButton).contains(label.login).click()
 })

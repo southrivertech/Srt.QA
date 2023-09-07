@@ -1,3 +1,4 @@
+import label from '../../../../..//fixtures/labels.json'
 /**
  * @description
  * This spec file contains tests to ensure that user stays logged in the site after a reload
@@ -22,8 +23,6 @@ describe('Login Functionality Test', () => {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const homeUrlText = '/Console'
-
   beforeEach(() => {
     cy.postApiLogin()
     cy.waitForNetworkIdlePrepare({
@@ -34,12 +33,12 @@ describe('Login Functionality Test', () => {
     })
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', homeUrlText)
+    cy.url().should('include', label.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
   it('Reload the server', () => {
     cy.reload()
-    cy.contains('Login').should('not.be.visible')
+    cy.contains(label.login).should('not.be.visible')
   })
 })
