@@ -20,7 +20,7 @@ import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
  *  @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
- * - existing user should be exist for editing
+ * - an existing user should exist for editing
  */
 
 describe('Login > {existing server} > existing users > edit > set user password', () => {
@@ -65,7 +65,7 @@ describe('Login > {existing server} > existing users > edit > set user password'
   })
 
   it('Verify admin can set new password for existing user', () => {
-    cy.editUser(label.autoUserName, label.setUserPassword, false, label.password)
+    cy.editUser(label.autoUserName, label.setUserPassword, label.password)
     cy.get(userSelectors.successMessage).should('exist')
     cy.wait(5000)
     cy.login(label.users, label.autoUserName, label.password)
