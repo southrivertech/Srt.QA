@@ -13,13 +13,14 @@ import navigationSelectors from '../../../../../selectors/navigation/left-naviga
  *
  * @assertions
  * To Verify admin can send password reset email
+ *
  *  @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
- * - existing user should be exist for editing
+ * - an existing user should exist for editing
  */
 
-describe('Login > {existing server} > existing users', () => {
+describe('Login > {existing server} > users > edit > send reset password email', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -41,7 +42,6 @@ describe('Login > {existing server} > existing users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
-    cy.editUser(label.autoUserName, label.sendPassResetEmail)
   })
 
   it('Verify admin can send password reset email', () => {

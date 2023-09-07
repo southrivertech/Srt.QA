@@ -45,7 +45,8 @@ Cypress.Commands.add('editUser', (username, menuOption = label.editUserAssignedG
     .next(htmlTagSelectors.div).click()
 
   switch (menuOption) {
-    case label.editUserAssignedGroups: cy.get(userSelectors.parentUsers).contains(menuOption).click()
+    case label.editUserAssignedGroups:
+      cy.get(userSelectors.parentUsers).contains(menuOption).click()
       cy.clickButton(label.next)
       cy.checkTextVisibility(label.assignToGroups, userSelectors.userPageHeading)
       if (assignGroup) {
@@ -60,12 +61,14 @@ Cypress.Commands.add('editUser', (username, menuOption = label.editUserAssignedG
         cy.clickButton(label.finish)
       }
       break
-    case label.setUserPassword: cy.get(userSelectors.parentUsers).contains(menuOption).click()
+    case label.setUserPassword:
+      cy.get(userSelectors.parentUsers).contains(menuOption).click()
       cy.enterText(label.password, password)
       cy.enterText(label.confirmPassword, password)
       cy.clickButton(label.save)
       break
-    case label.sendPassResetEmail: cy.get(userSelectors.parentUsers).contains(menuOption).click()
+    case label.sendPassResetEmail:
+      cy.get(userSelectors.parentUsers).contains(menuOption).click()
       cy.get(userSelectors.emailAddressField).type(label.email)
       cy.clickButton(label.sendResetEmailButtonText)
       break
