@@ -9,7 +9,7 @@ import label from '../../../../fixtures/label.json'
  * cypress\e2e\admin\server\Groups\admin-create-groups-acceptance.cy.js
  *
  * @breadcrumb
- * Login > {existing server} > groups
+ * Login > {existing server} > add new group
  *
  * @assertions
  * To verify that admin can create groups
