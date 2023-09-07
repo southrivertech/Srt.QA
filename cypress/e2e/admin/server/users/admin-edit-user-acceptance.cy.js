@@ -14,13 +14,14 @@ import userSelectors from '../../../../../selectors/user/user-selectors.json'
  * @assertions
  * To verify that during user edit, admin can assign a group to an existing user
  * To verify that user can Remove Assigned group
+ *
  *  @prerequisites
  * Pre-Requisite data:
  * - user should have valid credentials
  * - an existing user should exist
  */
 
-describe('Login > {existing server} > existing users', () => {
+describe('Login > {existing server} > users > edit', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
