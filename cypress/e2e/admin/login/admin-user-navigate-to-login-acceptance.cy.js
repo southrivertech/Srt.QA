@@ -1,4 +1,4 @@
-import label from '../../../../..//fixtures/labels.json'
+import label from '../../../../cypress/fixtures/label.json'
 /**
  * @description
  * This spec file contains tests to ensure that user doesn't redirected to the login page even after pressing back button in the browser
