@@ -1,6 +1,8 @@
 import userSelectors from '../../../selectors/user/user-selectors.json'
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
 import serverSelectors from '../../../selectors/server-selectors.json'
+import dashboardSelectors from '../../../selectors/dashboard-selectors.json'
+
 /**
  * Common Utils Commands
  *
@@ -54,7 +56,21 @@ Cypress.Commands.add('checkTextVisibility', (text, selector) => {
 * @example
 * cy.delete('Group name')
 */
+
 Cypress.Commands.add('delete', (inputName) => {
   cy.contains(inputName).parents(userSelectors.parentCell).click()
   cy.get(userSelectors.deleteButton).click()
+})
+
+/**
+* This command is used to select language
+*
+* This command takes language as parameter
+*
+* @example
+* cy.selectLanguage(label.spanishLang)
+*/
+
+Cypress.Commands.add('selectLanguage', (language) => {
+  cy.get(dashboardSelectors.languageList).contains(language).click()
 })
