@@ -1,3 +1,9 @@
 {
-    "domainDropDown" : ".MuiTypography-body2"
+    "domainDropDown" : ".MuiTypography-body2",
+    "dashboardButtonLabel" : ".MuiButton-label",
+    "languageList" : "[role='menuitem']",
+    "dashBoardList" : ".MuiButtonBase-root",
+    "profileIcon" : "[aria-label='account of current user']",
+    "productInfoColName" :"[role='cell']",
+    "productInfoTab" : "[role='tab']"
 }

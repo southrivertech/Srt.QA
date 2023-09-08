@@ -45,12 +45,12 @@ Cypress.Commands.add('createUser', (userDetails, assignGroup = false) => {
   cy.enterText(label.password, userDetails.password)
   cy.enterText(label.confirmPassword, userDetails.password)
   cy.clickButton(label.next)
-  cy.checkTextVisibility(label.assignToGroups, userSelectors.userPageHeading)
+  cy.checkTextVisibility(userSelectors.userPageHeading, label.assignToGroups)
   if (assignGroup) {
     cy.contains(htmlTagSelectors.div, userDetails.groupName).parents(userSelectors.parentCell)
       .prev(htmlTagSelectors.div).click()
   }
   cy.clickButton(label.next)
-  cy.checkTextVisibility(label.configureUserOptions, userSelectors.userPageHeading)
+  cy.checkTextVisibility(userSelectors.userPageHeading, label.configureUserOptions)
   cy.clickButton(label.finish)
 })
