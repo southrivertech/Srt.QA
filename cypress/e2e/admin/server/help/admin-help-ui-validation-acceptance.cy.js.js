@@ -6,13 +6,13 @@ import dashboardSelectors from '../../../../../selectors/dashboard-selectors.jso
  * This spec file contains test to verify help menu options
  *
  * @file
- * cypress/e2e/admin/server/help/admin-help-acceptance.cy.js
+ * cypress/e2e/admin/server/help/admin-help-ui-validation-acceptance.cy.js
  *
  * @breadcrumb
  * Login > help
  *
  * @assertions
- * verify help menu has options
+ * verify that help menu should have options
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -40,10 +40,10 @@ describe('Login > help', () => {
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
-  it('verify that help menu has three options', () => {
+  it('verify that help menu should have options', () => {
     cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.helpEnglish).click()
-    cy.checkTextVisibility(label.contents, dashboardSelectors.dashBoardList)
-    cy.checkTextVisibility(label.releaseNotes, dashboardSelectors.dashBoardList)
-    cy.checkTextVisibility(label.versionHistory, dashboardSelectors.dashBoardList)
+    cy.checkTextVisibility(dashboardSelectors.dashBoardList, label.contents)
+    cy.checkTextVisibility(dashboardSelectors.dashBoardList, label.releaseNotes)
+    cy.checkTextVisibility(dashboardSelectors.dashBoardList, label.versionHistory)
   })
 })

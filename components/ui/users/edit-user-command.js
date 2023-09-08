@@ -48,7 +48,7 @@ Cypress.Commands.add('editUser', (username, menuOption = label.editUserAssignedG
     case label.editUserAssignedGroups:
       cy.get(userSelectors.parentUsers).contains(menuOption).click()
       cy.clickButton(label.next)
-      cy.checkTextVisibility(label.assignToGroups, userSelectors.userPageHeading)
+      cy.checkTextVisibility(userSelectors.userPageHeading, label.assignToGroups)
       if (assignGroup) {
         cy.contains(htmlTagSelectors.div, label.autoGroupName).parents(userSelectors.parentCell)
           .prev(htmlTagSelectors.div).click()

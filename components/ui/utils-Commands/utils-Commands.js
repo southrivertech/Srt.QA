@@ -41,10 +41,10 @@ Cypress.Commands.add('clickButton', (buttonText) => {
  * This command takes selector and text as parameters
  *
  * @example
- * cy.checkTextVisibility('Assign to Groups')
+ * cy.checkTextVisibility(selector,'Assign to Groups')
  */
 
-Cypress.Commands.add('checkTextVisibility', (text, selector) => {
+Cypress.Commands.add('checkTextVisibility', (selector, text) => {
   cy.get(selector).contains(text).should('be.visible')
 })
 

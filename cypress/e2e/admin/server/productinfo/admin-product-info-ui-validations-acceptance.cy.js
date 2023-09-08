@@ -1,15 +1,16 @@
 import label from '../../../../fixtures/label.json'
 import dashboardSelectors from '../../../../../selectors/dashboard-selectors.json'
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
+
 /**
  * @description
  * This spec file contains test to verify product info tab data
  *
  * @file
- * cypress/e2e/admin/server/productinfo/admin-product-info-acceptance.cy.js
+ * cypress/e2e/admin/server/productinfo/admin-product-info-ui-validations-acceptance.cy
  *
  * @breadcrumb
- * Login > home > product info
+ * Login > home > product info tab
  *
  * @assertions
  * verify product info tab columns name
@@ -19,7 +20,7 @@ import navigationSelectors from '../../../../../selectors/navigation/left-naviga
  * - admin user should have valid credentials
  */
 
-describe('Login > home > product info', () => {
+describe('Login > home > product info tab', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -43,14 +44,14 @@ describe('Login > home > product info', () => {
   it('verify product info tab columns name', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.home).click()
     cy.get(dashboardSelectors.productInfoTab).contains(label.productInfo).click()
-    cy.checkTextVisibility(label.product, dashboardSelectors.productInfoColName)
-    cy.checkTextVisibility(label.version, dashboardSelectors.productInfoColName)
-    cy.checkTextVisibility(label.productEdition, dashboardSelectors.productInfoColName)
-    cy.checkTextVisibility(label.active, dashboardSelectors.productInfoColName)
-    cy.checkTextVisibility(label.licenseType, dashboardSelectors.productInfoColName)
-    cy.checkTextVisibility(label.licenseStatus, dashboardSelectors.productInfoColName)
-    cy.checkTextVisibility(label.expiration, dashboardSelectors.productInfoColName)
-    cy.checkTextVisibility(label.registrationCode, dashboardSelectors.productInfoColName)
-    cy.checkTextVisibility(label.delete, dashboardSelectors.productInfoColName)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.product)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.version)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.productEdition)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.active)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.licenseType)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.licenseStatus)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.expiration)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.registrationCode)
+    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.delete)
   })
 })

@@ -5,13 +5,13 @@ import dashboardSelectors from '../../../../../selectors/dashboard-selectors.jso
  * This spec file contains test to verify that profile menu on dashboard have three options
  *
  * @file
- * cypress/e2e/admin/server/profile/admin-profile-acceptance.cy.js
+ * cypress/e2e/admin/server/profile/admin-profile-ui-validation-acceptance.cy
  *
  * @breadcrumb
  * Login > {existing server} > profile
  *
  * @assertions
- * verify that profile menu has three options
+ * verify that profile menu should have options
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -39,10 +39,10 @@ describe('Login > {existing server} > profile', () => {
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
-  it('verify that profile menu has three options', () => {
+  it('verify that profile menu should have options', () => {
     cy.get(dashboardSelectors.profileIcon).click()
-    cy.checkTextVisibility(label.myProfile, dashboardSelectors.dashBoardList)
-    cy.checkTextVisibility(label.changePassword, dashboardSelectors.dashBoardList)
-    cy.checkTextVisibility(label.signOut, dashboardSelectors.dashBoardList)
+    cy.checkTextVisibility(dashboardSelectors.dashBoardList, label.myProfile)
+    cy.checkTextVisibility(dashboardSelectors.dashBoardList, label.changePassword)
+    cy.checkTextVisibility(dashboardSelectors.dashBoardList, label.signOut)
   })
 })

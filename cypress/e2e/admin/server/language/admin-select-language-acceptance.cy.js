@@ -41,29 +41,26 @@ describe('Login > select language', () => {
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
     cy.url().should('include', label.homeUrlText)
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
+    cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.englishLang).click()
   })
 
   it('verify that admin can select english language', () => {
-    cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.englishLang).click()
     cy.selectLanguage(label.englishLang)
-    cy.checkTextVisibility(label.helpEnglish, dashboardSelectors.dashboardButtonLabel)
+    cy.checkTextVisibility(dashboardSelectors.dashboardButtonLabel, label.helpEnglish)
   })
 
   it('verify that admin can select spanish language', () => {
-    cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.englishLang).click()
     cy.selectLanguage(label.spanishLang)
-    cy.checkTextVisibility(label.helpSpanish, dashboardSelectors.dashboardButtonLabel)
+    cy.checkTextVisibility(dashboardSelectors.dashboardButtonLabel, label.helpSpanish)
   })
 
   it('verify that admin can select deutsch language', () => {
-    cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.englishLang).click()
     cy.selectLanguage(label.deutschLang)
-    cy.checkTextVisibility(label.helpDeutsch, dashboardSelectors.dashboardButtonLabel)
+    cy.checkTextVisibility(dashboardSelectors.dashboardButtonLabel, label.helpDeutsch)
   })
 
   it('verify that admin can select japanese language', () => {
-    cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.englishLang).click()
     cy.selectLanguage(label.japaneseLang)
-    cy.checkTextVisibility(label.helpJapanese, dashboardSelectors.dashboardButtonLabel)
+    cy.checkTextVisibility(dashboardSelectors.dashboardButtonLabel, label.helpJapanese)
   })
 })
