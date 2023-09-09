@@ -27,11 +27,9 @@
   },
   "dependencies": {
     "@cypress/webpack-preprocessor": "^5.17.0",
-    "@testing-library/cypress": "^9.0.0",
     "cypress-file-upload": "^5.0.8",
     "cypress-iframe": "^1.0.1",
     "cypress-localstorage-commands": "2.2.2",
-    "cypress-real-events": "^1.7.6",
     "cypress-wait-until": "1.7.2",
     "dayjs": "^1.11.7",
     "puppeteer": "^19.8.0"
