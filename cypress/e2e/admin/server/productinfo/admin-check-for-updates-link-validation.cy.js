@@ -4,23 +4,23 @@ import navigationSelectors from '../../../../../selectors/navigation/left-naviga
 
 /**
  * @description
- * This spec file contains test to verify product info tab data
+ * This spec file contains test to verify check for updates link validation
  *
  * @file
- * cypress/e2e/admin/server/productinfo/admin-product-info-ui-validations-acceptance.cy
+ * cypress\e2e\admin\server\productinfo\admin-check-for-updates-link-validation.cy.js
  *
  * @breadcrumb
- * Login > home > product info tab
+ * Login > home > product info tab > check for updates
  *
  * @assertions
- * verify product info tab columns name
+ * verify link validation for check for updates
  *
  *  @prerequisites
  * Pre-Requisite data:
  * - admin user should have valid credentials
  */
 
-describe('Login > home > product info tab', () => {
+describe('Login > home > product info tab > check for updates', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -41,17 +41,11 @@ describe('Login > home > product info tab', () => {
     cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
-  it('verify product info tab columns name', () => {
+  it('verify link validation for check for updates', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.home).click()
     cy.get(dashboardSelectors.homeTabs).contains(label.productInfo).click()
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.product)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.version)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.productEdition)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.active)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.licenseType)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.licenseStatus)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.expiration)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.registrationCode)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.delete)
+    cy.get(dashboardSelectors.fabLabel).eq(0).click()
+    cy.get(dashboardSelectors.muiTypography).contains('Relase Notes').should('have.attr', 'href').and('eq', 'https://www.southrivertech.com/software/nextgen/titanmft/en/relnotes.pdf')
+    cy.get(dashboardSelectors.muiTypography).contains(label.download).should('have.attr', 'href').and('eq', 'https://www.southrivertech.com/software/nextgen/titanmft/titanmft-win-x64.exe')
   })
 })

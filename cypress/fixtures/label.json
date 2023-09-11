@@ -61,5 +61,14 @@
   "expiration" : "Expiration",
   "registrationCode" : "Registration Code",
   "delete" : "Delete",
-  "productInfo" : "Product Info"
+  "productInfo" : "Product Info",
+  "domainNodes" : "Domain Nodes",
+  "manageCert" : "Manage Certificates",
+  "update" : "Update",
+  "export" : "Export",
+  "updateHeading" : "Update Certificate",
+  "exportHeading" : "Export Certificate",
+  "deleteHeading" : "Delete Certificate",
+  "cancel" : "Cancel",
+  "download" : "Download"
 }

@@ -7,7 +7,7 @@
     "test": "node_modules\\.bin\\cypress run ",
     "cy:open": "cypress open --config-file ./cypress/config/prod.config.js",
     "record:test": "npx cypress run --config-file ./cypress/config/prod.config.js --record --key 610cd67a-310e-438b-9fff-4070a3042ac5"
-    },
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -15,6 +15,7 @@
     "cypress-downloadfile": "^1.2.3",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-network-idle": "^1.14.2",
+    "cypress-slow-down": "^1.2.1",
     "eslint": "^8.36.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-chai-friendly": "^0.7.2",

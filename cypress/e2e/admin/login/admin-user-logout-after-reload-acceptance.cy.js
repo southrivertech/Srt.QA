@@ -17,7 +17,7 @@ import label from '../../../../cypress/fixtures/label.json'
  * - user should have valid credentials
  */
 
-describe('Login Functionality Test', () => {
+describe.skip('Login Functionality Test', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,

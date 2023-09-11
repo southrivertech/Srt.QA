@@ -7,8 +7,5 @@
     "productInfoColName" :"[role='cell']",
     "homeTabs" : "[role='tab']",
     "gridRoot" : ".MuiGrid-root",
-    "dialog" : "[role='dialog']",
-    "fabLabel" : ".MuiFab-label",
-    "muiTypography": ".MuiTypography-root"
-
+    "dialog" : "[role='dialog']"
 }
