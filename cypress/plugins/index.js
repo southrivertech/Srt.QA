@@ -15,6 +15,21 @@
  */
 
 const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
+const Client = require('ssh2-sftp-client')
+const sftp = new Client()
+const rootPath = process.cwd()
+const config = {
+  host: 'beta.southrivertech.com',
+  port: '2200',
+  username: 'testsftp',
+  password: '123456'
+}
+
+const uploadFileToRemote = () => {
+  return sftp.connect(config).then(() => {
+    return sftp.list('/')
+  })
+}
 
 module.exports = async (on, config) => {
   // `on` is used to hook into various events Cypress emits
@@ -23,6 +38,13 @@ module.exports = async (on, config) => {
   /**
    * Details on how to use downloadFile plugin
   */
+  on('task', {
+    uploadPremiseFile: () => {
+      // console.log('rootPath:', rootPath)
+      // console.log('Start upload file: ', Obj.localPath)
+      return uploadFileToRemote()
+    }
+  })
 
   on('task', { downloadFile })
 
@@ -32,5 +54,17 @@ module.exports = async (on, config) => {
         'CrossSiteDocumentBlockingAlways,IsolateOrigins,site-per-process')
     }
     return launchOptions
+  })
+
+  on('task', {
+    sftpConnection () {
+      sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '2200',
+        username: 'testsftp',
+        password: '123456'
+      })
+      return Promise.resolve(sftp.list())
+    }
   })
 }
