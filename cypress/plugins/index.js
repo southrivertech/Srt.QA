@@ -26,6 +26,12 @@ const config = {
   username: 'testsftp',
   password: '123456'
 }
+const configFtp = {
+  host: 'beta.southrivertech.com',
+  port: '9900',
+  username: 'testsftp',
+  password: '123456'
+}
 
 const uploadFileToRemote = () => {
   return sftp.connect(config).then(() => {
@@ -110,14 +116,14 @@ module.exports = async (on, config) => {
 
   // sftp connection task which will put data stream to remote location using put() command
   on('task', {
-    sftpConnectionUsingPut (remoteFile) {
+    sftpConnectionUsingPut () {
       return sftp.connect({
         host: 'beta.southrivertech.com',
         port: '2200',
         username: 'testsftp',
         password: '123456'
       }).then(() => {
-        return sftp.put('D:/AutomationSRT/Srt.QA/cypress/fixtures/local.txt', remoteFile, true)
+        return sftp.fastPut('cypress/fixtures/local.txt', '/path/to/new/dir/file2.txt', true)
       })
     }
   })
@@ -131,7 +137,7 @@ module.exports = async (on, config) => {
         username: 'testsftp',
         password: '123456'
       }).then(() => {
-        return sftp.rename('/BUGS.txt', '/BUGS.txt')
+        return sftp.rename('/path/to/new/dir/file.txt', '/path/to/new/dir/file2.txt')
       })
     }
   })
@@ -145,7 +151,34 @@ module.exports = async (on, config) => {
         username: 'testsftp',
         password: '123456'
       }).then(() => {
-        return sftp.append(Buffer.from('Hello World'), remoteFile)
+        return sftp.append(Buffer.from('Hello World'), '/BUGS.txt')
+      })
+    }
+  })
+  // sftp connection task which appends text to file on server using appends command
+  on('task', {
+    sftpConnectionUsingRCopy (remoteFile) {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '2200',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        return sftp.rcopy(remoteFile, '/path/to/new/dir/file3.txt')
+      })
+    }
+  })
+
+  // sftp connection task which deletes file on server using delete command
+  on('task', {
+    sftpConnectionUsingDelete (remoteFile) {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '2200',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        return sftp.delete(remoteFile)
       })
     }
   })
@@ -153,12 +186,8 @@ module.exports = async (on, config) => {
   // ftp implicit connection task which will return current remote working directory
   on('task', {
     ftpImplicitConnectionUsingPwd (command) {
-      return new FTPS({
-        host: 'beta.southrivertech.com',
-        port: '9900',
-        username: 'testsftp',
-        password: '123456'
-      })
+      const F = new FTPS(configFtp)
+      return F.pwd
     }
   })
 }
