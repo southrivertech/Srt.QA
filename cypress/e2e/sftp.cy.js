@@ -1,6 +1,6 @@
 describe('example', () => {
   beforeEach(() => {
-    cy.visit('/')
+    cy.visit('https://beta.southrivertech.com:41443/')
   })
   it.skip('displays two ult', () => {
     // const localFile = '/a.config.js'
