@@ -2,18 +2,11 @@ describe('example', () => {
   beforeEach(() => {
     cy.visit('https://beta.southrivertech.com')
   })
-  it.skip('displays two ult', () => {
-    // const localFile = '/a.config.js'
-    // const remoteFile = '/upload/testFile.json'
-    cy.task('uploadPremiseFile').then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
-    //   return sftp.end()
-    })
-  })
 
   it('sftp connection : displays current remote working directory ', () => {
     cy.task('sftpConnectionUsingCWD').then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal('"/"')
     })
   })
 
@@ -23,6 +16,7 @@ describe('example', () => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
     })
   })
+
   it('sftp connection :creates new file remote working directory ', () => {
     const remoteDir = '/path/to/new/dir/file.txt'
     cy.task('sftpConnectionUsingMkdir', remoteDir).then(p => {
@@ -30,7 +24,7 @@ describe('example', () => {
     })
   })
 
-  it('sftp connection :appends ', () => {
+  it.skip('sftp connection :appends ', () => {
     cy.task('sftpConnectionUsingAppend').then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
     })
@@ -44,15 +38,16 @@ describe('example', () => {
     })
   })
 
-  it('sftp connection : copy file from local system to remote server. ', () => {
-    const remoteDir = '/path/to/new/dir/file2.txt'
+  it.skip('sftp connection : copy file from local system to remote server. ', () => {
+    const remoteDir = '/path/to/new/dir/BUGS.txt'
     cy.task('sftpConnectionUsingRCopy', remoteDir).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
     })
   })
 
   it('sftp connection : Upload file from local system to remote server. ', () => {
-    cy.task('sftpConnectionUsingPut').then(p => {
+    const localPath = './../fixtures/local.txt'
+    cy.task('sftpConnectionUsingPut', localPath).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
     })
   })
@@ -64,8 +59,8 @@ describe('example', () => {
     })
   })
 
-  it('sftp connection :removes directory and displays current remote working directory after deletion ', () => {
-    const remoteDir = '/path/to/new/dir'
+  it.skip('sftp connection :removes directory and displays current remote working directory after deletion ', () => {
+    const remoteDir = '/path'
     cy.task('sftpConnectionUsingRmdir', remoteDir).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
     })

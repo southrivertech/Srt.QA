@@ -131,14 +131,14 @@ module.exports = async (on, config) => {
 
   // sftp connection task which will put data stream to remote location using put() command
   on('task', {
-    sftpConnectionUsingPut () {
+    sftpConnectionUsingPut (localPath) {
       return sftp.connect({
         host: 'beta.southrivertech.com',
         port: '2200',
         username: 'testsftp',
         password: '123456'
       }).then(() => {
-        return sftp.fastPut('cypress/fixtures/local.txt', '/path/to/new/dir/file2.txt', true)
+        return sftp.fastPut(localPath, '/path/to/new/dir/file2.txt', true)
       })
     }
   })
@@ -179,7 +179,7 @@ module.exports = async (on, config) => {
         username: 'testsftp',
         password: '123456'
       }).then(() => {
-        return sftp.rcopy(remoteFile, '/path/to/new/dir/file3.txt')
+        return sftp.rcopy(remoteFile, '/path/to/new/S.txt')
       })
     }
   })
