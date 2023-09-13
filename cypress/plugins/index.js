@@ -56,15 +56,125 @@ module.exports = async (on, config) => {
     return launchOptions
   })
 
+  // sftp connection task to end the connection
   on('task', {
-    sftpConnection () {
-      sftp.connect({
+    endSFTPConnection () {
+      return sftp.end()
+    }
+  })
+
+  // sftp connection task which will return current remote working directory using cwd() command
+  on('task', {
+    sftpConnectionUsingCWD (command) {
+      return sftp.connect({
         host: 'beta.southrivertech.com',
         port: '2200',
         username: 'testsftp',
         password: '123456'
+      }).then(() => {
+        console.log(command)
+        return sftp.cwd()
       })
-      return Promise.resolve(sftp.list())
+    }
+  })
+
+  // sftp connection task which will create new directory using mkdir()
+  on('task', {
+    sftpConnectionUsingMkdir (remoteDir) {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '2200',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        return sftp.mkdir(remoteDir, true)
+      })
+    }
+  })
+
+  // sftp connection task which will remove directory using rmdir()
+  on('task', {
+    sftpConnectionUsingRmdir (remoteDir) {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '2200',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        return sftp.rmdir(remoteDir, true)
+      })
+    }
+  })
+
+  // sftp connection task which will put data stream to remote location using put() command
+  on('task', {
+    sftpConnectionUsingPut (remoteFile) {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '2200',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        return sftp.put('D:/AutomationSRT/Srt.QA/cypress/fixtures/local.txt', remoteFile, true)
+      })
+    }
+  })
+
+  // sftp connection task which will rename the remote server file using rename command
+  on('task', {
+    sftpConnectionUsingRename () {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '2200',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        return sftp.rename('/BUGS.txt', '/BUGS.txt')
+      })
+    }
+  })
+
+  // sftp connection task which appends text to file on server using appends command
+  on('task', {
+    sftpConnectionUsingAppend (remoteFile) {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '2200',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        return sftp.append(Buffer.from('Hello World'), remoteFile)
+      })
+    }
+  })
+
+  // ftp implicit connection task which will return current remote working directory
+  on('task', {
+    ftpImplicitConnectionUsingCWD (command) {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '9900',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        console.log(command)
+        return sftp.cwd()
+      })
+    }
+  })
+
+  // ftp explicit connection task which will return current remote working directory using cwd() command
+  on('task', {
+    ftpExplicitConnectionUsingCWD (command) {
+      return sftp.connect({
+        host: 'beta.southrivertech.com',
+        port: '21',
+        username: 'testsftp',
+        password: '123456'
+      }).then(() => {
+        console.log(command)
+        return sftp.cwd()
+      })
     }
   })
 }
