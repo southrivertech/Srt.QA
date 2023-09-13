@@ -1,6 +1,6 @@
 describe('example', () => {
   beforeEach(() => {
-    cy.visit('https://beta.southrivertech.com:41443/')
+    cy.visit('/')
   })
 
   it.only('Ftp implicit connection : displays current remote working directory ', () => {
@@ -14,6 +14,6 @@ describe('example', () => {
     })
   })
   afterEach(() => {
-    cy.task('endSFTPConnection')
+    // cy.task('endSFTPConnection')
   })
 })
