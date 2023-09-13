@@ -8,8 +8,8 @@ describe('example', () => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
     })
   })
-  it('Ftp explicit connection : displays current remote working directory', () => {
-    cy.task('ftpExplicitConnectionUsingCWD').then(p => {
+  it('Ftp implicit connection : displays current remote working directory ', () => {
+    cy.task('ftpImplicitConnectionUsingPwd').then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
     })
   })

@@ -18,17 +18,16 @@ const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
 const Client = require('ssh2-sftp-client')
 const sftp = new Client()
 const FTP = require('ftp')
-
+const configFtp = {
+  host: 'beta.southrivertech.com',
+  port: '9900',
+  username: 'testsftp',
+  password: '123456'
+}
 // const rootPath = process.cwd()
 const config = {
   host: 'beta.southrivertech.com',
   port: '2200',
-  username: 'testsftp',
-  password: '123456'
-}
-const configFtp = {
-  host: 'beta.southrivertech.com',
-  port: '9900',
   username: 'testsftp',
   password: '123456'
 }
@@ -161,7 +160,7 @@ module.exports = async (on, config) => {
   // sftp connection task which appends text to file on server using appends command
   on('task', {
     sftpConnectionUsingAppend (remoteFile) {
-      return sftp.connect({
+      sftp.connect({
         host: 'beta.southrivertech.com',
         port: '2200',
         username: 'testsftp',
@@ -201,9 +200,9 @@ module.exports = async (on, config) => {
 
   // ftp implicit connection task which will return current remote working directory
   on('task', {
-    ftpImplicitConnectionUsingPwd (command) {
-      const F = new FTPS(configFtp)
-      return F.pwd
+    ftpImplicitConnectionUsingPwd () {
+      const F = new FTP(configFtp)
+      return F.pwd()
     }
   })
 }
