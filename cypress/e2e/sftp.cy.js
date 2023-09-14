@@ -2,6 +2,13 @@ describe('example', () => {
   beforeEach(() => {
     cy.visit('https://beta.southrivertech.com')
   })
+  const remoteDir = '/path/to/new/dir'
+  const remoteDirFile = '/path/to/new/dir/file.txt'
+  const newRemoteDir = '/path/to/new/dir/file2.txt'
+  const localPath = './../fixtures/local.txt'
+  const localPath2 = './../fixtures/local2.txt'
+  const remoteDirCopy = '/path/to/new/S.txt'
+  const remoteDirPath = '/path'
 
   it('sftp connection : displays current remote working directory ', () => {
     cy.task('sftpConnectionUsingCWD').then(p => {
@@ -11,58 +18,65 @@ describe('example', () => {
   })
 
   it('sftp connection :creates new directory and displays current remote working directory ', () => {
-    const remoteDir = '/path/to/new/dir'
     cy.task('sftpConnectionUsingMkdir', remoteDir).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} directory created"`)
     })
   })
 
-  it('sftp connection :creates new file remote working directory ', () => {
-    const remoteDir = '/path/to/new/dir/file.txt'
-    cy.task('sftpConnectionUsingMkdir', remoteDir).then(p => {
+  it('sftp connection : Upload file from local system to remote server. ', () => {
+    cy.task('sftpConnectionUsingPut', localPath).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"${localPath} was successfully uploaded to ${remoteDirFile}!"`)
     })
   })
 
   it.skip('sftp connection :appends ', () => {
     cy.task('sftpConnectionUsingAppend').then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      // expect(`${JSON.stringify(p)}`).to.equal('"/path/to/new/dir directory created"')
     })
   })
 
   it('sftp connection : Rename remote file ', () => {
-    const remoteDir = '/path/to/new/dir/file.txt'
-    const newRemoteDir = '/path/to/new/dir/file2.txt'
-    cy.task('sftpConnectionUsingRename', remoteDir, newRemoteDir).then(p => {
+    cy.task('sftpConnectionUsingRename').then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"Successfully renamed ${remoteDirFile} to ${newRemoteDir}"`)
     })
   })
 
-  it.skip('sftp connection : copy file from local system to remote server. ', () => {
-    const remoteDir = '/path/to/new/dir/BUGS.txt'
-    cy.task('sftpConnectionUsingRCopy', remoteDir).then(p => {
+  it('sftp connection : copy file from local to remote server. ', () => {
+    cy.task('sftpConnectionUsingRCopy').then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} copied to ${remoteDirCopy}"`)
     })
   })
 
-  it('sftp connection : Upload file from local system to remote server. ', () => {
-    const localPath = './../fixtures/local.txt'
-    cy.task('sftpConnectionUsingPut', localPath).then(p => {
+  it('sftp connection : download file from remote server to Local.', () => {
+    cy.task('sftpConnectionUsingFastGet', localPath2).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"${localPath2} was successfully download to ${newRemoteDir}!"`)
     })
   })
 
   it('sftp connection :removes file and displays current remote working directory after deletion ', () => {
-    const remoteDir = '/path/to/new/dir/file2.txt'
-    cy.task('sftpConnectionUsingDelete', remoteDir).then(p => {
+    cy.task('sftpConnectionUsingDelete', newRemoteDir).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${newRemoteDir}"`)
     })
   })
 
-  it.skip('sftp connection :removes directory and displays current remote working directory after deletion ', () => {
-    const remoteDir = '/path'
-    cy.task('sftpConnectionUsingRmdir', remoteDir).then(p => {
+  it('sftp connection :removes file and displays current remote working directory after deletion ', () => {
+    cy.task('sftpConnectionUsingDelete', remoteDirCopy).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${remoteDirCopy}"`)
+    })
+  })
+
+  it('sftp connection :removes directory and displays current remote working directory after deletion ', () => {
+    cy.task('sftpConnectionUsingRmdir', remoteDirPath).then(p => {
+      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal('"Successfully removed directory"')
     })
   })
 

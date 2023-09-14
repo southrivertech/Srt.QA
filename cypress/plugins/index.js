@@ -45,7 +45,12 @@ module.exports = async (on, config) => {
   /**
    * Details on how to use downloadFile plugin
   */
-
+  const configSFTP = {
+    host: 'beta.southrivertech.com',
+    port: '2200',
+    username: 'testsftp',
+    password: '123456'
+  }
   // ftp implicit connection task which will return current remote working directory
   on('task', {
     ftpImplicitConnectionUsingPwd () {
@@ -89,112 +94,90 @@ module.exports = async (on, config) => {
   // sftp connection task which will return current remote working directory using cwd() command
   on('task', {
     sftpConnectionUsingCWD (command) {
-      return sftp.connect({
-        host: 'beta.southrivertech.com',
-        port: '2200',
-        username: 'testsftp',
-        password: '123456'
-      }).then(() => {
-        console.log(command)
-        return sftp.cwd()
-      })
+      return sftp.connect(configSFTP)
+        .then(() => {
+          console.log(command)
+          return sftp.cwd()
+        })
     }
   })
 
   // sftp connection task which will create new directory using mkdir()
   on('task', {
     sftpConnectionUsingMkdir (remoteDir) {
-      return sftp.connect({
-        host: 'beta.southrivertech.com',
-        port: '2200',
-        username: 'testsftp',
-        password: '123456'
-      }).then(() => {
-        return sftp.mkdir(remoteDir, true)
-      })
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.mkdir(remoteDir, true)
+        })
     }
   })
 
   // sftp connection task which will remove directory using rmdir()
   on('task', {
     sftpConnectionUsingRmdir (remoteDir) {
-      return sftp.connect({
-        host: 'beta.southrivertech.com',
-        port: '2200',
-        username: 'testsftp',
-        password: '123456'
-      }).then(() => {
-        return sftp.rmdir(remoteDir, true)
-      })
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.rmdir(remoteDir, true)
+        })
     }
   })
 
   // sftp connection task which will put data stream to remote location using put() command
   on('task', {
     sftpConnectionUsingPut (localPath) {
-      return sftp.connect({
-        host: 'beta.southrivertech.com',
-        port: '2200',
-        username: 'testsftp',
-        password: '123456'
-      }).then(() => {
-        return sftp.fastPut(localPath, '/path/to/new/dir/file2.txt', true)
-      })
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.fastPut(localPath, '/path/to/new/dir/file.txt', true)
+        })
+    }
+  })
+
+  // sftp connection task which will put data stream to remote location using put() command
+  on('task', {
+    sftpConnectionUsingFastGet (localPath2) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.fastGet('/path/to/new/dir/file2.txt', localPath2, true)
+        })
     }
   })
 
   // sftp connection task which will rename the remote server file using rename command
   on('task', {
     sftpConnectionUsingRename () {
-      return sftp.connect({
-        host: 'beta.southrivertech.com',
-        port: '2200',
-        username: 'testsftp',
-        password: '123456'
-      }).then(() => {
-        return sftp.rename('/path/to/new/dir/file.txt', '/path/to/new/dir/file2.txt')
-      })
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.rename('/path/to/new/dir/file.txt', '/path/to/new/dir/file2.txt')
+        })
     }
   })
 
   // sftp connection task which appends text to file on server using appends command
   on('task', {
     sftpConnectionUsingAppend (remoteFile) {
-      sftp.connect({
-        host: 'beta.southrivertech.com',
-        port: '2200',
-        username: 'testsftp',
-        password: '123456'
-      }).then(() => {
-        return sftp.append(Buffer.from('Hello World'), '/BUGS.txt')
-      })
+      sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.append(Buffer.from('Hello World'), '/path/to/new/dir/file.txt')
+        })
     }
   })
   // sftp connection task which appends text to file on server using appends command
   on('task', {
-    sftpConnectionUsingRCopy (remoteFile) {
-      return sftp.connect({
-        host: 'beta.southrivertech.com',
-        port: '2200',
-        username: 'testsftp',
-        password: '123456'
-      }).then(() => {
-        return sftp.rcopy(remoteFile, '/path/to/new/S.txt')
-      })
+    sftpConnectionUsingRCopy () {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.rcopy('/path/to/new/dir/file2.txt', '/path/to/new/S.txt')
+        })
     }
   })
 
   // sftp connection task which deletes file on server using delete command
   on('task', {
     sftpConnectionUsingDelete (remoteFile) {
-      return sftp.connect({
-        host: 'beta.southrivertech.com',
-        port: '2200',
-        username: 'testsftp',
-        password: '123456'
-      }).then(() => {
-        return sftp.delete(remoteFile)
-      })
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.delete(remoteFile)
+        })
     }
   })
 

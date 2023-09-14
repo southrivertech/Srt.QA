@@ -1,2 +1,2 @@
 
-This file is created for Testing fastPut command for SFTP
+This file is created for Testing commands for SFTP
