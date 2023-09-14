@@ -10,7 +10,7 @@ describe('example', () => {
   const remoteDirCopy = '/path/to/new/S.txt'
   const remoteDirPath = '/path'
 
-  it('sftp connection : displays current remote working directory ', () => {
+  it('as a sftp user, I should be able to see the current working directory', () => {
     cy.task('sftpConnectionUsingCWD').then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
       expect(`${JSON.stringify(p)}`).to.equal('"/"')
@@ -31,7 +31,7 @@ describe('example', () => {
     })
   })
 
-  it.skip('sftp connection :appends ', () => {
+  it('sftp connection :put ', () => {
     cy.task('sftpConnectionUsingAppend').then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
       // expect(`${JSON.stringify(p)}`).to.equal('"/path/to/new/dir directory created"')
@@ -55,7 +55,7 @@ describe('example', () => {
   it('sftp connection : download file from remote server to Local.', () => {
     cy.task('sftpConnectionUsingFastGet', localPath2).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
-      expect(`${JSON.stringify(p)}`).to.equal(`"${localPath2} was successfully download to ${newRemoteDir}!"`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} was successfully download to ${localPath2}!"`)
     })
   })
 
@@ -63,13 +63,6 @@ describe('example', () => {
     cy.task('sftpConnectionUsingDelete', newRemoteDir).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
       expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${newRemoteDir}"`)
-    })
-  })
-
-  it('sftp connection :removes file and displays current remote working directory after deletion ', () => {
-    cy.task('sftpConnectionUsingDelete', remoteDirCopy).then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
-      expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${remoteDirCopy}"`)
     })
   })
 

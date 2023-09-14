@@ -155,9 +155,15 @@ module.exports = async (on, config) => {
   // sftp connection task which appends text to file on server using appends command
   on('task', {
     sftpConnectionUsingAppend (remoteFile) {
-      sftp.connect(configSFTP)
+      return sftp.connect(configSFTP)
         .then(() => {
-          return sftp.append(Buffer.from('Hello World'), '/path/to/new/dir/file.txt')
+          return sftp.put(Buffer.from(' Text to add in the file'), '/path/to/new/dir/file.txt', {
+            writeStreamOptions: {
+              flags: 'a', // w - write and a - append
+              encoding: 'utf-8', // use null for binary files
+              mode: 0o666 // mode to use for created file (rwx)
+            }
+          })
         })
     }
   })
