@@ -13,30 +13,8 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-
-const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
 const Client = require('ssh2-sftp-client')
 const sftp = new Client()
-const FTP = require('ftp')
-const configFtp = {
-  host: 'beta.southrivertech.com',
-  port: '9900',
-  username: 'testsftp',
-  password: '123456'
-}
-// const rootPath = process.cwd()
-const config = {
-  host: 'beta.southrivertech.com',
-  port: '2200',
-  username: 'testsftp',
-  password: '123456'
-}
-
-const uploadFileToRemote = () => {
-  return sftp.connect(config).then(() => {
-    return sftp.list('/')
-  })
-}
 
 module.exports = async (on, config) => {
   // `on` is used to hook into various events Cypress emits
@@ -51,38 +29,6 @@ module.exports = async (on, config) => {
     username: 'testsftp',
     password: '123456'
   }
-  // ftp implicit connection task which will return current remote working directory
-  on('task', {
-    ftpImplicitConnectionUsingPwd () {
-      // const c = new FTP()
-      return new FTP({
-        host: 'beta.southrivertech.com',
-        port: '9900',
-        username: 'testsftp',
-        password: '123456'
-      }).then((c) => {
-        return c.pwd()
-      })
-    }
-  })
-
-  on('task', {
-    uploadPremiseFile: () => {
-      // console.log('rootPath:', rootPath)
-      // console.log('Start upload file: ', Obj.localPath)
-      return uploadFileToRemote()
-    }
-  })
-
-  on('task', { downloadFile })
-
-  on('before:browser:launch', (browser, launchOptions) => {
-    if (browser.name === 'chrome') {
-      launchOptions.args.push('--disable-features=CrossSiteDocumentBlockingIfIsolating' +
-        'CrossSiteDocumentBlockingAlways,IsolateOrigins,site-per-process')
-    }
-    return launchOptions
-  })
 
   // sftp connection task to end the connection
   on('task', {
@@ -184,14 +130,6 @@ module.exports = async (on, config) => {
         .then(() => {
           return sftp.delete(remoteFile)
         })
-    }
-  })
-
-  // ftp implicit connection task which will delete directory
-  on('task', {
-    ftpImplicitConnectionUsingPwd () {
-      const F = new FTP(configFtp)
-      return F.pwd()
     }
   })
 }
