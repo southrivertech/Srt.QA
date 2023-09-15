@@ -12,63 +12,55 @@ describe('example', () => {
 
   it('as a sftp user, I should be able to see the current working directory', () => {
     cy.task('sftpCurrentWorkingDirectory').then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
       expect(`${JSON.stringify(p)}`).to.equal('"/"')
     })
   })
 
-  it('as a sftp user, I should be able to create directory', () => {
-    cy.task('sftpCreateAndDisplayDirectory', remoteDir).then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+  it('as a sftp user, I should be able to create a directory', () => {
+    cy.task('sftpCreateDirectory', remoteDir).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} directory created"`)
     })
   })
 
-  it('as a sftp user, I should be able to upload file from local to remote', () => {
-    cy.task('sftpUploadFileFromLocalToRemote', localPath).then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+  it('as a sftp user, I should be able to upload a file', () => {
+    cy.task('sftpUploadFile', { localPath, remoteDirFile }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal(`"${localPath} was successfully uploaded to ${remoteDirFile}!"`)
     })
   })
 
-  it('as a sftp user, I should be able to read and write remote file', () => {
-    cy.task('sftpReadWriteRemoteFile').then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
-      // expect(`${JSON.stringify(p)}`).to.equal('"/path/to/new/dir directory created"')
+  it('as a sftp user, I should be able to edit an existing file', () => {
+    cy.task('sftpEditFile', remoteDirFile).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal(`"Uploaded data stream to ${remoteDirFile}"`)
     })
   })
 
   it('as a sftp user, I should be able to rename remote file', () => {
-    cy.task('sftpRenameRemoteFile').then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+    cy.task('sftpRenameFile', { remoteDirFile, newRemoteDir }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal(`"Successfully renamed ${remoteDirFile} to ${newRemoteDir}"`)
     })
   })
 
-  it('as a sftp user, I should be able to copy file from local to remote', () => {
-    cy.task('sftpCopyFileFromLocalToRemote').then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+  it('as a sftp user, I should be able to copy file', () => {
+    cy.task('sftpCopyFile', { newRemoteDir, remoteDirCopy }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} copied to ${remoteDirCopy}"`)
     })
   })
 
   it('as a sftp user, I should be able to download file from remote to local', () => {
-    cy.task('sftpDownLoadFileFromRemoteToLocal', localPath2).then(p => {
+    cy.task('sftpDownLoadFile', { newRemoteDir, localPath2 }).then(p => {
       cy.log(`Remote working directory is ${JSON.stringify(p)}`)
       expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} was successfully download to ${localPath2}!"`)
     })
   })
 
   it('as a sftp user, I should be able to delete a file from remote', () => {
-    cy.task('sftpDeleteRemoteFile', newRemoteDir).then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+    cy.task('sftpDeleteFile', newRemoteDir).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${newRemoteDir}"`)
     })
   })
 
   it('as a sftp user, I should be able to delete remote directory', () => {
-    cy.task('sftpDeleteRemoteDirectory', remoteDirPath).then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+    cy.task('sftpRemoveDirectory', remoteDirPath).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"Successfully removed directory"')
     })
   })
