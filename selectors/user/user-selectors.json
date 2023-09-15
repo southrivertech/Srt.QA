@@ -11,6 +11,6 @@
     "parentUsers" : ".MuiListItemText-root",
     "assignedGroupParent" : ".ReactVirtualized__Grid__innerScrollContainer",
     "successMessage"  : "#client-snackbar",
-    "userPageHeading": "MuiTypography-colorSecondary",
+    "userPageHeading": ".MuiTypography-colorSecondary",
     "emailAddressField" : "[id='Email Address']"
 }
