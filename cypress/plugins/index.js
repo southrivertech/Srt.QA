@@ -13,6 +13,8 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+
+const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
 const Client = require('ssh2-sftp-client')
 const sftp = new Client()
 
@@ -23,6 +25,9 @@ module.exports = async (on, config) => {
   /**
    * Details on how to use downloadFile plugin
   */
+
+  on('task', { downloadFile })
+
   const configSFTP = {
     host: 'beta.southrivertech.com',
     port: '2200',
