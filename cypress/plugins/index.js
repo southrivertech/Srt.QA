@@ -17,6 +17,7 @@
 const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
 const Client = require('ssh2-sftp-client')
 const sftp = new Client()
+const FtpClient = require('ftps')
 
 module.exports = async (on, config) => {
   // `on` is used to hook into various events Cypress emits
@@ -31,6 +32,13 @@ module.exports = async (on, config) => {
   const configSFTP = {
     host: 'beta.southrivertech.com',
     port: '2200',
+    username: 'testsftp',
+    password: '123456'
+  }
+
+  const configFTP = {
+    host: 'beta.southrivertech.com',
+    port: '9900',
     username: 'testsftp',
     password: '123456'
   }
@@ -92,7 +100,7 @@ module.exports = async (on, config) => {
     }
   })
 
-  // sftp connection task which will rename the remote server file using rename command
+  // sftp connection task which will rename the remote server file or directory using rename command
   on('task', {
     sftpRenameFile (opts) {
       return sftp.connect(configSFTP)
@@ -134,6 +142,24 @@ module.exports = async (on, config) => {
         .then(() => {
           return sftp.delete(remoteFile)
         })
+    }
+  })
+
+  // sftp command is used to change permission(read, write, execute) for a file or directory
+  on('task', {
+    sftpChmod (remoteFile) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.chmod(remoteFile, '0o644')
+        })
+    }
+  })
+
+  // sftp command is used to create directory
+  on('task', {
+    ftpCreateWorkingDirectory (remoteFile) {
+      const ftps = new FtpClient(configFTP)
+      return ftps.cd(remoteFile).addFile('./test.txt').exec(console.log)
     }
   })
 }

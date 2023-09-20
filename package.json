@@ -33,6 +33,7 @@
     "cypress-slow-down": "^1.2.1",
     "cypress-wait-until": "1.7.2",
     "dayjs": "^1.11.7",
+    "ftps": "^1.2.0",
     "puppeteer": "^19.8.0",
     "ssh2-sftp-client": "^9.1.0"
   }
