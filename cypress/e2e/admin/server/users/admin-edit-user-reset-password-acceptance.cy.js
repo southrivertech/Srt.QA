@@ -2,6 +2,7 @@ import label from '../../../../fixtures/label.json'
 import userSelectors from '../../../../../selectors/user/user-selectors.json'
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
+import { slowCypressDown } from 'cypress-slow-down'
 
 /**
  * @description
@@ -22,6 +23,8 @@ import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
  * - user should have valid credentials
  * - an existing user should exist for editing
  */
+
+slowCypressDown(300)
 
 describe('Login > {existing server} > existing users > edit > set user password', () => {
   const adminData = Cypress.env('admin')

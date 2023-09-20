@@ -1,6 +1,7 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import userSelectors from '../../../../../selectors/user/user-selectors.json'
 import label from '../../../../fixtures/label.json'
+import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description
  * This spec file contains test to verify that admin user can create users for an existing server
@@ -20,6 +21,8 @@ import label from '../../../../fixtures/label.json'
  * Pre-Requisite data:
  * - user should have valid credentials
  */
+
+slowCypressDown(300)
 
 describe('Login > {existing server} > users > add new user', () => {
   const adminData = Cypress.env('admin')

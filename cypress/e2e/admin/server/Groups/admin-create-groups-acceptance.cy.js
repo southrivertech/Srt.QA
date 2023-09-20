@@ -1,6 +1,7 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import groupSelectors from '../../../../../selectors/groups/groups-selectors.json'
 import label from '../../../../fixtures/label.json'
+import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description
  * This spec file contains test to verify that admin user can create Groups for an existing server
@@ -19,6 +20,8 @@ import label from '../../../../fixtures/label.json'
  * Pre-Requisite data:
  * - user should have valid credentials
  */
+
+slowCypressDown(300)
 
 describe('Login > {existing server} > users', () => {
   const adminData = Cypress.env('admin')

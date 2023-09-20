@@ -24,5 +24,5 @@ Cypress.Commands.add('createGroup', (groupDetails) => {
   })
   cy.enterText(label.groupName, groupDetails.groupName)
   cy.clickButton(label.next)
-  cy.clickButton(label.Finish)
+  cy.clickButton(label.finish)
 })

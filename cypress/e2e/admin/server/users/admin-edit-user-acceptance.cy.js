@@ -1,6 +1,7 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../fixtures/label.json'
 import userSelectors from '../../../../../selectors/user/user-selectors.json'
+import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description
  * This spec file contains test to verify that admin user can edit users for an existing server
@@ -20,6 +21,8 @@ import userSelectors from '../../../../../selectors/user/user-selectors.json'
  * - user should have valid credentials
  * - an existing user should exist
  */
+
+slowCypressDown(300)
 
 describe('Login > {existing server} > users > edit', () => {
   const adminData = Cypress.env('admin')
