@@ -15,7 +15,6 @@
     "cypress-downloadfile": "^1.2.3",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-network-idle": "^1.14.2",
-    "cypress-slow-down": "^1.2.1",
     "eslint": "^8.36.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
