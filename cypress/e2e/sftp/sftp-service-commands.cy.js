@@ -10,8 +10,9 @@ describe('example', () => {
   const remoteDirCopy = '/path/to/new/S.txt'
   const remoteDirPath = '/path'
 
-  it('as a sftp user, I should be able to see the current working directory', () => {
+  it.only('as a sftp user, I should be able to see the current working directory', () => {
     cy.task('sftpCurrentWorkingDirectory').then(p => {
+      cy.log(JSON.stringify(p))
       expect(`${JSON.stringify(p)}`).to.equal('"/"')
     })
   })
