@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - sftp-permission
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
