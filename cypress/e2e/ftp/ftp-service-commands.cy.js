@@ -15,7 +15,8 @@ describe('example', () => {
 
   it('as a ftp user, I should be able to see the current working directory', () => {
     cy.task('ftpCreateWorkingDirectory', remoteDir).then(p => {
-      //     expect(`${JSON.stringify(p)}`).to.equal('"/"')
+      console.log(p)
+      // expect(`${JSON.stringify(p)}`).to.equal('"/"')
     })
   })
 })
