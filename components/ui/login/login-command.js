@@ -21,6 +21,13 @@ import label from '../../../cypress/fixtures/label.json'
 
 Cypress.Commands.add('login', (baseUrl, username, password) => {
 //   const baseUrl = Cypress.env('baseUrl')}
+  cy.postApiLogin()
+  cy.waitForNetworkIdlePrepare({
+    method: 'POST',
+    pattern: '**WebApi/Login**',
+    alias: 'postApiLogin',
+    log: false
+  })
   cy.visit(Cypress.env('baseUrl'))
   let loginURL
   if (baseUrl.includes(':')) {
@@ -34,4 +41,7 @@ Cypress.Commands.add('login', (baseUrl, username, password) => {
   cy.get(loginSelectors.inputUsername).type(username)
   cy.get(loginSelectors.inputPassword).type(password)
   cy.get(loginSelectors.loginButton).contains(label.login).click()
+  cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
+  cy.url().should('include', label.homeUrlText)
+  cy.waitApiResponseStatusCode('@postApiLogin', 200)
 })
