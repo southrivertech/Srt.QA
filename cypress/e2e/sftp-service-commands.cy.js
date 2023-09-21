@@ -5,7 +5,7 @@ describe('example', () => {
   const remoteDir = '/path/to/new/dir'
   const remoteDirFile = '/path/to/new/dir/file.txt'
   const newRemoteDir = '/path/to/new/dir/file2.txt'
-  const localPath = './../fixtures/local.txt'
+  const localPath = './../fixtures'
   const localPath2 = './../fixtures/local2.txt'
   const remoteDirCopy = '/path/to/new/S.txt'
   const remoteDirPath = '/path'
@@ -31,6 +31,18 @@ describe('example', () => {
   it('as a sftp user, I should be able to edit an existing file', () => {
     cy.task('sftpEditFile', remoteDirFile).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal(`"Uploaded data stream to ${remoteDirFile}"`)
+    })
+  })
+
+  it('as a sftp user, I should be able to upload a directory', () => {
+    cy.task('sftpUploadDirectory', { localPath, remoteDirPath }).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} directory created"`)
+    })
+  })
+
+  it('as a sftp user, I should be able to download a directory', () => {
+    cy.task('sftpDownloadDirectory', { localPath, remoteDirPath }).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} directory created"`)
     })
   })
 
@@ -60,7 +72,7 @@ describe('example', () => {
   })
 
   it('as a sftp user, I should be able to delete remote directory', () => {
-    cy.task('sftpRemoveDirectory', remoteDirPath).then(p => {
+    cy.task('sftpUpload Directory', remoteDirPath).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"Successfully removed directory"')
     })
   })

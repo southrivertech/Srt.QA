@@ -102,6 +102,26 @@ module.exports = async (on, config) => {
     }
   })
 
+  // sftp connection task which will upload directory
+  on('task', {
+    sftpUploadDirectory (opts) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.uploadDir(opts.localPath, opts.remoteDirFile, true)
+        })
+    }
+  })
+
+  // sftp connection task which will delete directory
+  on('task', {
+    sftpDownloadDirectory (opts) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.downloadDir(opts.remoteDirFile, opts.localPath, true)
+        })
+    }
+  })
+
   // sftp connection task which read write text to file on server using put() command
   on('task', {
     sftpEditFile (remoteDirFile) {
