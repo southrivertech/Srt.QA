@@ -73,5 +73,8 @@
   "download" : "Download",
   "RelaseNotes": "Relase Notes",
   "ReleaseNotesURL": "https://www.southrivertech.com/software/nextgen/titanmft/en/relnotes.pdf",
-  "downloadURL": "https://www.southrivertech.com/software/nextgen/titanmft/titanmft-win-x64.exe"
+  "downloadURL": "https://www.southrivertech.com/software/nextgen/titanmft/titanmft-win-x64.exe",
+  "add" : "Add",
+  "select" : "Select",
+  "sendText" : "Send"
 }
