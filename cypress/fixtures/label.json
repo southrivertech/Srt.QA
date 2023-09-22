@@ -76,5 +76,13 @@
   "downloadURL": "https://www.southrivertech.com/software/nextgen/titanmft/titanmft-win-x64.exe",
   "add" : "Add",
   "select" : "Select",
-  "sendText" : "Send"
+  "sendText" : "Send",
+  "rename" : "Rename",
+  "autoFolder1" : "autoFolder1",
+  "autoFolder2" : "autoFolder2",
+  "twoItem" : "2 item",
+  "link" : "Link",
+  "myComputer" : "My Computer",
+  "sftpUser" : "testsftp",
+  "qaAutoFolder" : "qa-do-not-delete-folder"
 }

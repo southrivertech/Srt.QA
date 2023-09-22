@@ -1,0 +1,158 @@
+import label from '../../fixtures/label.json'
+import htmlSelectors from '../../../selectors/htlm-tag-selectors.json'
+import userDirSelectors from '../../../selectors/user-dir-selectors.json'
+import { slowCypressDown } from 'cypress-slow-down'
+/**
+/**
+ * @description
+ * This spec file contains test to verify bulk users directory operations
+ *
+ * @file
+ * Srt.QA\cypress\e2e\user\user-directory-bulk-commands-acceptance.cy.js
+ *
+ * @breadcrumb
+ * Login > {existing user}
+ *
+ * @assertions
+ * verify user can create multiple directories
+ * verify user can download multiple directories
+ * verify user can share multiple directories
+ * verify user can move multiple directories
+ * verify user can copy multiple directories
+ * verify user can delete multiple directories
+ *
+ * @prerequisites
+ * Pre-Requisite data:
+ * - user should have valid credentials
+ */
+slowCypressDown(100)
+describe('Login > {existing user}', () => {
+  const userData = Cypress.env('user')
+  const userInfo = {
+    username: userData.Username,
+    password: userData.Password
+  }
+
+  beforeEach('login', () => {
+    cy.postApiLogin()
+    cy.waitForNetworkIdlePrepare({
+      method: 'POST',
+      pattern: '**WebApi/Login**',
+      alias: 'postApiLogin',
+      log: false
+    })
+    cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
+    cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
+  })
+
+  it('verify user can create multiple directories', () => {
+    cy.get(userDirSelectors.addFolderIcon).click()
+    cy.get(userDirSelectors.folderNameField).type(label.autoFolder1)
+    cy.get(userDirSelectors.buttonList).contains(label.add).click()
+    cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('be.visible')
+    cy.get(userDirSelectors.addFolderIcon).click()
+    cy.get(userDirSelectors.folderNameField).type(label.autoFolder2)
+    cy.get(userDirSelectors.buttonList).contains(label.add).click()
+    cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('be.visible')
+  })
+
+  it('verify user can download multiple directories', () => {
+    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.parentUsers, label.twoItem)
+      .next(htmlSelectors.div).within(() => {
+        cy.get(userDirSelectors.buttonList).eq(0).click()
+      })
+  })
+
+  it('verify user can share multiple directories', () => {
+    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.parentUsers, label.twoItem)
+      .next(htmlSelectors.div).within(() => {
+        cy.get(userDirSelectors.buttonList).eq(1).click()
+      })
+    cy.get(userDirSelectors.shareAsField).type(label.link)
+    cy.get(userDirSelectors.toField).click()
+    cy.get(userDirSelectors.toField).type(label.sftpUser)
+    cy.get(userDirSelectors.buttonList).contains(label.next).click()
+    cy.get(userDirSelectors.buttonList).contains(label.next).click()
+    cy.get(userDirSelectors.buttonList).contains(label.sendText).click()
+  })
+
+  it('verify user can move multiple directories', () => {
+    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.parentUsers, label.twoItem)
+      .next(htmlSelectors.div).within(() => {
+        cy.get(userDirSelectors.buttonList).eq(2).click()
+      })
+    cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
+    cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
+    cy.get(userDirSelectors.buttonList).contains(label.select).click()
+    cy.wait(4000)
+    cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
+    cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('be.visible')
+
+    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.parentUsers, label.twoItem)
+      .next(htmlSelectors.div).within(() => {
+        cy.get(userDirSelectors.buttonList).eq(2).click()
+      })
+    cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
+    cy.get(userDirSelectors.buttonList).contains(label.select).click()
+    cy.wait(4000)
+    cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('not.exist')
+    cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('not.exist')
+  })
+
+  it('verify user can copy multiple directories', () => {
+    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.parentUsers, label.twoItem)
+      .next(htmlSelectors.div).within(() => {
+        cy.get(userDirSelectors.buttonList).eq(3).click()
+      })
+    cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
+    cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
+    cy.get(userDirSelectors.buttonList).contains(label.select).click()
+    cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
+
+    cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains('..').click()
+  })
+
+  it('verify user can delete multiple directories', () => {
+    cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.parentUsers, label.twoItem)
+      .next(htmlSelectors.div).within(() => {
+        cy.get(userDirSelectors.buttonList).eq(4).click()
+      })
+    cy.get(userDirSelectors.folderNames).contains('..').click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.parentUsers, label.twoItem)
+      .next(htmlSelectors.div).within(() => {
+        cy.get(userDirSelectors.buttonList).eq(4).click()
+      })
+  })
+})
