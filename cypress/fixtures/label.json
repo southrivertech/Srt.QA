@@ -85,4 +85,6 @@
   "myComputer" : "My Computer",
   "sftpUser" : "testsftp",
   "qaAutoFolder" : "qa-do-not-delete-folder"
+  "regCodeValidationTextLength" : "Invalid format. Format:",
+  "regCodeValidationTextFormat" : "Invalid length. Format:"
 }

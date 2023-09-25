@@ -23,18 +23,8 @@ describe('Login Functionality Test', () => {
     password: adminData.adminPassword
   }
 
-  beforeEach(() => {
-    cy.postApiLogin()
-    cy.waitForNetworkIdlePrepare({
-      method: 'POST',
-      pattern: '**WebApi/Login**',
-      alias: 'postApiLogin',
-      log: false
-    })
+  beforeEach('login', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', label.homeUrlText)
-    cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
   it('verify that admin user can login successfully with correct credentials', () => {

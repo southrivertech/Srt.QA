@@ -92,12 +92,32 @@ module.exports = async (on, config) => {
     }
   })
 
-  // sftp connection task which will rename the remote server file using rename command
+  // sftp connection task which will rename the remote server file or directory using rename command
   on('task', {
     sftpRenameFile (opts) {
       return sftp.connect(configSFTP)
         .then(() => {
           return sftp.rename(opts.remoteDirFile, opts.newRemoteDir)
+        })
+    }
+  })
+
+  // sftp connection task which will upload directory
+  on('task', {
+    sftpUploadDirectory (opts) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.uploadDir(opts.localPath, opts.remoteDirFile, true)
+        })
+    }
+  })
+
+  // sftp connection task which will delete directory
+  on('task', {
+    sftpDownloadDirectory (opts) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.downloadDir(opts.remoteDirFile, opts.localPath, true)
         })
     }
   })
@@ -143,6 +163,16 @@ module.exports = async (on, config) => {
       return sftp.connect(configSFTP)
         .then(() => {
           return sftp.delete(remoteFile)
+        })
+    }
+  })
+
+  // sftp command is used to change permission(read, write, execute) for a file or directory
+  on('task', {
+    sftpChmod (remoteFile) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.chmod(remoteFile, '0o644')
         })
     }
   })

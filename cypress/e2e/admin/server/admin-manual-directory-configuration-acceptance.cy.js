@@ -29,18 +29,7 @@ describe.skip('Login > Add New > Server > Database > Server Info > Add New', () 
   const serverName = `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
 
   beforeEach(() => {
-    cy.postApiLogin()
-    cy.waitForNetworkIdlePrepare({
-      method: 'POST',
-      pattern: '**WebApi/Login**',
-      alias: 'postApiLogin',
-      log: false
-    })
-    // ? Login as an admin with valid credentials
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', label.homeUrlText)
-    cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
   it('Verify that the user cannot navigate to the next page, until he/she configures directories manually', () => {

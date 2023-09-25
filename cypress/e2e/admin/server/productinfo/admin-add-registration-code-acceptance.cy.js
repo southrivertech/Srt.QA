@@ -1,6 +1,7 @@
 import label from '../../../../fixtures/label.json'
 import dashboardSelectors from '../../../../../selectors/dashboard-selectors.json'
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
+import productInfoSelectors from '../../../../../selectors/productinfo/product-info-selectors.json'
 
 /**
  * @description
@@ -34,14 +35,16 @@ describe('Login > home > product info tab', () => {
   it('verify product info tab columns name', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.home).click()
     cy.get(dashboardSelectors.homeTabs).contains(label.productInfo).click()
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.product)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.version)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.productEdition)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.active)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.licenseType)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.licenseStatus)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.expiration)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.registrationCode)
-    cy.checkTextVisibility(dashboardSelectors.productInfoColName, label.delete)
+    cy.get(productInfoSelectors.fabLabel).eq(1).click()
+    cy.get(productInfoSelectors.registrationCodeField).type(label.helpEnglish)
+    cy.get(productInfoSelectors.dashboardButtonLabel).contains(label.add).click()
+    cy.checkTextVisibility(productInfoSelectors.registrationValidationText, label.regCodeValidationTextFormat)
+    cy.get(productInfoSelectors.registrationValidationText).invoke('text').then((text) => {
+      const splitText = text.split(':')
+      cy.get(productInfoSelectors.registrationCodeField).clear()
+      cy.get(productInfoSelectors.registrationCodeField).type(splitText[1])
+      cy.get(productInfoSelectors.dashboardButtonLabel).contains(label.add).click()
+      cy.checkTextVisibility(productInfoSelectors.registrationValidationText, label.regCodeValidationTextLength)
+    })
   })
 })

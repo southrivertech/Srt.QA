@@ -32,7 +32,54 @@ describe('Login > {existing user}', () => {
     username: userData.Username,
     password: userData.Password
   }
-  let folderName = 'autoFolder'
+  const folderName = 'autoFolder'
+  const folderName2 = 'autoFolderNew'
+
+  Cypress.Commands.add('dotNavigation', (operation) => {
+    cy.contains(htmlSelectors.div, folderName).parents(userDirSelectors.parentCell)
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).click()
+
+    switch (operation) {
+      case 'Download':
+        cy.get(userDirSelectors.editParent).eq(5).within(() => {
+          cy.get(userDirSelectors.buttonList).eq(0).click()
+        })
+        break
+      case 'Share':
+        cy.get(userDirSelectors.editParent).eq(5).within(() => {
+          cy.get(userDirSelectors.buttonList).eq(1).click()
+        })
+        break
+      case 'Drop Zone':
+        cy.get(userDirSelectors.editParent).eq(5).within(() => {
+          cy.get(userDirSelectors.buttonList).eq(2).click()
+        })
+        break
+      case 'Rename':
+        cy.get(userDirSelectors.editParent).eq(5).within(() => {
+          cy.get(userDirSelectors.buttonList).eq(3).click()
+        })
+        break
+      case 'Move':
+        cy.get(userDirSelectors.editParent).eq(5).within(() => {
+          cy.get(userDirSelectors.buttonList).eq(4).click()
+        })
+        break
+      case 'Copy':
+        cy.get(userDirSelectors.editParent).eq(5).within(() => {
+          cy.get(userDirSelectors.buttonList).eq(5).click()
+        })
+        break
+      case 'Delete':
+        cy.get(userDirSelectors.editParent).eq(5).within(() => {
+          cy.get(userDirSelectors.buttonList).eq(6).click()
+        })
+        break
+    }
+  })
   beforeEach('login', () => {
     cy.postApiLogin()
     cy.waitForNetworkIdlePrepare({
@@ -46,24 +93,16 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.addFolderIcon).click()
     cy.get(userDirSelectors.folderNameField).type(folderName)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()
-    cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
-    cy.contains(htmlSelectors.div, folderName).parents(userDirSelectors.parentCell)
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).click()
   })
+  const pathMove = 'qa-do-not-delete-folder/autoFolder'
+  const pathRename = '/autoFolderNew'
 
   it('verify user can download directory', () => {
-    cy.get(userDirSelectors.editParent).eq(5).within(() => {
-      cy.get(userDirSelectors.buttonList).eq(0).click()
-    })
+    cy.dotNavigation('Download')
   })
 
   it('verify user can share directory', () => {
-    cy.get(userDirSelectors.editParent).eq(5).within(() => {
-      cy.get(userDirSelectors.buttonList).eq(1).click()
-    })
+    cy.dotNavigation('Share')
     cy.get(userDirSelectors.shareAsField).type('Link')
     cy.get(userDirSelectors.toField).click()
     cy.get(userDirSelectors.toField).type(label.sftpUser)
@@ -73,9 +112,7 @@ describe('Login > {existing user}', () => {
   })
 
   it('verify user can drop zone directory', () => {
-    cy.get(userDirSelectors.editParent).eq(5).within(() => {
-      cy.get(userDirSelectors.buttonList).eq(2).click()
-    })
+    cy.dotNavigation('Drop Zone')
     cy.get(userDirSelectors.shareAsField).type('Link')
     cy.get(userDirSelectors.toField).click()
     cy.get(userDirSelectors.toField).type(label.sftpUser)
@@ -85,43 +122,39 @@ describe('Login > {existing user}', () => {
   })
 
   it('verify user can rename directory', () => {
-    cy.get(userDirSelectors.editParent).eq(5).within(() => {
-      cy.get(userDirSelectors.buttonList).eq(3).click()
-    })
-    folderName = 'autoFolderNew'
-    const path = '/autoFolderNew'
+    cy.dotNavigation('Rename')
     cy.get(userDirSelectors.folderNameField).eq(1).clear()
-    cy.get(userDirSelectors.folderNameField).eq(1).type(folderName)
+    cy.get(userDirSelectors.folderNameField).eq(1).type(folderName2)
     cy.get(userDirSelectors.buttonList).contains(label.rename).click()
-    cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
-    cy.task('sftpDirectoryExist', path).then(p => {
+    cy.get(userDirSelectors.folderNames).contains(folderName2).should('be.visible')
+    cy.task('sftpDirectoryExist', pathRename).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')
+
+    // changing it back to "autoFolder"
+    cy.dotNavigation('Rename')
+    cy.get(userDirSelectors.folderNameField).eq(1).clear()
+    cy.get(userDirSelectors.folderNameField).eq(1).type(folderName)
+    cy.get(userDirSelectors.buttonList).contains(label.rename).click()
   })
 
-  it.only('verify user can move directory', () => {
-    const path = 'qa-do-not-delete-folder/autoFolder'
-    cy.get(userDirSelectors.editParent).eq(5).within(() => {
-      cy.get(userDirSelectors.buttonList).eq(4).click()
-    })
+  it('verify user can move directory', () => {
+    cy.dotNavigation('Move')
     cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.buttonList).contains(label.select).click()
     cy.wait(4000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
-    cy.task('sftpDirectoryExist', path).then(p => {
+    cy.task('sftpDirectoryExist', pathMove).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')
   })
 
-  it.only('verify user can copy directory', () => {
-    const path = 'qa-do-not-delete-folder/autoFolder'
-    cy.get(userDirSelectors.editParent).eq(5).within(() => {
-      cy.get(userDirSelectors.buttonList).eq(5).click()
-    })
+  it.skip('verify user can copy directory', () => {
+    cy.dotNavigation('Copy')
     cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.buttonList).contains(label.select).click()
@@ -129,20 +162,13 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
     cy.get(userDirSelectors.folderNames).contains('..').click()
-    cy.task('sftpDirectoryExist', path).then(p => {
+    cy.task('sftpDirectoryExist', pathMove).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')
   })
 
   afterEach('deleting a directory', () => {
-    cy.contains(htmlSelectors.div, folderName).parents(userDirSelectors.parentCell)
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).click()
-    cy.get(userDirSelectors.editParent).eq(5).within(() => {
-      cy.get(userDirSelectors.buttonList).eq(6).click()
-    })
+    cy.dotNavigation('Delete')
   })
 })

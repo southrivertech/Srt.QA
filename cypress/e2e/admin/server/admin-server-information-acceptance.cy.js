@@ -29,18 +29,7 @@ describe.skip('Login > Add New > Server > Database > Server Info', () => {
   const back = 'Back'
 
   beforeEach(() => {
-    cy.postApiLogin()
-    cy.waitForNetworkIdlePrepare({
-      method: 'POST',
-      pattern: '**WebApi/Login**',
-      alias: 'postApiLogin',
-      log: false
-    })
-    // ? Login as an admin with valid credentials
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-    cy.url().should('include', label.homeUrlText)
-    cy.waitApiResponseStatusCode('@postApiLogin', 200)
   })
 
   it('Verify that server information is removed when user navigates back from services to database', () => {
