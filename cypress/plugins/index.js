@@ -129,6 +129,16 @@ module.exports = async (on, config) => {
 
   // sftp connection task which deletes file on server using delete command
   on('task', {
+    sftpDirectoryExist (remoteFile) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.exists(remoteFile)
+        })
+    }
+  })
+
+  // sftp connection task which deletes file on server using delete command
+  on('task', {
     sftpDeleteFile (remoteFile) {
       return sftp.connect(configSFTP)
         .then(() => {

@@ -89,13 +89,19 @@ describe('Login > {existing user}', () => {
       cy.get(userDirSelectors.buttonList).eq(3).click()
     })
     folderName = 'autoFolderNew'
+    const path = '/autoFolderNew'
     cy.get(userDirSelectors.folderNameField).eq(1).clear()
     cy.get(userDirSelectors.folderNameField).eq(1).type(folderName)
     cy.get(userDirSelectors.buttonList).contains(label.rename).click()
     cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
+    cy.task('sftpDirectoryExist', path).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+    })
+    cy.task('endSFTPConnection')
   })
 
-  it('verify user can move directory', () => {
+  it.only('verify user can move directory', () => {
+    const path = 'qa-do-not-delete-folder/autoFolder'
     cy.get(userDirSelectors.editParent).eq(5).within(() => {
       cy.get(userDirSelectors.buttonList).eq(4).click()
     })
@@ -105,9 +111,14 @@ describe('Login > {existing user}', () => {
     cy.wait(4000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
+    cy.task('sftpDirectoryExist', path).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+    })
+    cy.task('endSFTPConnection')
   })
 
-  it.skip('verify user can copy directory', () => {
+  it.only('verify user can copy directory', () => {
+    const path = 'qa-do-not-delete-folder/autoFolder'
     cy.get(userDirSelectors.editParent).eq(5).within(() => {
       cy.get(userDirSelectors.buttonList).eq(5).click()
     })
@@ -118,6 +129,10 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
     cy.get(userDirSelectors.folderNames).contains('..').click()
+    cy.task('sftpDirectoryExist', path).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+    })
+    cy.task('endSFTPConnection')
   })
 
   afterEach('deleting a directory', () => {

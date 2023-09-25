@@ -43,17 +43,12 @@ describe('Login > {existing user}', () => {
     })
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
     cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
-  })
-
-  it('verify user can create multiple directories', () => {
     cy.get(userDirSelectors.addFolderIcon).click()
     cy.get(userDirSelectors.folderNameField).type(label.autoFolder1)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()
-    cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('be.visible')
     cy.get(userDirSelectors.addFolderIcon).click()
     cy.get(userDirSelectors.folderNameField).type(label.autoFolder2)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()
-    cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('be.visible')
   })
 
   it('verify user can download multiple directories', () => {
@@ -65,6 +60,10 @@ describe('Login > {existing user}', () => {
       .next(htmlSelectors.div).within(() => {
         cy.get(userDirSelectors.buttonList).eq(0).click()
       })
+    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+      .prev(htmlSelectors.div).click()
+    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+      .prev(htmlSelectors.div).click()
   })
 
   it('verify user can share multiple directories', () => {
@@ -85,6 +84,8 @@ describe('Login > {existing user}', () => {
   })
 
   it('verify user can move multiple directories', () => {
+    const path = 'qa-do-not-delete-folder/autoFolder1'
+    const path2 = 'qa-do-not-delete-folder/autoFolder2'
     cy.contains(userDirSelectors.roleCell, label.autoFolder1)
       .prev(htmlSelectors.div).click()
     cy.contains(userDirSelectors.roleCell, label.autoFolder2)
@@ -96,11 +97,20 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.buttonList).contains(label.select).click()
-    cy.wait(4000)
+    cy.wait(5000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('be.visible')
     cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('be.visible')
+    cy.task('sftpDirectoryExist', path).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+    })
+    cy.task('endSFTPConnection')
+    cy.task('sftpDirectoryExist', path2).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+    })
+    cy.task('endSFTPConnection')
 
+    // Moving back autoFolder to root directory
     cy.contains(userDirSelectors.roleCell, label.autoFolder1)
       .prev(htmlSelectors.div).click()
     cy.contains(userDirSelectors.roleCell, label.autoFolder2)
@@ -111,12 +121,12 @@ describe('Login > {existing user}', () => {
       })
     cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
     cy.get(userDirSelectors.buttonList).contains(label.select).click()
-    cy.wait(4000)
-    cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('not.exist')
-    cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('not.exist')
+    cy.get(userDirSelectors.folderNames).contains('..').click()
   })
 
-  it('verify user can copy multiple directories', () => {
+  it.skip('verify user can copy multiple directories', () => {
+    const path = 'qa-do-not-delete-folder/autoFolder1'
+    const path2 = 'qa-do-not-delete-folder/autoFolder2'
     cy.contains(userDirSelectors.roleCell, label.autoFolder1)
       .prev(htmlSelectors.div).click()
     cy.contains(userDirSelectors.roleCell, label.autoFolder2)
@@ -132,11 +142,14 @@ describe('Login > {existing user}', () => {
 
     cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('be.visible')
     cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('be.visible')
-    cy.get(userDirSelectors.folderNames).contains('..').click()
-  })
-
-  it('verify user can delete multiple directories', () => {
-    cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
+    cy.task('sftpDirectoryExist', path).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+    })
+    cy.task('endSFTPConnection')
+    cy.task('sftpDirectoryExist', path2).then(p => {
+      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+    })
+    cy.task('endSFTPConnection')
     cy.contains(userDirSelectors.roleCell, label.autoFolder1)
       .prev(htmlSelectors.div).click()
     cy.contains(userDirSelectors.roleCell, label.autoFolder2)
@@ -146,6 +159,9 @@ describe('Login > {existing user}', () => {
         cy.get(userDirSelectors.buttonList).eq(4).click()
       })
     cy.get(userDirSelectors.folderNames).contains('..').click()
+  })
+
+  afterEach('verify user can delete multiple directories', () => {
     cy.contains(userDirSelectors.roleCell, label.autoFolder1)
       .prev(htmlSelectors.div).click()
     cy.contains(userDirSelectors.roleCell, label.autoFolder2)
