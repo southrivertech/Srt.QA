@@ -17,7 +17,6 @@
 const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
 const Client = require('ssh2-sftp-client')
 const sftp = new Client()
-const FtpClient = require('ftps')
 
 module.exports = async (on, config) => {
   // `on` is used to hook into various events Cypress emits
@@ -159,14 +158,6 @@ module.exports = async (on, config) => {
         .then(() => {
           return sftp.chmod(remoteFile, '0o644')
         })
-    }
-  })
-
-  // sftp command is used to create directory
-  on('task', {
-    ftpCreateWorkingDirectory (remoteFile) {
-      const ftps = new FtpClient(configFTP)
-      return ftps.pwd()
     }
   })
 }
