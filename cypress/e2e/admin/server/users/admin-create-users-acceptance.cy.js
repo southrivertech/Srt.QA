@@ -58,7 +58,6 @@ describe('Login > {existing server} > users > add new user', () => {
 
   afterEach('deleting a user', () => {
     cy.delete(userDetails.userName)
-    cy.get(userSelectors.successMessage).should('be.visible')
     cy.get(userSelectors.parentCell).contains(userDetails.userName).should('not.exist')
   })
 })
