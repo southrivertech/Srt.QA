@@ -45,7 +45,7 @@ module.exports = async (on, config) => {
   // sftp connection task which will return current remote working directory using cwd() command
   on('task', {
     sftpCurrentWorkingDirectory () {
-      return sftp.connect(publicConfigSFTP)
+      return sftp.connect(configSFTP)
         .then(() => {
           return sftp.cwd()
         })
