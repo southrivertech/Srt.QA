@@ -35,20 +35,6 @@ module.exports = async (on, config) => {
     password: '123456'
   }
 
-  const publicConfigSFTP = {
-    host: 'beta.southrivertech.com',
-    port: '2200',
-    username: 'testsftp',
-    privateKey: '3THNv8RCJGc+xPqOUAzg1zMY90tQ0+veWuVeEoZTDlTZtSx9dfn+fKwbp86NTcNuzQbwi9PoOzo5eZteDasrbKsr5gCaoD/HiAF3C5KcDlJVE/TDkP5lybfOu7ok7hzcdgbnJ4zGpf4wK+4R7G+eOU+Q1dBYRTIbx7Qb4Dd6OCjegUSszG6M+WJA7GYFbE2fI46LWhkjAXl2XXnHPzLuR00TPpdIYIsf2DRSaGEq+g5PRO3s7KBgTjR4eED9ZcPye7c30WP7sRwixx0iQEtxniGlbPw7sIM9dF0FzaPMXG52yiJLsu3P/z/XFNVsGbX4qNlq4mq0QCOyWrJdi1SHhehkQA3TFFhfNwWPCYO9tRanHoef2Jfriu6UBX6+220spdlNbb6AxVOh3IVa9mR4rcnOPNlAtsysAM7VAJOswLOAZQlDzuZgmjPCn5MzU1t8+8NBUXY1pJpK/dNtGX0FkS+BL2qYir7Vfmxxs5MBRCIlNUGJSPD9LBsApYqf9q1Fb+g5jNU1J7/C7vFWvxk10hbwzryG4R2EmpVF0wxJ4UCdEIGgmsD6jCA2SzghjguVql3dyGWICCHVsN844YWi3mw0LTARNzxamIE45p5LiRUC73NjW6dhtE2bGHzo7opFe2lKjgcYJPFx7nDQTMxxZr+O0MkGnNiKH6SkOXMstwd/nrd6A/X2x28FfmzWNbbtqGnW5pJyE5dDFDkX5gGQ5zX+44xCLKk1htatXZdZ4DmKb6NxUIGhywTE0M7wEuTIWx1bPwWPbRHjxxTms5nSRYYicclLq+wkSdL/eBg+Bk8jHfOgbbFpJaC+epucHuPDFwCEckzyJSOUk/gtc54YJbYOuIBhA/keVxoouGf0lhhPXuXtQCWVXM+wdvE1UIHw'
-  }
-
-  const configFTP = {
-    host: 'beta.southrivertech.com',
-    port: '21',
-    username: 'testsftp',
-    password: '123456'
-  }
-
   // sftp connection task to end the connection
   on('task', {
     endSFTPConnection () {
