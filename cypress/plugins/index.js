@@ -157,6 +157,16 @@ module.exports = async (on, config) => {
     }
   })
 
+  // sftp connection boolean task which check whether directory or file exist (returns d for directory and f for file)
+  on('task', {
+    sftpDirectoryExist (remoteFile) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.exists(remoteFile)
+        })
+    }
+  })
+
   // sftp command is used to change permission(read, write, execute) for a file or directory
   on('task', {
     sftpChmod (remoteFile) {
