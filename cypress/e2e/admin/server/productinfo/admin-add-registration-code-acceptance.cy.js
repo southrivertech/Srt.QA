@@ -42,7 +42,7 @@ describe('Login > home > product info tab', () => {
     cy.get(productInfoSelectors.registrationValidationText).invoke('text').then((text) => {
       const splitText = text.split(':')
       cy.get(productInfoSelectors.registrationCodeField).clear()
-      cy.get(productInfoSelectors.registrationCodeField).type(splitText[1])
+      cy.get(productInfoSelectors.registrationCodeField).type(splitText[1].trim())
       cy.get(productInfoSelectors.dashboardButtonLabel).contains(label.add).click()
       cy.checkTextVisibility(productInfoSelectors.registrationValidationText, label.regCodeValidationTextLength)
     })
