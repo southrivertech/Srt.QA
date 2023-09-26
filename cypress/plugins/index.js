@@ -13,8 +13,9 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-
+const { verifyDownloadTasks } = require('cy-verify-downloads')
 const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
+// const { verifyDownloadTasks } = require('cy-verify-downloads')
 const Client = require('ssh2-sftp-client')
 const sftp = new Client()
 
@@ -27,6 +28,8 @@ module.exports = async (on, config) => {
   */
 
   on('task', { downloadFile })
+
+  on('task', verifyDownloadTasks)
 
   const configSFTP = {
     host: 'beta.southrivertech.com',
