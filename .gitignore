@@ -21,5 +21,6 @@ out/
 **/.DS_Store
 *.vsix
 .DS_Store
+cypress/downloads/
 **/cypress/downloads/**.pdf
 !results/.gitkeep

@@ -34,8 +34,8 @@ describe('Login > {existing user}', () => {
     username: userData.Username,
     password: userData.Password
   }
-  const folderName = 'qa-auto-folderOne'
-  const renameFolderName = 'qa-auto-folderTwo'
+  const folderName = 'qa-auto-folder'
+  const renameFolderName = 'qa-auto-folder-new'
 
   function dotNavigation (operation) {
     cy.contains(htmlTagSelectors.div, folderName).parents(userDirSelectors.parentCell)
@@ -148,6 +148,7 @@ describe('Login > {existing user}', () => {
     cy.task('endSFTPConnection')
   })
 
+  // skipped because after copying files the dot navigation menu is still opened and user is unable to click on the qa-do-not-delete folder to verify
   it.skip('verify user can copy directory', () => {
     dotNavigation('Copy')
     cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
