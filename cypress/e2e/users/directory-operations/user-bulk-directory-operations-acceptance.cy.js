@@ -115,7 +115,7 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.myFilesText).click()
   })
 
-  it.only('verify user can move multiple directories', () => {
+  it('verify user can move multiple directories', () => {
     bulkMenuNavigation('Move')
     folderSelection('QA')
     cy.wait(5000)

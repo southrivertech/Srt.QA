@@ -5,21 +5,20 @@ import { slowCypressDown } from 'cypress-slow-down'
 
 /**
  * @description
- * This spec file contains test to verify bulk users directory operations
+ * This spec file contains test to verify bulk file operations
  *
  * @file
- * Srt.QA\cypress\e2e\user\user-directory-bulk-commands-acceptance.cy.js
+ * Srt.QA\cypress\e2e\users\directory-operations\user-bulk-file-operations-acceptance.cy.js
  *
  * @breadcrumb
  * Login > {existing user}
  *
  * @assertions
- * verify user can create multiple directories
- * verify user can download multiple directories
- * verify user can share multiple directories
- * verify user can move multiple directories
- * verify user can copy multiple directories
- * verify user can delete multiple directories
+ * verify user can download multiple files
+ * verify user can share multiple files
+ * verify user can move multiple files
+ * verify user can copy multiple files
+ * verify user can delete multiple files
  *
  * @prerequisites
  * Pre-Requisite data:
@@ -84,13 +83,12 @@ describe('Login > {existing user}', () => {
   beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
 
-    // creating two folders to perform bulk operations
+    // creating two files to perform bulk operations
     cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local.txt', { force: true }, { action: 'drag-drop' })
     cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local2.txt', { force: true }, { action: 'drag-drop' })
-    cy.wait(5000)
   })
 
-  it('verify user can download multiple directories', () => {
+  it('verify user can download multiple files', () => {
     bulkMenuNavigation('Download')
     cy.contains(userDirSelectors.roleCell, fileOne)
       .prev(htmlSelectors.div).click()
@@ -99,7 +97,7 @@ describe('Login > {existing user}', () => {
     cy.verifyDownload('files.zip')
   })
 
-  it('verify user can share multiple directories', () => {
+  it('verify user can share multiple files', () => {
     bulkMenuNavigation('Share')
     cy.get(userDirSelectors.shareAsField).type(shareAsText)
     cy.get(userDirSelectors.toField).click()
@@ -112,7 +110,7 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.myFilesText).click()
   })
 
-  it('verify user can move multiple directories', () => {
+  it('verify user can move multiple files', () => {
     bulkMenuNavigation('Move')
     folderSelection('QA')
     cy.wait(5000)
@@ -134,7 +132,7 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains('..').click()
   })
 
-  it.skip('verify user can copy multiple directories', () => {
+  it.skip('verify user can copy multiple files', () => {
     bulkMenuNavigation('Copy')
     folderSelection('QA')
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
@@ -152,7 +150,7 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains('..').click()
   })
 
-  afterEach('verify user can delete multiple directories', () => {
+  afterEach('delete multiple files', () => {
     bulkMenuNavigation('Delete')
   })
 })

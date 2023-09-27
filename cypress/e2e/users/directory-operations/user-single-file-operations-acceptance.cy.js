@@ -5,10 +5,10 @@ import { slowCypressDown } from 'cypress-slow-down'
 
 /**
  * @description
- * This spec file contains test to verify user file operations for existing user
+ * This spec file contains test to verify single file operations for existing user
  *
  * @file
- * cypress\e2e\user\user-file-commands-acceptance.cy.js
+ * Srt.QA\cypress\e2e\users\directory-operations\user-single-file-operations-acceptance.cy.js
  *
  * @breadcrumb
  * Login > {existing user}
@@ -16,7 +16,6 @@ import { slowCypressDown } from 'cypress-slow-down'
  * @assertions
  * verify user can download file
  * verify user can share file
- * verify user can drop zone file
  * verify user can rename file
  * verify user can move file
  * verify user can copy file
@@ -81,7 +80,6 @@ describe('Login > {existing user}', () => {
   beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
     cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local.txt', { force: true }, { action: 'drag-drop' })
-    cy.wait(5000)
   })
 
   const pathMove = `qa-do-not-delete-folder/${fileName}`
