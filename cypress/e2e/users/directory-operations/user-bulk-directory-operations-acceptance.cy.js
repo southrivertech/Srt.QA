@@ -2,7 +2,7 @@ import label from '../../../fixtures/label.json'
 import htmlSelectors from '../../../../selectors/htlm-tag-selectors.json'
 import userDirSelectors from '../../../../selectors/user-dir-selectors.json'
 import { slowCypressDown } from 'cypress-slow-down'
-/**
+
 /**
  * @description
  * This spec file contains test to verify bulk users directory operations
@@ -25,22 +25,29 @@ import { slowCypressDown } from 'cypress-slow-down'
  * Pre-Requisite data:
  * - user should have valid credentials
  */
+
 slowCypressDown(100)
+
 describe('Login > {existing user}', () => {
   const userData = Cypress.env('user')
   const userInfo = {
     username: userData.Username,
     password: userData.Password
   }
-  const path = 'qa-do-not-delete-folder/autoFolder1'
-  const path2 = 'qa-do-not-delete-folder/autoFolder2'
+  const shareAsText = 'bulk share'
+
+  const folderOne = 'autoFolder1'
+  const folderTwo = 'autoFolder2'
+
+  const path = `qa-do-not-delete-folder/${folderOne}`
+  const path2 = `qa-do-not-delete-folder/${folderTwo}`
 
   function folderSelection (folderName) {
     switch (folderName) {
       case 'QA':
-        cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
+        cy.contains(userDirSelectors.folderNames, label.myComputer).click()
         cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
-        cy.get(userDirSelectors.bbreakbulkMenuNavigationuttonList).contains(label.select).click()
+        cy.get(userDirSelectors.buttonList).contains(label.select).click()
         break
       case 'Root':
         cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
@@ -49,62 +56,63 @@ describe('Login > {existing user}', () => {
     }
   }
   function bulkMenuNavigation (operation) {
-    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
-      .prev(htmlSelectors.div).click()
-    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
-      .prev(htmlSelectors.div).click()
-
-    switch (operation) {
-      case 'Download':
-        cy.get(userDirSelectors.bulkDownload).click()
-        break
-      case 'Share':
-        cy.get(userDirSelectors.bulkShare).click()
-        break
-      case 'Move':
-        cy.get(userDirSelectors.bulkMove).click()
-        break
-      case 'Copy':
-        cy.get(userDirSelectors.bulkCopy).click()
-        break
-      case 'Delete':
-        cy.get(userDirSelectors.bulkDelete).click()
-        break
-    }
-  }
-  beforeEach('login', () => {
-    cy.postApiLogin()
-    cy.waitForNetworkIdlePrepare({
-      method: 'POST',
-      pattern: '**WebApi/Login**',
-      alias: 'postApiLogin',
-      log: false
+    cy.contains(userDirSelectors.roleCell, folderOne)
+      .prev(htmlSelectors.div).click({ force: true })
+    cy.contains(userDirSelectors.roleCell, folderTwo)
+      .prev(htmlSelectors.div).click({ force: true })
+    cy.contains(userDirSelectors.parentUsers, label.twoItem).next(htmlSelectors.div).within(() => {
+      switch (operation) {
+        case 'Download':
+          cy.get(userDirSelectors.bulkDownload).click()
+          break
+        case 'Share':
+          cy.get(userDirSelectors.buttonList).eq(1).click()
+          break
+        case 'Move':
+          cy.get(userDirSelectors.buttonList).eq(2).click({ force: true })
+          break
+        case 'Copy':
+          cy.get(userDirSelectors.bulkCopy).click()
+          break
+        case 'Delete':
+          cy.get(userDirSelectors.bulkDelete).click()
+          break
+      }
     })
+  }
+
+  beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
+
+    // creating two folders to perform bulk operations
     cy.get(userDirSelectors.addFolderIcon).click()
-    cy.get(userDirSelectors.folderNameField).type(label.autoFolder1)
+    cy.get(userDirSelectors.folderNameField).type(folderOne)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()
     cy.get(userDirSelectors.addFolderIcon).click()
-    cy.get(userDirSelectors.folderNameField).type(label.autoFolder2)
+    cy.get(userDirSelectors.folderNameField).type(folderTwo)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()
   })
 
   it('verify user can download multiple directories', () => {
     bulkMenuNavigation('Download')
-    cy.contains(userDirSelectors.roleCell, label.autoFolder1)
+    cy.contains(userDirSelectors.roleCell, folderOne)
       .prev(htmlSelectors.div).click()
-    cy.contains(userDirSelectors.roleCell, label.autoFolder2)
+    cy.contains(userDirSelectors.roleCell, folderTwo)
       .prev(htmlSelectors.div).click()
+    cy.verifyDownload('files.zip')
   })
 
   it('verify user can share multiple directories', () => {
     bulkMenuNavigation('Share')
-    cy.get(userDirSelectors.shareAsField).type(label.link)
+    cy.get(userDirSelectors.shareAsField).type(shareAsText)
     cy.get(userDirSelectors.toField).click()
     cy.get(userDirSelectors.toField).type(label.sftpUser)
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
     cy.get(userDirSelectors.buttonList).contains(label.sendText).click()
+    cy.get(userDirSelectors.folderNames).contains(label.mySharesText).click()
+    cy.get(userDirSelectors.folderNames).contains(shareAsText).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(label.myFilesText).click()
   })
 
   it('verify user can move multiple directories', () => {
@@ -112,8 +120,8 @@ describe('Login > {existing user}', () => {
     folderSelection('QA')
     cy.wait(5000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
-    cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('be.visible')
-    cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(folderOne).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(folderTwo).should('be.visible')
     cy.task('sftpDirectoryExist', path).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
@@ -125,7 +133,7 @@ describe('Login > {existing user}', () => {
 
     // Moving back autoFolder to root directory
     bulkMenuNavigation('Move')
-    cy.folderSelection('Root')
+    folderSelection('Root')
     cy.get(userDirSelectors.folderNames).contains('..').click()
   })
 
@@ -133,8 +141,8 @@ describe('Login > {existing user}', () => {
     bulkMenuNavigation('Copy')
     folderSelection('QA')
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
-    cy.get(userDirSelectors.folderNames).contains(label.autoFolder1).should('be.visible')
-    cy.get(userDirSelectors.folderNames).contains(label.autoFolder2).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(folderOne).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(folderTwo).should('be.visible')
     cy.task('sftpDirectoryExist', path).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
