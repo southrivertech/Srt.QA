@@ -42,3 +42,5 @@ import 'cypress-iframe'
 const dayjs = require('dayjs')
 
 Cypress.dayjs = dayjs
+
+require('cy-verify-downloads').addCustomCommand()

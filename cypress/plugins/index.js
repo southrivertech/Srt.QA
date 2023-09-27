@@ -13,8 +13,9 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-
+const { verifyDownloadTasks } = require('cy-verify-downloads')
 const { downloadFile } = require('cypress-downloadfile/lib/addPlugin')
+// const { verifyDownloadTasks } = require('cy-verify-downloads')
 const Client = require('ssh2-sftp-client')
 const sftp = new Client()
 
@@ -27,6 +28,8 @@ module.exports = async (on, config) => {
   */
 
   on('task', { downloadFile })
+
+  on('task', verifyDownloadTasks)
 
   const configSFTP = {
     host: 'beta.southrivertech.com',
@@ -153,6 +156,16 @@ module.exports = async (on, config) => {
       return sftp.connect(configSFTP)
         .then(() => {
           return sftp.delete(remoteFile)
+        })
+    }
+  })
+
+  // sftp connection boolean task which check whether directory or file exist (returns d for directory and f for file)
+  on('task', {
+    sftpDirectoryExist (remoteFile) {
+      return sftp.connect(configSFTP)
+        .then(() => {
+          return sftp.exists(remoteFile)
         })
     }
   })

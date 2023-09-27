@@ -25,6 +25,9 @@ module.exports = defineConfig({
       adminPassword: 'SrtSoft21401!'
     },
     user: {
+      userBaseUrl: '/',
+      Username: 'testsftp',
+      Password: '123456'
     }
   }
 })

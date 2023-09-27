@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cy-verify-downloads": "^0.2.0",
     "cypress": "^13.1.0",
     "cypress-downloadfile": "^1.2.3",
     "cypress-multi-reporters": "^1.6.3",
