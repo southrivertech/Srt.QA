@@ -43,35 +43,35 @@ describe('Login > {existing user}', () => {
       .next(htmlTagSelectors.div).should('exist')
       .next(htmlTagSelectors.div).should('exist')
       .next(htmlTagSelectors.div).click()
-
-    switch (operation) {
-      case 'Download':
-        cy.get(userDirSelectors.bulkDownload).click()
-        break
-      case 'Share':
-        cy.get(userDirSelectors.bulkShare).click()
-        break
-      case 'Drop Zone':
-        cy.get(userDirSelectors.bulkDropZone).click()
-        break
-      case 'Rename':
-        cy.get(userDirSelectors.bulkRename).click()
-        break
-      case 'Move':
-        cy.get(userDirSelectors.bulkMove).click()
-        break
-      case 'Copy':
-        cy.get(userDirSelectors.bulkCopy).click()
-        break
-      case 'Delete':
-        cy.get(userDirSelectors.bulkDownload).click()
-        break
-    }
+    cy.get(userDirSelectors.editParent).eq(5).within(() => {
+      switch (operation) {
+        case 'Download':
+          cy.get(userDirSelectors.bulkDownload).click()
+          break
+        case 'Share':
+          cy.get(userDirSelectors.buttonList).eq(1).click()
+          break
+        case 'Drop Zone':
+          cy.get(userDirSelectors.bulkDropZone).click()
+          break
+        case 'Rename':
+          cy.get(userDirSelectors.bulkRename).click()
+          break
+        case 'Move':
+          cy.get(userDirSelectors.bulkMove).click()
+          break
+        case 'Copy':
+          cy.get(userDirSelectors.bulkCopy).click()
+          break
+        case 'Delete':
+          cy.get(userDirSelectors.bulkDelete).click()
+          break
+      }
+    })
   }
 
   function enterShareInfo (toUser) {
-    dotNavigation('Share')
-    cy.get(userDirSelectors.shareAsField).type('Link')
+    cy.get(userDirSelectors.shareAsField).type(folderName)
     cy.get(userDirSelectors.toField).click()
     cy.get(userDirSelectors.toField).type(toUser)
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
@@ -95,15 +95,19 @@ describe('Login > {existing user}', () => {
   })
 
   it('verify user can share directory', () => {
+    dotNavigation('Share')
     enterShareInfo(label.sftpUser)
     cy.get(userDirSelectors.folderNames).contains(label.mySharesText).click()
-    cy.get(userDirSelectors.folderNames).contains(renameFolderName).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(label.myFilesText).click()
   })
 
   it('verify user can drop zone directory', () => {
+    dotNavigation('Drop Zone')
     enterShareInfo(label.sftpUser)
     cy.get(userDirSelectors.folderNames).contains(label.mySharesText).click()
-    cy.get(userDirSelectors.folderNames).contains(renameFolderName).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(label.myFilesText).click()
   })
 
   it('verify user can rename directory', () => {

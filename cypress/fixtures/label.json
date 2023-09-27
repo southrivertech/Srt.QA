@@ -86,6 +86,7 @@
   "myComputer" : "My Computer",
   "sftpUser" : "testsftp",
   "mySharesText" : "My Shares",
+  "myFilesText": "My Files",
   "regCodeValidationTextLength" : "Invalid format. Format:",
   "regCodeValidationTextFormat" : "Invalid length. Format:"
 }
