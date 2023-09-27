@@ -46,39 +46,25 @@ describe('Login > {existing user}', () => {
 
     switch (operation) {
       case 'Download':
-        cy.get(userDirSelectors.editParent).eq(5).within(() => {
-          cy.get(userDirSelectors.buttonList).eq(0).click()
-        })
+        cy.get(userDirSelectors.bulkDownload).click()
         break
       case 'Share':
-        cy.get(userDirSelectors.editParent).eq(5).within(() => {
-          cy.get(userDirSelectors.buttonList).eq(1).click()
-        })
+        cy.get(userDirSelectors.bulkShare).click()
         break
       case 'Drop Zone':
-        cy.get(userDirSelectors.editParent).eq(5).within(() => {
-          cy.get(userDirSelectors.buttonList).eq(2).click()
-        })
+        cy.get(userDirSelectors.bulkDropZone).click()
         break
       case 'Rename':
-        cy.get(userDirSelectors.editParent).eq(5).within(() => {
-          cy.get(userDirSelectors.buttonList).eq(3).click()
-        })
+        cy.get(userDirSelectors.bulkRename).click()
         break
       case 'Move':
-        cy.get(userDirSelectors.editParent).eq(5).within(() => {
-          cy.get(userDirSelectors.buttonList).eq(4).click()
-        })
+        cy.get(userDirSelectors.bulkMove).click()
         break
       case 'Copy':
-        cy.get(userDirSelectors.editParent).eq(5).within(() => {
-          cy.get(userDirSelectors.buttonList).eq(5).click()
-        })
+        cy.get(userDirSelectors.bulkCopy).click()
         break
       case 'Delete':
-        cy.get(userDirSelectors.editParent).eq(5).within(() => {
-          cy.get(userDirSelectors.buttonList).eq(6).click()
-        })
+        cy.get(userDirSelectors.bulkDownload).click()
         break
     }
   }
@@ -110,10 +96,14 @@ describe('Login > {existing user}', () => {
 
   it('verify user can share directory', () => {
     enterShareInfo(label.sftpUser)
+    cy.get(userDirSelectors.folderNames).contains(label.mySharesText).click()
+    cy.get(userDirSelectors.folderNames).contains(renameFolderName).should('be.visible')
   })
 
   it('verify user can drop zone directory', () => {
     enterShareInfo(label.sftpUser)
+    cy.get(userDirSelectors.folderNames).contains(label.mySharesText).click()
+    cy.get(userDirSelectors.folderNames).contains(renameFolderName).should('be.visible')
   })
 
   it('verify user can rename directory', () => {
