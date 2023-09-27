@@ -36,14 +36,14 @@ describe('Login > {existing user}', () => {
   }
   const shareAsText = 'bulk share'
 
-  const folderOne = 'autoFolder1'
-  const folderTwo = 'autoFolder2'
+  const fileOne = 'local.txt'
+  const fileTwo = 'local2.txt'
 
-  const path = `qa-do-not-delete-folder/${folderOne}`
-  const path2 = `qa-do-not-delete-folder/${folderTwo}`
+  const path = `qa-do-not-delete-folder/${fileOne}`
+  const path2 = `qa-do-not-delete-folder/${fileTwo}`
 
-  function folderSelection (folderName) {
-    switch (folderName) {
+  function folderSelection (fileName) {
+    switch (fileName) {
       case 'QA':
         cy.contains(userDirSelectors.folderNames, label.myComputer).click()
         cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
@@ -56,9 +56,9 @@ describe('Login > {existing user}', () => {
     }
   }
   function bulkMenuNavigation (operation) {
-    cy.contains(userDirSelectors.roleCell, folderOne)
+    cy.contains(userDirSelectors.roleCell, fileOne)
       .prev(htmlSelectors.div).click({ force: true })
-    cy.contains(userDirSelectors.roleCell, folderTwo)
+    cy.contains(userDirSelectors.roleCell, fileTwo)
       .prev(htmlSelectors.div).click({ force: true })
     cy.contains(userDirSelectors.parentUsers, label.twoItem).next(htmlSelectors.div).within(() => {
       switch (operation) {
@@ -85,19 +85,16 @@ describe('Login > {existing user}', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
 
     // creating two folders to perform bulk operations
-    cy.get(userDirSelectors.addFolderIcon).click()
-    cy.get(userDirSelectors.folderNameField).type(folderOne)
-    cy.get(userDirSelectors.buttonList).contains(label.add).click()
-    cy.get(userDirSelectors.addFolderIcon).click()
-    cy.get(userDirSelectors.folderNameField).type(folderTwo)
-    cy.get(userDirSelectors.buttonList).contains(label.add).click()
+    cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local.txt', { force: true }, { action: 'drag-drop' })
+    cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local2.txt', { force: true }, { action: 'drag-drop' })
+    cy.wait(5000)
   })
 
   it('verify user can download multiple directories', () => {
     bulkMenuNavigation('Download')
-    cy.contains(userDirSelectors.roleCell, folderOne)
+    cy.contains(userDirSelectors.roleCell, fileOne)
       .prev(htmlSelectors.div).click()
-    cy.contains(userDirSelectors.roleCell, folderTwo)
+    cy.contains(userDirSelectors.roleCell, fileTwo)
       .prev(htmlSelectors.div).click()
     cy.verifyDownload('files.zip')
   })
@@ -115,35 +112,40 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.myFilesText).click()
   })
 
-  it.only('verify user can move multiple directories', () => {
+  it('verify user can move multiple directories', () => {
     bulkMenuNavigation('Move')
     folderSelection('QA')
     cy.wait(5000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
-    cy.get(userDirSelectors.folderNames).contains(folderOne).should('be.visible')
-    cy.get(userDirSelectors.folderNames).contains(folderTwo).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(fileOne).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(fileTwo).should('be.visible')
     cy.task('sftpDirectoryExist', path).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+      expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
     cy.task('sftpDirectoryExist', path2).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+      expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
+
+    // Moving back autoFolder to root directory
+    bulkMenuNavigation('Move')
+    folderSelection('Root')
+    cy.get(userDirSelectors.folderNames).contains('..').click()
   })
 
   it.skip('verify user can copy multiple directories', () => {
     bulkMenuNavigation('Copy')
     folderSelection('QA')
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
-    cy.get(userDirSelectors.folderNames).contains(folderOne).should('be.visible')
-    cy.get(userDirSelectors.folderNames).contains(folderTwo).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(fileOne).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(fileTwo).should('be.visible')
     cy.task('sftpDirectoryExist', path).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+      expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
     cy.task('sftpDirectoryExist', path2).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+      expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
     bulkMenuNavigation('Delete')
