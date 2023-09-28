@@ -8,7 +8,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * This spec file contains test to verify single file operations for existing user
  *
  * @file
- * Srt.QA\cypress\e2e\users\directory-operations\user-single-file-operations-acceptance.cy.js
+ * Srt.QA\cypress\e2e\users\file-operations\user-single-file-operations-acceptance.cy.js
  *
  * @breadcrumb
  * Login > {existing user}
@@ -121,7 +121,6 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.myComputer).click()
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.buttonList).contains(label.select).click()
-    cy.wait(4000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(fileName).should('be.visible')
     cy.task('sftpDirectoryExist', pathMove).then(p => {

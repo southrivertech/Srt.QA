@@ -8,7 +8,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * This spec file contains test to verify bulk file operations
  *
  * @file
- * Srt.QA\cypress\e2e\users\directory-operations\user-bulk-file-operations-acceptance.cy.js
+ * Srt.QA\cypress\e2e\users\file-operations\user-bulk-file-operations-acceptance.cy.js
  *
  * @breadcrumb
  * Login > {existing user}
@@ -18,7 +18,6 @@ import { slowCypressDown } from 'cypress-slow-down'
  * verify user can share multiple files
  * verify user can move multiple files
  * verify user can copy multiple files
- * verify user can delete multiple files
  *
  * @prerequisites
  * Pre-Requisite data:
@@ -113,7 +112,6 @@ describe('Login > {existing user}', () => {
   it('verify user can move multiple files', () => {
     bulkMenuNavigation('Move')
     folderSelection('QA')
-    cy.wait(5000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(fileOne).should('be.visible')
     cy.get(userDirSelectors.folderNames).contains(fileTwo).should('be.visible')
@@ -125,11 +123,6 @@ describe('Login > {existing user}', () => {
       expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
-
-    // Moving back autoFolder to root directory
-    bulkMenuNavigation('Move')
-    folderSelection('Root')
-    cy.get(userDirSelectors.folderNames).contains('..').click()
   })
 
   it.skip('verify user can copy multiple files', () => {
