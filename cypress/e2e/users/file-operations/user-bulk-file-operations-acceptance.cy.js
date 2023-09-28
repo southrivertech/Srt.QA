@@ -5,21 +5,19 @@ import { slowCypressDown } from 'cypress-slow-down'
 
 /**
  * @description
- * This spec file contains test to verify bulk users directory operations
+ * This spec file contains test to verify bulk file operations
  *
  * @file
- * Srt.QA\cypress\e2e\user\user-directory-bulk-commands-acceptance.cy.js
+ * Srt.QA\cypress\e2e\users\file-operations\user-bulk-file-operations-acceptance.cy.js
  *
  * @breadcrumb
  * Login > {existing user}
  *
  * @assertions
- * verify user can create multiple directories
- * verify user can download multiple directories
- * verify user can share multiple directories
- * verify user can move multiple directories
- * verify user can copy multiple directories
- * verify user can delete multiple directories
+ * verify user can download multiple files
+ * verify user can share multiple files
+ * verify user can move multiple files
+ * verify user can copy multiple files
  *
  * @prerequisites
  * Pre-Requisite data:
@@ -36,14 +34,14 @@ describe('Login > {existing user}', () => {
   }
   const shareAsText = 'bulk share'
 
-  const folderOne = 'autoFolder1'
-  const folderTwo = 'autoFolder2'
+  const fileOne = 'local.txt'
+  const fileTwo = 'local2.txt'
 
-  const path = `qa-do-not-delete-folder/${folderOne}`
-  const path2 = `qa-do-not-delete-folder/${folderTwo}`
+  const path = `qa-do-not-delete-folder/${fileOne}`
+  const path2 = `qa-do-not-delete-folder/${fileTwo}`
 
-  function folderSelection (folderName) {
-    switch (folderName) {
+  function folderSelection (fileName) {
+    switch (fileName) {
       case 'QA':
         cy.contains(userDirSelectors.folderNames, label.myComputer).click()
         cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
@@ -56,9 +54,9 @@ describe('Login > {existing user}', () => {
     }
   }
   function bulkMenuNavigation (operation) {
-    cy.contains(userDirSelectors.roleCell, folderOne)
+    cy.contains(userDirSelectors.roleCell, fileOne)
       .prev(htmlSelectors.div).click({ force: true })
-    cy.contains(userDirSelectors.roleCell, folderTwo)
+    cy.contains(userDirSelectors.roleCell, fileTwo)
       .prev(htmlSelectors.div).click({ force: true })
     cy.contains(userDirSelectors.parentUsers, label.twoItem).next(htmlSelectors.div).within(() => {
       switch (operation) {
@@ -84,25 +82,21 @@ describe('Login > {existing user}', () => {
   beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
 
-    // creating two folders to perform bulk operations
-    cy.get(userDirSelectors.addFolderIcon).click()
-    cy.get(userDirSelectors.folderNameField).type(folderOne)
-    cy.get(userDirSelectors.buttonList).contains(label.add).click()
-    cy.get(userDirSelectors.addFolderIcon).click()
-    cy.get(userDirSelectors.folderNameField).type(folderTwo)
-    cy.get(userDirSelectors.buttonList).contains(label.add).click()
+    // creating two files to perform bulk operations
+    cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local.txt', { force: true }, { action: 'drag-drop' })
+    cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local2.txt', { force: true }, { action: 'drag-drop' })
   })
 
-  it('verify user can download multiple directories', () => {
+  it('verify user can download multiple files', () => {
     bulkMenuNavigation('Download')
-    cy.contains(userDirSelectors.roleCell, folderOne)
+    cy.contains(userDirSelectors.roleCell, fileOne)
       .prev(htmlSelectors.div).click()
-    cy.contains(userDirSelectors.roleCell, folderTwo)
+    cy.contains(userDirSelectors.roleCell, fileTwo)
       .prev(htmlSelectors.div).click()
     cy.verifyDownload('files.zip')
   })
 
-  it('verify user can share multiple directories', () => {
+  it('verify user can share multiple files', () => {
     bulkMenuNavigation('Share')
     cy.get(userDirSelectors.shareAsField).type(shareAsText)
     cy.get(userDirSelectors.toField).click()
@@ -115,42 +109,41 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.myFilesText).click()
   })
 
-  it('verify user can move multiple directories', () => {
+  it('verify user can move multiple files', () => {
     bulkMenuNavigation('Move')
     folderSelection('QA')
-    cy.wait(5000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
-    cy.get(userDirSelectors.folderNames).contains(folderOne).should('be.visible')
-    cy.get(userDirSelectors.folderNames).contains(folderTwo).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(fileOne).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(fileTwo).should('be.visible')
     cy.task('sftpDirectoryExist', path).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+      expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
     cy.task('sftpDirectoryExist', path2).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+      expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
   })
 
-  it.skip('verify user can copy multiple directories', () => {
+  it.skip('verify user can copy multiple files', () => {
     bulkMenuNavigation('Copy')
     folderSelection('QA')
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
-    cy.get(userDirSelectors.folderNames).contains(folderOne).should('be.visible')
-    cy.get(userDirSelectors.folderNames).contains(folderTwo).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(fileOne).should('be.visible')
+    cy.get(userDirSelectors.folderNames).contains(fileTwo).should('be.visible')
     cy.task('sftpDirectoryExist', path).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+      expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
     cy.task('sftpDirectoryExist', path2).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal('"d"')
+      expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
     bulkMenuNavigation('Delete')
     cy.get(userDirSelectors.folderNames).contains('..').click()
   })
 
-  afterEach('verify user can delete multiple directories', () => {
+  afterEach('delete multiple files', () => {
     bulkMenuNavigation('Delete')
   })
 })
