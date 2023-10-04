@@ -12,5 +12,7 @@
     "assignedGroupParent" : ".ReactVirtualized__Grid__innerScrollContainer",
     "successMessage"  : "#client-snackbar",
     "userPageHeading": ".MuiTypography-colorSecondary",
-    "emailAddressField" : "[id='Email Address']"
+    "emailAddressField" : "[id='Email Address']",
+    "homeDirInputField" : "[id='Custom Home Directory']",
+    "btnLabel" : "MuiButton-label"
 }

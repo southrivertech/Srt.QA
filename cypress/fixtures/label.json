@@ -85,5 +85,8 @@
   "mySharesText" : "My Shares",
   "myFilesText": "My Files",
   "regCodeValidationTextLength" : "Invalid format. Format:",
-  "regCodeValidationTextFormat" : "Invalid length. Format:"
+  "regCodeValidationTextFormat" : "Invalid length. Format:",
+  "homeDir" : "Home Directory",
+  "editUserFileDirectories" : "Edit User Files & Directories",
+  "closeText" : "Close"
 }
