@@ -28,7 +28,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * - user should have valid credentials
  */
 
-slowCypressDown(100)
+// slowCypressDown(100)
 
 describe('Login > {existing user}', () => {
   const adminData = Cypress.env('admin')
@@ -45,14 +45,18 @@ describe('Login > {existing user}', () => {
     groupName1: 'groupWithGroupDir',
     groupDesc1: 'user home directory default to group directory',
     groupName2: 'groupWithGroupSubDir',
-    groupDesc2: 'user home directory default to group directory'
-
+    groupDesc2: 'user home directory default to group directory',
+    groupDirPath: 'C:/TitanFTP/Usr/'
   }
+
+  const updatedGroupDirPath = groupDetails.groupDirPath.replace(/\//g, '\\')
+
   beforeEach('login', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
   })
+
   it.only('verify user can select default to group directorygroup directory', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.groups).should('be.visible').click()
     cy.get(groupSelectors.addButton).should('be.visible').click()
@@ -60,11 +64,12 @@ describe('Login > {existing user}', () => {
       cy.enterText(label.groupName, groupDetails.groupName1)
       cy.get(groupSelectors.groupDesc).type(groupDetails.groupDesc1)
       cy.get(groupSelectors.homeDir).click({ force: true })
-      cy.get("li[data-value='1']").contains('User home directories default to group directory').click()
-      cy.get(groupSelectors.subDir).type(groupDetails.subDir)
-      cy.clickButton(label.next)
-      cy.clickButton(label.finish)
     })
+    cy.get('[data-value="1"]').contains('User home directories default to group directory').click({ force: true })
+    cy.get(groupSelectors.subDir).eq(1).type(updatedGroupDirPath)
+    cy.clickButton(label.next)
+    cy.clickButton(label.finish)
+
     cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
     cy.get(userSelectors.addButton).should('be.visible').click()
     cy.enterText(label.userName, userDetails.userName)
