@@ -88,5 +88,8 @@
   "regCodeValidationTextFormat" : "Invalid length. Format:",
   "homeDir" : "Home Directory",
   "editUserFileDirectories" : "Edit User Files & Directories",
-  "closeText" : "Close"
+  "closeText" : "Close",
+  "createHomeDir" : "Create Home Directory Now",
+  "defaultHomeDir" : "Use default home directory",
+  "customDir" : "Use custom directory"
 }

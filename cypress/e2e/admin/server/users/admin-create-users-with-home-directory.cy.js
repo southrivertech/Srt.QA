@@ -2,7 +2,6 @@ import navigationSelectors from '../../../../../selectors/navigation/left-naviga
 import userSelectors from '../../../../../selectors/user/user-selectors.json'
 import label from '../../../../fixtures/label.json'
 import { slowCypressDown } from 'cypress-slow-down'
-import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
 
 /**
  * @description
@@ -34,9 +33,10 @@ describe('Login > {existing server} > users > add new user', () => {
   const userDetails = {
     userName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
-    groupName: label.autoGroupName
+    groupName: label.autoGroupName,
+    groupDirPath: `C:/qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
-
+  const updatedGroupDirPath = userDetails.groupDirPath.replace(/\//g, '\\')
   beforeEach('login', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
@@ -48,22 +48,21 @@ describe('Login > {existing server} > users > add new user', () => {
     cy.enterText(label.confirmPassword, userDetails.password)
     cy.clickButton(label.next)
     cy.checkTextVisibility(userSelectors.userPageHeading, label.assignToGroups)
-    cy.contains(htmlTagSelectors.div, userDetails.groupName).parents(userSelectors.parentCell)
-      .prev(htmlTagSelectors.div).click()
     cy.clickButton(label.next)
   })
 
   it('verify that admin can create users ', () => {
     cy.checkTextVisibility(userSelectors.userPageHeading, label.configureUserOptions)
+    cy.get(userSelectors.roleBtn).contains(label.defaultHomeDir).click({ force: true })
+    cy.get(userSelectors.dataValue2).contains(label.customDir).click({ force: true })
     cy.get(userSelectors.homeDirInputField).clear()
-    cy.enterText(label.homeDir, 'c:\temp')
-    cy.get('MuiTypography-root').contains('Create Home Directory Now')
+    cy.get(userSelectors.homeDirInputField).type(updatedGroupDirPath)
+    cy.contains('span', label.createHomeDir)
       .prev('span').click()
     cy.clickButton(label.finish)
     cy.get(userSelectors.successMessage).should('be.visible')
-    cy.editUser(label.autoUserName, label.editUserFileDirectories, false)
-    cy.get(userSelectors.parentCell).contains(userDetails.userName).should('be.visible')
-    cy.get('MuiTableCell-root').contains('c:\temp').should('be.visible')
+    cy.editUser(userDetails.userName, label.editUserFileDirectories, false)
+    cy.contains('div', updatedGroupDirPath).should('exist')
     cy.get(userSelectors.btnLabel).contains(label.closeText).click()
   })
 
