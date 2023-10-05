@@ -2,5 +2,6 @@
     "input" : "input",
     "div": "div",
     "label": "label",
-    "span" : "span"
+    "span" : "span",
+    "button": "button"
 }
