@@ -85,5 +85,9 @@
   "mySharesText" : "My Shares",
   "myFilesText": "My Files",
   "regCodeValidationTextLength" : "Invalid format. Format:",
-  "regCodeValidationTextFormat" : "Invalid length. Format:"
+  "regCodeValidationTextFormat" : "Invalid length. Format:",
+  "sshSftpText" : "SSH/SFTP",
+  "mySite" : "MySite",
+  "services" : "Services",
+"bugUser" : "qa-auto-bug-user-do-not-delete"
 }
