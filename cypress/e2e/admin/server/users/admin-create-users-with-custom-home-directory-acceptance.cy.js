@@ -5,7 +5,7 @@ import { slowCypressDown } from 'cypress-slow-down'
 
 /**
  * @description
- * This spec file contains test to verify that admin user can create users with custom home directory
+ * This spec file contains test to verify that admin can create users with custom home directory
  *
  * @file
  * cypress\e2e\admin\server\users\admin-create-users-with-home-directory.cy.js
@@ -14,7 +14,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * Login > {existing server} > users > add new user
  *
  * @assertions
- * To verify that admin can enter home directory while creating new users
+ * To verify that admin can enter home directory while creating a new users
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -33,8 +33,8 @@ describe('Login > {existing server} > users > add new user', () => {
   const userDetails = {
     userName: `qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
-    customDirPath: `C:/qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`,
-    homeDirectory: `${label.customDir}`
+    homeDirectoryOption: `${label.customDir}`,
+    customDirPath: `C:/qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach('login', () => {
@@ -45,7 +45,7 @@ describe('Login > {existing server} > users > add new user', () => {
     cy.get(userSelectors.addButton).should('be.visible').click()
   })
 
-  it('verify that admin can create users with custom home directory', () => {
+  it('verify that admin can enter home directory while creating a new users', () => {
     cy.createUser(userDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
     cy.editUser(userDetails.userName, label.editUserFileDirectories, false)

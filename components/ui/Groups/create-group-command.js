@@ -1,4 +1,5 @@
 import label from '../../../cypress/fixtures/label.json'
+import groupSelectors from '../../../selectors/groups/groups-selectors.json'
 /**
  * group creation command
  *
@@ -22,7 +23,21 @@ Cypress.Commands.add('createGroup', (groupDetails) => {
   Cypress.log({
     name: 'createGroupCommand'
   })
-  cy.enterText(label.groupName, groupDetails.groupName)
-  cy.clickButton(label.next)
-  cy.clickButton(label.finish)
+  cy.get(groupSelectors.parentGroup).eq(1).within(() => {
+    cy.enterText(label.groupName, groupDetails.groupName)
+    if (groupDetails.groupDescription) {
+      cy.get(groupSelectors.groupDesc).type(groupDetails.groupDescription)
+    }
+  })
+  if (groupDetails.groupDirectoryOption) {
+    cy.get(groupSelectors.parentGroup).eq(1).within(() => {
+      cy.get(groupSelectors.homeDir).click({ force: true })
+    })
+    cy.get('[role="option"]').contains(groupDetails.groupDirectoryOption).click({ force: true })
+    cy.get(groupSelectors.subDir).eq(1).type(groupDetails.groupDirPath.replace(/\//g, '\\'))
+  }
+  cy.get(groupSelectors.parentGroup).eq(1).within(() => {
+    cy.clickButton(label.next)
+    cy.clickButton(label.finish)
+  })
 })

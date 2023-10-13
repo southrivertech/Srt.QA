@@ -52,8 +52,7 @@ Cypress.Commands.add('createUser', (userDetails) => {
   }
   cy.clickButton(label.next)
   cy.checkTextVisibility(userSelectors.userPageHeading, label.configureUserOptions)
-  cy.log(userDetails.homeDirectory)
-  if (userDetails.homeDirectory) {
+  if (userDetails.homeDirectoryOption) {
     cy.get(userSelectors.roleBtn).contains(label.defaultHomeDir).click({ force: true })
     cy.get(userSelectors.dataValue2).contains(label.customDir).click({ force: true })
     cy.get(userSelectors.homeDirInputField).clear()

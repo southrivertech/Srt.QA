@@ -23,7 +23,7 @@ import { slowCypressDown } from 'cypress-slow-down'
 
 slowCypressDown(300)
 
-describe('Login > {existing server} > users', () => {
+describe('Login > {existing server} > group', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -31,8 +31,8 @@ describe('Login > {existing server} > users', () => {
   }
 
   const groupDetails = {
-    groupName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`,
-    groupDescription: 'testing123'
+    groupName: `qa-auto group ${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    groupDescription: 'automation group'
   }
 
   beforeEach('login', () => {
@@ -44,9 +44,7 @@ describe('Login > {existing server} > users', () => {
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.groups).should('be.visible').click()
     cy.get(groupSelectors.addButton).should('be.visible').click()
-    cy.get(groupSelectors.parentGroup).eq(1).within(() => {
-      cy.createGroup(groupDetails)
-    })
+    cy.createGroup(groupDetails)
     cy.get(groupSelectors.parentCell).contains(groupDetails.groupName).should('be.visible')
   })
 
