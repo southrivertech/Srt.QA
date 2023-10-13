@@ -45,14 +45,14 @@ describe('Login > {existing server} > users > add new user', () => {
     cy.get(userSelectors.addButton).should('be.visible').click()
   })
 
-  it('verify that admin can create users', () => {
+  it('verify that admin can create a user without assigning a group', () => {
     cy.createUser(userDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
     cy.get(userSelectors.parentCell).contains(userDetails.userName).should('be.visible')
   })
 
-  it('Verify that during user creation, admin can assign an existing group to a user', () => {
-    cy.createUser(userDetails, true)
+  it('Verify that admin can create a user with assigning an existing group', () => {
+    cy.createUser(userDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })
 

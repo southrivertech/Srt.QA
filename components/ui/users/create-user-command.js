@@ -37,7 +37,7 @@ import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
  * cy.createUser(userDetails,true)
  */
 
-Cypress.Commands.add('createUser', (userDetails, assignGroup = false) => {
+Cypress.Commands.add('createUser', (userDetails) => {
   Cypress.log({
     name: 'createUserCommand'
   })
@@ -46,11 +46,20 @@ Cypress.Commands.add('createUser', (userDetails, assignGroup = false) => {
   cy.enterText(label.confirmPassword, userDetails.password)
   cy.clickButton(label.next)
   cy.checkTextVisibility(userSelectors.userPageHeading, label.assignToGroups)
-  if (assignGroup) {
+  if (userDetails.groupName) {
     cy.contains(htmlTagSelectors.div, userDetails.groupName).parents(userSelectors.parentCell)
       .prev(htmlTagSelectors.div).click()
   }
   cy.clickButton(label.next)
   cy.checkTextVisibility(userSelectors.userPageHeading, label.configureUserOptions)
+  cy.log(userDetails.homeDirectory)
+  if (userDetails.homeDirectory) {
+    cy.get(userSelectors.roleBtn).contains(label.defaultHomeDir).click({ force: true })
+    cy.get(userSelectors.dataValue2).contains(label.customDir).click({ force: true })
+    cy.get(userSelectors.homeDirInputField).clear()
+    cy.get(userSelectors.homeDirInputField).type(userDetails.customDirPath.replace(/\//g, '\\'))
+    cy.contains('span', label.createHomeDir)
+      .prev('span').click()
+  }
   cy.clickButton(label.finish)
 })
