@@ -33,7 +33,7 @@ Cypress.Commands.add('createGroup', (groupDetails) => {
     cy.get(groupSelectors.parentGroup).eq(1).within(() => {
       cy.get(groupSelectors.homeDir).click({ force: true })
     })
-    cy.get('[role="option"]').contains(groupDetails.groupDirectoryOption).click({ force: true })
+    cy.get(groupSelectors.dropDownOptions).contains(groupDetails.groupDirectoryOption).click({ force: true })
     cy.get(groupSelectors.subDir).eq(1).type(groupDetails.groupDirPath.replace(/\//g, '\\'))
   }
   cy.get(groupSelectors.parentGroup).eq(1).within(() => {
