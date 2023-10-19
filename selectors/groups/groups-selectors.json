@@ -3,6 +3,15 @@
     "parent": "div[role='presentation']",
     "parentCell": ".MuiTableCell-root" ,  
     "parentGroup":"body div.MuiDialog-root",
+    "homeDirOption1" : "[data-value='1']",
+    "homeDirOption2" : "[data-value='2']",
     "parentUsers" : ".MuiListItemText-root",
-    "groupPageHeading": "MuiTypography-colorSecondary"
+    "groupPageHeading": "MuiTypography-colorSecondary",
+    "groupNameInputContainer": ".MuiInputLabel-formControl",
+    "homeDirContainer" : "[container='GeneralParams']",
+    "dropDownOptions" : "[role='option']",
+    "groupDesc" : "[id='Group Description']",
+    "subDir" : "[id='Sub Directory']",
+    "homeDir" : "[role='button']",
+    "dropParent" : "[role='listbox']"
 }

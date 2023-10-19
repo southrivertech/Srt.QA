@@ -89,5 +89,13 @@
   "sshSftpText" : "SSH/SFTP",
   "mySite" : "MySite",
   "services" : "Services",
-"bugUser" : "qa-auto-bug-user-do-not-delete"
+  "bugUser" : "qa-auto-bug-user-do-not-delete"
+  "homeDir" : "Home Directory",
+  "editUserFileDirectories" : "Edit User Files & Directories",
+  "closeText" : "Close",
+  "createHomeDir" : "Create Home Directory Now",
+  "defaultHomeDir" : "Use default home directory",
+  "customDir" : "Use custom directory",
+  "groupDirectory": "User home directories default to group directory",
+  "groupSubDirectory": "User home directories default to group subdirectory"
 }

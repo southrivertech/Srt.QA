@@ -72,5 +72,8 @@ Cypress.Commands.add('editUser', (username, menuOption = label.editUserAssignedG
       cy.get(userSelectors.emailAddressField).type(label.email)
       cy.clickButton(label.sendResetEmailButtonText)
       break
+    case label.editUserFileDirectories:
+      cy.get(userSelectors.parentUsers).contains(menuOption).click()
+      break
   }
 })

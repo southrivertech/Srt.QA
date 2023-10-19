@@ -7,6 +7,8 @@
     "confirmPasswordRequiredMessage" : "p[id='Confirm Password-helper-text']",
     "deleteButton" : "path[d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z']",
     "parentCell": ".MuiTableCell-root",
+    "dropDownOptions" : "[role='option']",
+    "buttonRole" : "[role='button']",
     "addButtonAssign"  : "#add",
     "parentUsers" : ".MuiListItemText-root",
     "assignedGroupParent" : ".ReactVirtualized__Grid__innerScrollContainer",
@@ -14,4 +16,8 @@
     "userPageHeading": ".MuiTypography-colorSecondary",
     "emailAddressField" : "[id='Email Address']",
     "roleTab": "[role='tab']"
+    "homeDirInputField" : "[id='Custom Home Directory']",
+    "btnLabel" : ".MuiButton-label",
+    "roleBtn" : "[role='button']",
+    "dataValue2" : "[data-value='2']"
 }
