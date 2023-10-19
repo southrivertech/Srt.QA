@@ -1,0 +1,5 @@
+{
+    "roleTab" : "[role='tab']",
+    "advancedSection" : "[id='Advanced']",
+    "numericInput" : "[inputmode='numeric']"
+}
