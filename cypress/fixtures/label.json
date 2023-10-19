@@ -89,7 +89,7 @@
   "sshSftpText" : "SSH/SFTP",
   "mySite" : "MySite",
   "services" : "Services",
-  "bugUser" : "qa-auto-bug-user-do-not-delete"
+  "bugUser" : "qa-auto-bug-user-do-not-delete",
   "homeDir" : "Home Directory",
   "editUserFileDirectories" : "Edit User Files & Directories",
   "closeText" : "Close",
