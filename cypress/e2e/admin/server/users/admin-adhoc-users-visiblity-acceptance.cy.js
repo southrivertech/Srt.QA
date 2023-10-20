@@ -1,6 +1,6 @@
-import navigationSelectors from '../../../../selectors/navigation/left-navigation-selectors.json'
-import userSelectors from '../../../../selectors/user/user-selectors.json'
-import label from '../../../fixtures/label.json'
+import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
+import userSelectors from '../../../../../selectors/user/user-selectors.json'
+import label from '../../../../fixtures/label.json'
 import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description

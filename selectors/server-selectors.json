@@ -32,5 +32,4 @@
     "temporaryCacheDirectoryReqMessage" : "[id='Temporary Cache Directory-helper-text']",
     "quickSendCacheDirectoryReqMessage" : "[id='QuickSend Cache Directory-helper-text']",
     "aVQuarantineDirectoryReqMessage" : "[id='AV Quarantine Directory-helper-text']"
-
 }

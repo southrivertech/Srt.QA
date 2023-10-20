@@ -1,8 +1,8 @@
-import navigationSelectors from '../../../../selectors/navigation/left-navigation-selectors.json'
-import userSelectors from '../../../../selectors/user/user-selectors.json'
-import htmlSelectors from '../../../../selectors/htlm-tag-selectors.json'
+import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
+import userSelectors from '../../../../../selectors/user/user-selectors.json'
+import htmlSelectors from '../../../../../selectors/htlm-tag-selectors.json'
 
-import label from '../../../fixtures/label.json'
+import label from '../../../../fixtures/label.json'
 import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description
@@ -22,7 +22,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * - user should have valid credentials
  */
 
-slowCypressDown(1000)
+slowCypressDown(200)
 
 describe('Login > {existing server} > users', () => {
   const adminData = Cypress.env('admin')

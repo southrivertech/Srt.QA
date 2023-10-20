@@ -26,6 +26,7 @@
   "homeUrlText" : "/Console",
   "back"  : "back",
   "groups" : "Groups",
+  "events" : "Events",
   "required" : "Required",
   "passwordsDoNotMatch" : "Passwords do not match",
   "enableExSSLTLSAccess" : "Enable Explicit SSL/TLS Access",
