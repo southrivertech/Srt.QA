@@ -4,8 +4,7 @@ import label from '../../../fixtures/label.json'
  * @description
  * This spec file contains tests to ensure that user must provide the Manual Directory Configuration values before moving to the next page
  *
- * @file
- * ui/cypress/e2e/server/manual-directory-configuration.acceptance.cy.js
+ * @issueID - NX-i1131
  *
  * @breadcrumb
  * Login > Add New > Server > Database > Server Info > Add New

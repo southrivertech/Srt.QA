@@ -26,6 +26,7 @@
   "homeUrlText" : "/Console",
   "back"  : "back",
   "groups" : "Groups",
+  "events" : "Events",
   "required" : "Required",
   "passwordsDoNotMatch" : "Passwords do not match",
   "enableExSSLTLSAccess" : "Enable Explicit SSL/TLS Access",
@@ -86,6 +87,10 @@
   "myFilesText": "My Files",
   "regCodeValidationTextLength" : "Invalid format. Format:",
   "regCodeValidationTextFormat" : "Invalid length. Format:",
+  "sshSftpText" : "SSH/SFTP",
+  "mySite" : "MySite",
+  "services" : "Services",
+  "bugUser" : "qa-auto-bug-user-do-not-delete",
   "homeDir" : "Home Directory",
   "editUserFileDirectories" : "Edit User Files & Directories",
   "closeText" : "Close",
@@ -93,5 +98,10 @@
   "defaultHomeDir" : "Use default home directory",
   "customDir" : "Use custom directory",
   "groupDirectory": "User home directories default to group directory",
-  "groupSubDirectory": "User home directories default to group subdirectory"
+  "groupSubDirectory": "User home directories default to group subdirectory",
+  "backupEventName": "SE-10117",
+  "usersNATIVETab": "Native",
+  "usersNTSAMTab": "NT/SAM",
+  "usersLDAPTab": "LDAP",
+  "usersADSITab": "ADSI"
 }

@@ -7,8 +7,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * @description
  * This spec file contains test to verify that admin can create users with custom home directory
  *
- * @file
- * cypress\e2e\admin\server\users\admin-create-users-with-home-directory.cy.js
+ * @issueID - NX-I729
  *
  * @breadcrumb
  * Login > {existing server} > users > add new user

@@ -1,0 +1,5 @@
+{
+    "typeButton": "[type='button']",
+    "roleCell": "[role='cell']",
+    "roleTab": "[role='tab']"
+}
