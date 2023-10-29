@@ -4,8 +4,7 @@ import label from '../../../fixtures/label.json'
  * @description
  * This spec file contains a test to ensure that user can click the checkboxes after disabling the default checkbox during FTPS configuration
  *
- * @file
- * ui/cypress/e2e/server/admin-to-enable-SSL-TLS-acceptance.cy.js
+ * @issueID - NX-i1134, NX-i1125
  *
  * @breadcrumb
  * - Login > Add New > Server > Database > Server Info > > FTPS Configuration

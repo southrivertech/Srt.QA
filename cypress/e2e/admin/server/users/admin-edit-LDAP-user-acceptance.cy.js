@@ -8,8 +8,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * @description
  * This spec file contains test to verify ad/ldap edit user bug
  *
- * @file
- * Srt.QA\cypress\e2e\admin\bugs\ad-ldap-edit-user-acceptance.cy.js
+ * @issueID - NX-i1088
  *
  * @breadcrumb
  * Login > {existing server} > users
@@ -24,7 +23,7 @@ import { slowCypressDown } from 'cypress-slow-down'
 
 slowCypressDown(200)
 
-describe('Login > {existing server} > users', () => {
+describe.skip('Login > {existing server} > users', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,

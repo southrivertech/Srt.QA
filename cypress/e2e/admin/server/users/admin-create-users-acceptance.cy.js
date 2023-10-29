@@ -22,7 +22,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * - user should have valid credentials
  */
 
-slowCypressDown(300)
+slowCypressDown(100)
 
 describe('Login > {existing server} > users > add new user', () => {
   const adminData = Cypress.env('admin')

@@ -6,8 +6,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * @description
  * This spec file contains test to verify that admin can change the SSH ZLIB compression value
  *
- * @file
- cypress/e2e/admin/server/services/admin-change-SSH-ZLIB-compression-level-acceptance.cy.js
+ * @issueID - NX-i1129
  *
  * @breadcrumb
  * Login > {existing server} > services > SSH/SFTP > SSH > ZLIB compression level
