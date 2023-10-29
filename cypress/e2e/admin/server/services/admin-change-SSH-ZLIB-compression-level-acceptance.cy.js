@@ -1,6 +1,7 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../fixtures/label.json'
 import sshSftpSelectors from '../../../../../selectors/services-selectors.json'
+import generalSelectors from '../../../../../selectors/general-selectors.json'
 import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description
@@ -38,7 +39,7 @@ describe('Login > {existing server} > users', () => {
   })
 
   it('verify that admin can create groups', () => {
-    cy.get(sshSftpSelectors.roleTab).contains(label.sshSftpText).click()
+    cy.get(generalSelectors.roleTab).contains(label.sshSftpText).click()
     cy.get(sshSftpSelectors.advancedSection).within(() => {
       cy.get(sshSftpSelectors.numericInput).eq(0).clear().type(inputValue)
       cy.get(sshSftpSelectors.numericInput).eq(0)

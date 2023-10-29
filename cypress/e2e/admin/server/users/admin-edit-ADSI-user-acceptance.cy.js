@@ -1,6 +1,7 @@
 import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 import userSelectors from '../../../../../selectors/user/user-selectors.json'
 import htmlSelectors from '../../../../../selectors/htlm-tag-selectors.json'
+import generalSelectors from '../../../../../selectors/general-selectors.json'
 
 import label from '../../../../fixtures/label.json'
 import { slowCypressDown } from 'cypress-slow-down'
@@ -39,7 +40,7 @@ describe.skip('Login > {existing server} > users', () => {
   })
 
   it('To verify that adsi users can be edited successfully', () => {
-    cy.get(userSelectors.roleTab).eq(3).click()
+    cy.get(generalSelectors.roleTab).eq(3).click()
     cy.contains(htmlSelectors.div, label.bugUser).parents(userSelectors.parentCell)
       .next(htmlSelectors.div).should('exist')
       .next(htmlSelectors.div).should('exist')
