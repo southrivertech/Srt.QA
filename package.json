@@ -6,7 +6,7 @@
     "cy:open:prod": "cypress open --config-file ./cypress/config/prod.config.js",
     "test": "node_modules\\.bin\\cypress run ",
     "cy:open": "cypress open --config-file ./cypress/config/prod.config.js",
-    "record:test": "npx cypress run --config-file ./cypress/config/prod.config.js --record --key 610cd67a-310e-438b-9fff-4070a3042ac5",
+    "record:test": "npx cypress run --parallel --ci-build-id ${{github.run_number}} --config-file ./cypress/config/prod.config.js --record --key 610cd67a-310e-438b-9fff-4070a3042ac5",
     "prod:acceptance": "npx cypress run --record --tag prod-acceptance --group prod-acceptance --key 610cd67a-310e-438b-9fff-4070a3042ac5 --parallel --ci-build-id ${{github.run_number}} --config-file ./cypress/config/prod.config.js"
   },
   "author": "",
