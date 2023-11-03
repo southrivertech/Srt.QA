@@ -18,20 +18,6 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           runTests: false
-  
-      # will create folder ./public
-      - name: Build site 🏗
-        run: npm run docs:build
-  
-      # only pass the local folders we built / updated
-      #   ./docs and ./public
-      - name: Save built folders 🆙
-        uses: actions/upload-artifact@v2
-        with:
-          name: built
-          path: |
-            docs
-            public
               
   test-markdown:
     runs-on: ubuntu-20.04
