@@ -2,8 +2,6 @@ name: Parallel Cypress Tests
 
 on:
   push:
-    branches:
-      - main  # You can specify the branch you want to trigger this workflow
 
 jobs:
   cypress_tests:
