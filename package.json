@@ -4,9 +4,8 @@
   "description": "next-gen ui tests",
   "scripts": {
     "cy:open:prod": "cypress open --config-file ./cypress/config/prod.config.js",
-    "test": "node_modules\\.bin\\cypress run ",
     "cy:open": "cypress open --config-file ./cypress/config/prod.config.js",
-    "record:test": "npx cypress run --record --config-file ./cypress/config/prod.config.js",
+    "test": "cypress run --record --parallel --config-file ./cypress/config/prod.config.js",
     "prod:acceptance": "cypress run --record --tag prod-acceptance --group prod-acceptance --parallel --ci-build-id ${{github.run_number}} --config-file ./cypress/config/prod.config.js"
   },
   "author": "",
