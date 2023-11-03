@@ -19,4 +19,8 @@ jobs:
       - name: Run Cypress tests in parallel
         uses: cypress-io/github-action@v5
         with:
+          record: true
+          parallel: true
           command: npm run record:test
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
