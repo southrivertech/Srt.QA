@@ -19,4 +19,4 @@ jobs:
       - name: Run Cypress tests in parallel
         uses: cypress-io/github-action@v5
         with:
-          command: npm run prod:acceptance
+          command: npm run record:test
