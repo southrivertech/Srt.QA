@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        max-parallel: [1, 2, 3, 4, 5]  # Number of parallel jobs
-        machine: [1, 2, 3, 4, 5]      # Assign different machines to parallel jobs
+        containers: [1, 2, 3, 4]
 
     steps:
       - name: Checkout repository
@@ -26,4 +26,4 @@ jobs:
 
       - name: Run Cypress tests in parallel
         run: |
-          MACHINE_NUMBER=$machine npx cypress run --record --tag prod-acceptance --group prod-acceptance --parallel --ci-build-id="${GITHUB_RUN_ID}-${machine}" ./cypress/config/prod.config.js --record --key 610cd67a-310e-438b-9fff-4070a3042ac5
+          prod:acceptance
