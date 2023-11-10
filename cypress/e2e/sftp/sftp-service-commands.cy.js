@@ -1,3 +1,4 @@
+// sftp test cases
 describe('example', () => {
   beforeEach(() => {
     cy.visit('https://beta.southrivertech.com')
