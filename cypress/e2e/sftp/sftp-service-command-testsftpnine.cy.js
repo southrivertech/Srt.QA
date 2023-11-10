@@ -5,7 +5,7 @@ describe('example', () => {
   const configSFTP = {
     host: 'beta.southrivertech.com',
     port: '2200',
-    username: 'testsftp',
+    username: 'testsftpnine',
     password: '123456'
   }
   const remoteDir = '/path/to/new/dir'
