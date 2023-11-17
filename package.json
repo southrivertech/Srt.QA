@@ -5,8 +5,8 @@
   "scripts": {
     "cy:open:prod": "cypress open --config-file ./cypress/config/prod.config.js",
     "cy:open": "cypress open --config-file ./cypress/config/prod.config.js",
-    "performance": "cypress run --record false --config-file ./cypress/config/prod.config.js --spec **/*performance.cy.js",
-    "acceptance": "cypress run --record false --config-file ./cypress/config/prod.config.js --spec **/*acceptance.cy.js",
+    "performance": "cypress run --record --parallel --config-file ./cypress/config/prod.config.js --spec **/*performance.cy.js",
+    "acceptance": "cypress run --record --parallel --config-file ./cypress/config/prod.config.js --spec **/*acceptance.cy.js",
     "prod:acceptance": "cypress run --tag prod-acceptance --group prod-acceptance --parallel --ci-build-id ${{github.run_number}} --config-file ./cypress/config/prod.config.js --spec 'cypress/e2e/sftp/**/*'"
   },
   "author": "",
