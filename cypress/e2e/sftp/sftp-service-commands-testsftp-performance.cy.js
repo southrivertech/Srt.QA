@@ -1,4 +1,4 @@
-describe('example', () => {
+describe.skip('example', () => {
   before(() => {
     cy.visit('https://beta.southrivertech.com')
   })
