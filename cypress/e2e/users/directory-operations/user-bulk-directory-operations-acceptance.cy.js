@@ -41,7 +41,12 @@ describe('Login > {existing user}', () => {
 
   const path = `qa-do-not-delete-folder/${folderOne}`
   const path2 = `qa-do-not-delete-folder/${folderTwo}`
-
+  const configSFTP = {
+    host: 'beta.southrivertech.com',
+    port: '2200',
+    username: 'testsftp',
+    password: '123456'
+  }
   function folderSelection (folderName) {
     switch (folderName) {
       case 'QA':
@@ -106,7 +111,7 @@ describe('Login > {existing user}', () => {
     bulkMenuNavigation('Share')
     cy.get(userDirSelectors.shareAsField).type(shareAsText)
     cy.get(userDirSelectors.toField).click()
-    cy.get(userDirSelectors.toField).type(label.sftpUser)
+    cy.get(userDirSelectors.toField).type(`${label.sftpUser}{enter}`)
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
     cy.get(userDirSelectors.buttonList).contains(label.sendText).click()
@@ -122,11 +127,14 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(folderOne).should('be.visible')
     cy.get(userDirSelectors.folderNames).contains(folderTwo).should('be.visible')
-    cy.task('sftpDirectoryExist', path).then(p => {
+    cy.task('endSFTPConnection')
+    let remoteFile = path
+    cy.task('sftpDirectoryExist', { remoteFile, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')
-    cy.task('sftpDirectoryExist', path2).then(p => {
+    remoteFile = path2
+    cy.task('sftpDirectoryExist', { remoteFile, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')
@@ -138,11 +146,14 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(folderOne).should('be.visible')
     cy.get(userDirSelectors.folderNames).contains(folderTwo).should('be.visible')
-    cy.task('sftpDirectoryExist', path).then(p => {
+    cy.task('endSFTPConnection')
+    let remoteFile = path
+    cy.task('sftpDirectoryExist', { remoteFile, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')
-    cy.task('sftpDirectoryExist', path2).then(p => {
+    remoteFile = path2
+    cy.task('sftpDirectoryExist', { remoteFile, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')
