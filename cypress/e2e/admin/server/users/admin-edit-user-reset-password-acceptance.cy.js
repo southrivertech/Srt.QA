@@ -24,7 +24,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * - an existing user should exist for editing
  */
 
-slowCypressDown(300)
+slowCypressDown(100)
 
 describe('Login > {existing server} > existing users > edit > set user password', () => {
   const adminData = Cypress.env('admin')

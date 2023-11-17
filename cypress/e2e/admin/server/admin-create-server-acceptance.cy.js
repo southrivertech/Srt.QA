@@ -1,4 +1,5 @@
 import serverSelectors from '../../../../selectors/server-selectors.json'
+import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description
  * This spec file contains test to verify that admin user can create a server
@@ -16,6 +17,7 @@ import serverSelectors from '../../../../selectors/server-selectors.json'
  * Pre-Requisite data:
  * - user should have valid credentials
  */
+slowCypressDown(100)
 
 describe('login > add new server ', () => {
   const adminData = Cypress.env('admin')

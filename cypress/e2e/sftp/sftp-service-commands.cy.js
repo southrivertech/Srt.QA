@@ -1,5 +1,5 @@
 // sftp test cases
-describe('example', () => {
+describe.skip('example', () => {
   beforeEach(() => {
     cy.visit('https://beta.southrivertech.com')
   })

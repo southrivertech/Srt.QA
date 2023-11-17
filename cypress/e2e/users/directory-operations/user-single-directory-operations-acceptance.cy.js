@@ -36,6 +36,12 @@ describe('Login > {existing user}', () => {
   }
   const folderName = 'qa-auto-folder'
   const renameFolderName = 'qa-auto-folder-new'
+  const configSFTP = {
+    host: 'beta.southrivertech.com',
+    port: '2200',
+    username: 'testsftp',
+    password: '123456'
+  }
 
   function dotNavigation (operation) {
     cy.contains(htmlTagSelectors.div, folderName).parents(userDirSelectors.parentCell)
@@ -73,7 +79,7 @@ describe('Login > {existing user}', () => {
   function enterShareInfo (toUser) {
     cy.get(userDirSelectors.shareAsField).type(folderName)
     cy.get(userDirSelectors.toField).click()
-    cy.get(userDirSelectors.toField).type(toUser)
+    cy.get(userDirSelectors.toField).type(`${toUser}{enter}`)
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
     cy.get(userDirSelectors.buttonList).contains(label.sendText).click()
@@ -116,7 +122,9 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNameField).eq(1).type(renameFolderName)
     cy.get(userDirSelectors.buttonList).contains(label.rename).click()
     cy.get(userDirSelectors.folderNames).contains(renameFolderName).should('be.visible')
-    cy.task('sftpDirectoryExist', pathRename).then(p => {
+    cy.task('endSFTPConnection')
+    const remoteFile = pathRename
+    cy.task('sftpDirectoryExist', { remoteFile, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')
@@ -136,7 +144,9 @@ describe('Login > {existing user}', () => {
     cy.wait(4000)
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(folderName).should('be.visible')
-    cy.task('sftpDirectoryExist', pathMove).then(p => {
+    cy.task('endSFTPConnection')
+    const remoteFile = pathMove
+    cy.task('sftpDirectoryExist', { remoteFile, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"d"')
     })
     cy.task('endSFTPConnection')

@@ -33,6 +33,12 @@ describe('Login > {existing user}', () => {
     username: userData.Username,
     password: userData.Password
   }
+  const configSFTP = {
+    host: 'beta.southrivertech.com',
+    port: '2200',
+    username: 'testsftp',
+    password: '123456'
+  }
   const fileName = 'local.txt'
   const renameFileName = 'local-new.txt'
   function dotNavigation (operation, file = fileName) {
@@ -71,7 +77,7 @@ describe('Login > {existing user}', () => {
   function enterShareInfo (toUser) {
     cy.get(userDirSelectors.shareAsField).type(fileName)
     cy.get(userDirSelectors.toField).click()
-    cy.get(userDirSelectors.toField).type(toUser)
+    cy.get(userDirSelectors.toField).type(`${toUser}{enter}`)
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
     cy.get(userDirSelectors.buttonList).contains(label.next).click()
     cy.get(userDirSelectors.buttonList).contains(label.sendText).click()
@@ -83,7 +89,7 @@ describe('Login > {existing user}', () => {
   })
 
   const pathMove = `qa-do-not-delete-folder/${fileName}`
-  const pathRename = `/${renameFileName}`
+  const remoteFile = `/${renameFileName}`
 
   it('verify user can download file', () => {
     dotNavigation('Download')
@@ -104,7 +110,8 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.fileNameField).eq(1).type(renameFileName)
     cy.get(userDirSelectors.buttonList).contains(label.rename).click()
     cy.get(userDirSelectors.folderNames).contains(renameFileName).should('be.visible')
-    cy.task('sftpDirectoryExist', pathRename).then(p => {
+    cy.task('endSFTPConnection')
+    cy.task('sftpDirectoryExist', { remoteFile, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
@@ -123,7 +130,9 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.buttonList).contains(label.select).click()
     cy.get(userDirSelectors.roleCell).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(fileName).should('be.visible')
-    cy.task('sftpDirectoryExist', pathMove).then(p => {
+    cy.task('endSFTPConnection')
+    const remoteFile = pathMove
+    cy.task('sftpDirectoryExist', { remoteFile, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
@@ -139,7 +148,8 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNames).contains(label.qaAutoFolder).click()
     cy.get(userDirSelectors.folderNames).contains(fileName).should('be.visible')
     cy.get(userDirSelectors.folderNames).contains('..').click()
-    cy.task('sftpDirectoryExist', pathMove).then(p => {
+    cy.task('endSFTPConnection')
+    cy.task('sftpDirectoryExist', { pathMove, configSFTP }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal('"-"')
     })
     cy.task('endSFTPConnection')
