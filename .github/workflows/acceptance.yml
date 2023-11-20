@@ -23,5 +23,3 @@ jobs:
           record: true
           parallel: true
           command: npm run acceptance
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
