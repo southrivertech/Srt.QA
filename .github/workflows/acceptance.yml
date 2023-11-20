@@ -2,8 +2,6 @@ name: Parallel Acceptance Tests
 
 on:
   push:
-  schedule:
-    - cron: '0 9,19 * * *'  # 9AM and 7PM EST
 jobs:
   acceptance_tests:
     runs-on: ubuntu-latest
