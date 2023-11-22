@@ -1,7 +1,7 @@
 name: Parallel Performance Tests
 
 on:
-  push:
+  push
 jobs:
   performance_tests:
     runs-on: ubuntu-latest
