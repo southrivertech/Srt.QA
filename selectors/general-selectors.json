@@ -1,5 +1,6 @@
 {
     "typeButton": "[type='button']",
     "roleCell": "[role='cell']",
-    "roleTab": "[role='tab']"
+    "roleTab": "[role='tab']",
+    "labelSelector": ".MuiButton-label"
 }
