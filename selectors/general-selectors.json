@@ -2,5 +2,6 @@
     "typeButton": "[type='button']",
     "roleCell": "[role='cell']",
     "roleTab": "[role='tab']",
-    "labelSelector": ".MuiButton-label"
+    "labelSelector": ".MuiButton-label",
+    "closeModal": "[title='Close']"
 }

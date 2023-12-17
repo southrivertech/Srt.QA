@@ -1,5 +1,6 @@
 import serverSelectors from '../../../../selectors/server-selectors.json'
 import label from '../../../fixtures/label.json'
+import generalSelectors from '../../../../selectors/general-selectors.json'
 /**
  * @description
  * This spec file contains tests to ensure that user must provide the Manual Directory Configuration values before moving to the next page
@@ -17,8 +18,7 @@ import label from '../../../fixtures/label.json'
  * - user should have valid credentials
  */
 
-// skip due to an existing bug NX-I1134
-describe.skip('Login > Add New > Server > Database > Server Info > Add New', () => {
+describe('Login > Add New > Server > Database > Server Info > Add New', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -60,5 +60,6 @@ describe.skip('Login > Add New > Server > Database > Server Info > Add New', () 
     cy.get(serverSelectors.gridContainerXS10)
       .find(serverSelectors.inputBaseContainer)
       .get(serverSelectors.inputContainer).should('exist')
+    cy.get(generalSelectors.closeModal).click()
   })
 })
