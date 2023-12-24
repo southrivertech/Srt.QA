@@ -15,7 +15,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * Login > {existing server} > users
  *
  * @assertions
- * To verify that adsi users can be edited successfully
+ * To verify that ADSI users can be edited successfully
  *
  * @prerequisites
  * Pre-Requisite data:
@@ -30,47 +30,47 @@ describe.skip('Login > {existing server} > users', () => {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const qaEmail = 'qa-bug-user-email-@gmail.com'
-  const qaAutoUser = 'test'
-  beforeEach('login', () => {
-    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
-    cy.get(navigationSelectors.textLabelSelector).contains('MySite').should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
-  })
+  const oldEmail = 'qa-bug-user-email-@gmail.com'
+  const updateEmail = `qaEmail_${Cypress.dayjs().format('ssmmhhMMYY')}@srt.com`
+  const userToUpdate = 'demo'
 
-  it('To verify that adsi users can be edited successfully', () => {
-    cy.get(generalSelectors.roleTab).eq(3).click()
-    cy.contains(htmlSelectors.div, label.bugUser).parents(userSelectors.parentCell)
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).click({ force: true })
-    cy.get(userSelectors.parentUsers).contains(label.editUserAssignedGroups).click()
-    cy.get(qaAutoUser).type(qaEmail)
-    cy.clickButton(label.next)
-    cy.clickButton(label.next)
-    cy.clickButton(label.finish)
-    cy.contains(htmlSelectors.div, qaAutoUser).parents(userSelectors.parentCell)
-      .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).contains(qaEmail).should('be.visible')
-  })
-
-  afterEach('reverting the changes', () => {
-    cy.contains(htmlSelectors.div, qaAutoUser).parents(userSelectors.parentCell)
+  function editUserSteps (emailAddress) {
+    cy.contains(htmlSelectors.div, userToUpdate).parents(userSelectors.parentCell)
       .next(htmlSelectors.div).should('exist')
       .next(htmlSelectors.div).should('exist')
       .next(htmlSelectors.div).should('exist')
       .next(htmlSelectors.div).should('exist')
       .next(htmlSelectors.div).click()
     cy.get(userSelectors.parentUsers).contains(label.editUserAssignedGroups).click()
-    cy.get("[id='Email Address']").clear()
-    cy.clickButton(label.next)
+    cy.get(userSelectors.emailAddressField).clear().type(emailAddress)
     cy.clickButton(label.next)
     cy.clickButton(label.finish)
-    cy.contains(htmlSelectors.div, qaAutoUser).parents(userSelectors.parentCell)
+    cy.get(userSelectors.successMessage).contains('success').should('be.visible')
+  }
+
+  beforeEach('login', () => {
+    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
+    cy.wait(3000)
+    cy.get(generalSelectors.roleTab).contains(label.usersLDAPTab).click()
+    cy.wait(5000)
+  })
+
+  it('To verify that ADSI users can be edited successfully', () => {
+    editUserSteps(updateEmail)
+    // assertion
+    cy.contains(htmlSelectors.div, userToUpdate).parents(userSelectors.parentCell)
       .next(htmlSelectors.div).should('exist')
-      .next(htmlSelectors.div).contains(qaEmail).should('not.be.visible')
+      .next(htmlSelectors.div).contains(updateEmail).should('be.visible')
+  })
+
+  afterEach('reverting the changes', () => {
+    editUserSteps(oldEmail)
+    // assertion
+    cy.contains(htmlSelectors.div, userToUpdate).parents(userSelectors.parentCell)
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).contains(oldEmail).should('be.visible')
   })
 })

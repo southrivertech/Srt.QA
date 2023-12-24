@@ -25,7 +25,7 @@ import generalSelectors from '../../../../../selectors/general-selectors.json'
 
 slowCypressDown(100)
 
-describe.skip('Login > {existing server} > events > show system events > SE-10117 (config backup)', () => {
+describe('Login > {existing server} > events > show system events > SE-10117 (config backup)', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -58,5 +58,8 @@ describe.skip('Login > {existing server} > events > show system events > SE-1011
   })
   // the it block code will be written once the issue is resolved
   it('admin can trigger SE-10117 system event to configure backup', () => {
+    cy.get(generalSelectors.labelSelector).contains(label.next).click()
+    cy.get(generalSelectors.labelSelector).contains(label.next).click()
+    cy.get(generalSelectors.labelSelector).contains(label.okay).click()
   })
 })
