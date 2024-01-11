@@ -1,6 +1,6 @@
 {
   "name": "next-gen-tests",
-  "version": "43",
+  "version": "2.0.21.2349",
   "description": "next-gen tests",
   "scripts": {
     "cy:open:prod": "cypress open --config-file ./cypress/config/prod.config.js",
