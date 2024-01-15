@@ -9,7 +9,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * @description
  * This spec file contains test to verify ad/ldap edit user bug
  *
- * @issueID - NX-i1088
+ * @issueID - NX-i1088 bug
  *
  * @breadcrumb
  * Login > {existing server} > users
