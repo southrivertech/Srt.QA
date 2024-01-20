@@ -1,4 +1,4 @@
-import label from '../../../../cypress/fixtures/label.json'
+import label from '../../../../../cypress/fixtures/label.json'
 /**
  * @description
  * This spec file contains tests to ensure that user stays logged in the site after a reload

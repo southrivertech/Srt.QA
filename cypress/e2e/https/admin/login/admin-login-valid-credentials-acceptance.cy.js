@@ -1,4 +1,4 @@
-import label from '../../../../cypress/fixtures/label.json'
+import label from '../../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains tests to ensure that user is able to login successfully.

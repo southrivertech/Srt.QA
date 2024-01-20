@@ -1,6 +1,6 @@
-import label from '../../../fixtures/label.json'
-import htmlTagSelectors from '../../../../selectors/htlm-tag-selectors.json'
-import userDirSelectors from '../../../../selectors/user-dir-selectors.json'
+import label from '../../../../fixtures/label.json'
+import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
+import userDirSelectors from '../../../../../selectors/user-dir-selectors.json'
 import { slowCypressDown } from 'cypress-slow-down'
 
 /**
