@@ -90,6 +90,8 @@ Cypress.Commands.add('createServer', (serverDetails) => {
   cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
     cy.get(htmlTagSelectors.input).type(serverDetails.serverName)
   })
+  cy.contains(htmlTagSelectors.span, label.StartServerAutomatically)
+    .prev(htmlTagSelectors.span).click()
   cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
   cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
   cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
