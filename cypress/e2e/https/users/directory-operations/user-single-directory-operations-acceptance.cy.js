@@ -31,7 +31,7 @@ slowCypressDown(100)
 describe('Login > {existing user}', () => {
   const userData = Cypress.env('user')
   const userInfo = {
-    username: userData.Username,
+    username: userData.directoryOperations.single,
     password: userData.Password
   }
   const folderName = 'qa-auto-folder'

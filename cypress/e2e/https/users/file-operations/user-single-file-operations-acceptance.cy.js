@@ -30,7 +30,7 @@ slowCypressDown(100)
 describe('Login > {existing user}', () => {
   const userData = Cypress.env('user')
   const userInfo = {
-    username: userData.Username,
+    username: userData.fileOperations.single,
     password: userData.Password
   }
   const configSFTP = {
