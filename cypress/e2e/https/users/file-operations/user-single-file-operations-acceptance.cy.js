@@ -36,7 +36,7 @@ describe('Login > {existing user}', () => {
   const configSFTP = {
     host: 'beta.southrivertech.com',
     port: '2200',
-    username: 'testsftp',
+    username: 'singlefile',
     password: '123456'
   }
   const fileName = 'local.txt'

@@ -39,7 +39,7 @@ describe('Login > {existing user}', () => {
   const configSFTP = {
     host: 'beta.southrivertech.com',
     port: '2200',
-    username: 'testsftp',
+    username: 'singledir',
     password: '123456'
   }
 

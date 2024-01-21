@@ -42,7 +42,7 @@ describe('Login > {existing user}', () => {
   const configSFTP = {
     host: 'beta.southrivertech.com',
     port: '2200',
-    username: 'testsftp',
+    username: 'bulkfile',
     password: '123456'
   }
   function folderSelection (fileName) {
