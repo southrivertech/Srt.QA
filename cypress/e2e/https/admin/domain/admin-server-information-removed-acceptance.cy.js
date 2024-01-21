@@ -2,6 +2,8 @@ import serverSelectors from '../../../../../selectors/server-selectors.json'
 import label from '../../../../fixtures/label.json'
 import generalSelectors from '../../../../../selectors/general-selectors.json'
 import { slowCypressDown } from 'cypress-slow-down'
+import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
+
 /**
  * @description
  * This spec file contains tests to verify that server information is removed
@@ -31,7 +33,6 @@ describe('Login > Add New > Server > Database > Server Info', () => {
     password: adminData.adminPassword
   }
   const serverName = `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
-  const back = 'Back'
 
   beforeEach(() => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
@@ -46,26 +47,29 @@ describe('Login > Add New > Server > Database > Server Info', () => {
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
     cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
-    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent('div').within(() => {
-      cy.get('input').type(serverName)
+    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
+      cy.get(htmlTagSelectors.input).type(serverName)
     })
-    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverDescriptionText).parent('div').within(() => {
-      cy.get('input').type(label.serverDescription)
+    cy.contains(htmlTagSelectors.span, label.StartServerAutomatically)
+      .prev(htmlTagSelectors.span).click()
+
+    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverDescriptionText).parent(htmlTagSelectors.div).within(() => {
+      cy.get(htmlTagSelectors.input).type(label.serverDescription)
     })
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
     cy.get(serverSelectors.serverPageHeading).contains(label.selectServices).should('be.visible')
-    cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(back).click()
-    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent('div').within(() => {
-      cy.get('input').invoke('val').should('equal', serverName)
+    cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(label.back).click()
+    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
+      cy.get(htmlTagSelectors.input).invoke('val').should('equal', serverName)
     })
     // Select Database
-    cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(back).click()
+    cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(label.back).click()
     cy.get(serverSelectors.serverPageHeading).contains('Select Database').should('be.visible')
     cy.get(serverSelectors.nextButtonContainer).should('be.visible').contains(label.next).click()
     cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
     cy.get(serverSelectors.serverPageHeading).contains('Enter Server Information').should('be.visible')
-    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent('div').within(() => {
-      cy.get('input').should('not.contain', serverName)
+    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
+      cy.get(htmlTagSelectors.input).should('not.contain', serverName)
     })
   })
 })

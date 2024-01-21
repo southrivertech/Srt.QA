@@ -2,6 +2,7 @@ import navigationSelectors from '../../../../../../../selectors/navigation/left-
 import userSelectors from '../../../../../../../selectors/user/user-selectors.json'
 import label from '../../../../../../fixtures/label.json'
 import { slowCypressDown } from 'cypress-slow-down'
+
 /**
  * @description
  * This spec file contains test to verify that admin user can create users for an existing server
@@ -32,7 +33,7 @@ describe('Login > {existing server} > users > add new user', () => {
   }
 
   const userDetails = {
-    userName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    userName: `qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
     groupName: label.autoGroupName
   }
@@ -48,7 +49,7 @@ describe('Login > {existing server} > users > add new user', () => {
   it('verify that admin can create a user without assigning a group', () => {
     cy.createUser(userDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
-    cy.get(userSelectors.parentCell).contains(userDetails.userName).should('be.visible')
+    cy.get(userSelectors.parentCell).contains(userDetails.userName).scrollIntoView().should('be.visible')
   })
 
   it('Verify that admin can create a user with assigning an existing group', () => {

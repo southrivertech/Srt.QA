@@ -21,7 +21,7 @@ import { slowCypressDown } from 'cypress-slow-down'
  * - user should have valid credentials
  */
 
-slowCypressDown(300)
+slowCypressDown(150)
 
 describe('Login > {existing server} > group', () => {
   const adminData = Cypress.env('admin')

@@ -30,7 +30,7 @@ describe.skip('Login Functionality Test', () => {
   })
 
   it('Press the back key button in the browser', () => {
-    cy.go(label.back)
+    cy.go('back')
     cy.contains(label.login).should('not.be.visible')
   })
 })

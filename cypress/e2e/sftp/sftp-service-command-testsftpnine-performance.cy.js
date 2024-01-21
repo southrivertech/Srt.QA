@@ -1,6 +1,19 @@
+import navigationSelectors from '../../../selectors/navigation/left-navigation-selectors.json'
+import label from '../../fixtures/label.json'
+
 describe('example', () => {
+  const adminData = Cypress.env('admin')
+  const userInfo = {
+    username: adminData.adminUsername,
+    password: adminData.adminPassword
+  }
+
   before(() => {
-    cy.visit('https://beta.southrivertech.com')
+    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+    // navigate to events
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.serverActivity).should('be.visible').click()
   })
   const configSFTP = {
     host: 'beta.southrivertech.com',

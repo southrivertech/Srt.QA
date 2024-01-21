@@ -1,6 +1,8 @@
 import serverSelectors from '../../../../../selectors/server-selectors.json'
 import label from '../../../../fixtures/label.json'
 import generalSelectors from '../../../../../selectors/general-selectors.json'
+import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
+
 /**
  * @description
  * This spec file contains tests to ensure that user must provide the Manual Directory Configuration values before moving to the next page
@@ -24,7 +26,6 @@ describe('Login > Add New > Server > Database > Server Info > Add New', () => {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-
   const serverName = `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
 
   beforeEach(() => {
@@ -37,11 +38,14 @@ describe('Login > Add New > Server > Database > Server Info > Add New', () => {
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
 
-    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent('div').within(() => {
-      cy.get('input').type(serverName)
+    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
+      cy.get(htmlTagSelectors.input).type(serverName)
     })
 
-    cy.get('input[type=checkbox]').eq(1).click()
+    cy.contains(htmlTagSelectors.span, label.StartServerAutomatically)
+      .prev(htmlTagSelectors.span).click()
+
+    cy.get(generalSelectors.inputTypeCheckbox).eq(1).click()
 
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
 

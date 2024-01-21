@@ -39,6 +39,8 @@ describe('login > add new server ', () => {
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
     cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
+    cy.contains(htmlTagSelectors.span, label.StartServerAutomatically)
+      .prev(htmlTagSelectors.span).click()
   })
 
   afterEach(() => {
