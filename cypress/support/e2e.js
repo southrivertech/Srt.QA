@@ -38,6 +38,7 @@ import './commands'
 
 /** API REQUESTS COMMANDS */
 import '../../components/apis/requests/Authentication/post-authenticate-login-api-request'
+import '../../components/apis/requests/Authentication/post-authenticate-logout-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'

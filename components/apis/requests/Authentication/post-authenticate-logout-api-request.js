@@ -1,43 +1,32 @@
 /**
 * @description
-* The postAddProductsApiRequest command is used to add product to an invoice
+* The postLogoutAuthenticateApiRequest command is used to logout through API
 *
 * @parameters
-* @param {required} location
-* @param {required} invoiceID
+* @param {required} username
+* @param {required} password
+* @param {required} bearerToken
 *
 * @example
-* cy.postAddProductsApiRequest({
-*   location: locations.stripePayments,
-*   invoiceID: $body.id
+* cy.postLogoutAuthenticateApiRequest({
+*   username: 'usernameValue',
+*   password: 'passwordValue',
+*   bearerToken: 'tokenValue'
 * })
 */
 
-Cypress.Commands.add('postAddProductsApiRequest', (opts) => {
-    Cypress.log({
-      name: 'postAddProductsApiRequest'
-    })
-  
-    cy.request({
-      method: 'POST',
-      url: `${Cypress.env('apiBaseUrl')}/invoices/${opts.invoiceID}/products`,
-      headers: {
-        'X-Atelier35-Api-Key': Cypress.env('apiKey'),
-        'X-Atelier35-Account-Id': opts.location.accountId,
-        'X-Atelier35-User-Id': opts.location.userId
-      },
-      body: {
-        measure: '1',
-        additionalMeasure: '0',
-        productId: opts.location.productId,
-        status: 'active',
-        billingMethod: 'one-time'
-      }
-    }).then(($response) => {
-      console.log('response of postAddProductsApiRequest', $response)
-      expect($response.status).to.eq(201)
-      expect($response.body.data[0].attributes.itemObject.id).to.equal(opts.location.productId)
-      return $response.body
-    })
+Cypress.Commands.add('postLogoutAuthenticateApiRequest', (opts) => {
+  Cypress.log({
+    name: 'postLogoutAuthenticateApiRequest'
   })
-  
+
+  cy.api({
+    method: 'POST',
+    url: `${Cypress.env('apiBaseUrl')}/api/Authenticate/Logout?bearerToken=${opts.bearerToken}`
+  }).then(($response) => {
+    console.log('response of postLogoutAuthenticateApiRequest', $response)
+    expect($response.status).to.eq(200)
+    // expect($response.body.Response.AuthInfo.IsAdmin).to.equal(true)
+    return $response.body
+  })
+})

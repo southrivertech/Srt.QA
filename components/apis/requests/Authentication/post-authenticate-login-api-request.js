@@ -7,9 +7,9 @@
 * @param {required} password
 *
 * @example
-* cy.postLoginAuthenticateApiRequest({
-*   location: locations.stripePayments,
-*   invoiceID: $body.id
+* cy.postLogoutAuthenticateApiRequest({
+*   username: 'usernameValue',
+*   password: 'passwordValue',
 * })
 */
 
@@ -23,7 +23,7 @@ Cypress.Commands.add('postLoginAuthenticateApiRequest', (opts) => {
     url: `${Cypress.env('apiBaseUrl')}/api/Authenticate/Login`,
     body: {
       UserName: opts.username,
-      PassWord: opts.password,
+      PassWord: opts.password
     }
   }).then(($response) => {
     console.log('response of postLoginAuthenticateApiRequest', $response)
