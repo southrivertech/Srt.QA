@@ -6,6 +6,7 @@
     "cy:open:beta": "cypress open --config-file ./cypress/config/beta.config.js",
     "performance": "CYPRESS_RECORD_KEY=addf7e90-b5a9-4eb3-a581-7f8f209e6b0b cypress run --record --parallel --tag beta-performance --group beta-performance --config-file ./cypress/config/beta.config.js --spec **/*performance.cy.js",
     "acceptance": "CYPRESS_RECORD_KEY=addf7e90-b5a9-4eb3-a581-7f8f209e6b0b cypress run --record --parallel --tag beta-acceptance --group beta-acceptance --config-file ./cypress/config/beta.config.js --spec **/*acceptance.cy.js",
+    "api": "CYPRESS_RECORD_KEY=addf7e90-b5a9-4eb3-a581-7f8f209e6b0b cypress run --record --parallel --tag beta-api --group beta-api --config-file ./cypress/config/beta.config.js --spec **/*api.cy.js",
     "beta:acceptance": "cypress run --tag beta-acceptance --group beta-acceptance --parallel --ci-build-id ${{github.run_number}} --config-file ./cypress/config/beta.config.js --spec 'cypress/e2e/sftp/**/*'"
   },
   "author": "",
@@ -20,21 +21,17 @@
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-chai-friendly": "^0.7.2",
     "eslint-plugin-cypress": "^2.12.1",
-    "mocha": "^10.2.0",
-    "mocha-junit-reporter": "^2.2.0",
-    "mochawesome": "^7.1.3",
-    "mochawesome-merge": "^4.3.0",
-    "mochawesome-report-generator": "^6.2.0"
+    "mocha": "^10.2.0"
   },
   "dependencies": {
-    "@cypress/webpack-preprocessor": "^5.17.0",
+    "@cypress/webpack-preprocessor": "^6.0.1",
     "cypress-file-upload": "^5.0.8",
     "cypress-iframe": "^1.0.1",
     "cypress-localstorage-commands": "2.2.2",
+    "cypress-plugin-api": "^2.11.1",
     "cypress-slow-down": "^1.2.1",
     "cypress-wait-until": "1.7.2",
     "dayjs": "^1.11.7",
-    "puppeteer": "^19.8.0",
-    "ssh2-sftp-client": "^9.1.0"
+    "ssh2-sftp-client": "^10.0.3"
   }
 }

@@ -19,6 +19,7 @@ module.exports = defineConfig({
   requestTimeout: 45000,
   env: {
     baseUrl: 'https://beta.southrivertech.com',
+    apiBaseUrl: 'https://beta.southrivertech.com:41443',
     admin: {
       adminBaseUrl: ':41443/',
       adminUsername: 'srtadmin',
