@@ -17,6 +17,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Run Cypress performance tests in parallel
         uses: cypress-io/github-action@v6
         with:
