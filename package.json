@@ -24,7 +24,7 @@
     "mocha": "^10.2.0"
   },
   "dependencies": {
-    "@cypress/webpack-preprocessor": "^5.17.1",
+    "@cypress/webpack-preprocessor": "^6.0.1",
     "cypress-file-upload": "^5.0.8",
     "cypress-iframe": "^1.0.1",
     "cypress-localstorage-commands": "2.2.2",
@@ -32,6 +32,6 @@
     "cypress-slow-down": "^1.2.1",
     "cypress-wait-until": "1.7.2",
     "dayjs": "^1.11.7",
-    "ssh2-sftp-client": "^9.1.0"
+    "ssh2-sftp-client": "^10.0.3"
   }
 }
