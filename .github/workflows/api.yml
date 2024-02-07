@@ -1,0 +1,25 @@
+name: Parallel API Tests
+
+on:
+  push:
+  schedule:
+    - cron: '0 10 * * *'  # 9AM EST
+jobs:
+  acceptance_tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Cypress acceptance tests in parallel
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          parallel: true
+          command: npm run api
