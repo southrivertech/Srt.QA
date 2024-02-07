@@ -1,6 +1,6 @@
 {
   "name": "next-gen-tests",
-  "version": "2.0.21.2349",
+  "version": "1.0.0",
   "description": "next-gen tests",
   "scripts": {
     "cy:open:beta": "cypress open --config-file ./cypress/config/beta.config.js",
