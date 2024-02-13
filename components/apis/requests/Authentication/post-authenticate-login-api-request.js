@@ -7,7 +7,7 @@
 * @param {required} password
 *
 * @example
-* cy.postLogoutAuthenticateApiRequest({
+* cy.postLoginAuthenticateApiRequest({
 *   username: 'usernameValue',
 *   password: 'passwordValue',
 * })

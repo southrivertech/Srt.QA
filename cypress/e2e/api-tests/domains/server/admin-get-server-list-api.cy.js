@@ -42,8 +42,9 @@ describe('GET /api/Servers', () => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiServerListResponse')
       // Check if autoServerName exist in server list or not
-      const servers = $response.Response.ServerList.map(servers => servers.ServerName)
+      const servers = $response.Response.ServerList.map(server => server.ServerName)
       expect(servers).to.include(label.autoServerName)
+      // expect($response.Response.ServerList[3].ServerName).to.equal(label.autoServerName)
     })
   })
 

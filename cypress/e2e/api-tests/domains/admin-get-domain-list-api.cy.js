@@ -41,7 +41,7 @@ describe('GET /api/Domains', () => {
       // Check if response type is api domain list
       expect($response.ResponseType).to.equal('ApiDomainList')
       // Check if autoDomainName exist in domain list or not
-      const domains = $response.Response.DomainList.map(domains => domains.DomainName)
+      const domains = $response.Response.DomainList.map(domain => domain.DomainName)
       expect(domains).to.include(label.autoDomainName)
       // expect($response.Response.DomainList[0].DomainName).to.equal(label.autoDomainName)
     })
