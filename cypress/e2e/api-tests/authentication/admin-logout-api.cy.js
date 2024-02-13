@@ -10,7 +10,8 @@
  * - user should have valid credentials
  */
 
-describe('admin logout functionality', () => {
+let bearerToken = null
+describe('POST /api/Authenticate/Logout', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -24,9 +25,9 @@ describe('admin logout functionality', () => {
       // Check if BearerToken is not empty
       expect($response.Response.SessionInfo.BearerToken).to.not.be.empty
       // initializing bearer Token
-      userInfo.bearerToken = $response.Response.SessionInfo.BearerToken
+      bearerToken = $response.Response.SessionInfo.BearerToken
       // calling logout function
-      cy.postLogoutAuthenticateApiRequest(userInfo).then(($response) => {
+      cy.postLogoutAuthenticateApiRequest(bearerToken).then(($response) => {
         // check if request is successful or not bearer Token
         expect($response.Result.ErrorStr).to.equal('Success')
       })

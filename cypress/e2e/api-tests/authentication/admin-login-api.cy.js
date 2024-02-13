@@ -10,7 +10,7 @@
  * - user should have valid credentials
  */
 
-describe('admin login functionality', () => {
+describe('POST /api/Authenticate/Login', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
