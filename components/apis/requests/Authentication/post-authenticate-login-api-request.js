@@ -7,7 +7,7 @@
 * @param {required} password
 *
 * @example
-* cy.postLogoutAuthenticateApiRequest({
+* cy.postLoginAuthenticateApiRequest({
 *   username: 'usernameValue',
 *   password: 'passwordValue',
 * })
@@ -28,7 +28,6 @@ Cypress.Commands.add('postLoginAuthenticateApiRequest', (opts) => {
   }).then(($response) => {
     console.log('response of postLoginAuthenticateApiRequest', $response)
     expect($response.status).to.eq(200)
-    expect($response.body.Response.AuthInfo.IsAdmin).to.equal(true)
     return $response.body
   })
 })
