@@ -41,8 +41,9 @@ import '../../components/apis/requests/Authentication/post-authenticate-login-ap
 import '../../components/apis/requests/Authentication/post-authenticate-logout-api-request'
 import '../../components/apis/requests/domain/get-domain-list-api-request'
 import '../../components/apis/requests/domain/server/get-server-list-api-request'
-import '../../components/apis/requests/Authentication/post-create-user-request'
-import '../../components/apis/requests/Authentication/admin-delete-user-request'
+import '../../components/apis/requests/users/get-list-user-api-request'
+import '../../components/apis/requests/users/post-create-user-api-request'
+import '../../components/apis/requests/users/delete-user-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
