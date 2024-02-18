@@ -5,7 +5,7 @@ import { slowCypressDown } from 'cypress-slow-down'
 
 /**
  * @description
- * This spec file contains test to verify that admin user can create users for an existing server
+ * This spec file contains test to verify that admin user can create a user for an existing server
  *
  * @file
  * cypress/e2e/admin/server/users/admin-create-users-acceptance.cy.js
