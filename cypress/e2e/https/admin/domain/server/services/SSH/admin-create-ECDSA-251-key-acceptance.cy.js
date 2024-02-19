@@ -4,6 +4,7 @@ import navigationSelectors from '../../../../../../../../selectors/navigation/le
 import label from '../../../../../../../fixtures/label.json'
 import generalSelectors from '../../../../../../../../selectors/general-selectors.json'
 import dashboardSelectors from '../../../../../../../../selectors/dashboard-selectors.json'
+import htmlTagSelectors from '../../../../../../../../selectors/htlm-tag-selectors.json'
 
 /**
  * @description
@@ -31,27 +32,49 @@ describe('login > add new server ', () => {
     password: adminData.adminPassword
   }
 
+  // server details
   const serverDetails = {
     serverType: 'New standalone or primary cluster server.',
-    selectDatabase: 'ECDSA 251',
+    selectDatabase: 'SQLite Database',
     serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
+  }
+
+  // ssh host key details
+  const hostKeyDetails = {
+    keyType: label.RSA,
+    keySize: 'ECDSA 251',
+    keyName: `qa-auto key ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.createServer(serverDetails)
-    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
+    // cy.createServer(serverDetails)
+    cy.get(serverSelectors.serverName).contains('qa-auto server 3342040224').should('be.visible')
+    // navigate to services
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
+    cy.get(navigationSelectors.textLabelSelector).contains('qa-auto server 3342040224').should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.services).should('be.visible').click()
+    // clicking on ssh tab
+    cy.get(generalSelectors.roleTab).contains(label.sshSftpText).should('be.visible').click()
   })
 
   it('verify that user can create ECDSA 251 key', () => {
-    // navigate to services
-    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
-    cy.get(navigationSelectors.textLabelSelector).contains(serverDetails.serverName).should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains(label.services).should('be.visible').click()
-    cy.get(generalSelectors.roleTab).contains(label.sshSftpText).should('be.visible').click()
+    // adding new ssh host key
+    cy.addNewSSHHostKey(hostKeyDetails)
+   //
+    
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
     cy.get(generalSelectors.typeButton).contains(label.new).should('be.visible').click()
-    cy.get(dashboardSelectors.gridRoot).contains(label.RSA).should('be.visible').click()
+    // working above
+    // cy.get(dashboardSelectors.gridRoot).contains().should('be.visible').click()
+    cy.get(generalSelectors.inputLabel).contains('Key Type').parent(htmlTagSelectors.div).within(() => {
+      // cy.get('role="button"').click()
+      // cy.pause(1000)
+      cy.get('[role="button"]').click()
+      // cy.pause(1000)
+    })
+    // cy.get(serverSelectors.sqlLite).click()
+    cy.get('[data-value="ECDSA"]').click()
   })
 
   afterEach('deleting a server', () => {
