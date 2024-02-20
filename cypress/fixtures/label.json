@@ -110,5 +110,6 @@
   "usersLDAPTab": "LDAP",
   "usersADSITab": "ADSI",
   "manageHostKeys":"Manage Host Keys",
-  "RSA":"RSA"
+  "RSA":"RSA",
+  "virtualDirectoryAccess":"Virtual Directory Access"
 }

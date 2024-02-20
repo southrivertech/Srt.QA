@@ -8,5 +8,6 @@
     "inputLabel": ".MuiInputLabel-formControl",
     "roleButton":"[role='button']",
     "roleOption":"[role='option']",
-    "ariaLabel":"[aria-labelledby='SSH Host Key-dialog-title']"
+    "ariaLabel":"[aria-labelledby='SSH Host Key-dialog-title']",
+    "close":"[aria-label='close']"
 }
