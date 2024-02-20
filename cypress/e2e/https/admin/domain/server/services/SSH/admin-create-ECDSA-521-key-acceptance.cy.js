@@ -3,7 +3,6 @@ import { slowCypressDown } from 'cypress-slow-down'
 import navigationSelectors from '../../../../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../../../../fixtures/label.json'
 import generalSelectors from '../../../../../../../../selectors/general-selectors.json'
-import dashboardSelectors from '../../../../../../../../selectors/dashboard-selectors.json'
 import htmlTagSelectors from '../../../../../../../../selectors/htlm-tag-selectors.json'
 
 /**
@@ -32,51 +31,48 @@ describe('login > add new server ', () => {
     password: adminData.adminPassword
   }
 
-  // server details
   const serverDetails = {
     serverType: 'New standalone or primary cluster server.',
     selectDatabase: 'SQLite Database',
     serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
-
-  // ssh host key details
   const hostKeyDetails = {
-    keyType: label.RSA,
-    keySize: 'ECDSA 251',
-    keyName: `qa-auto key ${Cypress.dayjs().format('ssmmhhMMYY')}`
+    keyType: 'ECDSA',
+    keySize: '521',
+    keyName: 'ECDSA251'
   }
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    // cy.createServer(serverDetails)
-    cy.get(serverSelectors.serverName).contains('qa-auto server 3342040224').should('be.visible')
-    // navigate to services
-    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa-auto server 3342040224').should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains(label.services).should('be.visible').click()
-    // clicking on ssh tab
-    cy.get(generalSelectors.roleTab).contains(label.sshSftpText).should('be.visible').click()
+    cy.createServer(serverDetails)
+    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
   })
 
   it('verify that user can create ECDSA 251 key', () => {
-    // adding new ssh host key
-    cy.addNewSSHHostKey(hostKeyDetails)
-   //
-    
+    // navigate to services
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
+    cy.get(navigationSelectors.textLabelSelector).contains(serverDetails.serverName).should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.services).should('be.visible').click()
+    cy.get(generalSelectors.roleTab).contains(label.sshSftpText).should('be.visible').click()
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
     cy.get(generalSelectors.typeButton).contains(label.new).should('be.visible').click()
-    // working above
-    // cy.get(dashboardSelectors.gridRoot).contains().should('be.visible').click()
+    // clicking on key type dropdown
     cy.get(generalSelectors.inputLabel).contains('Key Type').parent(htmlTagSelectors.div).within(() => {
-      // cy.get('role="button"').click()
-      // cy.pause(1000)
-      cy.get('[role="button"]').click()
-      // cy.pause(1000)
+      cy.get(generalSelectors.roleButton).click()
     })
-    // cy.get(serverSelectors.sqlLite).click()
-    cy.get('[data-value="ECDSA"]').click()
-  })
+    cy.get(serverSelectors.ECDSA).click()
+    // clicking on key size dropdown
+    cy.get(generalSelectors.inputLabel).contains('Key Size').parent(htmlTagSelectors.div).within(() => {
+      cy.get(generalSelectors.roleButton).click()
+    })
+    cy.get(serverSelectors.ECDSAKeySize).click()
+    cy.get(serverSelectors.hostKeyNameinput).type(hostKeyDetails.keyName)
 
+    cy.get(generalSelectors.ariaLabel).within(() => { cy.get(htmlTagSelectors.span).contains(label.add).click() })
+
+    cy.get(generalSelectors.labelSelector).contains(label.closeText).click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
+  })
   afterEach('deleting a server', () => {
     cy.deleteServer(serverDetails.serverName)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')

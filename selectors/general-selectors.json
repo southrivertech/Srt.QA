@@ -5,5 +5,8 @@
     "labelSelector": ".MuiButton-label",
     "closeModal": "[title='Close']",
     "inputTypeCheckbox": "input[type=checkbox]",
-    "inputLabel": ".MuiInputLabel-formControl"
+    "inputLabel": ".MuiInputLabel-formControl",
+    "roleButton":"[role='button']",
+    "roleOption":"[role='option']",
+    "ariaLabel":"[aria-labelledby='SSH Host Key-dialog-title']"
 }

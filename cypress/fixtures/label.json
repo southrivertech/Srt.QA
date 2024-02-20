@@ -22,6 +22,7 @@
   "userName"   : "User Name",
   "password"   : "Password",
   "confirmPassword"  : "Confirm Password",
+  "confirmDelete":"Confirm Delete",
   "assignToGroups"  : "Assign to Groups",
   "configureUserOptions" : "Configure User Options",
   "editUserAssignedGroups" : "Edit User & Assigned Groups",

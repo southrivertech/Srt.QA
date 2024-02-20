@@ -32,5 +32,7 @@
     "temporaryCacheDirectoryReqMessage" : "[id='Temporary Cache Directory-helper-text']",
     "quickSendCacheDirectoryReqMessage" : "[id='QuickSend Cache Directory-helper-text']",
     "aVQuarantineDirectoryReqMessage" : "[id='AV Quarantine Directory-helper-text']",
-    "ECDSA":"[data-value='ECDSA']"
+    "ECDSA":"[data-value='ECDSA']",
+    "ECDSAKeySize":"[data-value=521]",
+    "hostKeyNameinput":"[id='Host Key Name']"
 }
