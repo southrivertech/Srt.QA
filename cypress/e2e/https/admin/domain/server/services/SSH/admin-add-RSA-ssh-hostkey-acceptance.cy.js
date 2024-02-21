@@ -2,6 +2,7 @@ import serverSelectors from '../../../../../../../../selectors/server-selectors.
 import { slowCypressDown } from 'cypress-slow-down'
 import navigationSelectors from '../../../../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../../../../fixtures/label.json'
+import userSelectors from '../../../../../../../../selectors/user/user-selectors.json'
 import generalSelectors from '../../../../../../../../selectors/general-selectors.json'
 
 /**
@@ -9,13 +10,13 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  * This spec file contains test to verify that admin user can add a RSA521
  *
  * @file
- * ui/cypress/e2e/server/services/SSH/admin-create-ECSA-251-acceptance.cy.js
+ * ui/cypress/e2e/server/services/SSH/admin-add-RSA-ssh-hostkey-acceptance.cy.js
  *
  * @breadcrumb
  * Login > create new server > services > SSH > Manage host key
  *
  * @assertions
- * To verify that admin is able to add a RSA521 key
+ * To verify that admin is able to add a RSA1024, RSA2048 and RSA4096 key
  *
  */
 slowCypressDown(100)
@@ -58,11 +59,13 @@ describe('login > add new server ', () => {
   it('verify that user can create RSA 2048 key', () => {
     hostKeyDetails.keySize = '2048'
     cy.createServerKey(hostKeyDetails)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
 
   it('verify that user can create RSA 4096 key', () => {
     hostKeyDetails.keySize = '4096'
     cy.createServerKey(hostKeyDetails)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
   afterEach('deleting a server', () => {
     // deleting the created server

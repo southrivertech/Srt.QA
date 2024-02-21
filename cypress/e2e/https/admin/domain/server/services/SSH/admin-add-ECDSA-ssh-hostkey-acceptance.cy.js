@@ -2,6 +2,7 @@ import serverSelectors from '../../../../../../../../selectors/server-selectors.
 import { slowCypressDown } from 'cypress-slow-down'
 import navigationSelectors from '../../../../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../../../../fixtures/label.json'
+import userSelectors from '../../../../../../../../selectors/user/user-selectors.json'
 import generalSelectors from '../../../../../../../../selectors/general-selectors.json'
 
 /**
@@ -9,13 +10,12 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  * This spec file contains test to verify that admin user can add a ECDSA521
  *
  * @file
- * ui/cypress/e2e/server/services/SSH/admin-create-ECSA-251-acceptance.cy.js
- *
+ * ui/cypress/e2e/server/services/SSH/admin-add-ECDSA-ssh-hostkey-acceptance.cy.js
  * @breadcrumb
  * Login > create new server > services > SSH > Manage host key
  *
  * @assertions
- * To verify that admin is able to add a ECDSA521 key
+ * To verify that admin is able to add a ECDSA521, ECDSA256 and ECDSA384 key
  *
  */
 slowCypressDown(100)
@@ -34,8 +34,7 @@ describe('login > add new server ', () => {
   }
   const hostKeyDetails = {
     keyType: 'ECDSA',
-    keySize: [521, 256, 384],
-    keyName: 'xyz'
+    keyName: `qa-auto key ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach('login and create server', () => {
@@ -52,19 +51,25 @@ describe('login > add new server ', () => {
   })
 
   it.only('verify that user can create ECDSA 521 key', () => {
-    cy.createServerKey(hostKeyDetails.keySize[0])
+    hostKeyDetails.keySize = '521'
+    cy.createServerKey(hostKeyDetails)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
 
   it('verify that user can create ECDSA 256 key', () => {
-    cy.createServerKey(hostKeyDetails, hostKeyDetails.keySize[1])
+    hostKeyDetails.keySize = '256'
+    cy.createServerKey(hostKeyDetails)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
 
   it('verify that user can create ECDSA 384 key', () => {
-    cy.createServerKey(hostKeyDetails, hostKeyDetails.keySize[2])
+    hostKeyDetails.keySize = '384'
+    cy.createServerKey(hostKeyDetails)
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
-  // afterEach('deleting a server', () => {
-  //   // deleting the created server
-  //   cy.deleteServer(serverDetails.serverName)
-  //   cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
-  // })
+  afterEach('deleting a server', () => {
+    // deleting the created server
+    cy.deleteServer(serverDetails.serverName)
+    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
+  })
 })
