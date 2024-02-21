@@ -111,5 +111,7 @@
   "usersADSITab": "ADSI",
   "manageHostKeys":"Manage Host Keys",
   "RSA":"RSA",
-  "virtualDirectoryAccess":"Virtual Directory Access"
+  "virtualDirectoryAccess":"Virtual Directory Access",
+  "keyType":"Key Type",
+  "keySize":"Key Size"
 }
