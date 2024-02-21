@@ -23,10 +23,10 @@ Cypress.Commands.add('createServerKey', (hostKeyDetails) => {
     cy.get(generalSelectors.roleButton).click()
   })
   cy.log(hostKeyDetails.keyType)
-  cy.get(generalSelectors.roleButton).contains(hostKeyDetails.keyType).click({ force: true })
+  cy.get(`[data-value='${hostKeyDetails.keyType}']`).click()
   // clicking on key size dropdown
   cy.get(generalSelectors.inputLabel).contains(label.keySize).parent(htmlTagSelectors.div).within(() => {
-    cy.get(generalSelectors.roleButton).click({ force: true })
+    cy.get(generalSelectors.roleButton).click()
   })
   // entering key name
   cy.get(generalSelectors.roleListBox).contains(hostKeyDetails.keySize).click()

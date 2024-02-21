@@ -34,32 +34,34 @@ describe('login > add new server ', () => {
   }
   const hostKeyDetails = {
     keyType: 'RSA',
-    keySize: ['1024', '2048', '4096'],
     keyName: `qa-auto key ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    // cy.createServer(serverDetails)
-    cy.get(serverSelectors.serverName).contains('qa-auto server 4539120224').should('be.visible')
+    cy.createServer(serverDetails)
+    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
-    cy.get(navigationSelectors.textLabelSelector).contains('qa-auto server 4539120224').should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(serverDetails.serverName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.services).should('be.visible').click()
     // clicking on SSH/SFTP tab
     cy.get(generalSelectors.roleTab).contains(label.sshSftpText).should('be.visible').click()
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
   })
 
-  it.only('verify that user can create RSA 1024 key', () => {
+  it('verify that user can create RSA 1024 key', () => {
+    hostKeyDetails.keySize = '1024'
     cy.createServerKey(hostKeyDetails)
   })
 
   it('verify that user can create RSA 2048 key', () => {
+    hostKeyDetails.keySize = '2048'
     cy.createServerKey(hostKeyDetails)
   })
 
   it('verify that user can create RSA 4096 key', () => {
+    hostKeyDetails.keySize = '4096'
     cy.createServerKey(hostKeyDetails)
   })
   afterEach('deleting a server', () => {
