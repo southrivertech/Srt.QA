@@ -10,5 +10,7 @@
     "roleOption":"[role='option']",
     "ariaLabel":"[aria-labelledby='SSH Host Key-dialog-title']",
     "close":"[aria-label='close']",
-    "roleListBox":"[role='listbox']"
+    "roleListBox":"[role='listbox']",
+    "idtext":"[id='Text']",
+    "rolemenu":"[role='menu']"
 }

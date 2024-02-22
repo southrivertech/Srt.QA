@@ -113,5 +113,9 @@
   "RSA":"RSA",
   "virtualDirectoryAccess":"Virtual Directory Access",
   "keyType":"Key Type",
-  "keySize":"Key Size"
+  "keySize":"Key Size",
+  "connections":"Connections",
+  "welcomeMessage":"WelcomeMsg",
+  "messages":"Messages",
+  "edit":"Edit"
 }
