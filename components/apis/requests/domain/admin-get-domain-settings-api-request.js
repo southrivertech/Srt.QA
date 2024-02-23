@@ -8,6 +8,7 @@
 * @example
 * cy.getDomainSettingsApiRequest(bearerToken)
 */
+const las = 'ed2ecaec-33a3-4ea3-b0e5-a70453775b9b'
 
 Cypress.Commands.add('getDomainSettingsApiRequest', (token) => {
   Cypress.log({
@@ -16,7 +17,7 @@ Cypress.Commands.add('getDomainSettingsApiRequest', (token) => {
 
   cy.api({
     method: 'GET',
-    url: `${Cypress.env('apiBaseUrl')}/api/Domain/ed2ecaec-33a3-4ea3-b0e5-a70453775b9b`,
+    url: `${Cypress.env('apiBaseUrl')}/api/Domain/${las}`,
     headers: {
       Authorization: `Bearer ${token}`
     }

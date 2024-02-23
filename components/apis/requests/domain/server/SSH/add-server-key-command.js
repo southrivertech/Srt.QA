@@ -6,15 +6,15 @@ import navigationSelectors from '../../../../../../selectors/navigation/left-nav
 
 /**
 * @description
-* The createServerKey Command  is used to get the list of domains
+* The addServerKey Command  is used to add a SSH server key
 *
 * @example
-* cy.createServerKeyCommand(bearerToken)
+* cy.addServerKeyCommand(hostKeyDetails)
 */
 
-Cypress.Commands.add('createServerKey', (hostKeyDetails) => {
+Cypress.Commands.add('addServerKey', (hostKeyDetails) => {
   Cypress.log({
-    name: 'createServerKeyCommand'
+    name: 'addServerKeyCommand'
   })
   // adding a new key
   cy.get(generalSelectors.typeButton).contains(label.new).should('be.visible').click()

@@ -13,15 +13,15 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  * ui/cypress/e2e/server/services/SSH/admin-add-RSA-ssh-hostkey-acceptance.cy.js
  *
  * @breadcrumb
- * Login > create new server > services > SSH > Manage host key
+ * login > create new server > services > SSH > Add RSA Key
  *
  * @assertions
- * To verify that admin is able to add a RSA1024, RSA2048 and RSA4096 key
+ * To verify that admin is able to add a RSA 1024, RSA 2048 and RSA 4096 key
  *
  */
 slowCypressDown(100)
 
-describe('login > add new server ', () => {
+describe('login > create new server ', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -40,7 +40,7 @@ describe('login > add new server ', () => {
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.createServer(serverDetails)
+    cy.addServer(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
@@ -51,20 +51,20 @@ describe('login > add new server ', () => {
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
   })
 
-  it('verify that user can create RSA 1024 key', () => {
+  it('verify that user can add RSA 1024 key', () => {
     hostKeyDetails.keySize = '1024'
-    cy.createServerKey(hostKeyDetails)
+    cy.addServerKey(hostKeyDetails)
   })
 
-  it('verify that user can create RSA 2048 key', () => {
+  it('verify that user can add RSA 2048 key', () => {
     hostKeyDetails.keySize = '2048'
-    cy.createServerKey(hostKeyDetails)
+    cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })
 
-  it('verify that user can create RSA 4096 key', () => {
+  it('verify that user can add RSA 4096 key', () => {
     hostKeyDetails.keySize = '4096'
-    cy.createServerKey(hostKeyDetails)
+    cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })
   afterEach('deleting a server', () => {

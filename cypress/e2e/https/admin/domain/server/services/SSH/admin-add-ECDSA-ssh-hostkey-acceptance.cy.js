@@ -12,10 +12,10 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  * @file
  * ui/cypress/e2e/server/services/SSH/admin-add-ECDSA-ssh-hostkey-acceptance.cy.js
  * @breadcrumb
- * Login > create new server > services > SSH > Manage host key
+ * login > create new server > services > SSH > Add ECDSA Key
  *
  * @assertions
- * To verify that admin is able to add a ECDSA521, ECDSA256 and ECDSA384 key
+ * To verify that admin is able to add a ECDSA 521, ECDSA 256 and ECDSA 384 key
  *
  */
 slowCypressDown(100)
@@ -39,7 +39,7 @@ describe('login > add new server ', () => {
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.createServer(serverDetails)
+    cy.addServer(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
@@ -50,21 +50,21 @@ describe('login > add new server ', () => {
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
   })
 
-  it.only('verify that user can create ECDSA 521 key', () => {
+  it('verify that user can add ECDSA 521 key', () => {
     hostKeyDetails.keySize = '521'
-    cy.createServerKey(hostKeyDetails)
+    cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })
 
-  it('verify that user can create ECDSA 256 key', () => {
+  it('verify that user can add ECDSA 256 key', () => {
     hostKeyDetails.keySize = '256'
-    cy.createServerKey(hostKeyDetails)
+    cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })
 
-  it('verify that user can create ECDSA 384 key', () => {
+  it('verify that user can add ECDSA 384 key', () => {
     hostKeyDetails.keySize = '384'
-    cy.createServerKey(hostKeyDetails)
+    cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })
   afterEach('deleting a server', () => {

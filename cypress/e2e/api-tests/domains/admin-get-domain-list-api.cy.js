@@ -50,7 +50,7 @@ describe('GET /api/Domains', () => {
   afterEach('logout through API', () => {
     // calling logout function
     cy.postLogoutAuthenticateApiRequest(bearerToken).then(($response) => {
-      // check if request is successful or not bearer Token
+      // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })

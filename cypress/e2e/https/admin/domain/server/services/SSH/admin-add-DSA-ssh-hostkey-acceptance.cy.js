@@ -13,7 +13,7 @@ import userSelectors from '../../../../../../../../selectors/user/user-selectors
  * ui/cypress/e2e/server/services/SSH/admin-add-DSA-ssh-hostkey-acceptance.cy.js
  *
  * @breadcrumb
- * Login > create new server > services > SSH > Manage host key
+ * login > create new server > services > SSH > Add DSA Key
  *
  * @assertions
  * To verify that admin is able to add a DSA 1024 key
@@ -21,7 +21,7 @@ import userSelectors from '../../../../../../../../selectors/user/user-selectors
  */
 slowCypressDown(100)
 
-describe('login > add new server ', () => {
+describe('login > create new server > services > SSH > Add DSA Key', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -41,7 +41,7 @@ describe('login > add new server ', () => {
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.createServer(serverDetails)
+    cy.addServer(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
@@ -52,8 +52,8 @@ describe('login > add new server ', () => {
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
   })
 
-  it('verify that user can create DSA 1024 key', () => {
-    cy.createServerKey(hostKeyDetails)
+  it('verify that user can add DSA 1024 key', () => {
+    cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })
 

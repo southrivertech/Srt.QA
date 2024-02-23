@@ -11,7 +11,7 @@
  */
 
 let bearerToken = null
-describe('GET /api/Domains', () => {
+describe('get domain settings', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -39,8 +39,8 @@ describe('GET /api/Domains', () => {
     cy.getDomainSettingsApiRequest(bearerToken).then(($response) => {
       // Check if response type is Api result domain params poco
       expect($response.ResponseType).to.equal('ApiResultDomainParamsPoco')
-      // Check if Error code is 0
-      expect($response.Result.ErrorCode).to.equal(0)
+      // check if request is successful or not
+      expect($response.Result.ErrorStr).to.equal('Success')
     })
   })
 
