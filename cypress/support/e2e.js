@@ -44,6 +44,9 @@ import '../../components/apis/requests/domain/server/get-server-list-api-request
 import '../../components/apis/requests/users/get-list-user-api-request'
 import '../../components/apis/requests/users/post-create-user-api-request'
 import '../../components/apis/requests/users/delete-user-api-request'
+import '../../components/apis/requests/domain/admin-get-domain-settings-api-request'
+import '../../components/apis/requests/domain/get-domain-info-api-request'
+import '../../components/apis/requests/domain/server/SSH/add-server-key-command'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'

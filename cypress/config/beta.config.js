@@ -37,6 +37,9 @@ module.exports = defineConfig({
       userBaseUrl: '/',
       Username: 'testsftp',
       Password: '123456'
+    },
+    api: {
+      domainGUID: 'ed2ecaec-33a3-4ea3-b0e5-a70453775b9b'
     }
   }
 })

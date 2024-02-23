@@ -1,10 +1,9 @@
-import label from '../../../fixtures/label.json'
 /**
  * @description
- * This spec file contains test to ensure admin can get list of domains through API
+ * This spec file contains test to ensure admin can get domain settings through API
  *
  * @assertions
- * To verify that admin can get the list of domains through API
+ * To verify that admin can get the domain settings through API
  *
  *  @prerequisites
  * valid user credentials
@@ -12,12 +11,14 @@ import label from '../../../fixtures/label.json'
  */
 
 let bearerToken = null
-describe('GET /api/Domains', () => {
+describe('GET /api/Domain/{domainGUID}', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
+
+  const domainGUID = Cypress.env('api').domainGUID
 
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
@@ -36,14 +37,12 @@ describe('GET /api/Domains', () => {
     })
   })
 
-  it('verify that admin can get the list of domains through API', () => {
-    cy.getDomainListApiRequest(bearerToken).then(($response) => {
-      // Check if response type is api domain list
-      expect($response.ResponseType).to.equal('ApiDomainList')
-      // Check if autoDomainName exist in domain list or not
-      const domains = $response.Response.DomainList.map(domain => domain.DomainName)
-      expect(domains).to.include(label.autoDomainName)
-      // expect($response.Response.DomainList[0].DomainName).to.equal(label.autoDomainName)
+  it('verify that admin can get the domain settings through API', () => {
+    cy.getDomainSettingsApiRequest(bearerToken, domainGUID).then(($response) => {
+      // Check if response type is Api result domain params poco
+      expect($response.ResponseType).to.equal('ApiResultDomainParamsPoco')
+      // check if request is successful or not
+      expect($response.Result.ErrorStr).to.equal('Success')
     })
   })
 

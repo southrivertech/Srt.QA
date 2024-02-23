@@ -31,5 +31,9 @@
     "reportsDirectoryReqMessage" : "[id='Reports Directory-helper-text']",
     "temporaryCacheDirectoryReqMessage" : "[id='Temporary Cache Directory-helper-text']",
     "quickSendCacheDirectoryReqMessage" : "[id='QuickSend Cache Directory-helper-text']",
-    "aVQuarantineDirectoryReqMessage" : "[id='AV Quarantine Directory-helper-text']"
+    "aVQuarantineDirectoryReqMessage" : "[id='AV Quarantine Directory-helper-text']",
+    "ECDSA":"[data-value='ECDSA']",
+    "ECDSAKeySize":"[data-value=521]",
+    "hostKeyNameInput":"[id='Host Key Name']",
+    "ariaLabelHostKeyTitle":"[aria-labelledby='SSH Host Key-dialog-title']"
 }

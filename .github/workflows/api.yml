@@ -2,6 +2,8 @@ name: Parallel API Tests
 
 on:
   push:
+    branches:
+      - master
   schedule:
     - cron: '0 10 * * *'  # 9AM EST
 jobs:
