@@ -11,6 +11,7 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  *
  * @file
  * ui/cypress/e2e/server/services/SSH/admin-add-ECDSA-ssh-hostkey-acceptance.cy.js
+ *
  * @breadcrumb
  * login > create new server > services > SSH > Add ECDSA Key
  *
@@ -20,7 +21,7 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  */
 slowCypressDown(100)
 
-describe('login > add new server ', () => {
+describe('login > create new server > services > ECDSA > Add DSA Key', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -39,7 +40,7 @@ describe('login > add new server ', () => {
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.addServer(serverDetails)
+    cy.createServer(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()

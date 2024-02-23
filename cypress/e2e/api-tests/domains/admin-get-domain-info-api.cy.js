@@ -1,9 +1,9 @@
 /**
  * @description
- * This spec file contains test to ensure admin can get domain info through API
+ * This spec file contains test to ensure admin can get domain information through API
  *
  * @assertions
- * To verify that admin can get the domain info through API
+ * To verify that admin can get the domain information through API
  *
  *  @prerequisites
  * valid user credentials
@@ -11,12 +11,14 @@
  */
 
 let bearerToken = null
-describe('get domain info', () => {
+describe('GET /api/Domain/{domainGUID}/info', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
+
+  const domainGUID = Cypress.env('api').domainGUID
 
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
@@ -35,8 +37,8 @@ describe('get domain info', () => {
     })
   })
 
-  it('verify that admin can get the domain info through API', () => {
-    cy.getDomainInfoApiRequest(bearerToken).then(($response) => {
+  it('verify that admin can get the domain information through API', () => {
+    cy.getDomainInfoApiRequest(bearerToken, domainGUID).then(($response) => {
       // Check if response type is api result domain info poco
       expect($response.ResponseType).to.equal('ApiResultDomainInfoPoco')
       // check if request is successful or not

@@ -12,5 +12,5 @@
     "close":"[aria-label='close']",
     "roleListBox":"[role='listbox']",
     "idtext":"[id='Text']",
-    "rolemenu":"[role='menu']"
+    "roleMenu":"[role='menu']"
 }

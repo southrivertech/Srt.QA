@@ -21,7 +21,7 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  */
 slowCypressDown(100)
 
-describe('login > create new server ', () => {
+describe('login > create new server > services > RSA > Add DSA Key', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -40,7 +40,7 @@ describe('login > create new server ', () => {
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.addServer(serverDetails)
+    cy.createServer(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()

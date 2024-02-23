@@ -11,12 +11,14 @@
  */
 
 let bearerToken = null
-describe('get domain settings', () => {
+describe('GET /api/Domain/{domainGUID}', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
+
+  const domainGUID = Cypress.env('api').domainGUID
 
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
@@ -36,7 +38,7 @@ describe('get domain settings', () => {
   })
 
   it('verify that admin can get the domain settings through API', () => {
-    cy.getDomainSettingsApiRequest(bearerToken).then(($response) => {
+    cy.getDomainSettingsApiRequest(bearerToken, domainGUID).then(($response) => {
       // Check if response type is Api result domain params poco
       expect($response.ResponseType).to.equal('ApiResultDomainParamsPoco')
       // check if request is successful or not

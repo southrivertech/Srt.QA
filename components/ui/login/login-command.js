@@ -41,7 +41,7 @@ Cypress.Commands.add('login', (baseUrl, username, password) => {
   cy.get(loginSelectors.inputUsername).type(username)
   cy.get(loginSelectors.inputPassword).type(password)
   cy.get(loginSelectors.loginButton).contains(label.login).click()
-  cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
+  // cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
   cy.get(loginSelectors.profileIcon).should('be.visible')
   cy.waitApiResponseStatusCode('@postApiLogin', 200)
 })

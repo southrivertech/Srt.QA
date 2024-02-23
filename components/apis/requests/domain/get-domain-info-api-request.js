@@ -1,22 +1,23 @@
 /**
 * @description
-* The getDomainInfoApiRequest command is used to get the domain settings
+* The getDomainInfoApiRequest command is used to get the domain information
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} domainGUID
 *
 * @example
 * cy.getDomainInfoApiRequest(bearerToken)
 */
-const las = 'ed2ecaec-33a3-4ea3-b0e5-a70453775b9b'
-Cypress.Commands.add('getDomainInfoApiRequest', (token) => {
+
+Cypress.Commands.add('getDomainInfoApiRequest', (token, domainGUID) => {
   Cypress.log({
     name: 'getDomainInfoApiRequest'
   })
 
   cy.api({
     method: 'GET',
-    url: `${Cypress.env('apiBaseUrl')}/api/Domain/${las}/info`,
+    url: `${Cypress.env('apiBaseUrl')}/api/Domain/${domainGUID}/info`,
     headers: {
       Authorization: `Bearer ${token}`
     }
