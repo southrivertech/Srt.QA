@@ -14,6 +14,8 @@ import loginSelectors from '../../../../../../../../selectors/login-selectors.js
  * @file
  * ui/cypress/e2e/server/services/SSH/admin-edit-welcome-message-acceptance.cy.js
  *
+ * @issueID NX-I1206
+ *
  * @breadcrumb
  * Login > {existing server} > connections > messages
  *

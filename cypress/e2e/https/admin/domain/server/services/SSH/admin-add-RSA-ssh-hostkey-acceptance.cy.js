@@ -12,6 +12,8 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  * @file
  * ui/cypress/e2e/server/services/SSH/admin-add-RSA-ssh-hostkey-acceptance.cy.js
  *
+ * @issueID - NX-I1100
+ *
  * @breadcrumb
  * login > create new server > services > SSH > Add RSA Key
  *
