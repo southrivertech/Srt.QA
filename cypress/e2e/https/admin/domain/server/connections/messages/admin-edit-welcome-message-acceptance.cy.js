@@ -48,7 +48,7 @@ describe('Login > {existing server} > connections > messages ', () => {
       .next(htmlTagSelectors.div).should('exist')
       .next(htmlTagSelectors.div).should('exist').click()
     // Writing customized welcome text message
-    cy.get(generalSelectors.idtext).click().clear().type(customizedMessage)
+    cy.get(generalSelectors.idText).click().clear().type(customizedMessage)
     cy.get(generalSelectors.typeButton).contains(label.edit).should('be.visible').click()
     cy.get(userSelectors.successMessage).should('be.visible')
     // Sign out

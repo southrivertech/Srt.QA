@@ -33,7 +33,7 @@ Cypress.Commands.add('addServerKey', (hostKeyDetails) => {
   // entering key name
   cy.get(serverSelectors.hostKeyNameInput).type(hostKeyDetails.keyName)
   // clicking add button
-  cy.get(generalSelectors.ariaLabel).within(() => cy.get(htmlTagSelectors.span).contains(label.add).click())
+  cy.get(serverSelectors.ariaLabelHostKeyTitle).within(() => cy.get(htmlTagSelectors.span).contains(label.add).click())
   // click to close the SSH host key management modal
   cy.get(generalSelectors.labelSelector).contains(label.closeText).click()
   // navigating back to domain name

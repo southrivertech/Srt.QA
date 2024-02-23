@@ -34,5 +34,6 @@
     "aVQuarantineDirectoryReqMessage" : "[id='AV Quarantine Directory-helper-text']",
     "ECDSA":"[data-value='ECDSA']",
     "ECDSAKeySize":"[data-value=521]",
-    "hostKeyNameInput":"[id='Host Key Name']"
+    "hostKeyNameInput":"[id='Host Key Name']",
+    "ariaLabelHostKeyTitle":"[aria-labelledby='SSH Host Key-dialog-title']"
 }
