@@ -47,6 +47,7 @@ import '../../components/apis/requests/users/delete-user-api-request'
 import '../../components/apis/requests/domain/admin-get-domain-settings-api-request'
 import '../../components/apis/requests/domain/get-domain-info-api-request'
 import '../../components/apis/requests/domain/server/SSH/add-server-key-command'
+import '../../components/ui/users/create-virtual-directory-command'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
