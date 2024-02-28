@@ -77,9 +77,7 @@ describe('Login > {existing server} > create new user > create virtual directory
       .next(htmlTagSelectors.div).should('exist').click()
 
     // Deleting virtual directory created
-    cy.get(dashboardSelectors.dashBoardList).contains(label.delete).should('be.visible').click()
-    cy.get(dashboardSelectors.dashBoardList).contains(label.confirmDelete).should('be.visible').click()
-    cy.get(userSelectors.successMessage).should('exist')
+    cy.deleteVirtualDirectory()
 
       .wait(4000)
     cy.get(generalSelectors.close).should('be.visible').click()

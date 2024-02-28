@@ -9,13 +9,13 @@ import label from '../../../cypress/fixtures/label.json'
  * This command is used to create a virtual directory
  *
  * @location
- * Login > domains
+ * Login > {existing server} > users > Edit > Edit user files & Directories
  *
  * @params
- * actual path and
+ * actual path and virtual folder name
  *
  * @example
- * cy.createVirtualDirectory()
+ * cy.createVirtualDirectory(virtualDirectoryDetails)
  */
 
 Cypress.Commands.add('createVirtualDirectory', (virtualDirectoryDetails) => {
