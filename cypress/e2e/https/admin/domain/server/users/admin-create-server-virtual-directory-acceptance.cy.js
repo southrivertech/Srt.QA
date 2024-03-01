@@ -7,18 +7,17 @@ import userSelectors from '../../../../../../../selectors/user/user-selectors.js
 
 /**
  * @description
- * This spec file contains test to verify that admin user can create user for an existing server
+ * This spec file contains test to verify that admin user can create virtual directory for a new server
  *
  * @file
- * cypress/e2e/admin/server/users/admin-create-users-acceptance.cy.js
+ * cypress/e2e/admin/server/users/admin-create-server-virtual-directory-acceptance.cy.js
  *
  * @breadcrumb
- * Login > {existing server} > users > add new user
+ * Login > create new server > files/directories > virtual directory
  *
  * @assertions
- * To verify that admin can create users
- * To verify that during user creation, admin can assign an existing group to a user
- * To verify that admin can delete a user
+ * To verify that admin can create a virtual directory
+ * to verify that user can delete the virtual directory
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -66,7 +65,7 @@ describe('login > add new server ', () => {
     cy.get(generalSelectors.roleTab).contains(label.virtualDirectoryAccess).should('be.visible').click()
     cy.get(userSelectors.addButton).should('be.visible').click()
 
-    // adding virtual key
+    // adding virtual directory
     cy.createVirtualDirectory(virtualDirectoryDetails)
 
     cy.get(userSelectors.successMessage).should('exist')

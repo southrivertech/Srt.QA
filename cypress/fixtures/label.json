@@ -109,6 +109,9 @@
   "usersNTSAMTab": "NT/SAM",
   "usersLDAPTab": "LDAP",
   "usersADSITab": "ADSI",
+  "pgp":"PGP",
+  "pgpModeEnabled":"PGP mode enabled",
+  "managePgpKeys":"Manage PGP Keys",
   "manageHostKeys":"Manage Host Keys",
   "RSA":"RSA",
   "virtualDirectoryAccess":"Virtual Directory Access",
@@ -118,5 +121,6 @@
   "welcomeMessage":"WelcomeMsg",
   "messages":"Messages",
   "edit":"Edit",
-  "filesDirectories":"Files/Directories"
+  "filesDirectories":"Files/Directories",
+  "security":"Security"
 }
