@@ -34,7 +34,7 @@ describe('login > add new server ', () => {
   const serverDetails = {
     serverType: 'New standalone or primary cluster server.',
     selectDatabase: 'SQLite Database',
-    serverName: 'TestAPI'
+    serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
   const virtualDirectoryDetails = {
     actualPath: 'C:/gpdirone',
@@ -42,8 +42,17 @@ describe('login > add new server ', () => {
   }
 
   beforeEach('login', () => {
+    cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
+      // Check if response type is api auth response
+      expect($response.ResponseType).to.equal('ApiAuthResponse')
+      // initializing bearer token
+      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken 
+    })
+
+      cy.postCreateServerApiRequest(serverDetails)
+    
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.createServer(serverDetails)
+   
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
   })
 

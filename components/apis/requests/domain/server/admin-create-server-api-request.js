@@ -6,7 +6,7 @@
 * @param {required} bearerToken
 *
 * @example
-* cy.postCreateServerApiRequest(bearerToken)
+* cy.postCreateServerApiRequest(serverDetails)
 */
 
 Cypress.Commands.add('postCreateServerApiRequest', (serverDetails) => {
