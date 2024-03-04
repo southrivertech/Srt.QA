@@ -122,5 +122,8 @@
   "messages":"Messages",
   "edit":"Edit",
   "filesDirectories":"Files/Directories",
-  "security":"Security"
+  "security":"Security",
+  "NTSAMGroupName":"TitanFTP Users",
+  "NTSAMUserName":"amit",
+  "NTSAM":"NTSAM"
 }
