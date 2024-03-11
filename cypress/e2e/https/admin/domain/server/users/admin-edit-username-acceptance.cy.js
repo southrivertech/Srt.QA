@@ -13,11 +13,13 @@ import userDirSelectors from '../../../../../../../selectors/user-dir-selectors.
  * @file
  * cypress/e2e/admin/server/users/admin-edit-username-acceptance.cy.js
  *
+ * @issueID - NX-I1182
+ *
  * @breadcrumb
  * Login > {existing server} > users > edit
  *
  * @assertions
- * To verify that during user edit, admin can edit username for an existing user
+ * To verify that during user edit, admin cannot edit username for an existing user
  *
  *  @prerequisites
  * Pre-Requisite data:
