@@ -51,8 +51,10 @@ import '../../components/ui/users/create-virtual-directory-command'
 import '../../components/ui/users/delete-virtual-directory-command'
 import '../../components/apis/requests/domain/server/admin-create-server-api-request'
 import '../../components/apis/requests/domain/server/admin-delete-server-api-request'
-import '../../components/apis/groups/admin-create-groups-api-request.api'
+import '../../components/apis/groups/admin-create-groups-api-request'
 import '../../components/apis/groups/admin-delete-groups-api-request'
+import '../../components/apis/groups/admin-get-group-info-api-request'
+
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
 
