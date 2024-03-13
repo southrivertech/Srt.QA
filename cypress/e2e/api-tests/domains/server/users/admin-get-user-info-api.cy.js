@@ -1,17 +1,17 @@
 import label from '../../../../../fixtures/label.json'
 /**
  * @description
- * This spec file contains test to verify if new user exists in Everyone group
+ * This spec file contains test to verify if new user exists in Everyone User
  *
  * @assertions
- * To verify that admin can get Everyone  group info through API
+ * To verify that admin can get Everyone  User info through API
  *
  *  @prerequisites
  * valid user credentials
  * - user should have valid credentials
  */
 
-describe('get group information', () => {
+describe('get User information', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -23,7 +23,6 @@ describe('get group information', () => {
     serverName: label.autoServerName
   }
   const groupDetails = {
-    groupName: 'Everyone',
     groupGUID: 'db2112ad-feed-0004-0000-000000000000'
   }
 
@@ -54,20 +53,19 @@ describe('get group information', () => {
     })
   })
 
-  it('verify that new user exist in Everyone group or not', () => {
-    cy.getGroupsInfoApiRequest(userDetails, groupDetails).then(($response) => {
-      // Check if response type is ApiGroupParamsPoco
-      expect($response.ResponseType).to.equal('ApiGroupParamsPoco')
-      // Check if ErrorStr is success or not
+  it('verify that new user exist in Everyone User or not', () => {
+    cy.getUserInfoApiRequest(userDetails).then(($response) => {
+      // Check if response type is ApiUserParamsPoco
+      expect($response.ResponseType).to.equal('ApiUserParamsPoco')
+      // Check if new user  exist in Everyone User or not
       expect($response.Result.ErrorStr).to.equal('Success')
 
-      expect($response.Response.GroupName).to.equal(groupDetails.groupName)
-      // Check if new user  exist in Everyone group or not
-      expect($response.Response.MemberUsers).to.include.keys(userDetails.userGUID)
+      expect($response.Response.Username).to.equal(userDetails.username)
+      expect($response.Response.MemberGroups).to.include.keys(groupDetails.groupGUID)
     })
   })
 
-  afterEach('delete group through API', () => {
+  afterEach('delete User through API', () => {
     // calling delete user function
     cy.deleteUserApiRequest(userDetails.bearerToken, userDetails.serverName, userDetails.username).then(($response) => {
       // check if ErrorStr is Success

@@ -13,14 +13,14 @@
 * })
 */
 
-Cypress.Commands.add('getGroupsInfoApiRequest', (userDetails) => {
+Cypress.Commands.add('getGroupsInfoApiRequest', (userDetails, groupDetails) => {
   Cypress.log({
     name: 'getGroupsInfoApiRequest'
   })
 
   cy.api({
     method: 'GET',
-    url: `${Cypress.env('apiBaseUrl')}/api/servers/${userDetails.serverName}/AuthConnectors/native/Groups/${userDetails.groupName}?byGroupName=true`,
+    url: `${Cypress.env('apiBaseUrl')}/api/servers/${userDetails.serverName}/AuthConnectors/native/Groups/${groupDetails.groupName}?byGroupName=true`,
     headers: {
       Authorization: `Bearer ${userDetails.bearerToken}`
     }
