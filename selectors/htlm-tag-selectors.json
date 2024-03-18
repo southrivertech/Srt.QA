@@ -3,5 +3,9 @@
     "div": "div",
     "label": "label",
     "span" : "span",
-    "button": "button"
+    "button": "button",
+    "tableRow":"tr",
+    "tableData":"td"
+
+    
 }

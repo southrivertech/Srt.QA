@@ -45,13 +45,13 @@ describe('login > add new server ', () => {
       // Check if response type is api auth response
       expect($response.ResponseType).to.equal('ApiAuthResponse')
       // initializing bearer token
-      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken 
+      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
 
-      cy.postCreateServerApiRequest(serverDetails)
-    
+    cy.postCreateServerApiRequest(serverDetails)
+
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-   
+
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
   })
 
