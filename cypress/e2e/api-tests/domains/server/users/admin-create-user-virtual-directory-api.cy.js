@@ -45,6 +45,9 @@ describe('check virtual directory permissions', () => {
       // initializing bearer token
       createUserDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
+  })
+
+  it('verify that admin can create a user through API', () => {
     cy.postCreateUserApiRequest(createUserDetails).then(($response) => {
       // Check if response type is ApiUserParamsPoco
       expect($response.ResponseType).to.equal('ApiUserParamsPoco')
