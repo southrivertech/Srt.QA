@@ -21,7 +21,7 @@ import userDirSelectors from '../../../../../../../selectors/user-dir-selectors.
  * - user should have valid credentials
  */
 
-describe('login > add new server ', () => {
+describe('login > add new virtual directory ', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -41,7 +41,7 @@ describe('login > add new server ', () => {
   }
 
   const folder = 'autoFolder'
-  beforeEach('login', () => {
+  beforeEach('login and new virtual directory', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
       expect($response.Response.SessionInfo.BearerToken).to.not.be.empty
       // initializing bearer token
@@ -96,7 +96,7 @@ describe('login > add new server ', () => {
       cy.get(userDirSelectors.bulkDownload).should('be.visible')
     })
   })
-  afterEach('deleting new folder and virtual directory', () => {
+  afterEach('deleting new folder and user', () => {
     // deleting new folder
     cy.contains(userDirSelectors.roleCell, folder)
       .prev(htmlTagSelectors.div).click()
