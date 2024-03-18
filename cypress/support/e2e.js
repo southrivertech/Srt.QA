@@ -34,6 +34,8 @@ import '../../components/ui/Groups/create-group-command'
 import '../../components/ui/utils-Commands/utils-Commands'
 import '../../components/ui/server/create-server-command'
 import '../../components/ui/server/delete-server-command'
+import '../../components/ui/users/create-virtual-directory-command'
+import '../../components/ui/users/delete-virtual-directory-command'
 import './commands'
 
 /** API REQUESTS COMMANDS */
@@ -47,8 +49,7 @@ import '../../components/apis/requests/users/delete-user-api-request'
 import '../../components/apis/requests/domain/admin-get-domain-settings-api-request'
 import '../../components/apis/requests/domain/get-domain-info-api-request'
 import '../../components/apis/requests/domain/server/SSH/add-server-key-command'
-import '../../components/ui/users/create-virtual-directory-command'
-import '../../components/ui/users/delete-virtual-directory-command'
+
 import '../../components/apis/requests/domain/server/admin-create-server-api-request'
 import '../../components/apis/requests/domain/server/admin-delete-server-api-request'
 import '../../components/apis/groups/admin-create-groups-api-request'
