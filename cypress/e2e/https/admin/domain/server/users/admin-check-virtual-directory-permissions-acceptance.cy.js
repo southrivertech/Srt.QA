@@ -1,10 +1,6 @@
-import navigationSelectors from '../../../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../../../fixtures/label.json'
 import loginSelectors from '../../../../../../../selectors/login-selectors.json'
-import generalSelectors from '../../../../../../../selectors/general-selectors.json'
 import htmlTagSelectors from '../../../../../../../selectors/htlm-tag-selectors.json'
-import userSelectors from '../../../../../../../selectors/user/user-selectors.json'
-import dashboardSelectors from '../../../../../../../selectors/dashboard-selectors.json'
 import userDirSelectors from '../../../../../../../selectors/user-dir-selectors.json'
 
 /**
@@ -31,50 +27,47 @@ describe('login > add new server ', () => {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const userDetails = {
-    username: 'test123',
-    password: '123'
+  const CreateUserDetails = {
+    username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    password: 'testing123',
+    serverName: label.autoServerName
   }
 
   const virtualDirectoryDetails = {
-    actualPath: 'C:/customefolder/dkjbfvdfkg',
-    virtualFolderName: 'user level'
+    ActualPath: 'C://customefolder//dkjbfvdfkg',
+    Path: 'gpdirone',
+    AllowAce: 'RWADNMVLIGSXU',
+    DenyAce: '-------------'
   }
+
   const folder = 'autoFolder'
   beforeEach('login', () => {
-    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+    cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
+      expect($response.Response.SessionInfo.BearerToken).to.not.be.empty
+      // initializing bearer token
+      CreateUserDetails.bearerToken = $response.Response.SessionInfo.BearerToken
+    })
+    cy.postCreateUserApiRequest(CreateUserDetails).then(($response) => {
+      expect($response.Response.Username).to.equal(CreateUserDetails.username)
+      // initializing AuthGUID
+      CreateUserDetails.AuthGUID = $response.Response.AuthGUID
+    })
+
+    cy.postCreateUserVirtualDirectoryApiRequest(CreateUserDetails, virtualDirectoryDetails).then(($response) => {
+      expect($response.Response.UserGroupGUID).to.equal(CreateUserDetails.AuthGUID)
+      // check if ErrorStr is Success
+      expect($response.Result.ErrorStr).to.eq('Success')
+    })
   })
 
-  it('verify that user can create a virtual directory and allow permissions', () => {
-    // navigate to users > virtual directory
-
-    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
-    cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
-    cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
-    cy.get(userSelectors.parentCell).contains(userDetails.username)
-    cy.editUser(userDetails.username, label.editUserFileDirectories, userDetails.password)
-
-    // navigate to virtual directory tab
-
-    cy.get(generalSelectors.roleTab).contains(label.virtualDirectoryAccess).should('be.visible').click()
-    cy.get(dashboardSelectors.domainDropDown).contains(label.virtualDirectoryAccess).parent().parent().parent(dashboardSelectors.gridRoot).next(htmlTagSelectors.div).click()
-    // adding virtual directory
-
-    cy.get(generalSelectors.inputLabel).contains('Actual Path').parent(htmlTagSelectors.div).type(virtualDirectoryDetails.actualPath)
-    cy.get(generalSelectors.inputLabel).contains('Virtual Folder Name').parent(htmlTagSelectors.div).type(virtualDirectoryDetails.virtualFolderName)
-
-    cy.get(htmlTagSelectors.tableData).contains(label.checkAll).next(htmlTagSelectors.tableData).within(() => {
-      cy.get(generalSelectors.inputTypeCheckbox).click()
-    })
-    cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.add).click()
-    cy.get(userSelectors.successMessage).should('exist')
-    // checking permissions
+  it('verifying permissions visibility', () => {
+  // checking permissions
 
     cy.visit(Cypress.env('baseUrl'))
-    cy.get(loginSelectors.inputUsername).type(userDetails.username)
-    cy.get(loginSelectors.inputPassword).type(userDetails.password)
+    cy.get(loginSelectors.inputUsername).type(CreateUserDetails.username)
+    cy.get(loginSelectors.inputPassword).type(CreateUserDetails.password)
     cy.get(loginSelectors.loginButton).contains(label.login).click()
-    cy.get(userDirSelectors.roleCell).contains(virtualDirectoryDetails.virtualFolderName).click()
+    cy.get(userDirSelectors.roleCell).contains(virtualDirectoryDetails.Path).click()
 
     // creating new folder
 
@@ -95,7 +88,6 @@ describe('login > add new server ', () => {
       cy.get(userDirSelectors.bulkCopy).should('be.visible')
     })
     // move permission
-
     cy.get(userDirSelectors.buttonList).eq(3).should('be.visible')
     // share permission
     cy.get(userDirSelectors.buttonList).eq(2).should('be.visible')
@@ -114,5 +106,10 @@ describe('login > add new server ', () => {
       .next(htmlTagSelectors.div).should('exist')
       .next(htmlTagSelectors.div).click()
     cy.get(userDirSelectors.editParent).eq(5).within(() => { cy.get(userDirSelectors.bulkDelete).click() })
+    // calling delete user function
+    cy.deleteUserApiRequest(CreateUserDetails.bearerToken, CreateUserDetails.serverName, CreateUserDetails.username).then(($response) => {
+      // check if ErrorStr is Success
+      expect($response.Result.ErrorStr).to.eq('Success')
+    })
   })
 })
