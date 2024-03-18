@@ -2,17 +2,17 @@ import label from '../../../../../fixtures/label.json'
 
 /**
  * @description
- * This spec file contains test to ensure admin can create a user through API
+ * This spec file contains test to ensure admin can create a virtual Directory through API
  *
  * @assertions
- * To verify that admin can create a user through API
+ * To verify that admin can create a virtual Directory through API
  *
  *  @prerequisites
  * valid user credentials
  * - user should have valid credentials
  */
 
-describe('create new user', () => {
+describe('check virtual directory permissions', () => {
   const createUserDetails = {
     username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
@@ -30,7 +30,7 @@ describe('create new user', () => {
     DenyAce: '-------------'
   }
 
-  beforeEach('login through API', () => {
+  beforeEach('login through API and create virtual directory', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
       // Check if response type is api auth response
       expect($response.ResponseType).to.equal('ApiAuthResponse')
@@ -45,9 +45,6 @@ describe('create new user', () => {
       // initializing bearer token
       createUserDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
-  })
-
-  it('verify that admin can create a user through API', () => {
     cy.postCreateUserApiRequest(createUserDetails).then(($response) => {
       // Check if response type is ApiUserParamsPoco
       expect($response.ResponseType).to.equal('ApiUserParamsPoco')
