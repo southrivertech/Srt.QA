@@ -26,7 +26,7 @@ Cypress.Commands.add('postCreateUserVirtualDirectoryApiRequest', (opts, virtualD
 
   cy.api({
     method: 'POST',
-    url: `${Cypress.env('apiBaseUrl')}/api/Servers/${opts.serverName}/VirtualFolders/${opts.username}`,
+    url: `${Cypress.env('apiBaseUrl')}/api/Servers/${opts.serverName}/VirtualFolders/${opts.UserGUID}`,
     body: {
       ActualPath: virtualDirectoryDetails.ActualPath,
       Path: virtualDirectoryDetails.Path,

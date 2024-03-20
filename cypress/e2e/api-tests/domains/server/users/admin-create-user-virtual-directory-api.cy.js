@@ -53,17 +53,19 @@ describe('check virtual directory permissions', () => {
       expect($response.ResponseType).to.equal('ApiUserParamsPoco')
       // Check if newly created user is present in response
       expect($response.Response.Username).to.equal(createUserDetails.username)
-      // initializing AuthGUID
-      createUserDetails.AuthGUID = $response.Response.AuthGUID
+      // initializing userGUID
+      createUserDetails.UserGUID = $response.Response.UserGUID
     })
 
     cy.postCreateUserVirtualDirectoryApiRequest(createUserDetails, virtualDirectoryDetails).then(($response) => {
       // Check if response type is ApiUserParamsPoco
       expect($response.ResponseType).to.equal('ApiVirtualFolderPoco')
       // Check if virtual directory is created for new user
-      expect($response.Response.UserGroupGUID).to.equal(createUserDetails.AuthGUID)
+      expect($response.Response.UserGroupGUID).to.equal(createUserDetails.UserGUID)
       // check if ErrorStr is Success
       expect($response.Result.ErrorStr).to.eq('Success')
+      // initializing virtualFolderGUID
+      createUserDetails.Id = $response.Response.Id
     })
   })
 
@@ -73,10 +75,10 @@ describe('check virtual directory permissions', () => {
       // check if ErrorStr is Success
       expect($response.Result.ErrorStr).to.eq('Success')
     })
-    // calling logout function
-    cy.postLogoutAuthenticateApiRequest(createUserDetails.bearerToken).then(($response) => {
-      // check if request is successful or not
-      expect($response.Result.ErrorStr).to.equal('Success')
+    // deleting virtual directory
+    cy.deleteUserVirtualDirectoryApiRequest(createUserDetails).then(($response) => {
+      // check if ErrorStr Is success
+      expect($response.Result.ErrorStr).to.eq('Success')
     })
   })
 })
