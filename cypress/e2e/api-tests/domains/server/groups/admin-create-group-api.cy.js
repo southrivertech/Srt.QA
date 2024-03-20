@@ -62,7 +62,7 @@ describe('create new group', () => {
   afterEach('delete group through API', () => {
     // calling delete function
     cy.deleteGroupApiRequest(groupDetails, serverDetails).then(($response) => {
-      // check if request is successful or not bearer Token
+      // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
     // deleting the server

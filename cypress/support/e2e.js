@@ -56,6 +56,7 @@ import '../../components/apis/groups/admin-create-groups-api-request'
 import '../../components/apis/groups/admin-delete-groups-api-request'
 import '../../components/apis/groups/admin-get-group-info-api-request'
 import '../../components/apis/requests/users/get-user-info-api-request'
+import '../../components/apis/requests/domain/server/get-server-sessions-info'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'

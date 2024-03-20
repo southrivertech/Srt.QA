@@ -2,22 +2,25 @@ import label from '../../../../fixtures/label.json'
 
 /**
  * @description
- * This spec file contains test to ensure admin can get list of servers through API
+ * This spec file contains test to ensure admin can get list of server sessions through API
  *
  * @assertions
- * To verify that admin can get the list of servers through API
+ * To verify that admin can get the list of server sessions through API
  *
  *  @prerequisites
  * valid user credentials
  * - user should have valid credentials
+ *
  */
 
-let bearerToken = null
 describe('GET /api/Servers', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
+  }
+  const serverDetails = {
+    serverName: label.autoServerName
   }
 
   beforeEach('login through api', () => {
@@ -33,24 +36,25 @@ describe('GET /api/Servers', () => {
       // Check if BearerToken is not empty
       expect($response.Response.SessionInfo.BearerToken).to.not.be.empty
       // initializing bearer token
-      bearerToken = $response.Response.SessionInfo.BearerToken
+      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
   })
 
-  it('verify that admin can get the list of servers through API', () => {
-    cy.getServerListApiRequest(bearerToken).then(($response) => {
+  it('verify that admin can get the list of Server Sessions through API', () => {
+    cy.getServerSessionsApiRequest(serverDetails).then(($response) => {
       // Check if response type is api server list response
-      expect($response.ResponseType).to.equal('ApiServerListResponse')
-      // Check if autoServerName exist in server list or not
-      const servers = $response.Response.ServerList.map(server => server.ServerName)
-      expect(servers).to.include(label.autoServerName)
-      // expect($response.Response.ServerList[3].ServerName).to.equal(label.autoServerName)
+      expect($response.ResponseType).to.equal('ApiSessionParamsPoco')
+      // Check if ErrorStr is equal to success
+      expect($response.Result.ErrorStr).to.equal('Success')
+      // setting value=true where key is equal to
+      const sessions = $response.Response.SessionList.map(sessions => 'SessionId' in sessions)
+      expect(sessions).to.include(true)
     })
   })
 
   afterEach('logout through API', () => {
     // calling logout function
-    cy.postLogoutAuthenticateApiRequest(bearerToken).then(($response) => {
+    cy.postLogoutAuthenticateApiRequest(serverDetails.bearerToken).then(($response) => {
       // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
