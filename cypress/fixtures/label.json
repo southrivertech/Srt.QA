@@ -9,6 +9,8 @@
   "groupName" : "Group Name",
   "next"      : "Next",
   "back": "Back",
+  "IPBans":"IPBans",
+  "Vars":"Vars",
   "okay"      : "Okay",
   "finish"    : "Finish",
   "users"     : "Users",
