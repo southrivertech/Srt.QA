@@ -1,4 +1,4 @@
-import label from '../../../../fixtures/label.json'
+import label from '../../../../../fixtures/label.json'
 
 /**
  * @description
@@ -12,12 +12,17 @@ import label from '../../../../fixtures/label.json'
  * - user should have valid credentials
  */
 
-let bearerToken = null
 describe('GET /api/Servers', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
+  }
+  const userDetails = {
+    username: 'test123'
+  }
+  const serverDetails = {
+    serverName: label.autoServerName
   }
 
   beforeEach('login through api', () => {
@@ -33,24 +38,25 @@ describe('GET /api/Servers', () => {
       // Check if BearerToken is not empty
       expect($response.Response.SessionInfo.BearerToken).to.not.be.empty
       // initializing bearer token
-      bearerToken = $response.Response.SessionInfo.BearerToken
+      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
   })
 
   it('verify that admin can get the list of servers through API', () => {
-    cy.getServerListApiRequest(bearerToken).then(($response) => {
-      // Check if response type is api server list response
-      expect($response.ResponseType).to.equal('ApiServerListResponse')
-      // Check if autoServerName exist in server list or not
-      const VirtualFolders = $response.Response.ServerList.map(VirtualFolders => VirtualFolders.ServerName)
-      expect(VirtualFolders).to.include(label.Id)
-      // expect($response.Response.ServerList[3].ServerName).to.equal(label.autoServerName)
+    cy.getUsersVirtualDirectoriesApiRequest(serverDetails, userDetails).then(($response) => {
+      // Check if response type is api virtual directory folder response
+      expect($response.ResponseType).to.equal('ApiVirtualFolderResponse')
+      // check if ErrorStr is Success
+      expect($response.Result.ErrorStr).to.equal('Success')
+      // Check if virtual folder id  exist in virtual directory list or not
+      const VirtualFolders = $response.Response.VirtualFolderList.map(VirtualFolders => label.Id in VirtualFolders)
+      expect(VirtualFolders).to.include(true)
     })
   })
 
   afterEach('logout through API', () => {
     // calling logout function
-    cy.postLogoutAuthenticateApiRequest(bearerToken).then(($response) => {
+    cy.postLogoutAuthenticateApiRequest(serverDetails.bearerToken).then(($response) => {
       // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })

@@ -98,6 +98,7 @@
   "regCodeValidationTextFormat" : "Invalid length. Format:",
   "sshSftpText" : "SSH/SFTP",
   "mySite" : "MySite",
+  "Id":"Id",
   "services" : "Services",
   "bugUser" : "qa-auto-bug-user-do-not-delete",
   "homeDir" : "Home Directory",
