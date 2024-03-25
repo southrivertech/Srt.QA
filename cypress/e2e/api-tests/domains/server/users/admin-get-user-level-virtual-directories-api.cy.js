@@ -80,4 +80,16 @@ describe('GET /api/Servers', () => {
       expect(VirtualFolders).to.include(true)
     })
   })
+
+  afterEach('logout through API', () => {
+    // deleting virtual directory
+    cy.deleteUserVirtualDirectoryApiRequest(createUserDetails).then(($response) => {
+    // check if ErrorStr Is success
+      expect($response.Result.ErrorStr).to.eq('Success')
+      cy.deleteUserApiRequest(createUserDetails.bearerToken, serverDetails.serverName, createUserDetails.username).then(($response) => {
+        // check if ErrorStr is Success
+        expect($response.Result.ErrorStr).to.eq('Success')
+      })
+    })
+  })
 })
