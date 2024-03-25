@@ -10,16 +10,16 @@ import label from '../../../../cypress/fixtures/label.json'
 * cy.getUsersVirtualDirectoriesApiRequest(serverDetails, userDetails)
 */
 
-Cypress.Commands.add('getUsersVirtualDirectoriesApiRequest', (serverDetails, userDetails) => {
+Cypress.Commands.add('getUsersVirtualDirectoriesApiRequest', (serverDetails, createUserDetails) => {
   Cypress.log({
     name: 'getUsersVirtualDirectoriesApiRequest'
   })
 
   cy.api({
     method: 'GET',
-    url: `${Cypress.env('apiBaseUrl')}/api/Servers/${serverDetails.serverName}/AuthConnectors/${label.usersNATIVETab}/Users/${userDetails.username}/VirtualFolders`,
+    url: `${Cypress.env('apiBaseUrl')}/api/Servers/${serverDetails.serverName}/AuthConnectors/${label.usersNATIVETab}/Users/${createUserDetails.username}/VirtualFolders`,
     headers: {
-      Authorization: `Bearer ${serverDetails.bearerToken}`
+      Authorization: `Bearer ${createUserDetails.bearerToken}`
     }
   }).then(($response) => {
     console.log('response of getUsersVirtualDirectoriesApiRequest', $response)

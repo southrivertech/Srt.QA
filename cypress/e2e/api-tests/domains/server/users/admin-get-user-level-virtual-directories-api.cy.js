@@ -18,11 +18,20 @@ describe('GET /api/Servers', () => {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const userDetails = {
-    username: 'test123'
+
+  const createUserDetails = {
+    username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    password: 'testing123',
+    serverName: label.autoServerName
   }
   const serverDetails = {
     serverName: label.autoServerName
+  }
+  const virtualDirectoryDetails = {
+    ActualPath: 'C://customefolder//dkjbfvdfkg',
+    Path: 'gpdirone',
+    AllowAce: 'RWADNMVLIGSXU',
+    DenyAce: '-------------'
   }
 
   beforeEach('login through api', () => {
@@ -38,12 +47,30 @@ describe('GET /api/Servers', () => {
       // Check if BearerToken is not empty
       expect($response.Response.SessionInfo.BearerToken).to.not.be.empty
       // initializing bearer token
-      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
+      createUserDetails.bearerToken = $response.Response.SessionInfo.BearerToken
+    })
+    cy.postCreateUserApiRequest(createUserDetails).then(($response) => {
+      // Check if response type is ApiUserParamsPoco
+      expect($response.ResponseType).to.equal('ApiUserParamsPoco')
+      // Check if newly created user is present in response
+      expect($response.Response.Username).to.equal(createUserDetails.username)
+      // initializing userGUID
+      createUserDetails.UserGUID = $response.Response.UserGUID
+    })
+    cy.postCreateUserVirtualDirectoryApiRequest(createUserDetails, virtualDirectoryDetails).then(($response) => {
+      // Check if response type is ApiUserParamsPoco
+      expect($response.ResponseType).to.equal('ApiVirtualFolderPoco')
+      // Check if virtual directory is created for new user
+      expect($response.Response.UserGroupGUID).to.equal(createUserDetails.UserGUID)
+      // check if ErrorStr is Success
+      expect($response.Result.ErrorStr).to.eq('Success')
+      // initializing virtualFolderGUID
+      createUserDetails.Id = $response.Response.Id
     })
   })
 
   it('verify that admin can get the list of servers through API', () => {
-    cy.getUsersVirtualDirectoriesApiRequest(serverDetails, userDetails).then(($response) => {
+    cy.getUsersVirtualDirectoriesApiRequest(serverDetails, createUserDetails).then(($response) => {
       // Check if response type is api virtual directory folder response
       expect($response.ResponseType).to.equal('ApiVirtualFolderResponse')
       // check if ErrorStr is Success
@@ -51,14 +78,6 @@ describe('GET /api/Servers', () => {
       // Check if virtual folder id  exist in virtual directory list or not
       const VirtualFolders = $response.Response.VirtualFolderList.map(VirtualFolders => label.Id in VirtualFolders)
       expect(VirtualFolders).to.include(true)
-    })
-  })
-
-  afterEach('logout through API', () => {
-    // calling logout function
-    cy.postLogoutAuthenticateApiRequest(serverDetails.bearerToken).then(($response) => {
-      // check if request is successful or not
-      expect($response.Result.ErrorStr).to.equal('Success')
     })
   })
 })
