@@ -1,11 +1,11 @@
-import label from '../../../../../fixtures/label.json'
+import label from '../../../../../cypress/fixtures/label.json'
 
 /**
  * @description
- * This spec file contains test to ensure admin can get list of virtual directories at user level through API
+ * This spec file contains test to ensure admin can get list of virtual directories at server level through API
  *
  * @assertions
- * To verify that admin can get the list virtual directories at user level through API
+ * To verify that admin can get the list of virtual directories at server level through API
  *
  *  @prerequisites
  * valid user credentials
@@ -17,9 +17,6 @@ describe('GET /api/Servers', () => {
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
-  }
-  const userDetails = {
-    username: 'test123'
   }
   const serverDetails = {
     serverName: label.autoServerName
@@ -43,7 +40,7 @@ describe('GET /api/Servers', () => {
   })
 
   it('verify that admin can get the list of servers through API', () => {
-    cy.getUsersVirtualDirectoriesApiRequest(serverDetails, userDetails).then(($response) => {
+    cy.getServersVirtualDirectoriesApiRequest(serverDetails).then(($response) => {
       // Check if response type is api virtual directory folder response
       expect($response.ResponseType).to.equal('ApiVirtualFolderResponse')
       // check if ErrorStr is Success

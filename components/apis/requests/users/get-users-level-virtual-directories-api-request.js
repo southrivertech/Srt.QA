@@ -1,13 +1,13 @@
 import label from '../../../../cypress/fixtures/label.json'
 /**
 * @description
-* The getUsersVirtualDirectoriesApiRequest command is used to get the list of banned IPs
+* The getUsersVirtualDirectoriesApiRequest command is used to get the list of  virtual directories at user level
 *
 * @parameters
 * @param {required} bearerToken
 *
 * @example
-* cy.getUsersVirtualDirectoriesApiRequest(bearerToken)
+* cy.getUsersVirtualDirectoriesApiRequest(serverDetails, userDetails)
 */
 
 Cypress.Commands.add('getUsersVirtualDirectoriesApiRequest', (serverDetails, userDetails) => {
