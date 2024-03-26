@@ -1,15 +1,14 @@
-import label from '../../../../../cypress/fixtures/label.json'
-
 /**
  * @description
- * This spec file contains test to ensure admin can get list of virtual directories at server level through API
+ * This spec file contains test to ensure admin can get state of a server through API
  *
  * @assertions
- * To verify that admin can get the list of virtual directories at server level through API
+ * To verify that admin can get state of a server through API
  *
  *  @prerequisites
  * valid user credentials
  * - user should have valid credentials
+ *
  */
 
 describe('GET /api/Servers', () => {
@@ -19,8 +18,9 @@ describe('GET /api/Servers', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: label.autoServerName
+    serverName: 'testAPI'
   }
+
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
       // Check if response type is api auth response
@@ -36,23 +36,32 @@ describe('GET /api/Servers', () => {
       // initializing bearer token
       serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
-  })
-
-  it('verify that admin can get the list of servers through API', () => {
-    cy.getServersVirtualDirectoriesApiRequest(serverDetails).then(($response) => {
-      // Check if response type is api virtual directory folder response
-      expect($response.ResponseType).to.equal('ApiVirtualFolderResponse')
-      // check if ErrorStr is Success
+    // creating new server
+    cy.postCreateServerApiRequest(serverDetails).then(($response) => {
+      // Check if response type is api server list response
+      expect($response.ResponseType).to.equal('ApiServerListResponse')
+      // Check if errorstr is success
       expect($response.Result.ErrorStr).to.equal('Success')
-      // Check if virtual folder id  exist in virtual directory list or not
-      const VirtualFolders = $response.Response.VirtualFolderList.map(VirtualFolders => label.Id in VirtualFolders)
-      expect(VirtualFolders).to.include(true)
+      serverDetails.ServerNodeGUID = $response.Response.ServerNodeGUID
     })
   })
 
-  afterEach('logout through API', () => {
-    // calling logout function
-    cy.postLogoutAuthenticateApiRequest(serverDetails.bearerToken).then(($response) => {
+  it('verify that admin can get the state of a Server through API', () => {
+    cy.getServerState(serverDetails).then(($response) => {
+      // Check if response type is api server info
+      expect($response.ResponseType).to.equal('ApiServerInfo')
+      // Check if ErrorStr is equal to success
+      expect($response.Result.ErrorStr).to.equal('Success')
+      // verify ServerNodeGUID
+      expect($response.Response.ServerNodeGUID).to.equal(serverDetails.ServerNodeGUID)
+      // check if server is running
+      expect($response.Response.RunAtStartup).to.equal(1)
+    })
+  })
+
+  afterEach('delete server through API', () => {
+    // calling delete function
+    cy.deleteServerApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })

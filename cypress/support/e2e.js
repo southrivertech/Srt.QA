@@ -62,6 +62,7 @@ import '../../components/apis/requests/users/get-user-info-api-request'
 import '../../components/apis/requests/domain/server/get-server-sessions-info'
 import '../../components/apis/requests/users/get-users-level-virtual-directories-api-request'
 import '../../components/apis/requests/domain/server/get-server-level-virtual-directories-api-request'
+import '../../components/apis/requests/domain/server/get-server-state-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
