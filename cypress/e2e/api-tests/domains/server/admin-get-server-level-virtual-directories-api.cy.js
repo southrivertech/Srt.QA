@@ -19,7 +19,7 @@ describe('GET /api/Servers', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {

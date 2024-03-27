@@ -20,7 +20,7 @@ describe('GET /api/Servers/{serverName}/AuthConnectors/native/Users', () => {
   }
 
   const listUsersData = {
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
 
   beforeEach('login through api', () => {

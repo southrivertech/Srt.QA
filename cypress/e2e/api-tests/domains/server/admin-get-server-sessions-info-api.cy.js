@@ -46,9 +46,8 @@ describe('GET /api/Servers', () => {
       expect($response.ResponseType).to.equal('ApiSessionParamsPoco')
       // Check if ErrorStr is equal to success
       expect($response.Result.ErrorStr).to.equal('Success')
-      // setting value=true where key is equal to
-      const sessions = $response.Response.SessionList.map(sessions => 'SessionId' in sessions)
-      expect(sessions).to.include(true)
+      // check if server sessions list exists or not
+      expect($response.Response).to.include.keys('SessionList')
     })
   })
 

@@ -55,14 +55,15 @@ import '../../components/apis/requests/users/post-create-user-virtual-directory-
 import '../../components/apis/requests/users/delete-user-virtual-directory-api-request'
 import '../../components/apis/requests/domain/server/admin-create-server-api-request'
 import '../../components/apis/requests/domain/server/admin-delete-server-api-request'
-import '../../components/apis/groups/admin-create-groups-api-request'
-import '../../components/apis/groups/admin-delete-groups-api-request'
-import '../../components/apis/groups/admin-get-group-info-api-request'
+import '../../components/apis/requests/domain/groups/admin-create-groups-api-request'
+import '../../components/apis/requests/domain/groups/admin-delete-groups-api-request'
+import '../../components/apis/requests/domain/groups/admin-get-group-info-api-request'
 import '../../components/apis/requests/users/get-user-info-api-request'
 import '../../components/apis/requests/domain/server/get-server-sessions-info'
 import '../../components/apis/requests/users/get-users-level-virtual-directories-api-request'
 import '../../components/apis/requests/domain/server/get-server-level-virtual-directories-api-request'
 import '../../components/apis/requests/domain/server/get-server-state-api-request'
+import '../../components/apis/requests/domain/groups/admin-get-groups-list-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'

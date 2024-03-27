@@ -18,7 +18,7 @@ describe('GET /api/Servers', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: 'testAPI'
+    serverName: `qa auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach('login through api', () => {
@@ -54,6 +54,8 @@ describe('GET /api/Servers', () => {
       expect($response.Result.ErrorStr).to.equal('Success')
       // verify ServerNodeGUID
       expect($response.Response.ServerNodeGUID).to.equal(serverDetails.ServerNodeGUID)
+      // verify server name
+      expect($response.Response.ServerName).to.equal(serverDetails.serverName)
       // check if server is running
       expect($response.Response.RunAtStartup).to.equal(1)
     })

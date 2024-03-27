@@ -7,6 +7,7 @@
   "autoUserName": "qa-acceptance-user-do-not-delete",
   "autoGroupName" : "qa acceptance group do not delete",
   "groupName" : "Group Name",
+  "ApiTestingAutomation" : "API test server",
   "next"      : "Next",
   "back": "Back",
   "IPBans":"IPBans",

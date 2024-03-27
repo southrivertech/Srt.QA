@@ -42,9 +42,9 @@ describe('GET /api/Servers', () => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiServerListResponse')
       // Check if autoServerName exist in server list or not
-      const VirtualFolders = $response.Response.ServerList.map(VirtualFolders => VirtualFolders.ServerName)
-      expect(VirtualFolders).to.include(label.Id)
-      // expect($response.Response.ServerList[3].ServerName).to.equal(label.autoServerName)
+      const server = $response.Response.ServerList.map(VirtualFolders => VirtualFolders.ServerName)
+      expect(server).to.include(label.ApiTestingAutomation)
+      // expect($response.Response.ServerList[3].ServerName).to.equal(label.ApiTestingAutomation)
     })
   })
 

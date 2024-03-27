@@ -20,7 +20,7 @@ describe('get group information', () => {
   const userDetails = {
     username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
   const groupDetails = {
     groupName: 'Everyone',

@@ -22,10 +22,10 @@ describe('GET /api/Servers', () => {
   const createUserDetails = {
     username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
   const serverDetails = {
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
   const virtualDirectoryDetails = {
     ActualPath: 'C://customefolder//dkjbfvdfkg',

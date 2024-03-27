@@ -16,7 +16,7 @@ describe('check virtual directory permissions', () => {
   const createUserDetails = {
     username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
   const adminData = Cypress.env('admin')
   const userInfo = {
