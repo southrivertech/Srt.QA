@@ -5,21 +5,20 @@ import label from '../../../../fixtures/label.json'
  * This spec file contains test to ensure admin can get list of servers through API
  *
  * @assertions
- * To verify that admin can get the list of servers through API
+ * To verify that admin can get the list of server variables through API
  *
  *  @prerequisites
  * valid user credentials
  * - user should have valid credentials
  */
-
 let bearerToken = null
+
 describe('GET /api/Servers', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
       // Check if response type is api auth response
@@ -37,14 +36,14 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  it('verify that admin can get the list of servers through API', () => {
-    cy.getServerListApiRequest(bearerToken).then(($response) => {
-      // Check if response type is api server list response
-      expect($response.ResponseType).to.equal('ApiServerListResponse')
-      // Check if autoServerName exist in server list or not
-      const server = $response.Response.ServerList.map(VirtualFolders => VirtualFolders.ServerName)
-      expect(server).to.include(label.ApiTestingAutomation)
-      // expect($response.Response.ServerList[3].ServerName).to.equal(label.ApiTestingAutomation)
+  it('verify that admin can get the list server variables through API', () => {
+    cy.getServerLevelVariablesApiRequest(bearerToken).then(($response) => {
+      // Check if response type is Api Server Vars Poco
+      expect($response.ResponseType).to.equal('ApiServerVarsPoco')
+      // check if ErrorStr is Success
+      expect($response.Result.ErrorStr).to.equal('Success')
+      // Check if Variables list exists or not
+      expect($response.Response).to.have.keys(label.Vars)
     })
   })
 

@@ -20,7 +20,7 @@ describe('GET /api/Servers/{serverName}/AuthConnectors/native/Users', () => {
   }
 
   const listUsersData = {
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
 
   beforeEach('login through api', () => {
@@ -53,7 +53,7 @@ describe('GET /api/Servers/{serverName}/AuthConnectors/native/Users', () => {
   afterEach('logout through API', () => {
     // calling logout function
     cy.postLogoutAuthenticateApiRequest(listUsersData.bearerToken).then(($response) => {
-      // check if request is successful or not bearer Token
+      // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })

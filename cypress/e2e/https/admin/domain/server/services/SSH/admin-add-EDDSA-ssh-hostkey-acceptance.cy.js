@@ -7,23 +7,23 @@ import userSelectors from '../../../../../../../../selectors/user/user-selectors
 
 /**
  * @description
- * This spec file contains test to verify that admin user can add a RSA521
+ * This spec file contains test to verify that admin user can add a EDDSA 255 key
  *
  * @file
- * ui/cypress/e2e/server/services/SSH/admin-add-DSA-ssh-hostkey-acceptance.cy.js
+ * ui/cypress/e2e/server/services/SSH/admin-add-EDDSA-ssh-hostkey-acceptance.cy.js
  *
  * @issueID - NX-I1100
  *
  * @breadcrumb
- * login > create new server > services > SSH > Add DSA Key
+ * login > create new server > services > SSH > Add EDDSA Key
  *
  * @assertions
- * To verify that admin is able to add a DSA 1024 key
+ * To verify that admin is able to add a EDDSA 255 key
  *
  */
 slowCypressDown(100)
 
-describe('login > create new server > services > SSH > Add DSA Key', () => {
+describe('login > create new server > services > SSH > Add EDDSA Key', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -36,8 +36,8 @@ describe('login > create new server > services > SSH > Add DSA Key', () => {
     serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
   const hostKeyDetails = {
-    keyType: 'DSA',
-    keySize: '1024',
+    keyType: 'EDDSA',
+    keySize: '255',
     keyName: `qa-auto key ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
@@ -54,7 +54,7 @@ describe('login > create new server > services > SSH > Add DSA Key', () => {
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
   })
 
-  it('verify that user can add DSA 1024 key', () => {
+  it('verify that user can add EDDSA 255 key', () => {
     cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })

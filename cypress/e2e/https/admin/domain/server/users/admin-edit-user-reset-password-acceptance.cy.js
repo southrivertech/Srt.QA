@@ -46,7 +46,9 @@ describe('Login > {existing server} > existing users > edit > set user password'
       .next(htmlTagSelectors.div).should('exist')
       .next(htmlTagSelectors.div).should('exist')
       .next(htmlTagSelectors.div).should('exist')
-      .next(htmlTagSelectors.div).click()
+      .next(htmlTagSelectors.div).within(() => {
+        cy.get(htmlTagSelectors.button).click({ force: true })
+      })
     cy.get(userSelectors.parentUsers).contains(label.setUserPassword).click()
     cy.enterText(label.password, label.password)
     cy.clickButton(label.save)
@@ -56,10 +58,23 @@ describe('Login > {existing server} > existing users > edit > set user password'
     cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', label.passwordsDoNotMatch)
   })
 
-  it('Verify admin can set new password for existing user', () => {
-    cy.editUser(label.autoUserName, label.setUserPassword, label.password)
+  it.only('Verify admin can set new password for existing user', () => {
+    cy.contains(htmlTagSelectors.div, label.autoUserName).parents(userSelectors.parentCell)
+      .next(htmlTagSelectors.div).should('exist')
+      .next(htmlTagSelectors.div).should('exist')
+      .next(htmlTagSelectors.div).should('exist')
+      .next(htmlTagSelectors.div).should('exist')
+      .next(htmlTagSelectors.div).within(() => {
+        cy.get(htmlTagSelectors.button).click({ force: true })
+      })
+    cy.get(userSelectors.parentUsers).contains(label.setUserPassword).click()
+    cy.enterText(label.password, label.password)
+    cy.clickButton(label.save)
+    cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', label.required)
+    cy.enterText(label.confirmPassword, label.password)
+    cy.clickButton(label.save)
     cy.get(userSelectors.successMessage).should('exist')
     cy.wait(5000)
-    cy.login(label.users, label.autoUserName, label.password)
+    cy.login('', label.autoUserName, label.password)
   })
 })

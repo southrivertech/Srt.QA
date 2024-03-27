@@ -30,7 +30,7 @@ describe('Login > {existing server} > users > add new user', () => {
   }
 
   const userDetails = {
-    userName: `qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    userName: `qa-auto-user${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
     homeDirectoryOption: `${label.customDir}`,
     customDirPath: `C:/qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`

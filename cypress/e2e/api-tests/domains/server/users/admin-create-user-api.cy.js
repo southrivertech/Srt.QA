@@ -14,9 +14,9 @@ import label from '../../../../../fixtures/label.json'
 
 describe('create new user', () => {
   const createUserDetails = {
-    username: `qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
   const adminData = Cypress.env('admin')
   const userInfo = {
@@ -59,7 +59,7 @@ describe('create new user', () => {
     })
     // calling logout function
     cy.postLogoutAuthenticateApiRequest(createUserDetails.bearerToken).then(($response) => {
-      // check if request is successful or not bearer Token
+      // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })

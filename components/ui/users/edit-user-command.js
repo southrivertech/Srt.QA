@@ -42,7 +42,9 @@ Cypress.Commands.add('editUser', (username, menuOption = label.editUserAssignedG
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
     .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).click()
+    .next(htmlTagSelectors.div).within(() => {
+      cy.get(htmlTagSelectors.button).click({ force: true })
+    })
 
   switch (menuOption) {
     case label.editUserAssignedGroups:
