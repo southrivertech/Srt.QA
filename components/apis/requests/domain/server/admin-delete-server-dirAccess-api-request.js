@@ -1,0 +1,28 @@
+/**
+* @description
+* The deleteServerLevelDirAccessApiRequest command is used to delete a directory access
+*
+* @parameters
+* @param {required} bearerToken
+* @param {required} DirectoryId
+* @example
+* cy.deleteServerLevelDirAccessApiRequest(bearerToken)
+*/
+
+Cypress.Commands.add('deleteServerLevelDirAccessApiRequest', (serverDetails, DirectoryDetails) => {
+  Cypress.log({
+    name: 'deleteServerLevelDirAccessApiRequest'
+  })
+
+  cy.api({
+    method: 'DELETE',
+    url: `${Cypress.env('apiBaseUrl')}/api/Servers/${serverDetails.serverName}/DirAccess/${DirectoryDetails.DirectoryId}/Owner/server`,
+    headers: {
+      Authorization: `Bearer ${serverDetails.bearerToken}`
+    }
+  }).then(($response) => {
+    console.log('response of deleteServerLevelDirAccessApiRequest', $response)
+    expect($response.status).to.eq(200)
+    return $response.body
+  })
+})
