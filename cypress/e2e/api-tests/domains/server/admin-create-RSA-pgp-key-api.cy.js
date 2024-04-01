@@ -2,7 +2,7 @@ import label from '../../../../fixtures/label.json'
 
 /**
  * @description
- * This spec file contains test to ensure admin can get create PGP keys through API
+ * This spec file contains test to ensure admin can get create RSA PGP keys through API
  *
  * @assertions
  * To verify that admin can create PGP keys through API
@@ -24,7 +24,7 @@ describe('GET /api/Servers', () => {
   }
   const keyDetails = {
     KeyType: 'pgp',
-    keyName: `qa auto pgp key ${Cypress.dayjs().format('MsssmmhhMMYY')}`,
+    keyName: `qa auto pgp key ${Cypress.dayjs().format('ssmmhhMMYY')}`,
     KeyAlg: 'RSA'
   }
 
