@@ -6,7 +6,7 @@
 * @param {required} bearerToken
 * @param {required} keyName
 * @example
-* cy.deleteServerPGPKeyApiRequest(bearerToken)
+* cy.deleteServerPGPKeyApiRequest(bearerToken, keyName)
 */
 
 Cypress.Commands.add('deleteServerPGPKeyApiRequest', (serverDetails, keyDetails) => {
