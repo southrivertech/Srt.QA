@@ -72,6 +72,8 @@ import '../../components/apis/requests/domain/server/admin-get-pgp-key-list-api-
 import '../../components/apis/requests/domain/server/admin-delete-server-pgp-key-api-request'
 import '../../components/apis/requests/domain/server/admin-create-server-ssh-key-api-request'
 import '../../components/apis/requests/domain/server/admin-delete-server-ssh-key-api-request'
+import '../../components/apis/requests/domain/groups/admin-update-group-information-api-request'
+import '../../components/apis/requests/domain/groups/admin-delete-updated-group-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
