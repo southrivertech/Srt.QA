@@ -36,8 +36,8 @@ describe('login > create new server > services > SSH > Add EDDSA Key', () => {
     serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
   const hostKeyDetails = {
-    keyType: 'EDDSA',
-    keySize: '255',
+    keyType: 'DSA',
+    keySize: '1024',
     keyName: `qa-auto key ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
@@ -54,7 +54,7 @@ describe('login > create new server > services > SSH > Add EDDSA Key', () => {
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
   })
 
-  it('verify that user can add EDDSA 255 key', () => {
+  it('verify that user can add EDDSA 1024 key', () => {
     cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })

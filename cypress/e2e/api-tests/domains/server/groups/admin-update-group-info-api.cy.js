@@ -70,15 +70,15 @@ describe('get groups list', () => {
   })
 
   afterEach('delete group through API', () => {
-    // // calling delete function
-    // cy.deleteUpdatedGroupApiRequest(groupDetails, serverDetails).then(($response) => {
-    // // check if request is successful or not
-    //   expect($response.Result.ErrorStr).to.equal('Success')
-    // })
+    // calling delete function
+    cy.deleteUpdatedGroupApiRequest(groupDetails, serverDetails).then(($response) => {
+    // check if request is successful or not
+      expect($response.Result.ErrorStr).to.equal('Success')
+    })
     // deleting the server
-    // cy.deleteServerApiRequest(serverDetails).then(($response) => {
-    //   // check if request is successful or not
-    //   expect($response.Result.ErrorStr).to.equal('Success')
-    // })
+    cy.deleteServerApiRequest(serverDetails).then(($response) => {
+      // check if request is successful or not
+      expect($response.Result.ErrorStr).to.equal('Success')
+    })
   })
 })
