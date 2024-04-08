@@ -1,13 +1,14 @@
 /**
  * @description
- * This spec file contains test to ensure admin can create a server through API
+ * This spec file contains test to ensure admin can update PGP keys through API
  *
  * @assertions
- * To verify that admin can create server through API
+ * To verify that admin can update PGP keys through API
  *
  *  @prerequisites
  * valid user credentials
  * - user should have valid credentials
+ *
  */
 
 describe('GET /api/Servers', () => {
@@ -17,7 +18,13 @@ describe('GET /api/Servers', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: 'testAPI'
+    serverName: `qa auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
+  }
+  const keyDetails = {
+    KeyType: 'pgp',
+    keyName: `qa auto pgp key ${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    KeyAlg: 'RSA',
+    newKeyName: 'updated key name'
   }
 
   beforeEach('login through api', () => {
@@ -35,18 +42,39 @@ describe('GET /api/Servers', () => {
       // initializing bearer token
       serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
-  })
-
-  it('verify that admin can create a server through API', () => {
+    // create new server
     cy.postCreateServerApiRequest(serverDetails).then(($response) => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiServerListResponse')
       // Check if errorstr is success
       expect($response.Result.ErrorStr).to.equal('Success')
+      serverDetails.serverGUID = $response.Response.ServerNodeGUID
+    })
+    // creating new PGP key
+    cy.postCreateServerPGPKey(keyDetails, serverDetails, 1024).then(($response) => {
+      // Check if response type is Api PgpKey List
+      expect($response.ResponseType).to.equal('ApiPgpKeyList')
+      // Check if Errorstr is success
+      expect($response.Result.ErrorStr).to.equal('Success')
+      // check if key with specified name is created
+      const keyid = $response.Response.Keys[0].Id
+      keyDetails.Id = keyid
     })
   })
 
-  afterEach('logout through API', () => {
+  it('updating keyName', () => {
+    cy.UpdateServerPGPKeyApiRequest(serverDetails, keyDetails).then(($response) => {
+      // Check if response type is Api PgpKey List
+      expect($response.ResponseType).to.equal('ApiPgpKeyList')
+      // Check if Errorstr is success
+      expect($response.Result.ErrorStr).to.equal('Success')
+      // check if key with specified name is created
+      const keyName = $response.Response.Keys.map(key => key.Document.Name)
+      expect(keyName).to.include(keyDetails.newKeyName)
+    })
+  })
+
+  afterEach('delete server through API', () => {
     // calling delete function
     cy.deleteServerApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not
