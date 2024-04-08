@@ -1,6 +1,6 @@
 /**
 * @description
-* The updateGroupInfoApiRequest command is used to get list of existing groups thorough API
+* The updateGroupInfoApiRequest command is used to update information for an existing group
 *
 * @parameters
 * @param {required} bearerToken

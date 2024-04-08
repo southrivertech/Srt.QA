@@ -74,6 +74,9 @@ import '../../components/apis/requests/domain/server/admin-create-server-ssh-key
 import '../../components/apis/requests/domain/server/admin-delete-server-ssh-key-api-request'
 import '../../components/apis/requests/domain/groups/admin-update-group-information-api-request'
 import '../../components/apis/requests/domain/groups/admin-delete-updated-group-api-request'
+import '../../components/apis/requests/domain/server/admin-delete-updated-virtual-directory-api-request'
+import '../../components/apis/requests/domain/server/admin-create-server-level-virtual-directory-api-request'
+import '../../components/apis/requests/domain/server/admin-update-virtual-folder-info-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
