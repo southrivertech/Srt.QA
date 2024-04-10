@@ -1,10 +1,10 @@
 import label from '../../../../../fixtures/label.json'
 /**
  * @description
- * This spec file contains test to verify if new user exists in Everyone User
+ * This spec file contains test to get information about a user
  *
  * @assertions
- * To verify that admin can get Everyone  User info through API
+ * To verify that admin can get user information through API
  *
  *  @prerequisites
  * valid user credentials
@@ -23,7 +23,7 @@ describe('get User information', () => {
     serverName: label.ApiTestingAutomation
   }
   const groupDetails = {
-    groupGUID: 'db2112ad-feed-0004-0000-000000000000'
+    groupGUID: Cypress.env('api').EveryoneGroupGUID
   }
 
   beforeEach('login through api', () => {
@@ -59,8 +59,9 @@ describe('get User information', () => {
       expect($response.ResponseType).to.equal('ApiUserParamsPoco')
       // Check if new user  exist in Everyone User or not
       expect($response.Result.ErrorStr).to.equal('Success')
-
+      // check if new user is present in response or not
       expect($response.Response.Username).to.equal(userDetails.username)
+      // check if new user exists in everyone group
       expect($response.Response.MemberGroups).to.include.keys(groupDetails.groupGUID)
     })
   })

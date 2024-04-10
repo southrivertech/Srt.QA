@@ -10,13 +10,7 @@
 * @param {required} KeyLen
 *
 * @example
-* cy.postCreateServerSSHKey({
-*   bearerToken: 'bearerTokenValue',
-*   KeyType: KeyTypeValue,
-*   Name: keyNameValue,
-*   KeyAlg: KeyAlgValue,
-*   KeyLen: KeyLenValue
-* })
+* cy.postCreateServerSSHKey(opts, serverDetails, keyLen)
 */
 
 Cypress.Commands.add('postCreateServerSSHKey', (opts, serverDetails, keyLen) => {

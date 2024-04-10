@@ -38,7 +38,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  it('verify that admin can get the list of servers through API', () => {
+  it('verify that admin can get the list of virtual directories through API', () => {
     cy.getServersVirtualDirectoriesApiRequest(serverDetails).then(($response) => {
       // Check if response type is api virtual directory folder response
       expect($response.ResponseType).to.equal('ApiVirtualFolderResponse')

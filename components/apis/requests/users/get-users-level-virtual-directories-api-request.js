@@ -7,7 +7,7 @@ import label from '../../../../cypress/fixtures/label.json'
 * @param {required} bearerToken
 *
 * @example
-* cy.getUsersVirtualDirectoriesApiRequest(serverDetails, userDetails)
+* cy.getUsersVirtualDirectoriesApiRequest(serverDetails, createUserDetails)
 */
 
 Cypress.Commands.add('getUsersVirtualDirectoriesApiRequest', (serverDetails, createUserDetails) => {

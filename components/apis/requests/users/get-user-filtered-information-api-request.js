@@ -7,7 +7,7 @@
 * @param {required} userName
 *
 * @example
-* cy.getFilteredUserInfoApiRequest(bearerToken, serverName)
+* cy.getFilteredUserInfoApiRequest(serverDetails, bearerToken)
 */
 
 Cypress.Commands.add('getFilteredUserInfoApiRequest', (serverDetails, opts) => {

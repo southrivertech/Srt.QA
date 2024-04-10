@@ -1,16 +1,13 @@
 /**
 * @description
-* The getUserInfoApiRequest command is used to get information about users in a Group thorough API
+* The getUserInfoApiRequest command is used to get information about users through API
 *
 * @parameters
 * @param {required} bearerToken
 * @param {required} UserName
 *
 * @example
-* cy.getUserInfoApiRequest({
-*   bearerToken: 'bearerTokenValue',
-*  UserName: 'UserNameValue',
-* })
+* cy.getUserInfoApiRequest(userDetails)
 */
 
 Cypress.Commands.add('getUserInfoApiRequest', (userDetails) => {

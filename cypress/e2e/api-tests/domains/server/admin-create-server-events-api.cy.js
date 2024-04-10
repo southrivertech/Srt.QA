@@ -55,6 +55,7 @@ describe('GET /api/Servers', () => {
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })
+
   afterEach('delete server through API', () => {
     // calling delete function
     cy.deleteServerApiRequest(serverDetails).then(($response) => {

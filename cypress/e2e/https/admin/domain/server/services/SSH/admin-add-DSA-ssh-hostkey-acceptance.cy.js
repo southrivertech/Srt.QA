@@ -7,23 +7,23 @@ import userSelectors from '../../../../../../../../selectors/user/user-selectors
 
 /**
  * @description
- * This spec file contains test to verify that admin user can add a EDDSA 255 key
+ * This spec file contains test to verify that admin user can add a DSA 255 key
  *
  * @file
- * ui/cypress/e2e/server/services/SSH/admin-add-EDDSA-ssh-hostkey-acceptance.cy.js
+ * ui/cypress/e2e/server/services/SSH/admin-add-DSA-ssh-hostkey-acceptance.cy.js
  *
  * @issueID - NX-I1100
  *
  * @breadcrumb
- * login > create new server > services > SSH > Add EDDSA Key
+ * login > create new server > services > SSH > Add DSA Key
  *
  * @assertions
- * To verify that admin is able to add a EDDSA 255 key
+ * To verify that admin is able to add a DSA 255 key
  *
  */
 slowCypressDown(100)
 
-describe('login > create new server > services > SSH > Add EDDSA Key', () => {
+describe('login > create new server > services > SSH > Add DSA Key', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -54,7 +54,7 @@ describe('login > create new server > services > SSH > Add EDDSA Key', () => {
     cy.get(generalSelectors.typeButton).contains(label.manageHostKeys).should('be.visible').click()
   })
 
-  it('verify that user can add EDDSA 1024 key', () => {
+  it('verify that user can add DSA 1024 key', () => {
     cy.addServerKey(hostKeyDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
   })

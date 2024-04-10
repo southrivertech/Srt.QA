@@ -6,7 +6,7 @@
 * @param {required} bearerToken
 * @param {required} DirectoryId
 * @example
-* cy.deleteServerLevelDirAccessApiRequest(bearerToken)
+* cy.deleteServerLevelDirAccessApiRequest(serverDetails, DirectoryDetails)
 */
 
 Cypress.Commands.add('deleteServerLevelDirAccessApiRequest', (serverDetails, DirectoryDetails) => {

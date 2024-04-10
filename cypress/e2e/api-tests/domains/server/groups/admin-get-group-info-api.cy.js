@@ -24,7 +24,7 @@ describe('get group information', () => {
   }
   const groupDetails = {
     groupName: 'Everyone',
-    groupGUID: 'db2112ad-feed-0004-0000-000000000000'
+    groupGUID: Cypress.env('api').EveryoneGroupGUID
   }
 
   beforeEach('login through api', () => {
@@ -45,7 +45,7 @@ describe('get group information', () => {
 
     // creating a new user
     cy.postCreateUserApiRequest(userDetails).then(($response) => {
-    // Check if response type is ApiUserParamsPoco
+      // Check if response type is ApiUserParamsPoco
       expect($response.ResponseType).to.equal('ApiUserParamsPoco')
       // Check if newly created user is present in response
       expect($response.Response.Username).to.equal(userDetails.username)
@@ -60,7 +60,7 @@ describe('get group information', () => {
       expect($response.ResponseType).to.equal('ApiGroupParamsPoco')
       // Check if ErrorStr is success or not
       expect($response.Result.ErrorStr).to.equal('Success')
-
+      // Check if new user  exist in Everyone group or not
       expect($response.Response.GroupName).to.equal(groupDetails.groupName)
       // Check if new user  exist in Everyone group or not
       expect($response.Response.MemberUsers).to.include.keys(userDetails.userGUID)

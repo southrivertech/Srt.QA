@@ -1,5 +1,3 @@
-import label from '../../../../fixtures/label.json'
-
 /**
  * @description
  * This spec file contains test to ensure admin can get list of servers through API
@@ -43,7 +41,7 @@ describe('GET /api/Servers', () => {
       // check if ErrorStr is Success
       expect($response.Result.ErrorStr).to.equal('Success')
       // Check if Variables list exists or not
-      expect($response.Response).to.have.keys(label.Vars)
+      expect($response.Response.Vars).to.not.be.empty
     })
   })
 

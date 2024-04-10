@@ -10,13 +10,7 @@
 * @param {required} DenyAce
 *
 * @example
-* cy.postCreateServerLevelVirtualDirectoryApiRequest({
-*   bearerToken: 'bearerTokenValue',
-*   ActualPath: 'ActualPathValue',
-*   Path: 'PathValue',
-*   AllowAce: 'AllowAceValue',
-*   DenyAce: 'DenyAceValue',
-* })
+* cy.postCreateServerLevelVirtualDirectoryApiRequest(virtualDirectoryDetails, serverDetails)
 */
 
 Cypress.Commands.add('postCreateServerLevelVirtualDirectoryApiRequest', (virtualDirectoryDetails, serverDetails) => {

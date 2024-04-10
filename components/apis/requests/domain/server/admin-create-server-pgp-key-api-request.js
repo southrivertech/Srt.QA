@@ -10,13 +10,7 @@
 * @param {required} KeyLen
 *
 * @example
-* cy.postCreateServerPGPKey({
-*   bearerToken: 'bearerTokenValue',
-*   KeyType: KeyTypeValue,
-*   Name: keyNameValue,
-*   KeyAlg: KeyAlgValue,
-*   KeyLen: KeyLenValue
-* })
+* cy.postCreateServerPGPKey(opts, serverDetails, keyLen)
 */
 
 Cypress.Commands.add('postCreateServerPGPKey', (opts, serverDetails, keyLen) => {

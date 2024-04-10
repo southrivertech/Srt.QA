@@ -57,8 +57,8 @@ Cypress.Commands.add('createUser', (userDetails) => {
     cy.get(userSelectors.dataValue2).contains(label.customDir).click({ force: true })
     cy.get(userSelectors.homeDirInputField).clear()
     cy.get(userSelectors.homeDirInputField).type(userDetails.customDirPath.replace(/\//g, '\\'))
-    cy.contains('span', label.createHomeDir)
-      .prev('span').click()
+    cy.contains(htmlTagSelectors.span, label.createHomeDir)
+      .prev(htmlTagSelectors.span).click()
   }
   cy.clickButton(label.finish)
 })

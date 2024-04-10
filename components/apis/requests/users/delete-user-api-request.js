@@ -8,11 +8,7 @@
 * @param {required} bearerToken
 *
 * @example
-* cy.deleteUserApiRequest({
-*   bearerToken: 'bearerTokenValue',
-*   serverName: 'serverNameValue',
-*   username: 'usernameValue'
-* })
+* cy.deleteUserApiRequest(bearerToken, serverName, username)
 */
 
 Cypress.Commands.add('deleteUserApiRequest', (bearerToken, serverName, username) => {

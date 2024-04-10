@@ -12,7 +12,7 @@ import label from '../../../../../fixtures/label.json'
  * - user should have valid credentials
  */
 
-describe('check virtual directory permissions', () => {
+describe('create virtual directory', () => {
   const createUserDetails = {
     username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
@@ -58,7 +58,7 @@ describe('check virtual directory permissions', () => {
     })
 
     cy.postCreateUserVirtualDirectoryApiRequest(createUserDetails, virtualDirectoryDetails).then(($response) => {
-      // Check if response type is ApiUserParamsPoco
+      // Check if response type is Api Virtual Folder Poco
       expect($response.ResponseType).to.equal('ApiVirtualFolderPoco')
       // Check if virtual directory is created for new user
       expect($response.Response.UserGroupGUID).to.equal(createUserDetails.UserGUID)

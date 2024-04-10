@@ -47,8 +47,8 @@ describe('create new group', () => {
       expect($response.ResponseType).to.equal('ApiServerListResponse')
       // Check if serverName exist in server list or not
       expect($response.Result.ErrorStr).to.equal('Success')
-
       groupDetails.bearerToken = serverDetails.bearerToken
+
       // create group
       cy.postCreateGroupApiRequest(groupDetails, serverDetails).then(($response) => {
       // Check if response type is api groups params poco

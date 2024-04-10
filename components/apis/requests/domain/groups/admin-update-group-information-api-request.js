@@ -6,10 +6,7 @@
 * @param {required} bearerToken
 *
 * @example
-* cy.updateGroupInfoApiRequest({
-*   bearerToken: 'bearerTokenValue',
-*   GroupName: 'GroupNameValue',
-* })
+* cy.updateGroupInfoApiRequest(groupDetails, serverDetails)
 */
 
 Cypress.Commands.add('updateGroupInfoApiRequest', (groupDetails, serverDetails) => {

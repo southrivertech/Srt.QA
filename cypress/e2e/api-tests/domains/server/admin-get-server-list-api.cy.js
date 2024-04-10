@@ -44,7 +44,6 @@ describe('GET /api/Servers', () => {
       // Check if autoServerName exist in server list or not
       const server = $response.Response.ServerList.map(VirtualFolders => VirtualFolders.ServerName)
       expect(server).to.include(label.ApiTestingAutomation)
-      // expect($response.Response.ServerList[3].ServerName).to.equal(label.ApiTestingAutomation)
     })
   })
 

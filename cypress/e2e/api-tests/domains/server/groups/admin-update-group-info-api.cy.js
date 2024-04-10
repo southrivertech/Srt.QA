@@ -18,7 +18,7 @@ describe('get groups list', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: 'Test Api Server'
+    serverName: `qa auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
   const groupDetails = {
     groupName: `qa-auto-group-${Cypress.dayjs().format('ssmmhhMMYY')}`,

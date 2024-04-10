@@ -46,7 +46,6 @@ describe('create new user', () => {
       // Check if response type is ApiUserParamsPoco
       expect($response.ResponseType).to.equal('ApiUserParamsPoco')
       // Check if newly created user is present in response
-      cy.log($response.Response)
       expect($response.Response.Username).to.equal(createUserDetails.username)
     })
   })

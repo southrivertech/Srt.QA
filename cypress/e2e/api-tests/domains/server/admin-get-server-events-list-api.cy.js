@@ -1,9 +1,9 @@
 /**
  * @description
- * This spec file contains test to ensure admin can get list of directory access through API
+ * This spec file contains test to ensure admin can get list of server events through API
  *
  * @assertions
- * To verify that admin can get list of directory access through API
+ * To verify that admin can get list of server events through API
  *
  *  @prerequisites
  * valid user credentials
@@ -41,7 +41,7 @@ describe('GET /api/Servers', () => {
     cy.postCreateServerApiRequest(serverDetails).then(($response) => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiServerListResponse')
-      // Check if errorstr is success
+      // Check if Errorstr is success
       expect($response.Result.ErrorStr).to.equal('Success')
       serverDetails.ServerGUID = $response.Response.ServerNodeGUID
       serverDetails.ServerGUID = $response.Response.ServerNodeGUID
@@ -56,17 +56,17 @@ describe('GET /api/Servers', () => {
 
   it('verify that admin can get directory access list through API', () => {
     cy.getServerEventsApiRequest(serverDetails, RequestType).then(($response) => {
-      // Check if response type is Api DirAccess Response
+      // Check if response type is Api Event Handlers
       expect($response.ResponseType).to.equal('ApiEventHandlers')
       // Check if ErrorStr is equal to success
       expect($response.Result.ErrorStr).to.equal('Success')
-      // check if directory Id is present or not
+      // verify server id
       const serverID = $response.Response.EventHandlers.map(serverId => serverId.ServerGUID)
       expect(serverID).to.include(serverDetails.ServerGUID)
-      // check directory is created at server level
+      // check if created event is present in response or not
       const eventname = $response.Response.EventHandlers.map(name => name.ECAData.Name)
       expect(eventname).to.include(Eventname)
-      // verify Path
+      // check if event is running or not
       const eventEnabled = $response.Response.EventHandlers.map(enableStatus => enableStatus.ECAData.Enabled)
       expect(eventEnabled).to.include(true)
     })

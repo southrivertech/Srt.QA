@@ -69,7 +69,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  it('verify that admin can get the list of servers through API', () => {
+  it('verify that admin can get information about virtual directories through API', () => {
     cy.getUsersVirtualDirectoriesApiRequest(serverDetails, createUserDetails).then(($response) => {
       // Check if response type is api virtual directory folder response
       expect($response.ResponseType).to.equal('ApiVirtualFolderResponse')
@@ -81,7 +81,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  afterEach('logout through API', () => {
+  afterEach('delete user through API', () => {
     // deleting virtual directory
     cy.deleteUserVirtualDirectoryApiRequest(createUserDetails).then(($response) => {
     // check if ErrorStr Is success

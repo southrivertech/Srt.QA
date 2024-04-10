@@ -7,7 +7,7 @@
 * @param {required} domainGUID
 *
 * @example
-* cy.getDomainInfoApiRequest(bearerToken)
+* cy.getDomainInfoApiRequest(bearerToken, domainGUID)
 */
 
 Cypress.Commands.add('getDomainInfoApiRequest', (token, domainGUID) => {

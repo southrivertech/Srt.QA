@@ -1,7 +1,7 @@
 import label from '../../../../../fixtures/label.json'
 /**
  * @description
- * This spec file contains test to verify if new group exists in group list
+ * This spec file contains test to verify if new group exists in group list or not
  *
  * @assertions
  * To verify that admin can get group list through API
@@ -60,11 +60,9 @@ describe('get groups list', () => {
       // check if new group exists in group list or not
       const groupName = $response.Response.GroupList.map(group => group.GroupName)
       expect(groupName).to.include(groupDetails.groupName)
-
       // Check if new group GroupGUID exist in group list or not
       const groupGUID = $response.Response.GroupList.map(group => group.GroupGUID)
       expect(groupGUID).to.include(groupDetails.GroupGUID)
-
       // Check if new group AuthGUID exist in group list or not
       const groupAuthGUID = $response.Response.GroupList.map(group => group.AuthGUID)
       expect(groupAuthGUID).to.include(groupDetails.AuthGUID)

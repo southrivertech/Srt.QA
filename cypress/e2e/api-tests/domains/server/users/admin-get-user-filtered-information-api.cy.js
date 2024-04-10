@@ -12,7 +12,7 @@ import label from '../../../../../fixtures/label.json'
  * - user should have valid credentials
  */
 
-describe('get filtered information', () => {
+describe('get filtered user information', () => {
   const createUserDetails = {
     username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
@@ -55,7 +55,7 @@ describe('get filtered information', () => {
 
   it('verify that admin can get filtered user information through API', () => {
     cy.getFilteredUserInfoApiRequest(serverDetails, createUserDetails).then(($response) => {
-      // Check if response type is ApiUserParamsFiltered
+      // Check if response type is Api User Params Filtered
       expect($response.ResponseType).to.equal('ApiUserParamsFiltered')
       // check if errorStr is success
       expect($response.Result.ErrorStr).to.equal('Success')

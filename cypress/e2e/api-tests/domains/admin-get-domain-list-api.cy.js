@@ -43,7 +43,6 @@ describe('GET /api/Domains', () => {
       // Check if autoDomainName exist in domain list or not
       const domains = $response.Response.DomainList.map(domain => domain.DomainName)
       expect(domains).to.include(label.autoDomainName)
-      // expect($response.Response.DomainList[0].DomainName).to.equal(label.autoDomainName)
     })
   })
 
