@@ -80,6 +80,8 @@ import '../../components/apis/requests/domain/server/admin-update-virtual-folder
 import '../../components/apis/requests/domain/server/admin-update-server-pgp-key-request'
 import '../../components/apis/requests/users/update-user-information-api-request'
 import '../../components/apis/requests/users/get-user-filtered-information-api-request'
+import '../../components/apis/requests/domain/server/admin-create-server-event-handlers'
+import '../../components/apis/requests/domain/server/admin-get-server-events-list-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
