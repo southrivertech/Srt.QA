@@ -5,6 +5,7 @@
 * @parameters
 * @param {required} bearerToken
 * @param {required} UserName
+* @param {required} serverName
 *
 * @example
 * cy.getUserInfoApiRequest(userDetails)

@@ -24,7 +24,8 @@ describe('GET /api/Servers', () => {
     KeyType: 'pgp',
     keyName: `qa auto pgp key ${Cypress.dayjs().format('ssmmhhMMYY')}`,
     KeyAlg: 'RSA',
-    newKeyName: 'updated key name'
+    newKeyName: 'updated key name',
+    keyLen: 1024
   }
 
   beforeEach('login through api', () => {
@@ -51,7 +52,7 @@ describe('GET /api/Servers', () => {
       serverDetails.serverGUID = $response.Response.ServerNodeGUID
     })
     // creating new PGP key
-    cy.postCreateServerPGPKey(keyDetails, serverDetails, 1024).then(($response) => {
+    cy.postCreateServerPGPKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api PgpKey List
       expect($response.ResponseType).to.equal('ApiPgpKeyList')
       // Check if Errorstr is success

@@ -1,9 +1,10 @@
 /**
 * @description
-* The getIPBanListApiRequest command is used to get the list of banned IPs
+* The getIPBanListApiRequest command is used to get the list of banned IPs through Api
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
 *
 * @example
 * cy.getIPBanListApiRequest(bearerToken)

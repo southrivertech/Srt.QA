@@ -1,6 +1,6 @@
 /**
 * @description
-* The getServerState command is used to get the list of virtual directories at server level
+* The getServerState command is used to get the state of a server through Api
 *
 * @parameters
 * @param {required} bearerToken

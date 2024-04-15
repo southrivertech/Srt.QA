@@ -46,7 +46,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  afterEach('logout through API', () => {
+  afterEach('delete server through API', () => {
     // calling delete function
     cy.deleteServerApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not

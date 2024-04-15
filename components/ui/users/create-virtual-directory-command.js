@@ -4,12 +4,8 @@ import dashboardSelectors from '../../../selectors/dashboard-selectors.json'
 import label from '../../../cypress/fixtures/label.json'
 
 /**
- * Server Deletion Command
  *
- * This command is used to create a virtual directory
- *
- * @location
- * Login > {existing server} > users > Edit > Edit user files & Directories
+ * This command is used to create a virtual directory at all levels
  *
  * @params
  * actual path and virtual folder name
@@ -22,8 +18,8 @@ Cypress.Commands.add('createVirtualDirectory', (virtualDirectoryDetails) => {
   cy.log({
     name: 'createVirtualDirectory'
   })
-  cy.get(generalSelectors.inputLabel).contains('Actual Path').parent(htmlTagSelectors.div).type(virtualDirectoryDetails.actualPath)
-  cy.get(generalSelectors.inputLabel).contains('Virtual Folder Name').parent(htmlTagSelectors.div).type(virtualDirectoryDetails.virtualFolderName)
+  cy.get(generalSelectors.inputLabel).contains(label.actualPath).parent(htmlTagSelectors.div).type(virtualDirectoryDetails.actualPath)
+  cy.get(generalSelectors.inputLabel).contains(label.newPath).parent(htmlTagSelectors.div).type(virtualDirectoryDetails.virtualFolderName)
   // adding virtual directory
   cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.add).click()
 })

@@ -1,6 +1,6 @@
 /**
 * @description
-* The getServersVirtualDirectoriesApiRequest command is used to get the list of virtual directories at server level
+* The getServersVirtualDirectoriesApiRequest command is used to get the list of virtual directories at server level through Api
 *
 * @parameters
 * @param {required} bearerToken

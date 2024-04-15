@@ -13,7 +13,7 @@
 * cy.postCreateServerSSHKey(opts, serverDetails, keyLen)
 */
 
-Cypress.Commands.add('postCreateServerSSHKey', (opts, serverDetails, keyLen) => {
+Cypress.Commands.add('postCreateServerSSHKey', (opts, serverDetails) => {
   Cypress.log({
     name: 'postCreateServerSSHKey'
   })
@@ -26,7 +26,7 @@ Cypress.Commands.add('postCreateServerSSHKey', (opts, serverDetails, keyLen) => 
         KeyType: opts.KeyType,
         Name: opts.keyName,
         KeyAlg: opts.KeyAlg,
-        KeyLen: keyLen
+        KeyLen: opts.keyLen
       }
     },
     headers: {

@@ -46,8 +46,9 @@ describe('GET /api/Servers', () => {
   })
 
   it('RSA 1024 Key', () => {
+    keyDetails.keyLen = 1024
     // creating new PGP key
-    cy.postCreateServerPGPKey(keyDetails, serverDetails, 1024).then(($response) => {
+    cy.postCreateServerPGPKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api PgpKey List
       expect($response.ResponseType).to.equal('ApiPgpKeyList')
       // Check if Errorstr is success
@@ -58,8 +59,9 @@ describe('GET /api/Servers', () => {
     })
   })
   it('RSA 2048 Key ', () => {
+    keyDetails.keyLen = 2048
     // creating new PGP key
-    cy.postCreateServerPGPKey(keyDetails, serverDetails, 2048).then(($response) => {
+    cy.postCreateServerPGPKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api PgpKey List
       expect($response.ResponseType).to.equal('ApiPgpKeyList')
       // Check if Errorstr is success
@@ -70,8 +72,9 @@ describe('GET /api/Servers', () => {
     })
   })
   it('RSA 4096 Key', () => {
+    keyDetails.keyLen = 4096
     // creating new PGP key
-    cy.postCreateServerPGPKey(keyDetails, serverDetails, 4096).then(($response) => {
+    cy.postCreateServerPGPKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api PgpKey List
       expect($response.ResponseType).to.equal('ApiPgpKeyList')
       // Check if Errorstr is success

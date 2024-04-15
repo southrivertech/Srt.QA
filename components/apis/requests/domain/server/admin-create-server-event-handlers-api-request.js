@@ -4,6 +4,8 @@
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
+* @param {required} Eventname
 *
 * @example
 * cy.postCreateServerEventsApiRequest(serverDetails, Eventname)

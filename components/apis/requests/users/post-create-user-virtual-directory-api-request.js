@@ -1,22 +1,18 @@
 /**
 * @description
-* The postCreateUserVirtualDirectoryApiRequest command is used to create a virtual directory through API
+* The postCreateUserVirtualDirectoryApiRequest command is used to create a virtual directory through API at user level
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
+* @param {required} UserGUID
 * @param {required} ActualPath
 * @param {required} Path
 * @param {required} AllowAce
 * @param {required} DenyAce
 *
 * @example
-* cy.postCreateUserVirtualDirectoryApiRequest({
-*   bearerToken: 'bearerTokenValue',
-*   ActualPath: 'ActualPathValue',
-*   Path: 'PathValue',
-*   AllowAce: 'AllowAceValue',
-*   DenyAce: 'DenyAceValue',
-* })
+* cy.postCreateUserVirtualDirectoryApiRequest(opts, virtualDirectoryDetails)
 */
 
 Cypress.Commands.add('postCreateUserVirtualDirectoryApiRequest', (opts, virtualDirectoryDetails) => {

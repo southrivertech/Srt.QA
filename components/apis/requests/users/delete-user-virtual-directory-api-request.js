@@ -2,6 +2,12 @@
 * @description
 * The deleteUserVirtualDirectoryApiRequest command is used to delete a virtual directory through API
 *
+*@parameters
+*@param {required} bearerToken
+*@param {required} serverName
+*@param {required} Id
+*@param {required} UserGUID
+*
 * @example
 * cy.deleteUserVirtualDirectoryApiRequest()
 */

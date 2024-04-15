@@ -46,8 +46,9 @@ describe('GET /api/Servers', () => {
   })
 
   it('DSA 1024 Key', () => {
+    keyDetails.keyLen = 1024
     // creating new SSH key
-    cy.postCreateServerSSHKey(keyDetails, serverDetails, 1024).then(($response) => {
+    cy.postCreateServerSSHKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api SSHKey List
       expect($response.ResponseType).to.equal('ApiSshKeyList')
       // Check if Errorstr is success

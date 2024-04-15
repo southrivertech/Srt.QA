@@ -1,9 +1,10 @@
 /**
 * @description
-* The getServerLevelDirAccessApiRequest command is used to get the list of Directory Access at server level
+* The getServerLevelDirAccessApiRequest command is used to get the list of Directory Access at server level through Api
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
 *
 * @example
 * cy.getServerLevelDirAccessApiRequest(serverDetails)

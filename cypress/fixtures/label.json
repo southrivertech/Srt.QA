@@ -12,6 +12,8 @@
   "back": "Back",
   "IPBans":"IPBans",
   "Vars":"Vars",
+  "actualPath":"Actual Path",
+  "newPath":"Virtual Folder Name",
   "okay"      : "Okay",
   "finish"    : "Finish",
   "users"     : "Users",

@@ -2,7 +2,7 @@ import label from '../../../../fixtures/label.json'
 
 /**
  * @description
- * This spec file contains test to ensure admin can get create DSA PGP keys through API
+ * This spec file contains test to ensure admin can create DSA PGP key through API
  *
  * @assertions
  * To verify that admin can create PGP keys through API
@@ -46,8 +46,9 @@ describe('GET /api/Servers', () => {
   })
 
   it('DSA 1024 Key', () => {
+    keyDetails.keyLen = 1024
     // creating new PGP key
-    cy.postCreateServerPGPKey(keyDetails, serverDetails, 1024).then(($response) => {
+    cy.postCreateServerPGPKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api PgpKey List
       expect($response.ResponseType).to.equal('ApiPgpKeyList')
       // Check if Errorstr is success

@@ -5,9 +5,6 @@ import label from '../../../cypress/fixtures/label.json'
  *
  * This command is used to delete a virtual directory
  *
- * @location
- * Login > {existing server} > users > Edit > Edit user files & Directories >{existing virtual directory}
- *
  * @params
  * actual path and virtual folder name
  *

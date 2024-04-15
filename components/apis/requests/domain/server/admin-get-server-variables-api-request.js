@@ -1,6 +1,6 @@
 /**
 * @description
-* The getServerLevelVariablesApiRequest command is used to get the list of variables at server level
+* The getServerLevelVariablesApiRequest command is used to get the list of variables at server level through Api
 * @parameters
 * @param {required} bearerToken
 *

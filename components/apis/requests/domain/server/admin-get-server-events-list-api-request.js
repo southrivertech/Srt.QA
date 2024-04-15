@@ -1,9 +1,11 @@
 /**
 * @description
-* The getServerEventsApiRequest command is used to get the list of Events and event handlers for a server
+* The getServerEventsApiRequest command is used to get the list of Events and event handlers for a server through Api
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
+* @param {required} RequestType
 *
 * @example
 * cy.getServerEventsApiRequest(serverDetails, RequestType)

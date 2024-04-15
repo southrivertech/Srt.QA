@@ -1,10 +1,16 @@
 /**
 * @description
-* The updateVirtualDirectoryInfoApiRequest command is update information for an existing virtual folder
+* The updateVirtualDirectoryInfoApiRequest command is update information for an existing virtual folder at server level through Api
 *
 * @parameters
 * @param {required} bearerToken
 * @param {required} Path
+* @param {required} Id
+* @param {required} serverName
+* @param {required} ActualPath
+* @param {required} newPath
+* @param {required} AllowAce
+* @param {required} DenyAce
 *
 * @example
 * cy.updateVirtualDirectoryInfoApiRequest(virtualDirectoryDetails, serverDetails)

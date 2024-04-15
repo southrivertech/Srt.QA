@@ -46,8 +46,9 @@ describe('GET /api/Servers', () => {
   })
 
   it('ECDSA 256 Key', () => {
+    keyDetails.keyLen = 256
     // creating new PGP key
-    cy.postCreateServerPGPKey(keyDetails, serverDetails, 256).then(($response) => {
+    cy.postCreateServerPGPKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api PgpKey List
       expect($response.ResponseType).to.equal('ApiPgpKeyList')
       // Check if Errorstr is success
@@ -58,8 +59,9 @@ describe('GET /api/Servers', () => {
     })
   })
   it('ECDSA 384 Key ', () => {
+    keyDetails.keyLen = 384
     // creating new PGP key
-    cy.postCreateServerPGPKey(keyDetails, serverDetails, 384).then(($response) => {
+    cy.postCreateServerPGPKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api PgpKey List
       expect($response.ResponseType).to.equal('ApiPgpKeyList')
       // Check if Errorstr is success
@@ -70,8 +72,9 @@ describe('GET /api/Servers', () => {
     })
   })
   it('ECDSA 521 Key', () => {
+    keyDetails.keyLen = 521
     // creating new PGP key
-    cy.postCreateServerPGPKey(keyDetails, serverDetails, 521).then(($response) => {
+    cy.postCreateServerPGPKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api PgpKey List
       expect($response.ResponseType).to.equal('ApiPgpKeyList')
       // Check if Errorstr is success

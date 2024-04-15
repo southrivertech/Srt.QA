@@ -1,6 +1,6 @@
 /**
 * @description
-* The getFilteredUserInfoApiRequest command is used to get filtered user information
+* The getFilteredUserInfoApiRequest command is used to get filtered user information through Api
 *
 * @parameters
 * @param {required} bearerToken

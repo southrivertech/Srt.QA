@@ -1,6 +1,6 @@
 /**
 * @description
-* The UpdateUserInfoApiRequest command is used to update user information
+* The UpdateUserInfoApiRequest command is used to update user information through Api
 *
 * @parameters
 * @param {required} bearerToken
