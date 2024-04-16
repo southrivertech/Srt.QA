@@ -1,6 +1,6 @@
 /**
 * @description
-* The getServerSessionsApiRequest command is used to get the Sessions info of servers
+* The getServerSessionsApiRequest command is used to get the Sessions info of servers through Api
 *
 * @parameters
 * @param {required} bearerToken
