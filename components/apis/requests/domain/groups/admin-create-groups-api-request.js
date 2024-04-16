@@ -4,12 +4,14 @@
 *
 * @parameters
 * @param {required} bearerToken
-* @param {required} GroupsName
+* @param {required} groupsName
+* @param {required} serverName
 *
 * @example
 * cy.postCreateGroupApiRequest({
 *   bearerToken: 'bearerTokenValue',
 *   GroupName: 'GroupNameValue',
+*   serverName: 'serverNameValue'
 * })
 */
 

@@ -5,11 +5,13 @@
 * @parameters
 * @param {required} bearerToken
 * @param {required} groupName
+* @param {required} serverName
 *
 * @example
 * cy.deleteGroupApiRequest({
 *   bearerToken: 'bearerTokenValue',
 *   GroupName: 'groupNameValue',
+*   serverName: 'serverNameValue'
 * })
 */
 

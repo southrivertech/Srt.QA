@@ -10,6 +10,7 @@
 * cy.deleteUpdatedGroupApiRequest({
 *   bearerToken: 'bearerTokenValue',
 *   GroupName: 'groupNameValue',
+*   serverName: 'serverNameValue'
 * })
 */
 
