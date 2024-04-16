@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - virtual_directory
   schedule:
     - cron: '0 9 * * *'  # 9AM EST
 jobs:
