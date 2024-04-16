@@ -1,9 +1,9 @@
-import htmlTagSelectors from '../../../../../../selectors/htlm-tag-selectors.json'
-import generalSelectors from '../../../../../../selectors/general-selectors.json'
-import label from '../../../../../../cypress/fixtures/label.json'
-import serverSelectors from '../../../../../../selectors/server-selectors.json'
-import navigationSelectors from '../../../../../../selectors/navigation/left-navigation-selectors.json'
-import dashboardSelectors from '../../../../../../selectors/dashboard-selectors.json'
+import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
+import generalSelectors from '../../../selectors/general-selectors.json'
+import label from '../../../cypress/fixtures/label.json'
+import serverSelectors from '../../../selectors/server-selectors.json'
+import navigationSelectors from '../../../selectors/navigation/left-navigation-selectors.json'
+import dashboardSelectors from '../../../selectors/dashboard-selectors.json'
 
 /**
 * @description

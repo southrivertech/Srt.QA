@@ -1,6 +1,6 @@
 /**
 * @description
-* The deleteServerPGPKeyApiRequest command is used to delete a PGP key
+* The deleteServerPGPKeyApiRequest command is used to delete a PGP key through Api
 *
 * @parameters
 * @param {required} bearerToken

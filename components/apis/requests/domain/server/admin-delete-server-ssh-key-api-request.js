@@ -1,6 +1,6 @@
 /**
 * @description
-* The deleteServerSSHKeyApiRequest command is used to delete a SSH key
+* The deleteServerSSHKeyApiRequest command is used to delete a SSH key through Api
 *
 * @parameters
 * @param {required} bearerToken

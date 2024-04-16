@@ -1,6 +1,6 @@
 /**
 * @description
-* The getDomainInfoApiRequest command is used to get the domain information
+* The getDomainInfoApiRequest command is used to get the domain information through Api
 *
 * @parameters
 * @param {required} bearerToken

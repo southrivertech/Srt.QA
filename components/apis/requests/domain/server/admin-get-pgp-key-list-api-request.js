@@ -1,6 +1,6 @@
 /**
 * @description
-* The getServerPGPkeyApiRequest command is used to get the list of PGP keys at server level
+* The getServerPGPkeyApiRequest command is used to get the list of PGP keys at server level through Api
 *
 * @parameters
 * @param {required} bearerToken

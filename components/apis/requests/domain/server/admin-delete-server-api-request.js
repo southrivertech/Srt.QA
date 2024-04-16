@@ -1,6 +1,6 @@
 /**
 * @description
-* The deleteServerApiRequest command is used to delete a server
+* The deleteServerApiRequest command is used to delete a server through Api
 *
 * @parameters
 * @param {required} bearerToken

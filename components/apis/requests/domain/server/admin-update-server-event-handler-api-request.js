@@ -1,6 +1,6 @@
 /**
 * @description
-* The postCreateServerEventsApiRequest command is used to create a server level event through Api
+* The UpdateServerEventHandlerApiRequest command is used to update a server level event through api
 *
 * @parameters
 * @param {required} bearerToken
@@ -8,16 +8,16 @@
 * @param {required} Eventname
 *
 * @example
-* cy.postCreateServerEventsApiRequest(serverDetails, Eventname)
+* cy.UpdateServerEventHandlerApiRequest(serverDetails, Eventname)
 */
 
-Cypress.Commands.add('postCreateServerEventsApiRequest', (serverDetails, Eventname) => {
+Cypress.Commands.add('UpdateServerEventHandlerApiRequest', (serverDetails, Eventname) => {
   Cypress.log({
-    name: 'postCreateServerEventsApiRequest'
+    name: 'UpdateServerEventHandlerApiRequest'
   })
 
   cy.api({
-    method: 'POST',
+    method: 'PATCH',
     url: `${Cypress.env('apiBaseUrl')}/api/Servers/${serverDetails.serverName}/Events`,
     headers: {
       Authorization: `Bearer ${serverDetails.bearerToken}`
@@ -28,7 +28,7 @@ Cypress.Commands.add('postCreateServerEventsApiRequest', (serverDetails, Eventna
       }
     }
   }).then(($response) => {
-    console.log('response of postCreateServerEventsApiRequest', $response)
+    console.log('response of UpdateServerEventHandlerApiRequest', $response)
     expect($response.status).to.eq(200)
     return $response.body
   })

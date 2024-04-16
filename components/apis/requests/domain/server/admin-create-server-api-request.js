@@ -1,9 +1,10 @@
 /**
 * @description
-* The postCreateServerApiRequest command is used to create a server
+* The postCreateServerApiRequest command is used to create a server through Api
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
 *
 * @example
 * cy.postCreateServerApiRequest(serverDetails)

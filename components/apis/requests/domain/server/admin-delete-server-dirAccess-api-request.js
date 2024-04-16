@@ -1,6 +1,6 @@
 /**
 * @description
-* The deleteServerLevelDirAccessApiRequest command is used to delete a directory access
+* The deleteServerLevelDirAccessApiRequest command is used to delete a directory access through Api
 *
 * @parameters
 * @param {required} bearerToken

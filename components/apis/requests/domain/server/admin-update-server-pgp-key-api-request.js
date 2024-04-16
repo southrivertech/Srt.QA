@@ -1,6 +1,6 @@
 /**
 * @description
-* The UpdateServerPGPKeyApiRequest command is used to update a PGP key
+* The UpdateServerPGPKeyApiRequest command is used to update a PGP key through Api
 *
 * @parameters
 * @param {required} bearerToken

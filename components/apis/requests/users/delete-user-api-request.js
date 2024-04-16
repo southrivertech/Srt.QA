@@ -1,6 +1,6 @@
 /**
 * @description
-* The deleteUserApiRequest command is used to delete a user
+* The deleteUserApiRequest command is used to delete a user through Api
 *
 * @parameters
 * @param {required} serverName

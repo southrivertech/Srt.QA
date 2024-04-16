@@ -1,6 +1,6 @@
 /**
 * @description
-* The postCreateServerLevelDirAccessApiRequest command is used to create a directory access at server level
+* The postCreateServerLevelDirAccessApiRequest command is used to create a directory access at server level through Api
 *
 * @parameters
 * @param {required} bearerToken
