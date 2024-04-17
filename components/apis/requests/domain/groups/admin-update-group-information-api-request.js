@@ -16,12 +16,11 @@ Cypress.Commands.add('updateGroupInfoApiRequest', (groupDetails, serverDetails) 
 
   cy.api({
     method: 'PATCH',
-    url: `${Cypress.env('apiBaseUrl')}/api/servers/${serverDetails.serverName}/AuthConnectors/native/Groups/${groupDetails.groupName}?byGroupName=true`,
+    url: `${Cypress.env('apiBaseUrl')}/api/servers/${serverDetails.serverName}/AuthConnectors/native/Groups/${groupDetails.GroupGUID}`,
     headers: {
       Authorization: `Bearer ${groupDetails.bearerToken}`
     },
     body: {
-      GroupGUID: groupDetails.GroupGUID,
       AuthGUID: groupDetails.AuthGUID,
       GroupName: groupDetails.updatedGroupName,
       GeneralParams: {

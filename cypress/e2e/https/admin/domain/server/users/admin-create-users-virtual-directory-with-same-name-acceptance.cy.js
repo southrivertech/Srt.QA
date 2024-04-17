@@ -42,7 +42,7 @@ describe('Login > {existing server} > create new user > create virtual directory
   }
   const virtualDirectoryDetails = {
     actualPath: 'C:/gpdirone',
-    virtualFolderName: 'gpdirone'
+    virtualFolderName: 'gpDirOne'
   }
 
   beforeEach('login and create user', () => {
@@ -74,12 +74,12 @@ describe('Login > {existing server} > create new user > create virtual directory
       .next(htmlTagSelectors.div).should('exist')
       .next(htmlTagSelectors.div).should('exist')
       .next(htmlTagSelectors.div).should('exist')
-      .next(htmlTagSelectors.div).should('exist').click()
+      .next(htmlTagSelectors.div).within(() => {
+        cy.get(htmlTagSelectors.button).click()
+      })
 
     // Deleting virtual directory created
     cy.deleteVirtualDirectory()
-
-      .wait(4000)
     cy.get(generalSelectors.close).should('be.visible').click()
     // Clicking on edit button
     cy.editUser(userDetails.userName, label.editUserFileDirectories, userDetails.password)
@@ -93,7 +93,6 @@ describe('Login > {existing server} > create new user > create virtual directory
 
     // Again adding virtual directory with same name
     cy.get(userSelectors.successMessage).should('exist')
-      .wait(4000)
     cy.get(generalSelectors.close).should('be.visible').click()
   })
 

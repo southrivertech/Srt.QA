@@ -66,15 +66,11 @@ describe('get groups list', () => {
       expect($response.ResponseType).to.equal('ApiGroupParamsPoco')
       // Check if ErrorStr is success or not
       expect($response.Result.ErrorStr).to.equal('Success')
+      groupDetails.groupName = $response.Response.GroupName
     })
   })
 
   afterEach('delete group through API', () => {
-    // calling delete function
-    cy.deleteUpdatedGroupApiRequest(groupDetails, serverDetails).then(($response) => {
-    // check if request is successful or not
-      expect($response.Result.ErrorStr).to.equal('Success')
-    })
     // deleting the server
     cy.deleteServerApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not

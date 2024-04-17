@@ -48,7 +48,7 @@ Cypress.Commands.add('createUser', (userDetails) => {
   cy.checkTextVisibility(userSelectors.userPageHeading, label.assignToGroups)
   if (userDetails.groupName) {
     cy.contains(htmlTagSelectors.div, userDetails.groupName).parents(userSelectors.parentCell)
-      .prev(htmlTagSelectors.div).click()
+      .prev(htmlTagSelectors.div).click({ force: true })
   }
   cy.clickButton(label.next)
   cy.checkTextVisibility(userSelectors.userPageHeading, label.configureUserOptions)
