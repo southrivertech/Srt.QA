@@ -46,11 +46,13 @@ describe('GET /api/Servers', () => {
   })
 
   it('ECDSA 256 Key', () => {
+    keyDetails.keyLen = 256
     // creating new SSH key
-    cy.postCreateServerSSHKey(keyDetails, serverDetails, 256).then(($response) => {
+    cy.postCreateServerSSHKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api SSHKey List
       expect($response.ResponseType).to.equal('ApiSshKeyList')
       // Check if Errorstr is success
+      cy.log($response.Response)
       expect($response.Result.ErrorStr).to.equal('Success')
       // check if key with specified name is created
       const keyName = $response.Response.Keys.map(key => key.Document.Name)
@@ -58,8 +60,9 @@ describe('GET /api/Servers', () => {
     })
   })
   it('ECDSA 384 Key ', () => {
+    keyDetails.keyLen = 384
     // creating new SSH key
-    cy.postCreateServerSSHKey(keyDetails, serverDetails, 384).then(($response) => {
+    cy.postCreateServerSSHKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api SSHKey List
       expect($response.ResponseType).to.equal('ApiSshKeyList')
       // Check if Errorstr is success
@@ -70,8 +73,9 @@ describe('GET /api/Servers', () => {
     })
   })
   it('ECDSA 521 Key', () => {
+    keyDetails.keyLen = 521
     // creating new SSH key
-    cy.postCreateServerSSHKey(keyDetails, serverDetails, 521).then(($response) => {
+    cy.postCreateServerSSHKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api SSHKey List
       expect($response.ResponseType).to.equal('ApiSshKeyList')
       // Check if Errorstr is success
