@@ -60,15 +60,11 @@ describe('Login > {existing server} > create new user > create virtual directory
 
   it('verify that admin user can create a virtual directory on user level with same name after deleting', () => {
     cy.editUser(userDetails.userName, label.editUserFileDirectories, userDetails.password)
-
     cy.get(generalSelectors.roleTab).contains(label.virtualDirectoryAccess).click()
     cy.get(dashboardSelectors.domainDropDown).contains(label.virtualDirectoryAccess).parent().parent().parent(dashboardSelectors.gridRoot).next(htmlTagSelectors.div).click()
-
     // creating virtual directory
     cy.createVirtualDirectory(virtualDirectoryDetails)
-
     cy.get(userSelectors.successMessage).should('exist')
-
     // Clicking on edit button
     cy.contains(htmlTagSelectors.div, virtualDirectoryDetails.virtualFolderName).parents(userSelectors.parentCell)
       .next(htmlTagSelectors.div).should('exist')
@@ -77,22 +73,20 @@ describe('Login > {existing server} > create new user > create virtual directory
       .next(htmlTagSelectors.div).within(() => {
         cy.get(htmlTagSelectors.button).click()
       })
-
     // Deleting virtual directory created
     cy.deleteVirtualDirectory()
+    cy.wait(5000)
     cy.get(generalSelectors.close).should('be.visible').click()
     // Clicking on edit button
     cy.editUser(userDetails.userName, label.editUserFileDirectories, userDetails.password)
-
     cy.get(generalSelectors.roleTab).contains(label.virtualDirectoryAccess).click()
     cy.get(dashboardSelectors.domainDropDown).contains(label.virtualDirectoryAccess).parent().parent().parent(dashboardSelectors.gridRoot).next(htmlTagSelectors.div).click()
     // Creating virtual directory with same name again
     cy.createVirtualDirectory(virtualDirectoryDetails)
-
     cy.get(userSelectors.successMessage).should('exist')
-
     // Again adding virtual directory with same name
     cy.get(userSelectors.successMessage).should('exist')
+    cy.wait(5000)
     cy.get(generalSelectors.close).should('be.visible').click()
   })
 
