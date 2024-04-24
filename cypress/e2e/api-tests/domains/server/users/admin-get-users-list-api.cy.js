@@ -1,7 +1,7 @@
 import label from '../../../../../fixtures/label.json'
 
 /**
- *@description
+*@description
 * This spec file contains test to ensure admin can get list of users through API
 *
 * @requirements
@@ -20,7 +20,7 @@ describe('GET /api/Servers/{serverName}/AuthConnectors/native/Users', () => {
   }
 
   const listUsersData = {
-    serverName: label.ApiTestingAutomation
+    serverName: label.autoServerName
   }
 
   beforeEach('login through api', () => {

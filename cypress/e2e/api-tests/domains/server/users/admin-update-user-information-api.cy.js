@@ -16,7 +16,8 @@ describe('create new user', () => {
   const createUserDetails = {
     username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
-    serverName: label.ApiTestingAutomation
+    serverName: label.ApiTestingAutomation,
+    newUserName: 'test user'
   }
   const serverDetails = {
     serverName: label.ApiTestingAutomation
