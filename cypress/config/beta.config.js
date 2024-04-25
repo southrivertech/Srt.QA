@@ -22,8 +22,8 @@ module.exports = defineConfig({
     apiBaseUrl: 'https://beta.southrivertech.com:41443',
     admin: {
       adminBaseUrl: ':41443/',
-      adminUsername: 'srtadmin',
-      adminPassword: 'SrtSoft21401!'
+      adminUsername: process.env.adminUsername,
+      adminPassword: process.env.adminPassword
     },
     user: {
       fileOperations: {
