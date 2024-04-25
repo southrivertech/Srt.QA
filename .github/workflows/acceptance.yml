@@ -5,7 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: '0 9 * * *'  # 9AM EST
+    - cron: '30 14 * * *'  # 2:30 PM EST
 jobs:
   acceptance_tests:
     runs-on: ubuntu-latest

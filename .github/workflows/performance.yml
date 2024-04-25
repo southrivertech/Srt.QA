@@ -5,7 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: '0 * * * *'  #every hour
+    - cron: '0 11-16 * * *'  #every hour from 11AM to 4:59PM EST
 jobs:
   performance_tests:
     runs-on: ubuntu-latest
