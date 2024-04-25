@@ -10,6 +10,10 @@ jobs:
   acceptance_tests:
     runs-on: ubuntu-latest
 
+    env:
+      adminUsername: ${{ secrets.adminUsername }}
+      adminPassword: ${{ secrets.adminPassword }}
+
     strategy:
       fail-fast: false
       matrix:
