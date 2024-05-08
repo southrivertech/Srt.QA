@@ -57,7 +57,7 @@ describe('GET /api/Servers', () => {
 
   it('verify that admin can get cloud folders list through API', () => {
     cy.getServerCloudFoldersApiRequest(serverDetails).then(($response) => {
-      // Check if response type is Api DirAccess Response
+      // Check if response type is Api Cloud Folder List
       expect($response.ResponseType).to.equal('ApiCloudFolderList')
       // Check if ErrorStr is equal to success
       expect($response.Result.ErrorStr).to.equal('Success')

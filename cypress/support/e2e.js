@@ -85,6 +85,11 @@ import '../../components/apis/requests/domain/server/admin-update-server-event-h
 import '../../components/apis/requests/domain/server/admin-create-cloud-folders-api-request'
 import '../../components/apis/requests/domain/server/admin-get-cloud-folders-api-request'
 import '../../components/apis/requests/domain/server/admin-delete-cloud-folder-api-request'
+import '../../components/apis/requests/domain/server/admin-delete-server-node-api-request'
+import '../../components/apis/requests/domain/server/admin-create-server-node-api-request'
+import '../../components/apis/requests/domain/server/admin-get-server-node-list-api-request'
+import '../../components/apis/requests/domain/server/admin-get-server-node-settings-api-request'
+import '../../components/apis/requests/domain/server/admin-update-server-node-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
