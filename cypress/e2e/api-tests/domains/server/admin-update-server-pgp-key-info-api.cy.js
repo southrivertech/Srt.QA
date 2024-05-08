@@ -18,7 +18,7 @@ describe('GET /api/Servers', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: `qa auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
+    serverName: `qa auto server ${Cypress.dayjs().format('ssmmhhMMYYY')}`
   }
   const keyDetails = {
     KeyType: 'pgp',

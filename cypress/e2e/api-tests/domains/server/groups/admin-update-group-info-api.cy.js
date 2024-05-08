@@ -40,6 +40,7 @@ describe('get groups list', () => {
       // initializing bearer token
       serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
+
     // creating a server
     cy.postCreateServerApiRequest(serverDetails).then(($response) => {
       // Check if response type is api server list response
