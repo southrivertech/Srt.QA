@@ -1,6 +1,6 @@
 /**
 * @description
-* The updateServerNodeApiRequest command is used to create a server node through Api
+* The updateServerNodeApiRequest command is used to update a server node through Api
 *
 * @parameters
 * @param {required} bearerToken

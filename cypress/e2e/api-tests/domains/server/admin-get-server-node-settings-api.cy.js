@@ -2,10 +2,10 @@ import label from '../../../../fixtures/label.json'
 
 /**
  * @description
- * This spec file contains test to ensure admin can create a server node through API
+ * This spec file contains test to ensure admin can get server node settings through API
  *
  * @assertions
- * To verify that admin can get create a server node through API
+ * To verify that admin can get server node settings through API
  *
  *  @prerequisites
  * valid user credentials
@@ -39,6 +39,7 @@ describe('GET /api/Servers', () => {
       // initializing bearer token
       serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
+    // creating a server node
     cy.createServerNodeApiRequest(serverDetails).then(($response) => {
       // Check if response type is Api Server Params Nodes Poco
       expect($response.ResponseType).to.equal('ApiServerParamsNodesPoco')
@@ -51,7 +52,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  it('verify that admin can create server node through API', () => {
+  it('verify that admin get server node settings through API', () => {
     cy.getServerNodeSettingsApiRequest(serverDetails).then(($response) => {
       // Check if response type is Api Server Nodes List
       expect($response.ResponseType).to.equal('ApiServerParamsNodesPoco')
@@ -63,7 +64,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  afterEach('delete server through API', () => {
+  afterEach('delete server node through API', () => {
     // calling delete function
     cy.deleteServerNodeApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not

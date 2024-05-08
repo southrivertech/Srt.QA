@@ -5,7 +5,7 @@ import label from '../../../../fixtures/label.json'
  * This spec file contains test to ensure admin can create a server node through API
  *
  * @assertions
- * To verify that admin can get create a server node through API
+ * To verify that admin can create a server node through API
  *
  *  @prerequisites
  * valid user credentials
@@ -54,7 +54,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  afterEach('delete server through API', () => {
+  afterEach('delete server node through API', () => {
     // calling delete function
     cy.deleteServerNodeApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not

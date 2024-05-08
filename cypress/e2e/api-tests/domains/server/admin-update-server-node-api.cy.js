@@ -40,6 +40,7 @@ describe('GET /api/Servers', () => {
       // initializing bearer token
       serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
+    // create a server node
     cy.createServerNodeApiRequest(serverDetails).then(($response) => {
       // Check if response type is Api Server Params Nodes Poco
       expect($response.ResponseType).to.equal('ApiServerParamsNodesPoco')
@@ -52,7 +53,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  it('verify that admin can create server node through API', () => {
+  it('verify that admin can update server node through API', () => {
     cy.updateServerNodeApiRequest(serverDetails).then(($response) => {
       // Check if response type is Api Server Params Nodes Poco
       expect($response.ResponseType).to.equal('ApiServerParamsNodesPoco')
@@ -63,7 +64,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  afterEach('delete server through API', () => {
+  afterEach('delete server node through API', () => {
     // calling delete function
     cy.deleteServerNodeApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not

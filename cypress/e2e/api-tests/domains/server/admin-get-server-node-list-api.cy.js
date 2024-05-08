@@ -51,9 +51,9 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  it('verify that admin can create server node through API', () => {
+  it('verify that admin can get server node list through API', () => {
     cy.getServerNodesListApiRequest(serverDetails).then(($response) => {
-      // Check if response type is Api Server Nodes List
+      // Check if response type is Api Server Node List
       expect($response.ResponseType).to.equal('ApiServerNodeList')
       // Check if errorstr is success
       expect($response.Result.ErrorStr).to.equal('Success')
@@ -63,7 +63,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  afterEach('delete server through API', () => {
+  afterEach('delete server node through API', () => {
     // calling delete function
     cy.deleteServerNodeApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not

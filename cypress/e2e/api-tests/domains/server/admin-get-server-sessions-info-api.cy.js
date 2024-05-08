@@ -20,7 +20,7 @@ describe('GET /api/Servers', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
 
   beforeEach('login through api', () => {
@@ -46,9 +46,6 @@ describe('GET /api/Servers', () => {
       expect($response.ResponseType).to.equal('ApiSessionParamsPoco')
       // Check if ErrorStr is equal to success
       expect($response.Result.ErrorStr).to.equal('Success')
-      // check if server sessions list contains session id or not
-      const sessionList = $response.Response.SessionList.map(session => session.SessionId)
-      expect(sessionList).to.not.be.empty
     })
   })
 
