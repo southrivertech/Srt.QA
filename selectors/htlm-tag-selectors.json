@@ -5,5 +5,6 @@
     "span" : "span",
     "button": "button",
     "tableRow":"tr",
-    "tableData":"td" 
+    "tableData":"td",
+    "li":"li"
 }

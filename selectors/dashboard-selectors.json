@@ -10,5 +10,6 @@
     "dialog" : "[role='dialog']",
     "fabLabel" : ".MuiFab-label",
     "muiTypography": ".MuiTypography-root",
-    "muiDialogPaperWidthXs":".MuiDialog-paperWidthXs"
+    "muiDialogPaperWidthXs":".MuiDialog-paperWidthXs",
+    "matchContainer":"[id='Match Any of the Following']"
 }
