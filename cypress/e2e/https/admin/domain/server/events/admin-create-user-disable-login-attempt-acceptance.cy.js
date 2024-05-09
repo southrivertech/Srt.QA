@@ -93,7 +93,7 @@ describe('Login > {existing server} > events > create new event', () => {
       cy.get(htmlSelectors.input).click().clear().type(eventName)
     })
     cy.get(generalSelectors.labelSelector).contains(label.next).click()
-    cy.waitForNetworkIdle(1000, { log: false })
+    cy.waitForNetworkIdle(3000, { log: false })
     // testing the created action
     cy.get(htmlSelectors.button).contains(label.testActions).click()
     cy.get(htmlSelectors.label).contains(label.userName).next(htmlSelectors.div).should('be.visible').click()
