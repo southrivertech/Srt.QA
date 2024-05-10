@@ -91,6 +91,8 @@ import '../../components/apis/requests/domain/server/admin-get-server-node-list-
 import '../../components/apis/requests/domain/server/admin-get-server-node-settings-api-request'
 import '../../components/apis/requests/domain/server/admin-update-server-node-api-request'
 import '../../components/apis/requests/users/get-user-quota-info-api-request'
+import '../../components/apis/requests/domain/server/admin-create-server-report-api-request'
+import '../../components/apis/requests/domain/server/admin-delete-server-report-api-request'
 
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
