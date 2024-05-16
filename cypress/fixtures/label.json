@@ -20,6 +20,7 @@
   "addNew"    : "Add New",
   "new":"New",
   "nameLabel":"Name",
+  "accountEnabled":"Account Enabled",
   "test":"Test",
   "usernameLabel":"Username",
   "testActions":"Test Action(s)",
@@ -146,6 +147,7 @@
   "NTSAMUserName":"amit",
   "addEvent":"Add Event",
   "userLoginAttemptSuccess":"User login attempt successful",
+  "userAccountCreated":"User Account Created",
   "userEvents":"User events",
   "NTSAM":"NTSAM"
 }

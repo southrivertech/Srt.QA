@@ -9,14 +9,14 @@ import generalSelectors from '../../../../../../../selectors/general-selectors.j
 
 /**
  * @description
- * This spec file contains test to verify that admin can create a disable login event
+ * This spec file contains test to verify that admin can create an event when a user is created
  *
  *
  * @breadcrumb
  * Login > {existing server} > events > create new event
  *
  * @assertions
- * To verify that admin can create a disable login event
+ * To verify that admin can create an event when a user is created
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -58,14 +58,13 @@ describe('Login > {existing server} > events > create new event', () => {
     cy.waitForNetworkIdle(1000, { log: false })
   })
   it('creating new event', () => {
-    // adding event
     cy.get(userSelectors.addButton).should('be.visible').click()
     cy.get(userSelectors.btnLabel).contains(label.addEvent).click()
     cy.get(htmlSelectors.div).contains(label.userEvents).parent().prev(htmlSelectors.div).click()
-    cy.get(dashboardSelectors.muiTypography).contains(label.userLoginAttemptSuccess).click()
+    cy.get(dashboardSelectors.muiTypography).contains(label.userAccountCreated).click()
     cy.get(generalSelectors.labelSelector).contains(label.okayLabel).click()
     // adding condition
-    cy.get(htmlSelectors.div).contains(label.userLoginAttemptSuccess).parent().prev(htmlSelectors.div).click()
+    cy.get(htmlSelectors.div).contains(label.userAccountCreated).parent().prev(htmlSelectors.div).click()
     cy.get(dashboardSelectors.muiTypography).contains(label.conditions).click()
     cy.get(userSelectors.btnLabel).contains(label.addCondition).click()
     cy.get(dashboardSelectors.muiTypography).contains(label.userNameLabel).click()
