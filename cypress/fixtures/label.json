@@ -46,6 +46,9 @@
   "editUserAssignedGroups" : "Edit User & Assigned Groups",
   "home" : "Home",
   "homeUrlText" : "/Console",
+  "badUsername" : "Bad username",
+  "badPassword" : "Bad password",
+  "userChangedPassword" : "User changed password",
   "groups" : "Groups",
   "events" : "Events",
   "serverActivity": "Server Activity",
@@ -147,6 +150,7 @@
   "NTSAMUserName":"amit",
   "addEvent":"Add Event",
   "userLoginAttemptSuccess":"User login attempt successful",
+  "userLoginAttemptFailed":"User login attempt failed",
   "userAccountCreated":"User Account Created",
   "userEvents":"User events",
   "NTSAM":"NTSAM"

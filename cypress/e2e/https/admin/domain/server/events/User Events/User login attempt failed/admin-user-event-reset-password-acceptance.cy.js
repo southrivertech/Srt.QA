@@ -1,22 +1,22 @@
-import navigationSelectors from '../../../../../../../selectors/navigation/left-navigation-selectors.json'
-import userSelectors from '../../../../../../../selectors/user/user-selectors.json'
-import label from '../../../../../../fixtures/label.json'
-import loginSelectors from '../../../../../../../selectors/login-selectors.json'
+import navigationSelectors from '../../../../../../../../../selectors/navigation/left-navigation-selectors.json'
+import userSelectors from '../../../../../../../../../selectors/user/user-selectors.json'
+import label from '../../../../../../../../fixtures/label.json'
+import loginSelectors from '../../../../../../../../../selectors/login-selectors.json'
 import { slowCypressDown } from 'cypress-slow-down'
-import htmlSelectors from '../../../../../../../selectors/htlm-tag-selectors.json'
-import dashboardSelectors from '../../../../../../../selectors/dashboard-selectors.json'
-import generalSelectors from '../../../../../../../selectors/general-selectors.json'
+import htmlSelectors from '../../../../../../../../../selectors/htlm-tag-selectors.json'
+import dashboardSelectors from '../../../../../../../../../selectors/dashboard-selectors.json'
+import generalSelectors from '../../../../../../../../../selectors/general-selectors.json'
+import serverSelectors from '../../../../../../../../../selectors/server-selectors.json'
 
 /**
  * @description
- * This spec file contains test to verify that admin can create an event when a user is created
- *
+ * This spec file contains test to verify that admin can create an event when a user changes password
  *
  * @breadcrumb
  * Login > {existing server} > events > create new event
  *
  * @assertions
- * To verify that admin can create an event when a user is created
+ * To verify that admin can create an event when a user changes password
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -36,6 +36,7 @@ describe('Login > {existing server} > events > create new event', () => {
     password: 'testing123',
     serverName: label.autoServerName
   }
+  const newPassword = 'newPassword'
   const actionType = 'Disable user account'
   const eventName = `qa-auto-event-${Cypress.dayjs().format('ssmmhhMMYY')}`
   const errorMessage = 'Invalid username or password.'
@@ -49,36 +50,53 @@ describe('Login > {existing server} > events > create new event', () => {
       // Check if newly created user is present in response
       expect($response.Response.Username).to.equal(createUserDetails.username)
     })
-    // login
+
+    // login in admin url
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+    // enabling the created user
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
+    cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
+    cy.contains(htmlSelectors.div, createUserDetails.username).parents()
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).within(() => {
+        cy.get(htmlSelectors.button).click({ force: true })
+      })
+    cy.get(userSelectors.parentUsers).contains(label.editUserAssignedGroups).click()
+    cy.clickButton(label.next)
+    cy.clickButton(label.next)
+    cy.get(dashboardSelectors.dialog).within(() => {
+      cy.get(serverSelectors.serviceCheckboxContainer).eq(2).click({ force: true })
+    })
+    cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.finish).click()
+
+    // verify if user is enabled and can login with old password
+    cy.visit(Cypress.env('baseUrl'))
+    cy.get(loginSelectors.inputUsername).type(createUserDetails.username)
+    cy.get(loginSelectors.inputPassword).type(createUserDetails.password)
+    cy.get(loginSelectors.loginButton).contains(label.login).click()
+
+    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+
     // navigate to events
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.events).should('be.visible').click()
     cy.waitForNetworkIdle(1000, { log: false })
   })
-  it('creating new event', () => {
+
+  it('creating new event for reset password', () => {
     cy.get(userSelectors.addButton).should('be.visible').click()
     cy.get(userSelectors.btnLabel).contains(label.addEvent).click()
     cy.get(htmlSelectors.div).contains(label.userEvents).parent().prev(htmlSelectors.div).click()
-    cy.get(dashboardSelectors.muiTypography).contains(label.userAccountCreated).click()
+    cy.get(dashboardSelectors.muiTypography).contains(label.userLoginAttemptFailed).click()
+    cy.get(htmlSelectors.div).contains(label.userLoginAttemptFailed).parent().prev(htmlSelectors.div).click()
+    cy.get(dashboardSelectors.muiTypography).contains(label.userChangedPassword).click()
     cy.get(generalSelectors.labelSelector).contains(label.okayLabel).click()
-    // adding condition
-    cy.get(htmlSelectors.div).contains(label.userAccountCreated).parent().prev(htmlSelectors.div).click()
-    cy.get(dashboardSelectors.muiTypography).contains(label.conditions).click()
-    cy.get(userSelectors.btnLabel).contains(label.addCondition).click()
-    cy.get(dashboardSelectors.muiTypography).contains(label.userNameLabel).click()
-    cy.waitForNetworkIdle(1000, { log: false })
-    cy.get(dashboardSelectors.matchContainer).within(() => {
-      cy.get(htmlSelectors.input).eq(0).click().clear().type(createUserDetails.username)
-    })
-    cy.get(dashboardSelectors.matchContainer).within(() => {
-      cy.get(userSelectors.addButton).click()
-    })
-    cy.get(htmlSelectors.tableRow).contains(createUserDetails.username).prev(htmlSelectors.tableData).should('be.visible').within(() => {
-      cy.get(generalSelectors.inputTypeCheckbox).click()
-    })
-    cy.get(generalSelectors.labelSelector).contains(label.okayLabel).click()
+
     // adding action
     cy.get(dashboardSelectors.muiTypography).contains(label.actions).click()
     cy.get(userSelectors.btnLabel).contains(label.addAction).click()
@@ -100,23 +118,40 @@ describe('Login > {existing server} > events > create new event', () => {
     cy.get(generalSelectors.labelSelector).contains(label.test).click()
     cy.get(userSelectors.successMessage).should('exist')
     cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.create).click()
+    // changing password for the user
+    cy.get(navigationSelectors.textLabelSelector).contains(label.users).should('be.visible').click()
+    cy.contains(htmlSelectors.div, createUserDetails.username).parents()
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).should('exist')
+      .next(htmlSelectors.div).within(() => {
+        cy.get(htmlSelectors.button).click({ force: true })
+      })
+    cy.get(userSelectors.parentUsers).contains(label.setUserPassword).click()
+    cy.enterText(label.password, newPassword)
+    cy.enterText(label.confirmPassword, newPassword)
+    cy.clickButton(label.save)
+    cy.get(userSelectors.successMessage).should('exist')
+    cy.wait(5000)
 
-    // verifying the event created
+    // entering new valid password
     cy.visit(Cypress.env('baseUrl'))
-    cy.get(loginSelectors.inputUsername).type(createUserDetails.username)
-    cy.get(loginSelectors.inputPassword).type(createUserDetails.password)
+    cy.get(loginSelectors.inputUsername).clear().type(createUserDetails.username)
+    cy.get(loginSelectors.inputPassword).clear().type(newPassword)
     cy.get(loginSelectors.loginButton).contains(label.login).click()
     // performing assertion on the login error message
     cy.get(dashboardSelectors.muiTypography).should('contain', errorMessage)
   })
 
-  afterEach('deleting a event and user', () => {
+  afterEach('deleting event and user', () => {
     // deleting the event
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoServerName).should('be.visible').click()
     cy.get(navigationSelectors.textLabelSelector).contains(label.events).should('be.visible').click()
     cy.get(htmlSelectors.div).contains(eventName).should('be.visible').click()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.get(userSelectors.deleteButton).should('be.visible').click()
     // verify if event is deleted or not
     cy.get(htmlSelectors.div).contains(eventName).should('not.exist')
