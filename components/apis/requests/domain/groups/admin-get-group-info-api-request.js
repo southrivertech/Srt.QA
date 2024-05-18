@@ -1,6 +1,6 @@
 /**
 * @description
-* The getGroupsInfoApiRequest command is used to get information about users in a Group thorough API
+* The getGroupsInfoApiRequest command is used to get group information thorough API
 *
 * @parameters
 * @param {required} bearerToken

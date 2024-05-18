@@ -4,6 +4,7 @@
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
 *
 * @example
 * cy.getGroupsListApiRequest(groupDetails, serverDetails)

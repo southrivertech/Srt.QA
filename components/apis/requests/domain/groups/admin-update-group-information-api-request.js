@@ -4,6 +4,10 @@
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} GroupGUID
+* @param {required} AuthGUID
+* @param {required} updatedGroupName
+* @param {required} serverName
 *
 * @example
 * cy.updateGroupInfoApiRequest(groupDetails, serverDetails)
