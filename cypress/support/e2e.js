@@ -41,36 +41,36 @@ import './commands'
 
 /** API REQUESTS COMMANDS */
 
-// Authentication */
+/** Authentication */
 import '../../components/apis/requests/authentication/post-authenticate-login-api-request'
 import '../../components/apis/requests/authentication/post-authenticate-logout-api-request'
 
-// servers */
+/** servers */
 import '../../components/apis/requests/servers/admin-get-server-list-api-request'
 import '../../components/apis/requests/servers/admin-delete-server-api-request'
 import '../../components/apis/requests/servers/admin-get-server-state-api-request'
 import '../../components/apis/requests/servers/admin-create-server-api-request'
 import '../../components/apis/requests/servers/admin-get-server-variables-api-request'
 
-// ipBans */
+/** ipBans */
 import '../../components/apis/requests/ipBans/admin-get-server-ipBan-list-api-request'
 
-// groups */
+/** groups */
 import '../../components/apis/requests/groups/admin-create-groups-api-request'
 import '../../components/apis/requests/groups/admin-delete-groups-api-request'
 import '../../components/apis/requests/groups/admin-get-group-info-api-request'
 import '../../components/apis/requests/groups/admin-update-group-information-api-request'
 import '../../components/apis/requests/groups/admin-get-groups-list-api-request'
 
-// domain */
+/** domain */
 import '../../components/apis/requests/domain/admin-get-domain-info-api-request'
 import '../../components/apis/requests/domain/admin-get-domain-list-api-request'
 import '../../components/apis/requests/domain/admin-get-domain-settings-api-request'
 
-// sessions */
+/** sessions */
 import '../../components/apis/requests/sessions/admin-get-server-sessions-list-api-request'
 
-// users */
+/** users */
 import '../../components/apis/requests/users/get-list-user-api-request'
 import '../../components/apis/requests/users/post-create-user-api-request'
 import '../../components/apis/requests/users/update-user-information-api-request'
@@ -79,7 +79,7 @@ import '../../components/apis/requests/users/get-user-info-api-request'
 import '../../components/apis/requests/users/get-user-filtered-information-api-request'
 import '../../components/apis/requests/users/get-user-quota-info-api-request'
 
-// serversCloudFolders */
+/** serversCloudFolders */
 import '../../components/apis/requests/serversCloudFolders/admin-create-cloud-folders-api-request'
 import '../../components/apis/requests/serversCloudFolders/admin-get-cloud-folders-api-request'
 import '../../components/apis/requests/serversCloudFolders/admin-delete-cloud-folder-api-request'
@@ -89,13 +89,13 @@ import '../../components/apis/requests/serversDirAccess/admin-create-server-dirA
 import '../../components/apis/requests/serversDirAccess/admin-get-server-dirAccess-api-request'
 import '../../components/apis/requests/serversDirAccess/admin-delete-server-dirAccess-api-request'
 
-// serversPgpKeys */
+/** serversPgpKeys */
 import '../../components/apis/requests/serversPgpKeys/admin-get-server-pgp-key-list-api-request'
 import '../../components/apis/requests/serversPgpKeys/admin-create-server-pgp-key-api-request'
 import '../../components/apis/requests/serversPgpKeys/admin-update-server-pgp-key-api-request'
 import '../../components/apis/requests/serversPgpKeys/admin-delete-server-pgp-key-api-request'
 
-// serversVirtualFolders */
+/** serversVirtualFolders */
 import '../../components/apis/requests/serversVirtualFolders/admin-get-server-level-virtual-directories-api-request'
 import '../../components/apis/requests/serversVirtualFolders/admin-get-user-level-virtual-directories-api-request'
 import '../../components/apis/requests/serversVirtualFolders/admin-create-user-level-virtual-directory-api-request'
@@ -104,23 +104,23 @@ import '../../components/apis/requests/serversVirtualFolders/admin-update-virtua
 import '../../components/apis/requests/serversVirtualFolders/admin-delete-user-virtual-directory-api-request'
 import '../../components/apis/requests/serversVirtualFolders/admin-delete-updated-virtual-directory-api-request'
 
-// serverEvents */
+/** serverEvents */
 import '../../components/apis/requests/serversEvents/admin-get-server-events-list-api-request'
 import '../../components/apis/requests/serversEvents/admin-update-server-event-handler-api-request'
 import '../../components/apis/requests/serversEvents/admin-create-server-event-handlers-api-request'
 
-// serverNoes */
+/** serverNoes */
 import '../../components/apis/requests/serversNodes/admin-get-server-node-list-api-request'
 import '../../components/apis/requests/serversNodes/admin-get-server-node-settings-api-request'
 import '../../components/apis/requests/serversNodes/admin-update-server-node-api-request'
 import '../../components/apis/requests/serversNodes/admin-delete-server-node-api-request'
 import '../../components/apis/requests/serversNodes/admin-create-server-node-api-request'
 
-// serversReports */
+/** serversReports */
 import '../../components/apis/requests/serversReports/admin-create-server-report-api-request'
 import '../../components/apis/requests/serversReports/admin-delete-server-report-api-request'
 
-// serversSshKeys */
+/** serversSshKeys */
 import '../../components/apis/requests/serversSshKeys/admin-create-server-ssh-key-api-request'
 import '../../components/apis/requests/serversSshKeys/admin-delete-server-ssh-key-api-request'
 
