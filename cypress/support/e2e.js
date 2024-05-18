@@ -79,15 +79,15 @@ import '../../components/apis/requests/users/get-user-info-api-request'
 import '../../components/apis/requests/users/get-user-filtered-information-api-request'
 import '../../components/apis/requests/users/get-user-quota-info-api-request'
 
-// serversDirAccess
-import '../../components/apis/requests/serversDirAccess/admin-create-server-dirAccess-api-request'
-import '../../components/apis/requests/serversDirAccess/admin-get-server-dirAccess-api-request'
-import '../../components/apis/requests/serversDirAccess/admin-delete-server-dirAccess-api-request'
-
 // serversCloudFolders
 import '../../components/apis/requests/serversCloudFolders/admin-create-cloud-folders-api-request'
 import '../../components/apis/requests/serversCloudFolders/admin-get-cloud-folders-api-request'
 import '../../components/apis/requests/serversCloudFolders/admin-delete-cloud-folder-api-request'
+
+// serversDirAccess
+import '../../components/apis/requests/serversDirAccess/admin-create-server-dirAccess-api-request'
+import '../../components/apis/requests/serversDirAccess/admin-get-server-dirAccess-api-request'
+import '../../components/apis/requests/serversDirAccess/admin-delete-server-dirAccess-api-request'
 
 // serversPgpKeys
 import '../../components/apis/requests/serversPgpKeys/admin-get-server-pgp-key-list-api-request'
