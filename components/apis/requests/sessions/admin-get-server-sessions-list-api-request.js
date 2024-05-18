@@ -1,17 +1,17 @@
 /**
 * @description
-* The getServerSessionsApiRequest command is used to get the Sessions info of servers through Api
+* The getServerSessionsListApiRequest command is used to get the Sessions info of servers through Api
 *
 * @parameters
 * @param {required} bearerToken
 *
 * @example
-* cy.getServerSessionsApiRequest(ServerDetails)
+* cy.getServerSessionsListApiRequest(ServerDetails)
 */
 
-Cypress.Commands.add('getServerSessionsApiRequest', (serverDetails) => {
+Cypress.Commands.add('getServerSessionsListApiRequest', (serverDetails) => {
   Cypress.log({
-    name: 'getServerSessionsApiRequest'
+    name: 'getServerSessionsListApiRequest'
   })
 
   cy.api({
@@ -21,7 +21,7 @@ Cypress.Commands.add('getServerSessionsApiRequest', (serverDetails) => {
       Authorization: `Bearer ${serverDetails.bearerToken}`
     }
   }).then(($response) => {
-    console.log('response of getServerSessionsApiRequest', $response)
+    console.log('response of getServerSessionsListApiRequest', $response)
     expect($response.status).to.eq(200)
     return $response.body
   })

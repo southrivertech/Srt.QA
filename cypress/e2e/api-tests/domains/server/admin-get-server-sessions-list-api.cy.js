@@ -41,7 +41,7 @@ describe('GET /api/Servers', () => {
   })
 
   it('verify that admin can get the list of Server Sessions through API', () => {
-    cy.getServerSessionsApiRequest(serverDetails).then(($response) => {
+    cy.getServerSessionsListApiRequest(serverDetails).then(($response) => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiSessionParamsPoco')
       // Check if ErrorStr is equal to success
