@@ -18,6 +18,7 @@
   "finish"    : "Finish",
   "users"     : "Users",
   "addNew"    : "Add New",
+  "userAccountDeleted":"User account deleted",
   "new":"New",
   "nameLabel":"Name",
   "accountEnabled":"Account Enabled",
