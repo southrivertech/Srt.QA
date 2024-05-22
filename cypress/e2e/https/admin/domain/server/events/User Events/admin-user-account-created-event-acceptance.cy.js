@@ -9,14 +9,13 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
 
 /**
  * @description
- * This spec file contains test to verify that admin can create an event when a user is created
- *
+ * This spec file contains test to verify that admin can create an event when a user is deleted, another account's login is disabled
  *
  * @breadcrumb
  * Login > {existing server} > events > create new event
  *
  * @assertions
- * To verify that admin can create an event when a user is created
+ * To verify that admin can create an event when a user is deleted, another account's login is disabled
  *
  *  @prerequisites
  * Pre-Requisite data:
@@ -31,9 +30,14 @@ describe('Login > {existing server} > events > create new event', () => {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const createUserDetails = {
-    username: `qa-auto-event-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
+  const deleteUserDetails = {
+    username: `qa-auto-event-delete-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
+    serverName: label.autoServerName
+  }
+  const LoginUserDetails = {
+    username: `qa-auto-event-Login-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    password: deleteUserDetails.password,
     serverName: label.autoServerName
   }
   const actionType = 'Disable user account'
@@ -42,13 +46,24 @@ describe('Login > {existing server} > events > create new event', () => {
 
   beforeEach('login', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
-      createUserDetails.bearerToken = $response.Response.SessionInfo.BearerToken
+      deleteUserDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
 
-    cy.postCreateUserApiRequest(createUserDetails).then(($response) => {
+    cy.postCreateUserApiRequest(deleteUserDetails).then(($response) => {
       // Check if newly created user is present in response
-      expect($response.Response.Username).to.equal(createUserDetails.username)
+      expect($response.Response.Username).to.equal(deleteUserDetails.username)
+      LoginUserDetails.bearerToken = deleteUserDetails.bearerToken
     })
+    cy.postCreateUserApiRequest(LoginUserDetails).then(($response) => {
+      // Check if newly created user is present in response
+      expect($response.Response.Username).to.equal(LoginUserDetails.username)
+    })
+    // check if disable user can login
+    cy.visit(Cypress.env('baseUrl'))
+    cy.get(loginSelectors.inputUsername).type(LoginUserDetails.username)
+    cy.get(loginSelectors.inputPassword).type(LoginUserDetails.password)
+    cy.get(loginSelectors.loginButton).contains(label.login).click()
+    cy.get(dashboardSelectors.muiTypography).contains(label.myFilesText).should('be.visible')
     // login
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     // navigate to events
@@ -61,21 +76,21 @@ describe('Login > {existing server} > events > create new event', () => {
     cy.get(userSelectors.addButton).should('be.visible').click()
     cy.get(userSelectors.btnLabel).contains(label.addEvent).click()
     cy.get(htmlSelectors.div).contains(label.userEvents).parent().prev(htmlSelectors.div).click()
-    cy.get(dashboardSelectors.muiTypography).contains(label.userLoginAttemptSuccess).click()
+    cy.get(dashboardSelectors.muiTypography).contains(label.userAccountDeleted).click()
     cy.get(generalSelectors.labelSelector).contains(label.okayLabel).click()
     // adding condition
-    cy.get(htmlSelectors.div).contains(label.userLoginAttemptSuccess).parent().prev(htmlSelectors.div).click()
+    cy.get(htmlSelectors.div).contains(label.userAccountDeleted).parent().prev(htmlSelectors.div).click()
     cy.get(dashboardSelectors.muiTypography).contains(label.conditions).click()
     cy.get(userSelectors.btnLabel).contains(label.addCondition).click()
     cy.get(dashboardSelectors.muiTypography).contains(label.userNameLabel).click()
     cy.waitForNetworkIdle(1000, { log: false })
     cy.get(dashboardSelectors.matchContainer).within(() => {
-      cy.get(htmlSelectors.input).eq(0).click().clear().type(createUserDetails.username)
+      cy.get(htmlSelectors.input).eq(0).click().clear().type(deleteUserDetails.username)
     })
     cy.get(dashboardSelectors.matchContainer).within(() => {
       cy.get(userSelectors.addButton).click()
     })
-    cy.get(htmlSelectors.tableRow).contains(createUserDetails.username).prev(htmlSelectors.tableData).should('be.visible').within(() => {
+    cy.get(htmlSelectors.tableRow).contains(deleteUserDetails.username).prev(htmlSelectors.tableData).should('be.visible').within(() => {
       cy.get(generalSelectors.inputTypeCheckbox).click()
     })
     cy.get(generalSelectors.labelSelector).contains(label.okayLabel).click()
@@ -84,7 +99,7 @@ describe('Login > {existing server} > events > create new event', () => {
     cy.get(userSelectors.btnLabel).contains(label.addAction).click()
     cy.get(htmlSelectors.div).contains(actionType).click()
     cy.get(htmlSelectors.label).contains(label.usernameLabel).next(htmlSelectors.div).within(() => {
-      cy.get(htmlSelectors.input).click().clear().type(createUserDetails.username)
+      cy.get(htmlSelectors.input).click().clear().type(LoginUserDetails.username)
     })
     cy.get(generalSelectors.labelSelector).contains(label.okayLabel).click()
     cy.get(generalSelectors.labelSelector).contains(label.next).click()
@@ -96,17 +111,16 @@ describe('Login > {existing server} > events > create new event', () => {
     // testing the created action
     cy.get(htmlSelectors.button).contains(label.testActions).click()
     cy.get(htmlSelectors.label).contains(label.userName).next(htmlSelectors.div).should('be.visible').click()
-    cy.get(htmlSelectors.li).contains(createUserDetails.username).click()
+    cy.get(htmlSelectors.li).contains(LoginUserDetails.username).click()
     cy.get(generalSelectors.labelSelector).contains(label.test).click()
     cy.get(userSelectors.successMessage).should('exist')
     cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.create).click()
 
-    // verifying the event created
+    // deleting user
     cy.visit(Cypress.env('baseUrl'))
-    cy.get(loginSelectors.inputUsername).type(createUserDetails.username)
-    cy.get(loginSelectors.inputPassword).type(createUserDetails.password)
+    cy.get(loginSelectors.inputUsername).type(LoginUserDetails.username)
+    cy.get(loginSelectors.inputPassword).type(LoginUserDetails.password)
     cy.get(loginSelectors.loginButton).contains(label.login).click()
-    // performing assertion on the login error message
     cy.get(dashboardSelectors.muiTypography).should('contain', errorMessage)
   })
 
@@ -121,7 +135,11 @@ describe('Login > {existing server} > events > create new event', () => {
     // verify if event is deleted or not
     cy.get(htmlSelectors.div).contains(eventName).should('not.exist')
     // calling delete user function
-    cy.deleteUserApiRequest(createUserDetails.bearerToken, createUserDetails.serverName, createUserDetails.username).then(($response) => {
+    cy.deleteUserApiRequest(deleteUserDetails.bearerToken, deleteUserDetails.serverName, deleteUserDetails.username).then(($response) => {
+      // check if ErrorStr is Success
+      expect($response.Result.ErrorStr).to.eq('Success')
+    })
+    cy.deleteUserApiRequest(LoginUserDetails.bearerToken, LoginUserDetails.serverName, LoginUserDetails.username).then(($response) => {
       // check if ErrorStr is Success
       expect($response.Result.ErrorStr).to.eq('Success')
     })

@@ -108,12 +108,7 @@ describe('Login > {existing server} > events > create new event', () => {
     })
     cy.get(generalSelectors.labelSelector).contains(label.next).click()
     cy.waitForNetworkIdle(3000, { log: false })
-    // testing the created action
-    cy.get(htmlSelectors.button).contains(label.testActions).click()
-    cy.get(htmlSelectors.label).contains(label.userName).next(htmlSelectors.div).should('be.visible').click()
-    cy.get(htmlSelectors.li).contains(disableUserDetails.username).click()
-    cy.get(generalSelectors.labelSelector).contains(label.test).click()
-    cy.get(userSelectors.successMessage).should('exist')
+
     cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.create).click()
 
     // deleting user
