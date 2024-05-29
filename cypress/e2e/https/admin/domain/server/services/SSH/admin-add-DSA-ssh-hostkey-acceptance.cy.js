@@ -43,7 +43,7 @@ describe('login > create new server > services > SSH > Add DSA Key', () => {
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.createServer(serverDetails)
+    cy.postCreateServerApiRequest(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()

@@ -23,7 +23,7 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
  */
 slowCypressDown(100)
 
-describe('login > create new server > services > ECDSA > Add DSA Key', () => {
+describe('login > create new server > services > ECDSA > Add ECDSA Key', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -42,7 +42,7 @@ describe('login > create new server > services > ECDSA > Add DSA Key', () => {
 
   beforeEach('login and create server', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.createServer(serverDetails)
+    cy.postCreateServerApiRequest(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
@@ -72,7 +72,9 @@ describe('login > create new server > services > ECDSA > Add DSA Key', () => {
   })
   afterEach('deleting a server', () => {
     // deleting the created server
-    cy.deleteServer(serverDetails.serverName)
+    cy.deleteServerApiRequest(serverDetails).then(($response) => {
+      expect($response.Result.ErrorStr).to.equal('Success')
+    })
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
   })
 })
