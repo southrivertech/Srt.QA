@@ -26,7 +26,8 @@ import serverSelectors from '../../../../../../../../../selectors/server-selecto
 
 slowCypressDown(100)
 
-describe('Login > {existing server} > events > create new event', () => {
+// this test suite is skipped because it leads to disabling of all the users
+describe.skip('Login > {existing server} > events > create new event', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,

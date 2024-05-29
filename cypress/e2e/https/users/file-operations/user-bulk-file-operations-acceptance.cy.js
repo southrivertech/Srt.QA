@@ -156,5 +156,7 @@ describe('Login > {existing user}', () => {
 
   afterEach('delete multiple files', () => {
     bulkMenuNavigation('Delete')
+    cy.get(userDirSelectors.folderNames).contains(fileOne).should('not.exist')
+    cy.get(userDirSelectors.folderNames).contains(fileTwo).should('not.exist')
   })
 })
