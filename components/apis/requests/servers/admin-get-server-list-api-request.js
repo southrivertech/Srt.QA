@@ -1,6 +1,6 @@
 /**
 * @description
-* The getServerListApiRequest command is used to get the list of servers
+* The getServerListApiRequest command is used to get the list of servers through Api
 *
 * @parameters
 * @param {required} bearerToken

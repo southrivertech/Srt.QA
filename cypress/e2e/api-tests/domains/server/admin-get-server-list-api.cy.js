@@ -42,16 +42,15 @@ describe('GET /api/Servers', () => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiServerListResponse')
       // Check if autoServerName exist in server list or not
-      const servers = $response.Response.ServerList.map(server => server.ServerName)
-      expect(servers).to.include(label.autoServerName)
-      // expect($response.Response.ServerList[3].ServerName).to.equal(label.autoServerName)
+      const server = $response.Response.ServerList.map(VirtualFolders => VirtualFolders.ServerName)
+      expect(server).to.include(label.ApiTestingAutomation)
     })
   })
 
   afterEach('logout through API', () => {
     // calling logout function
     cy.postLogoutAuthenticateApiRequest(bearerToken).then(($response) => {
-      // check if request is successful or not bearer Token
+      // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })

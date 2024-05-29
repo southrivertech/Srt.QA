@@ -1,6 +1,6 @@
 /**
 * @description
-* The getDomainSettingsApiRequest command is used to get the domain settings
+* The getDomainSettingsApiRequest command is used to get the domain settings through Api
 *
 * @parameters
 * @param {required} bearerToken

@@ -1,7 +1,7 @@
 import label from '../../../../../fixtures/label.json'
 
 /**
- *@description
+*@description
 * This spec file contains test to ensure admin can get list of users through API
 *
 * @requirements
@@ -53,7 +53,7 @@ describe('GET /api/Servers/{serverName}/AuthConnectors/native/Users', () => {
   afterEach('logout through API', () => {
     // calling logout function
     cy.postLogoutAuthenticateApiRequest(listUsersData.bearerToken).then(($response) => {
-      // check if request is successful or not bearer Token
+      // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })

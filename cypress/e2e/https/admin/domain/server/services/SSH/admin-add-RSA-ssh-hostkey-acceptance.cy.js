@@ -7,7 +7,7 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
 
 /**
  * @description
- * This spec file contains test to verify that admin user can add a RSA521
+ * This spec file contains test to verify that admin user can add a RSA 1024, RSA 2048 and RSA 4096 key
  *
  * @file
  * ui/cypress/e2e/server/services/SSH/admin-add-RSA-ssh-hostkey-acceptance.cy.js

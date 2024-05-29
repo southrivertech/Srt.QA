@@ -39,7 +39,8 @@ module.exports = defineConfig({
       Password: '123456'
     },
     api: {
-      domainGUID: 'ed2ecaec-33a3-4ea3-b0e5-a70453775b9b'
+      domainGUID: 'ed2ecaec-33a3-4ea3-b0e5-a70453775b9b',
+      EveryoneGroupGUID: 'db2112ad-feed-0004-0000-000000000000'
     }
   }
 })

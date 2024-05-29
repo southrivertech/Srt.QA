@@ -1,6 +1,6 @@
 /**
 * @description
-* The getDomainListApiRequest command is used to get the list of domains
+* The getDomainListApiRequest command is used to get the list of domains through Api
 *
 * @parameters
 * @param {required} bearerToken

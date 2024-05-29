@@ -1,5 +1,6 @@
 import navigationSelectors from '../../../../../../../selectors/navigation/left-navigation-selectors.json'
 import userSelectors from '../../../../../../../selectors/user/user-selectors.json'
+import htmlTagSelectors from '../../../../../../../selectors/htlm-tag-selectors.json'
 import label from '../../../../../../fixtures/label.json'
 import { slowCypressDown } from 'cypress-slow-down'
 
@@ -30,7 +31,7 @@ describe('Login > {existing server} > users > add new user', () => {
   }
 
   const userDetails = {
-    userName: `qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    userName: `qa-auto-user${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
     homeDirectoryOption: `${label.customDir}`,
     customDirPath: `C:/qa-auto user ${Cypress.dayjs().format('ssmmhhMMYY')}`
@@ -48,7 +49,7 @@ describe('Login > {existing server} > users > add new user', () => {
     cy.createUser(userDetails)
     cy.get(userSelectors.successMessage).should('be.visible')
     cy.editUser(userDetails.userName, label.editUserFileDirectories, false)
-    cy.contains('div', userDetails.customDirPath.replace(/\//g, '\\')).should('exist')
+    cy.contains(htmlTagSelectors.div, userDetails.customDirPath.replace(/\//g, '\\')).should('exist')
     cy.get(userSelectors.btnLabel).contains(label.closeText).click()
   })
 

@@ -7,7 +7,7 @@ import generalSelectors from '../../../../../../../../selectors/general-selector
 
 /**
  * @description
- * This spec file contains test to verify that admin user can add a ECDSA521
+ * This spec file contains test to verify that admin user can add a ECDSA 521, ECDSA 256 and ECDSA 384 key
  *
  * @file
  * ui/cypress/e2e/server/services/SSH/admin-add-ECDSA-ssh-hostkey-acceptance.cy.js

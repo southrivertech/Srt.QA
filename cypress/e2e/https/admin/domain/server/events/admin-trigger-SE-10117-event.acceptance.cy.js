@@ -10,7 +10,7 @@ import generalSelectors from '../../../../../../../selectors/general-selectors.j
  * @description
  * This spec file contains test to verify that admin can trigger SE-10117 system event to configure backup
  *
- * @issueID - NX-i1151 and NX-I1191
+ * @issueID - NX-I1151 and NX-I1191
  *
  * @breadcrumb
  * Login > {existing server} > events > show system events > SE-10117 (config backup)

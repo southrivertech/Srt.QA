@@ -1,6 +1,6 @@
 /**
 * @description
-* The deleteUserApiRequest command is used to delete a user
+* The deleteUserApiRequest command is used to delete a user through Api
 *
 * @parameters
 * @param {required} serverName
@@ -8,11 +8,7 @@
 * @param {required} bearerToken
 *
 * @example
-* cy.deleteUserApiRequest({
-*   bearerToken: 'bearerTokenValue',
-*   serverName: 'serverNameValue',
-*   username: 'usernameValue'
-* })
+* cy.deleteUserApiRequest(bearerToken, serverName, username)
 */
 
 Cypress.Commands.add('deleteUserApiRequest', (bearerToken, serverName, username) => {

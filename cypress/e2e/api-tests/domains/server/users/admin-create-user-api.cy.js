@@ -16,7 +16,7 @@ describe('create new user', () => {
   const createUserDetails = {
     username: `qa-auto-user-${Cypress.dayjs().format('ssmmhhMMYY')}`,
     password: 'testing123',
-    serverName: label.autoServerName
+    serverName: label.ApiTestingAutomation
   }
   const adminData = Cypress.env('admin')
   const userInfo = {
@@ -46,7 +46,6 @@ describe('create new user', () => {
       // Check if response type is ApiUserParamsPoco
       expect($response.ResponseType).to.equal('ApiUserParamsPoco')
       // Check if newly created user is present in response
-      cy.log($response.Response)
       expect($response.Response.Username).to.equal(createUserDetails.username)
     })
   })
@@ -59,7 +58,7 @@ describe('create new user', () => {
     })
     // calling logout function
     cy.postLogoutAuthenticateApiRequest(createUserDetails.bearerToken).then(($response) => {
-      // check if request is successful or not bearer Token
+      // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })

@@ -1,12 +1,13 @@
-import htmlTagSelectors from '../../../../../../selectors/htlm-tag-selectors.json'
-import generalSelectors from '../../../../../../selectors/general-selectors.json'
-import label from '../../../../../../cypress/fixtures/label.json'
-import serverSelectors from '../../../../../../selectors/server-selectors.json'
-import navigationSelectors from '../../../../../../selectors/navigation/left-navigation-selectors.json'
+import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
+import generalSelectors from '../../../selectors/general-selectors.json'
+import label from '../../../cypress/fixtures/label.json'
+import serverSelectors from '../../../selectors/server-selectors.json'
+import navigationSelectors from '../../../selectors/navigation/left-navigation-selectors.json'
+import dashboardSelectors from '../../../selectors/dashboard-selectors.json'
 
 /**
 * @description
-* The addServerKey Command  is used to add a SSH server key
+* The addServerKey Command  is used to add a server key
 *
 * @example
 * cy.addServerKey(hostKeyDetails)
@@ -33,7 +34,7 @@ Cypress.Commands.add('addServerKey', (hostKeyDetails) => {
   // entering key name
   cy.get(serverSelectors.hostKeyNameInput).type(hostKeyDetails.keyName)
   // clicking add button
-  cy.get(serverSelectors.ariaLabelHostKeyTitle).within(() => cy.get(htmlTagSelectors.span).contains(label.add).click())
+  cy.get(dashboardSelectors.muiDialogPaperWidthXs).within(() => cy.get(htmlTagSelectors.span).contains(label.add).click())
   // click to close the SSH host key management modal
   cy.get(generalSelectors.labelSelector).contains(label.closeText).click()
   // navigating back to domain name

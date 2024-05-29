@@ -1,6 +1,6 @@
 /**
 * @description
-* The getListUserApiRequest command is used to list users
+* The getListUserApiRequest command is used to list users through Api
 *
 * @parameters
 * @param {required} bearerToken
