@@ -79,7 +79,7 @@ describe('login > create new server > security > PGP > manage PGP keys >Add RSA 
 
   afterEach('deleting a server', () => {
     // deleting the created server
-    cy.deleteServer(serverDetails.serverName)
+    cy.deleteServerApiRequest(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
   })
 })

@@ -41,8 +41,11 @@ describe('login > create new server > services > ECDSA > Add ECDSA Key', () => {
   }
 
   beforeEach('login and create server', () => {
-    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
+    cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
+      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
+    })
     cy.postCreateServerApiRequest(serverDetails)
+    cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()

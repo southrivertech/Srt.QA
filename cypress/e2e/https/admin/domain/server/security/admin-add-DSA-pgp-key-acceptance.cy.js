@@ -46,6 +46,7 @@ describe('login > create new server > security > PGP > manage PGP keys >Add DSA 
       serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
     cy.postCreateServerApiRequest(serverDetails)
+
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
