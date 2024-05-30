@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - failure_fixes
   schedule:
     - cron: '30 14 * * *'  # 2:30 PM EST
 jobs:
