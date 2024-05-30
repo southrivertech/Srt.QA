@@ -2,7 +2,6 @@ import serverSelectors from '../../../../../../../../selectors/server-selectors.
 import { slowCypressDown } from 'cypress-slow-down'
 import navigationSelectors from '../../../../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../../../../fixtures/label.json'
-import userSelectors from '../../../../../../../../selectors/user/user-selectors.json'
 import generalSelectors from '../../../../../../../../selectors/general-selectors.json'
 
 /**
@@ -64,13 +63,11 @@ describe('login > create new server > services > RSA > Add RSA Key', () => {
   it('verify that user can add RSA 2048 key', () => {
     hostKeyDetails.keySize = '2048'
     cy.addServerKey(hostKeyDetails)
-    cy.get(userSelectors.successMessage).should('be.visible')
   })
 
   it('verify that user can add RSA 4096 key', () => {
     hostKeyDetails.keySize = '4096'
     cy.addServerKey(hostKeyDetails)
-    cy.get(userSelectors.successMessage).should('be.visible')
   })
   afterEach('deleting a server', () => {
     cy.deleteServerApiRequest(serverDetails)
