@@ -96,8 +96,10 @@ describe('Login > {existing user}', () => {
     bulkMenuNavigation('Download')
     cy.contains(userDirSelectors.roleCell, fileOne)
       .prev(htmlSelectors.div).click()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.contains(userDirSelectors.roleCell, fileTwo)
       .prev(htmlSelectors.div).click()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.verifyDownload('files.zip')
   })
 
