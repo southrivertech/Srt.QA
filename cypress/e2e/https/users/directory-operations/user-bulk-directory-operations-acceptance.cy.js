@@ -94,8 +94,10 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.folderNameField).type(folderOne)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()
     cy.get(userDirSelectors.addFolderIcon).click()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.get(userDirSelectors.folderNameField).type(folderTwo)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()
+    cy.waitForNetworkIdle(1000, { log: false })
   })
 
   it('verify user can download multiple directories', () => {

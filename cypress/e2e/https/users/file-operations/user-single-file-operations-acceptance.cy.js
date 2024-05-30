@@ -86,6 +86,7 @@ describe('Login > {existing user}', () => {
   beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
     cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local.txt', { force: true }, { action: 'drag-drop' })
+    cy.waitForNetworkIdle(1000, { log: false })
   })
 
   const pathMove = `qa-do-not-delete-folder/${fileName}`

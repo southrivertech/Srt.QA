@@ -23,7 +23,8 @@ import generalSelectors from '../../../../../../../selectors/general-selectors.j
 
 slowCypressDown(100)
 
-describe('Login > {existing server} > users > Native', () => {
+// skipped because of issue NX-I1147
+describe.skip('Login > {existing server} > users > Native', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,

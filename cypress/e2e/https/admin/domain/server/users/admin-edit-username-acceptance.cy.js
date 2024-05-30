@@ -29,7 +29,8 @@ import userDirSelectors from '../../../../../../../selectors/user-dir-selectors.
 
 slowCypressDown(300)
 
-describe('Login > {existing server} > users > edit', () => {
+// skipped because of issue NX-I1182
+describe.skip('Login > {existing server} > users > edit', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,

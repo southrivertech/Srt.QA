@@ -90,6 +90,7 @@ describe('Login > {existing user}', () => {
     cy.get(userDirSelectors.addFolderIcon).click()
     cy.get(userDirSelectors.folderNameField).type(folderName)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()
+    cy.waitForNetworkIdle(1000, { log: false })
   })
 
   const pathMove = `qa-do-not-delete-folder/${folderName}`

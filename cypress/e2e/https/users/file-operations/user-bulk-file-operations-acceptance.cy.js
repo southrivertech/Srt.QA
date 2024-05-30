@@ -96,8 +96,10 @@ describe('Login > {existing user}', () => {
     bulkMenuNavigation('Download')
     cy.contains(userDirSelectors.roleCell, fileOne)
       .prev(htmlSelectors.div).click()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.contains(userDirSelectors.roleCell, fileTwo)
       .prev(htmlSelectors.div).click()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.verifyDownload('files.zip')
   })
 
@@ -156,5 +158,7 @@ describe('Login > {existing user}', () => {
 
   afterEach('delete multiple files', () => {
     bulkMenuNavigation('Delete')
+    cy.get(userDirSelectors.folderNames).contains(fileOne).should('not.exist')
+    cy.get(userDirSelectors.folderNames).contains(fileTwo).should('not.exist')
   })
 })

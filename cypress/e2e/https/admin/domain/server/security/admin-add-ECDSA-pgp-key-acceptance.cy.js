@@ -32,8 +32,6 @@ describe('login > create new server > security > PGP > manage PGP keys >Add ECDS
   }
 
   const serverDetails = {
-    serverType: 'New standalone or primary cluster server.',
-    selectDatabase: 'SQLite Database',
     serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
   const hostKeyDetails = {
@@ -42,8 +40,11 @@ describe('login > create new server > security > PGP > manage PGP keys >Add ECDS
   }
 
   beforeEach('login and create server', () => {
+    cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
+      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
+    })
+    cy.postCreateServerApiRequest(serverDetails)
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.createServer(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
@@ -77,7 +78,7 @@ describe('login > create new server > security > PGP > manage PGP keys >Add ECDS
 
   afterEach('deleting a server', () => {
     // deleting the created server
-    cy.deleteServer(serverDetails.serverName)
+    cy.deleteServerApiRequest(serverDetails)
     cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
   })
 })
