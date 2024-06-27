@@ -13,6 +13,7 @@
   "IPBans":"IPBans",
   "Vars":"Vars",
   "actualPath":"Actual Path",
+  "adsiAuth":"ADSI Authentication",
   "newPath":"Virtual Folder Name",
   "okay"      : "Okay",
   "finish"    : "Finish",

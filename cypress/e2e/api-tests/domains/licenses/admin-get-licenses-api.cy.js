@@ -1,4 +1,4 @@
-import label from '../../../fixtures/label.json'
+import label from '../../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains test to ensure admin can get licenses

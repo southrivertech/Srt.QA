@@ -55,8 +55,9 @@ import '../../components/apis/requests/servers/admin-get-server-variables-api-re
 /** ipBans */
 import '../../components/apis/requests/ipBans/admin-get-server-ipBan-list-api-request'
 
-/** ipBans */
+/** licenses */
 import '../../components/apis/requests/Licenses/admin-get-licenses-api-request'
+import '../../components/apis/requests/Licenses/admin-get-license-entitlements-api-request'
 
 /** groups */
 import '../../components/apis/requests/groups/admin-create-groups-api-request'
@@ -84,9 +85,14 @@ import '../../components/apis/requests/users/get-user-filtered-information-api-r
 import '../../components/apis/requests/users/get-user-quota-info-api-request'
 
 /** serversCloudFolders */
+import '../../components/apis/requests/serverAuthConnectors/admin-create-server-authconnector-api-request'
+import '../../components/apis/requests/serverAuthConnectors/admin-delete-server-authconnector-api-request'
+
+/** serversCloudFolders */
 import '../../components/apis/requests/serversCloudFolders/admin-create-cloud-folders-api-request'
 import '../../components/apis/requests/serversCloudFolders/admin-get-cloud-folders-api-request'
 import '../../components/apis/requests/serversCloudFolders/admin-delete-cloud-folder-api-request'
+import '../../components/apis/requests/serversCloudFolders/admin-update-cloud-folder-settings-api-request'
 
 // serversDirAccess */
 import '../../components/apis/requests/serversDirAccess/admin-create-server-dirAccess-api-request'

@@ -86,6 +86,12 @@ describe('Login > {existing user}', () => {
 
   beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
+    cy.get(htmlSelectors.p).then(($resp) => {
+      if ($resp.text().includes(fileOne) && $resp.text().includes(fileOne)) {
+        cy.log('file exists')
+        bulkMenuNavigation('Delete')
+      }
+    })
 
     // creating two files to perform bulk operations
     cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local.txt', { force: true }, { action: 'drag-drop' })
