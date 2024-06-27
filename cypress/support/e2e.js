@@ -55,12 +55,16 @@ import '../../components/apis/requests/servers/admin-get-server-variables-api-re
 /** ipBans */
 import '../../components/apis/requests/ipBans/admin-get-server-ipBan-list-api-request'
 
+/** ipBans */
+import '../../components/apis/requests/Licenses/admin-get-licenses-api-request'
+
 /** groups */
 import '../../components/apis/requests/groups/admin-create-groups-api-request'
 import '../../components/apis/requests/groups/admin-delete-groups-api-request'
 import '../../components/apis/requests/groups/admin-get-group-info-api-request'
 import '../../components/apis/requests/groups/admin-update-group-information-api-request'
 import '../../components/apis/requests/groups/admin-get-groups-list-api-request'
+import '../../components/apis/requests/groups/admin-get-filtered-group-info-api-request'
 
 /** domain */
 import '../../components/apis/requests/domain/admin-get-domain-info-api-request'

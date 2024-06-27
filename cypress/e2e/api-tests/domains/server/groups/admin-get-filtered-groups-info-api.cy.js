@@ -1,27 +1,28 @@
-import label from '../../../../../fixtures/label.json'
 /**
  * @description
- * This spec file contains test to verify if new group exists in group list or not
+ * This spec file contains test to verify if user can get filtered group information
  *
  * @assertions
- * To verify that admin can get group list through API
+ * To verify that admin can get filtered group info through API
  *
  *  @prerequisites
  * valid user credentials
  * - user should have valid credentials
  */
 
-describe('get groups list', () => {
+describe('get filtered group information', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const serverDetails = {
-    serverName: `qa-auto-server${Cypress.dayjs().format('ssmmhhMMYY')}`
-  }
+
   const groupDetails = {
-    groupName: `qa-auto-group${Cypress.dayjs().format('ssmmhhMMYY')}`
+    groupName: `qa-auto-group-${Cypress.dayjs().format('ssmmhhMMYY')}`
+  }
+
+  const serverDetails = {
+    serverName: `qa-auto-server-${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach('login through api', () => {
@@ -42,44 +43,38 @@ describe('get groups list', () => {
     cy.postCreateServerApiRequest(serverDetails).then(($response) => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiServerListResponse')
-      // Check if errorstr is success
+      // Check if error str is success
       expect($response.Result.ErrorStr).to.equal('Success')
       groupDetails.bearerToken = serverDetails.bearerToken
     })
-
-    // creating a new group
+    // create group
     cy.postCreateGroupApiRequest(groupDetails, serverDetails).then(($response) => {
-    // Check if response type is Api Group Params Poco
+      // Check if response type is api groups params poco
       expect($response.ResponseType).to.equal('ApiGroupParamsPoco')
-      // Check if newly created group is present in response
-      expect($response.Response.GroupName).to.equal(groupDetails.groupName)
-      groupDetails.GroupGUID = $response.Response.GroupGUID
-      groupDetails.AuthGUID = $response.Response.AuthGUID
+      // Check if Error str is Success or not
+      expect($response.Result.ErrorStr).to.equal('Success')
+      groupDetails.groupGUID = $response.Response.GroupGUID
     })
   })
 
-  it('verify that new group exist group list or not', () => {
-    cy.getGroupsListApiRequest(groupDetails, serverDetails).then(($response) => {
-      // Check if response type is Api Group List
-      expect($response.ResponseType).to.equal('ApiGroupList')
+  it('verify that new user exist in Everyone group or not', () => {
+    cy.getFilteredGroupsInfoApiRequest(groupDetails, serverDetails).then(($response) => {
+      // Check if response type is ApiGroupParamsPoco
+      expect($response.ResponseType).to.equal('ApiGroupParamsFiltered')
       // Check if ErrorStr is success or not
       expect($response.Result.ErrorStr).to.equal('Success')
-      // check if new group exists in group list or not
-      const groupName = $response.Response.GroupList.map(group => group.GroupName)
-      expect(groupName).to.include(groupDetails.groupName)
-      // Check if new group GroupGUID exist in group list or not
-      const groupGUID = $response.Response.GroupList.map(group => group.GroupGUID)
-      expect(groupGUID).to.include(groupDetails.GroupGUID)
-      // Check if new group AuthGUID exist in group list or not
-      const groupAuthGUID = $response.Response.GroupList.map(group => group.AuthGUID)
-      expect(groupAuthGUID).to.include(groupDetails.AuthGUID)
+      // assertion on group name
+      expect($response.Response.Poco.GroupName).to.equal(groupDetails.groupName)
+      // assertion on group GUID
+      expect($response.Response.Poco.GroupGUID).to.equal(groupDetails.groupGUID)
+      serverDetails.bearerToken = groupDetails.bearerToken
     })
   })
 
   afterEach('delete group through API', () => {
-    // calling delete function
-    cy.deleteGroupApiRequest(groupDetails, serverDetails).then(($response) => {
-      // check if request is successful or not
+  // calling delete group function
+    cy.deleteServerApiRequest(serverDetails).then(($response) => {
+    // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })
