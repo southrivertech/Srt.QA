@@ -134,6 +134,10 @@ import '../../components/apis/requests/serversReports/admin-delete-server-report
 import '../../components/apis/requests/serversSshKeys/admin-create-server-ssh-key-api-request'
 import '../../components/apis/requests/serversSshKeys/admin-delete-server-ssh-key-api-request'
 
+/** userCloudFolders */
+import '../../components/apis/requests/userCloudFolders/admin-get-user-cloud-folder-api-request'
+import '../../components/apis/requests/userCloudFolders/admin-delete-user-cloud-folder-api-request'
+
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
 
