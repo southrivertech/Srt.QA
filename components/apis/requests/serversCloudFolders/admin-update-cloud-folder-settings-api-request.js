@@ -1,13 +1,13 @@
 /**
 * @description
-* The updateCloudFolderSettingsApiRequest command is used to get the list of Cloud Folders at server level through Api
+* The updateCloudFolderSettingsApiRequest command is used to update Cloud Folders at server level through Api
 *
 * @parameters
 * @param {required} bearerToken
 * @param {required} serverName
 *
 * @example
-* cy.updateCloudFolderSettingsApiRequest(serverDetails)
+* cy.updateCloudFolderSettingsApiRequest(serverDetails, CloudFolder)
 */
 
 Cypress.Commands.add('updateCloudFolderSettingsApiRequest', (serverDetails, CloudFolder) => {

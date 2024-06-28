@@ -1,6 +1,6 @@
 /**
 * @description
-* The getServerNodeSettingsApiRequest command is used to get the list of sever nodes through Api
+* The getServerNodeSettingsApiRequest command is used to get sever node settings through Api
 *
 * @parameters
 * @param {required} bearerToken

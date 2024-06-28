@@ -1,4 +1,3 @@
-import label from '../../../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains test to verify if new group exists in group list or not

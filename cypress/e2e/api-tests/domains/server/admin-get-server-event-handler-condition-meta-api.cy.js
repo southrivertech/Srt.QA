@@ -1,6 +1,6 @@
 /**
  * @description
- * This spec file contains test to ensure admin can get server events condition tree through API
+ * This spec file contains test to ensure admin can get server events condition meta through API
  *
  * @assertions
  * To verify that admin can get server events condition tree through API
@@ -56,7 +56,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  it('verify that admin can get event handler condition tree through API', () => {
+  it('verify that admin can get event handler condition meta through API', () => {
     cy.getServerEventsApiRequest(serverDetails, RequestType).then(($response) => {
       // Check if response type is Api Event Handler Condition Tree
       expect($response.ResponseType).to.equal('ApiEventHandlerConditionMeta')

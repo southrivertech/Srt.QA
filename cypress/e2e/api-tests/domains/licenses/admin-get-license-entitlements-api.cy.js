@@ -11,7 +11,7 @@
  */
 
 let bearerToken = null
-describe('GET /api/Licenses', () => {
+describe('GET /api/Licenses/Entitlements', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -35,7 +35,7 @@ describe('GET /api/Licenses', () => {
     })
   })
 
-  it('verify that admin can get license entitlement through API', () => {
+  it('verify that admin can get license entitlements through API', () => {
     cy.getLicenseEntitlementsApiRequest(bearerToken).then(($response) => {
       // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')

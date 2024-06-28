@@ -4,7 +4,9 @@
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
 * @param {required} keyName
+*
 * @example
 * cy.deleteServerPGPKeyApiRequest(bearerToken, keyName)
 */

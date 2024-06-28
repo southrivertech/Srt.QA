@@ -1,6 +1,6 @@
 /**
 * @description
-* The deleteGroupApiRequest command is used to delete a Group thorough API
+* The deleteGroupApiRequest command is used to delete a Group through API
 *
 * @parameters
 * @param {required} bearerToken

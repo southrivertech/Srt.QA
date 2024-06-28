@@ -1,6 +1,6 @@
 /**
  * @description
- * This spec file contains test to ensure admin can get list of directory access through API
+ * This spec file contains test to ensure admin can create a server event through API
  *
  * @assertions
  * To verify that admin can get list of directory access through API

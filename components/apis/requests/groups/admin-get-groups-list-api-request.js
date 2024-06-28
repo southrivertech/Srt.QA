@@ -1,6 +1,6 @@
 /**
 * @description
-* The getGroupsListApiRequest command is used to get list of existing groups thorough API
+* The getGroupsListApiRequest command is used to get list of existing groups through API
 *
 * @parameters
 * @param {required} bearerToken

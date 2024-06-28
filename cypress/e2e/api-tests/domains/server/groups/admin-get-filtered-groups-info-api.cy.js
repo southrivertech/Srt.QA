@@ -1,6 +1,6 @@
 /**
  * @description
- * This spec file contains test to verify if user can get filtered group information
+ * This spec file contains test to verify if user can get filtered group information through Api
  *
  * @assertions
  * To verify that admin can get filtered group info through API

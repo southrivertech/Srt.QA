@@ -1,6 +1,6 @@
 /**
 * @description
-* The postCreteServerAuthConnectorApiRequest command is used to create a server through Api
+* The postCreteServerAuthConnectorApiRequest command is used to create a server auth connector through Api
 *
 * @parameters
 * @param {required} bearerToken

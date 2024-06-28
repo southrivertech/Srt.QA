@@ -1,6 +1,6 @@
 /**
 * @description
-* The deleteAuthConnectorApiRequest command is used to create a server through Api
+* The deleteAuthConnectorApiRequest command is used to delete a server auth connector through Api
 *
 * @parameters
 * @param {required} bearerToken

@@ -54,7 +54,7 @@ describe('GET /api/Servers', () => {
     })
   })
 
-  it('verify that admin can get directory access list through API', () => {
+  it('verify that admin can get server events list through API', () => {
     cy.getServerEventsApiRequest(serverDetails, RequestType).then(($response) => {
       // Check if response type is Api Event Handlers
       expect($response.ResponseType).to.equal('ApiEventHandlers')
