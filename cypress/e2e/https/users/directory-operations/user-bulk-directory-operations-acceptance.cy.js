@@ -88,6 +88,12 @@ describe('Login > {existing user}', () => {
 
   beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
+    cy.get(htmlSelectors.p).then(($resp) => {
+      if ($resp.text().includes(folderOne) && $resp.text().includes(folderTwo)) {
+        cy.log('file exists')
+        bulkMenuNavigation('Delete')
+      }
+    })
 
     // creating two folders to perform bulk operations
     cy.get(userDirSelectors.addFolderIcon).click()

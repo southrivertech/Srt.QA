@@ -2,7 +2,7 @@ import label from '../../../../fixtures/label.json'
 
 /**
  * @description
- * This spec file contains test to ensure admin can get create DSA SSH keys through API
+ * This spec file contains test to ensure admin can create DSA SSH keys through API
  *
  * @assertions
  * To verify that admin can create SSH keys through API

@@ -4,6 +4,7 @@
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
 * @param {required} Path
 * @param {required} AllowAce
 * @param {required} DenyAce

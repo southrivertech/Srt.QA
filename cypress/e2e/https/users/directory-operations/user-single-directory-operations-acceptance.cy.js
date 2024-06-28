@@ -87,6 +87,12 @@ describe('Login > {existing user}', () => {
 
   beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
+    cy.get(htmlTagSelectors.p).then(($resp) => {
+      if ($resp.text().includes(folderName)) {
+        cy.log('file exists')
+        dotNavigation('Delete')
+      }
+    })
     cy.get(userDirSelectors.addFolderIcon).click()
     cy.get(userDirSelectors.folderNameField).type(folderName)
     cy.get(userDirSelectors.buttonList).contains(label.add).click()

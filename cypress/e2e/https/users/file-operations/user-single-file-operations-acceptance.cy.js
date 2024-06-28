@@ -85,6 +85,12 @@ describe('Login > {existing user}', () => {
 
   beforeEach('login', () => {
     cy.login(userData.userBaseUrl, userInfo.username, userInfo.password)
+    cy.get(htmlTagSelectors.p).then(($resp) => {
+      if ($resp.text().includes(fileName)) {
+        cy.log('file exists')
+        dotNavigation('Delete')
+      }
+    })
     cy.get(userDirSelectors.fileUpload).eq(0).selectFile('cypress/fixtures/local.txt', { force: true }, { action: 'drag-drop' })
     cy.waitForNetworkIdle(1000, { log: false })
   })

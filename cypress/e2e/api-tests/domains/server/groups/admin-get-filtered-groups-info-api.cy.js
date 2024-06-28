@@ -1,27 +1,29 @@
 /**
  * @description
- * This spec file contains test to ensure admin can get server events condition meta through API
+ * This spec file contains test to verify if user can get filtered group information through Api
  *
  * @assertions
- * To verify that admin can get server events condition tree through API
+ * To verify that admin can get filtered group info through API
  *
  *  @prerequisites
  * valid user credentials
  * - user should have valid credentials
- *
  */
 
-describe('GET /api/Servers', () => {
+describe('get filtered group information', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
     password: adminData.adminPassword
   }
-  const serverDetails = {
-    serverName: `qa auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
+
+  const groupDetails = {
+    groupName: `qa-auto-group-${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
-  const RequestType = 'EventHandlerConditionMeta'
-  const Eventname = 'qa testing event'
+
+  const serverDetails = {
+    serverName: `qa-auto-server-${Cypress.dayjs().format('ssmmhhMMYY')}`
+  }
 
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
@@ -38,38 +40,41 @@ describe('GET /api/Servers', () => {
       // initializing bearer token
       serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
-    // creating new server
     cy.postCreateServerApiRequest(serverDetails).then(($response) => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiServerListResponse')
-      // Check if Errorstr is success
+      // Check if error str is success
       expect($response.Result.ErrorStr).to.equal('Success')
-      serverDetails.ServerGUID = $response.Response.ServerNodeGUID
-      serverDetails.ServerGUID = $response.Response.ServerNodeGUID
+      groupDetails.bearerToken = serverDetails.bearerToken
     })
-    // create new server event
-    cy.postCreateServerEventsApiRequest(serverDetails, Eventname).then(($response) => {
-      // Check if response type is Api Event Handlers condition meta
-      expect($response.ResponseType).to.equal('ApiEventHandlerConditionMeta')
-      // Check if errorstr is success
+    // create group
+    cy.postCreateGroupApiRequest(groupDetails, serverDetails).then(($response) => {
+      // Check if response type is api groups params poco
+      expect($response.ResponseType).to.equal('ApiGroupParamsPoco')
+      // Check if Error str is Success or not
       expect($response.Result.ErrorStr).to.equal('Success')
+      groupDetails.groupGUID = $response.Response.GroupGUID
     })
   })
 
-  it('verify that admin can get event handler condition meta through API', () => {
-    cy.getServerEventsApiRequest(serverDetails, RequestType).then(($response) => {
-      // Check if response type is Api Event Handler Condition Tree
-      expect($response.ResponseType).to.equal('ApiEventHandlerConditionMeta')
-      // Check if ErrorStr is equal to success
+  it('verify that new user exist in Everyone group or not', () => {
+    cy.getFilteredGroupsInfoApiRequest(groupDetails, serverDetails).then(($response) => {
+      // Check if response type is ApiGroupParamsPoco
+      expect($response.ResponseType).to.equal('ApiGroupParamsFiltered')
+      // Check if ErrorStr is success or not
       expect($response.Result.ErrorStr).to.equal('Success')
-      //
-      expect($response.Response).to.include.keys('Commands', 'ConnectionTypes')
+      // assertion on group name
+      expect($response.Response.Poco.GroupName).to.equal(groupDetails.groupName)
+      // assertion on group GUID
+      expect($response.Response.Poco.GroupGUID).to.equal(groupDetails.groupGUID)
+      serverDetails.bearerToken = groupDetails.bearerToken
     })
   })
-  afterEach('delete server through API', () => {
-    // calling delete function
+
+  afterEach('delete group through API', () => {
+  // calling delete group function
     cy.deleteServerApiRequest(serverDetails).then(($response) => {
-      // check if request is successful or not
+    // check if request is successful or not
       expect($response.Result.ErrorStr).to.equal('Success')
     })
   })

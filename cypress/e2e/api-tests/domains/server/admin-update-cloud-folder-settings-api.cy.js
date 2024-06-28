@@ -1,9 +1,9 @@
 /**
  * @description
- * This spec file contains test to ensure admin can get list of server events through API
+ * This spec file contains test to ensure admin can update cloud folder settings through API
  *
  * @assertions
- * To verify that admin can get list of server events through API
+ * To verify that admin can update cloud folders through API
  *
  *  @prerequisites
  * valid user credentials
@@ -18,10 +18,12 @@ describe('GET /api/Servers', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: `qa auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
+    serverName: `qa auto Server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
-  const RequestType = 'Events'
-  const Eventname = 'qa testing event'
+  const cloudFolderDetails = {
+    cloudName: `qa auto cloud folder ${Cypress.dayjs().format('ssmmhhMMYY')}`,
+    newCloudName: `qa auto  updated cloud folder ${Cypress.dayjs().format('ssmmhhMMYY')}`
+  }
 
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
@@ -38,40 +40,43 @@ describe('GET /api/Servers', () => {
       // initializing bearer token
       serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
     })
+    // creating new server
     cy.postCreateServerApiRequest(serverDetails).then(($response) => {
       // Check if response type is api server list response
       expect($response.ResponseType).to.equal('ApiServerListResponse')
-      // Check if Errorstr is success
-      expect($response.Result.ErrorStr).to.equal('Success')
-      serverDetails.ServerGUID = $response.Response.ServerNodeGUID
-      serverDetails.ServerGUID = $response.Response.ServerNodeGUID
-    })
-    cy.postCreateServerEventsApiRequest(serverDetails, Eventname).then(($response) => {
-      // Check if response type is Api Event Handlers condition meta
-      expect($response.ResponseType).to.equal('ApiEventHandlerConditionMeta')
       // Check if errorstr is success
       expect($response.Result.ErrorStr).to.equal('Success')
     })
-  })
-
-  it('verify that admin can get server events list through API', () => {
-    cy.getServerEventsApiRequest(serverDetails, RequestType).then(($response) => {
-      // Check if response type is Api Event Handlers
-      expect($response.ResponseType).to.equal('ApiEventHandlers')
-      // Check if ErrorStr is equal to success
+    // create new cloud folders
+    cy.postCreateCloudFolderApiRequest(serverDetails, cloudFolderDetails).then(($response) => {
+      // Check if response type is Api Cloud Folder List
+      expect($response.ResponseType).to.equal('ApiCloudFolderList')
+      // Check if Errorstr is success
       expect($response.Result.ErrorStr).to.equal('Success')
-      // verify server id
-      const serverID = $response.Response.EventHandlers.map(serverId => serverId.ServerGUID)
-      expect(serverID).to.include(serverDetails.ServerGUID)
-      // check if created event is present in response or not
-      const eventname = $response.Response.EventHandlers.map(name => name.ECAData.Name)
-      expect(eventname).to.include(Eventname)
-      // check if event is running or not
-      const eventEnabled = $response.Response.EventHandlers.map(enableStatus => enableStatus.ECAData.Enabled)
-      expect(eventEnabled).to.include(true)
+
+      const name = $response.Response.CloudFolderList.map(name => name.CloudName)
+      expect(name).to.include(cloudFolderDetails.cloudName)
+
+      const guid = $response.Response.CloudFolderList.map(id => id.CloudGUID)
+
+      cloudFolderDetails.cloudGUID = guid[0]
+      cloudFolderDetails.cloudName = cloudFolderDetails.newCloudName
     })
   })
-  afterEach('logout through API', () => {
+
+  it('verify that admin can update cloud folder through API', () => {
+    cy.updateCloudFolderSettingsApiRequest(serverDetails, cloudFolderDetails).then(($response) => {
+      // Check if response type is Api Cloud Folder List
+      expect($response.ResponseType).to.equal('ApiCloudFolderList')
+      // Check if ErrorStr is equal to success
+      expect($response.Result.ErrorStr).to.equal('Success')
+      // check if directory Id is present or not
+      const cloud = $response.Response.CloudFolderList.map(name => name.CloudName)
+      expect(cloud).to.include(cloudFolderDetails.cloudName)
+    })
+  })
+
+  afterEach('delete server through API', () => {
     // calling delete function
     cy.deleteServerApiRequest(serverDetails).then(($response) => {
       // check if request is successful or not

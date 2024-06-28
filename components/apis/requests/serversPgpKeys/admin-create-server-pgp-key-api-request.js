@@ -4,6 +4,7 @@
 *
 * @parameters
 * @param {required} bearerToken
+* @param {required} serverName
 * @param {required} KeyType
 * @param {required} keyName
 * @param {required} KeyAlg

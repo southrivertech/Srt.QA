@@ -2,7 +2,7 @@ import label from '../../../../fixtures/label.json'
 
 /**
  * @description
- * This spec file contains test to ensure admin can get create RSA SSH key through API
+ * This spec file contains test to ensure admin can create RSA SSH key through API
  *
  * @assertions
  * To verify that admin can create RSA SSH key through API
@@ -46,8 +46,9 @@ describe('GET /api/Servers', () => {
   })
 
   it('RSA 1024 Key', () => {
+    keyDetails.keyLen = 1024
     // creating new SSH key
-    cy.postCreateServerSSHKey(keyDetails, serverDetails, 1024).then(($response) => {
+    cy.postCreateServerSSHKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api SSHKey List
       expect($response.ResponseType).to.equal('ApiSshKeyList')
       // Check if Errorstr is success
@@ -58,8 +59,9 @@ describe('GET /api/Servers', () => {
     })
   })
   it('RSA 2048 Key ', () => {
+    keyDetails.keyLen = 2048
     // creating new SSH key
-    cy.postCreateServerSSHKey(keyDetails, serverDetails, 2048).then(($response) => {
+    cy.postCreateServerSSHKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api SSHKey List
       expect($response.ResponseType).to.equal('ApiSshKeyList')
       // Check if Errorstr is success
@@ -70,8 +72,9 @@ describe('GET /api/Servers', () => {
     })
   })
   it('RSA 4096 Key', () => {
+    keyDetails.keyLen = 4096
     // creating new SSH key
-    cy.postCreateServerSSHKey(keyDetails, serverDetails, 4096).then(($response) => {
+    cy.postCreateServerSSHKey(keyDetails, serverDetails).then(($response) => {
       // Check if response type is Api SSHKey List
       expect($response.ResponseType).to.equal('ApiSshKeyList')
       // Check if Errorstr is success

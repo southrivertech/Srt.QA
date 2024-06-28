@@ -1,7 +1,7 @@
 import label from '../../../../../fixtures/label.json'
 /**
  * @description
- * This spec file contains test to verify if new user exists in Everyone group
+ * This spec file contains test to verify if new user exists in Everyone group through Api
  *
  * @assertions
  * To verify that admin can get Everyone  group info through API

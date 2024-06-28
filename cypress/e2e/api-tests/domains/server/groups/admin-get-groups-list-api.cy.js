@@ -1,4 +1,3 @@
-import label from '../../../../../fixtures/label.json'
 /**
  * @description
  * This spec file contains test to verify if new group exists in group list or not
@@ -18,10 +17,10 @@ describe('get groups list', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: label.ApiTestingAutomation
+    serverName: `qa-auto-server${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
   const groupDetails = {
-    groupName: `qa auto group ${Cypress.dayjs().format('ssmmhhMMYY')}`
+    groupName: `qa-auto-group${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
 
   beforeEach('login through api', () => {
@@ -37,7 +36,14 @@ describe('get groups list', () => {
       // Check if BearerToken is not empty
       expect($response.Response.SessionInfo.BearerToken).to.not.be.empty
       // initializing bearer token
-      groupDetails.bearerToken = $response.Response.SessionInfo.BearerToken
+      serverDetails.bearerToken = $response.Response.SessionInfo.BearerToken
+    })
+    cy.postCreateServerApiRequest(serverDetails).then(($response) => {
+      // Check if response type is api server list response
+      expect($response.ResponseType).to.equal('ApiServerListResponse')
+      // Check if errorstr is success
+      expect($response.Result.ErrorStr).to.equal('Success')
+      groupDetails.bearerToken = serverDetails.bearerToken
     })
 
     // creating a new group

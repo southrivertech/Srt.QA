@@ -6,5 +6,6 @@
     "button": "button",
     "tableRow":"tr",
     "tableData":"td",
-    "li":"li"
+    "li":"li",
+    "p":"p"
 }

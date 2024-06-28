@@ -1,7 +1,7 @@
 import label from '../../../../../fixtures/label.json'
 /**
  * @description
- * This spec file contains test to get information about a user
+ * This spec file contains test to get information about a user through Api
  *
  * @assertions
  * To verify that admin can get user information through API

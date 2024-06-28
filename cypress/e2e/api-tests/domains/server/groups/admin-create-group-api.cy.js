@@ -17,7 +17,7 @@ describe('create new group', () => {
     password: adminData.adminPassword
   }
   const serverDetails = {
-    serverName: 'testAPI'
+    serverName: `qa auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
   const groupDetails = {
     GroupName: 'TestAPIGroup'
