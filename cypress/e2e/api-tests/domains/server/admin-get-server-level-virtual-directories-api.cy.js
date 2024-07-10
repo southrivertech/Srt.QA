@@ -21,6 +21,7 @@ describe('GET /api/Servers', () => {
   const serverDetails = {
     serverName: label.ApiTestingAutomation
   }
+  const directoryLevel = 'Svr'
   beforeEach('login through api', () => {
     cy.postLoginAuthenticateApiRequest(userInfo).then(($response) => {
       // Check if response type is api auth response
@@ -45,8 +46,8 @@ describe('GET /api/Servers', () => {
       // check if ErrorStr is Success
       expect($response.Result.ErrorStr).to.equal('Success')
       // Check if virtual folder id  exist in virtual directory list or not
-      const VirtualFolders = $response.Response.VirtualFolderList.map(VirtualFolders => label.Id in VirtualFolders)
-      expect(VirtualFolders).to.include(true)
+      const VirtualFolders = $response.Response.VirtualFolderList.map(VirtualFolders => VirtualFolders.Level)
+      expect(VirtualFolders).to.include(directoryLevel)
     })
   })
 
