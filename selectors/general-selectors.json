@@ -3,7 +3,7 @@
     "roleCell": "[role='cell']",
     "roleTab": "[role='tab']",
     "labelSelector": ".MuiButton-label",
-    "closeModal": "[title='Close']",
+    "closeModal": "[data-qa-selector='dx-popup-close-button']",
     "inputTypeCheckbox": "input[type=checkbox]",
     "inputLabel": ".MuiInputLabel-formControl",
     "roleButton":"[role='button']",

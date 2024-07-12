@@ -43,9 +43,11 @@ describe('Login > Add New > Server > Database > Server Info', () => {
   })
 
   it('verify that server information is removed when user navigates back from services to database during server creation', () => {
-    cy.get(serverSelectors.addButtonContainer).contains(label.addNew).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+    cy.get(generalSelectors.textSelector).contains(label.autoDomainName).click()
+    cy.get(serverSelectors.titleAddNew).click()
+    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
+    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
+
     cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
     cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
       cy.get(htmlTagSelectors.input).type(serverName)

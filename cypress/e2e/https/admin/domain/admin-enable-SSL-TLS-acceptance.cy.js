@@ -30,15 +30,13 @@ describe('Login > Add New > Server > Database > Server Info > > FTPS Configurati
   const serverName = `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
 
   function checkBoxSelector (optionText) {
-    cy.get(serverSelectors.addButtonContainer).contains(label.addNew).click()
+    cy.get(generalSelectors.textSelector).contains(label.autoDomainName).click()
+    cy.get(serverSelectors.titleAddNew).click()
 
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
+    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
 
-    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
-      cy.get(htmlTagSelectors.input).type(serverName)
-    })
-
+    cy.get(generalSelectors.textSelector).contains(label.serverNameText).next(htmlTagSelectors.div).type(serverName)
     cy.contains(htmlTagSelectors.span, label.StartServerAutomatically)
       .prev(htmlTagSelectors.span).click()
 
@@ -63,15 +61,15 @@ describe('Login > Add New > Server > Database > Server Info > > FTPS Configurati
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
   })
 
-  afterEach(() => {
-    cy.get(generalSelectors.closeModal).click()
-  })
-
   it('verify that admin user can Enable Explicit SSL/TLS Access checkboxes on (Setup FTPS Access for this Server) page after disabling it', () => {
     checkBoxSelector(label.enableExSSLTLSAccess)
   })
 
   it('verify that admin user can Enable Implicit SSL/TLS Access checkboxes on (Setup FTPS Access for this Server) page after disabling it', () => {
     checkBoxSelector(label.enableImpSSLTLSAccess)
+  })
+
+  afterEach(() => {
+    cy.get(generalSelectors.closeModal).click()
   })
 })

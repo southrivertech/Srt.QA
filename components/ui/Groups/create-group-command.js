@@ -1,5 +1,7 @@
 import label from '../../../cypress/fixtures/label.json'
 import groupSelectors from '../../../selectors/groups/groups-selectors.json'
+import generalSelectors from '../../../selectors/general-selectors.json'
+
 /**
  * group creation command
  *
@@ -23,21 +25,19 @@ Cypress.Commands.add('createGroup', (groupDetails) => {
   Cypress.log({
     name: 'createGroupCommand'
   })
-  cy.get(groupSelectors.parentGroup).eq(1).within(() => {
-    cy.enterText(label.groupName, groupDetails.groupName)
+  cy.get(groupSelectors.parentGroup).within(() => {
+    cy.get(generalSelectors.textSelector).contains(label.groupName).next().type(groupDetails.groupName)
     if (groupDetails.groupDescription) {
-      cy.get(groupSelectors.groupDesc).type(groupDetails.groupDescription)
+      cy.get(generalSelectors.textSelector).contains(label.groupDesc).next().type(groupDetails.groupDescription)
     }
   })
   if (groupDetails.groupDirectoryOption) {
-    cy.get(groupSelectors.parentGroup).eq(1).within(() => {
-      cy.get(groupSelectors.homeDir).click({ force: true })
+    cy.get(groupSelectors.parentGroup).within(() => {
+      cy.get(generalSelectors.textSelector).contains(label.homeDir).next().click()
     })
     cy.get(groupSelectors.dropDownOptions).contains(groupDetails.groupDirectoryOption).click({ force: true })
     cy.get(groupSelectors.subDir).eq(1).type(groupDetails.groupDirPath.replace(/\//g, '\\'))
   }
-  cy.get(groupSelectors.parentGroup).eq(1).within(() => {
-    cy.clickButton(label.next)
-    cy.clickButton(label.finish)
-  })
+  cy.get(generalSelectors.button).contains(label.next)
+  cy.get(generalSelectors.button).contains(label.finish)
 })

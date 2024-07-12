@@ -33,10 +33,11 @@ describe('Login > Add New > Server > Database > Server Info > Add New', () => {
   })
 
   it('Verify that the user cannot navigate to the next page, until he/she configures directories manually', () => {
-    cy.get(serverSelectors.addButtonContainer).contains(label.addNew).click()
+    cy.get(generalSelectors.textSelector).contains(label.autoDomainName).click()
+    cy.get(serverSelectors.titleAddNew).click()
 
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
+    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
 
     cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
       cy.get(htmlTagSelectors.input).type(serverName)

@@ -2,6 +2,7 @@ import userSelectors from '../../../selectors/user/user-selectors.json'
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
 import serverSelectors from '../../../selectors/server-selectors.json'
 import dashboardSelectors from '../../../selectors/dashboard-selectors.json'
+import label from '../../../cypress/fixtures/label.json'
 
 /**
  * Common Utils Commands
@@ -58,8 +59,10 @@ Cypress.Commands.add('checkTextVisibility', (selector, text) => {
 */
 
 Cypress.Commands.add('delete', (inputName) => {
-  cy.contains(inputName).scrollIntoView().parents(userSelectors.parentCell).click()
-  cy.get(userSelectors.deleteButton).click()
+  cy.get(htmlTagSelectors.tableData).contains(inputName).scrollIntoView().next().next().within(() => {
+    cy.get(userSelectors.titleDelete).click({ force: true })
+  })
+  cy.get(dashboardSelectors.dashboardButton).contains(label.confirm).click()
 })
 
 /**
