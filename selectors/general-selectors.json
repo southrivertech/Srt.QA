@@ -12,5 +12,7 @@
     "roleListBox":"[role='listbox']",
     "idText":"[id='Text']",
     "roleMenu":"[role='menu']",
-    "typeText":"input[type='text']"
+    "typeText":"input[type='text']",
+    "button":".dxbl-btn",
+    "textSelector":".dxbl-text"
 }

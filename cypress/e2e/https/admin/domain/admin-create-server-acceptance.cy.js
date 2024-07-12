@@ -27,7 +27,7 @@ describe('login > add new server ', () => {
   }
 
   const serverDetails = {
-    serverType: 'New standalone or primary cluster server.',
+    serverType: 'New member server of existing cluster.',
     selectDatabase: 'SQLite Database',
     serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }

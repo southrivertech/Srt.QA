@@ -1,5 +1,6 @@
 import serverSelectors from '../../../selectors/server-selectors.json'
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
+import generalSelectors from '../../../selectors/general-selectors.json'
 import label from '../../../cypress/fixtures/label.json'
 /**
  * Server Creation Command
@@ -76,11 +77,14 @@ Cypress.Commands.add('createServer', (serverDetails) => {
   Cypress.log({
     name: 'createServerCommand'
   })
-  cy.get(serverSelectors.addButtonContainer).contains(label.addNew).click()
-  cy.get(serverSelectors.serviceRootLabelContainer).contains(serverDetails.serverType).parent(htmlTagSelectors.label).within(() => {
+  cy.get(generalSelectors.textSelector).contains(label.autoDomainName).click()
+  cy.wait(3000)
+  cy.get(serverSelectors.titleAddNew).click()
+  cy.get(serverSelectors.serviceCheckboxContainer).contains(serverDetails.serverType).prev().within(() => {
     cy.get(htmlTagSelectors.input).click()
   })
-  cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+  cy.waitForNetworkIdle(1000, { log: false })
+  cy.get(generalSelectors.button).contains(label.next).click({ force: true })
   cy.get(serverSelectors.serverNameInputContainer).contains(label.databaseText).parent(htmlTagSelectors.div).within(() => {
     cy.get(serverSelectors.selectDatabaseDropdown).click()
   })

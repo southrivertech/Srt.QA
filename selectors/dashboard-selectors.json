@@ -3,13 +3,17 @@
     "dashboardButtonLabel" : ".MuiButton-label",
     "languageList" : "[role='menuitem']",
     "dashBoardList" : ".MuiButtonBase-root",
+    "dashboardButton":".dxbl-btn",
     "profileIcon" : "[aria-label='account of current user']",
     "productInfoColName" :"[role='cell']",
+    "helpIcon":".srt-icon-mui-help",
     "homeTabs" : "[role='tab']",
     "gridRoot" : ".MuiGrid-root",
     "dialog" : "[role='dialog']",
     "fabLabel" : ".MuiFab-label",
+    "languageDropdown":".dxbl-dropdown-body",
     "muiTypography": ".MuiTypography-root",
+    "contentHeader":".dxbl-grid-header-content",
     "muiDialogPaperWidthXs":".MuiDialog-paperWidthXs",
     "matchContainer":"[id='Match Any of the Following']"
 }

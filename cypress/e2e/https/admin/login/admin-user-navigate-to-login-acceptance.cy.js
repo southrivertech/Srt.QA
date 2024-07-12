@@ -17,9 +17,7 @@ import label from '../../../../../cypress/fixtures/label.json'
  * - user should have valid credentials
  */
 
-// This is skipped because the functionality of session login is coming in next release
-
-describe.skip('Login Functionality Test', () => {
+describe('Login Functionality Test', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,
@@ -31,6 +29,6 @@ describe.skip('Login Functionality Test', () => {
 
   it('Press the back key button in the browser', () => {
     cy.go('back')
-    cy.contains(label.login).should('not.be.visible')
+    cy.get(label.login).should('not.exist')
   })
 })

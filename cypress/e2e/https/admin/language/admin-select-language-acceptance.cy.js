@@ -1,6 +1,9 @@
 import label from '../../../../fixtures/label.json'
 import dashboardSelectors from '../../../../../selectors/dashboard-selectors.json'
+import navigationSelectors from '../../../../../selectors/navigation/left-navigation-selectors.json'
 
+import { slowCypressDown } from 'cypress-slow-down'
+slowCypressDown(100)
 /**
  * @description
  * This spec file contains test to verify that admin user can select languages
@@ -31,26 +34,27 @@ describe('Login > select language', () => {
 
   beforeEach('login', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.get(dashboardSelectors.dashboardButtonLabel).contains(label.englishLang).click()
+    cy.get(dashboardSelectors.dashboardButton).contains(label.englishLang).click({ force: true })
+    cy.waitForNetworkIdle(1000, { log: false })
   })
 
   it('verify that admin can select english language', () => {
     cy.selectLanguage(label.englishLang)
-    cy.checkTextVisibility(dashboardSelectors.dashboardButtonLabel, label.helpEnglish)
+    cy.checkTextVisibility(navigationSelectors.textLabelSelector, label.home)
   })
 
   it('verify that admin can select spanish language', () => {
     cy.selectLanguage(label.spanishLang)
-    cy.checkTextVisibility(dashboardSelectors.dashboardButtonLabel, label.helpSpanish)
+    cy.checkTextVisibility(navigationSelectors.textLabelSelector, label.homeSpanish)
   })
 
   it('verify that admin can select deutsch language', () => {
     cy.selectLanguage(label.deutschLang)
-    cy.checkTextVisibility(dashboardSelectors.dashboardButtonLabel, label.helpDeutsch)
+    cy.checkTextVisibility(navigationSelectors.textLabelSelector, label.homeDeutsch)
   })
 
   it('verify that admin can select japanese language', () => {
     cy.selectLanguage(label.japaneseLang)
-    cy.checkTextVisibility(dashboardSelectors.dashboardButtonLabel, label.helpJapanese)
+    cy.checkTextVisibility(navigationSelectors.textLabelSelector, label.homeJapanese)
   })
 })
