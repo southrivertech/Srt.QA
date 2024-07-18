@@ -60,9 +60,9 @@ Cypress.Commands.add('checkTextVisibility', (selector, text) => {
 
 Cypress.Commands.add('delete', (inputName) => {
   cy.get(htmlTagSelectors.tableData).contains(inputName).scrollIntoView().next().next().within(() => {
-    cy.get(userSelectors.titleDelete).click({ force: true })
+    cy.get(userSelectors.titleDelete).realClick({ force: true })
   })
-  cy.get(dashboardSelectors.dashboardButton).contains(label.confirm).click()
+  cy.get(dashboardSelectors.dashboardButton).contains(label.confirm).realClick()
 })
 
 /**

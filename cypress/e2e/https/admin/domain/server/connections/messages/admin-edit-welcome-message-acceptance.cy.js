@@ -48,12 +48,13 @@ describe('Login > {existing server} > connections > messages ', () => {
     // clicking on edit button
     cy.get(navigationSelectors.changePage).contains(page).click()
     cy.get(htmlTagSelectors.div).contains(label.welcomeMessage).next().next().within(() => {
-      cy.get(generalSelectors.button).click()
+      cy.get(generalSelectors.button).realClick()
     })
+    cy.waitForNetworkIdle(1000, { log: false })
     // Writing customized welcome text message
     cy.get(generalSelectors.textSelector).contains(label.text).next().clear().type(customizedMessage)
     cy.waitForNetworkIdle(1000, { log: false })
-    cy.get(generalSelectors.typeButton).contains(label.update).click({ force: true })
+    cy.get(generalSelectors.typeButton).contains(label.update).realClick()
     cy.wait(2000)
     // Sign out
     cy.get(loginSelectors.profileIcon).should('be.visible').click()
@@ -68,7 +69,7 @@ describe('Login > {existing server} > connections > messages ', () => {
     cy.waitForNetworkIdle(1000, { log: false })
     cy.get(loginSelectors.inputUsername).type(userDetails.Username)
     cy.get(loginSelectors.inputPassword).type(userDetails.Password)
-    cy.get(loginSelectors.loginButton).contains(label.login).click()
+    cy.get(loginSelectors.loginButton).contains(label.login).realClick()
     cy.get(userSelectors.successMessage).should('contain', welcomeMessageText)
   })
 

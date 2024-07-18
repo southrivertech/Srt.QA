@@ -34,33 +34,25 @@ describe('Login > Add New > Server > Database > Server Info > Add New', () => {
 
   it('Verify that the user cannot navigate to the next page, until he/she configures directories manually', () => {
     cy.get(generalSelectors.textSelector).contains(label.autoDomainName).click()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.get(serverSelectors.titleAddNew).click()
 
-    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
-    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
+    cy.get(generalSelectors.button).contains(label.next).realClick()
+    cy.get(generalSelectors.button).contains(label.next).realClick()
 
-    cy.get(serverSelectors.serverNameInputContainer).contains(label.serverNameText).parent(htmlTagSelectors.div).within(() => {
-      cy.get(htmlTagSelectors.input).type(serverName)
+    cy.get(generalSelectors.textSelector).contains(label.serverNameText).next(htmlTagSelectors.div).type(serverName)
+
+    cy.get(serverSelectors.serviceCheckboxContainer).eq(1).within(() => {
+      cy.get(htmlTagSelectors.div).realClick()
     })
 
-    cy.contains(htmlTagSelectors.span, label.StartServerAutomatically)
-      .prev(htmlTagSelectors.span).click()
-
-    cy.get(generalSelectors.inputTypeCheckbox).eq(1).click()
-
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
-
-    cy.get(serverSelectors.gridContainerXS10).each(($outerContainer) => {
-      cy.wrap($outerContainer).within(() => {
-        cy.get(serverSelectors.textFieldRootContainer).within(() => {
-          cy.get(serverSelectors.inputBaseContainer).within(() => {
-            cy.get(serverSelectors.inputContainer).clear()
-          })
-        })
-      })
+    cy.get(generalSelectors.button).contains(label.next).realClick()
+    cy.wait(2000)
+    cy.get('.dxbl-text-edit-input').each(($outerContainer) => {
+      cy.wrap($outerContainer).clear()
     })
 
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+    cy.get(generalSelectors.button).contains(label.next).realClick()
 
     cy.get(serverSelectors.gridContainerXS10)
       .find(serverSelectors.inputBaseContainer)

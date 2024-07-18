@@ -33,11 +33,11 @@ Cypress.Commands.add('createGroup', (groupDetails) => {
   })
   if (groupDetails.groupDirectoryOption) {
     cy.get(groupSelectors.parentGroup).within(() => {
-      cy.get(generalSelectors.textSelector).contains(label.homeDir).next().click()
+      cy.get(generalSelectors.textSelector).contains(label.homeDir).next().realClick()
     })
-    cy.get(groupSelectors.dropDownOptions).contains(groupDetails.groupDirectoryOption).click({ force: true })
+    cy.get(groupSelectors.dropDownOptions).contains(groupDetails.groupDirectoryOption).realClick()
     cy.get(groupSelectors.subDir).eq(1).type(groupDetails.groupDirPath.replace(/\//g, '\\'))
   }
-  cy.get(generalSelectors.button).contains(label.next)
-  cy.get(generalSelectors.button).contains(label.finish)
+  cy.get(generalSelectors.button).contains(label.next).realClick()
+  cy.get(generalSelectors.button).contains(label.finish).realClick()
 })
