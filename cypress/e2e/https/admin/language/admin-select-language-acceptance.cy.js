@@ -34,8 +34,8 @@ describe('Login > select language', () => {
 
   beforeEach('login', () => {
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.get(dashboardSelectors.dashboardButton).contains(label.englishLang).click({ force: true })
-    cy.waitForNetworkIdle(1000, { log: false })
+    cy.waitForNetworkIdle(1000)
+    cy.get(dashboardSelectors.dashboardButton).contains(label.englishLang).realClick()
   })
 
   it('verify that admin can select english language', () => {

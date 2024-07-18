@@ -2,7 +2,7 @@ import label from '../../../../../fixtures/label.json'
 import dashboardSelectors from '../../../../../../selectors/dashboard-selectors.json'
 import navigationSelectors from '../../../../../../selectors/navigation/left-navigation-selectors.json'
 import productInfoSelectors from '../../../../../../selectors/productinfo/product-info-selectors.json'
-import loginSelectors from '../../../../../../selectors/login-selectors.json'
+import userSelectors from '../../../../../../selectors/user/user-selectors.json'
 import generalSelectors from '../../../../../../selectors/general-selectors.json'
 
 /**
@@ -39,10 +39,9 @@ describe('Login > home > product info tab', () => {
     cy.get(dashboardSelectors.homeTabs).contains(label.productInfo).click()
     cy.get(generalSelectors.button).contains(label.addLicense).click()
     cy.get(productInfoSelectors.registrationCodeField).type(label.helpEnglish)
-    cy.waitForNetworkIdle(1000)
-    cy.get('.dxbl-modal-body').within(() => {
-      cy.get(loginSelectors.typeSubmit).contains(label.save).click({ force: true })
+    cy.get(generalSelectors.modalSelector).within(() => {
+      cy.get(generalSelectors.button).contains(label.save).realClick({ force: true })
     })
-    cy.get('.bs-toaster-text').should('contain.text', 'RegCode is invalid ')
+    cy.get(userSelectors.successMessage).should('be.visible')
   })
 })

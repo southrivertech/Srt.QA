@@ -31,30 +31,28 @@ describe('Login > Add New > Server > Database > Server Info > > FTPS Configurati
 
   function checkBoxSelector (optionText) {
     cy.get(generalSelectors.textSelector).contains(label.autoDomainName).click()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.get(serverSelectors.titleAddNew).click()
 
-    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
-    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
+    cy.get(generalSelectors.button).contains(label.next).realClick()
+    cy.get(generalSelectors.button).contains(label.next).realClick()
 
     cy.get(generalSelectors.textSelector).contains(label.serverNameText).next(htmlTagSelectors.div).type(serverName)
-    cy.contains(htmlTagSelectors.span, label.StartServerAutomatically)
-      .prev(htmlTagSelectors.span).click()
-
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
-
+    cy.get(serverSelectors.serviceCheckboxContainer).first().within(() => {
+      cy.get(htmlTagSelectors.div).realClick()
+    })
+    cy.get(generalSelectors.button).contains(label.next).realClick()
+    cy.waitForNetworkIdle(1000, { log: false })
     cy.get(serverSelectors.serviceRootContainer)
       .find(serverSelectors.serviceCheckboxContainer)
-      .find(serverSelectors.serviceButtonLabelContainer)
-      .get(generalSelectors.inputTypeCheckbox).click({ multiple: true })
+      .get(generalSelectors.inputTypeCheckbox).eq(0).realClick()
+      .get(generalSelectors.inputTypeCheckbox).eq(1).realClick()
 
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
-    cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
+    cy.get(generalSelectors.button).contains(label.next).realClick()
+    cy.get(generalSelectors.button).contains(label.next).realClick()
 
-    cy.get(serverSelectors.serviceRootLabelContainer)
-      .contains(optionText).parent().within(() => {
-        cy.get(htmlTagSelectors.input).click()
-        cy.get(htmlTagSelectors.input).click()
-      })
+    cy.get(generalSelectors.textSelector)
+      .contains(optionText).prev().click()
   }
 
   beforeEach(() => {
@@ -70,6 +68,12 @@ describe('Login > Add New > Server > Database > Server Info > > FTPS Configurati
   })
 
   afterEach(() => {
-    cy.get(generalSelectors.closeModal).click()
+    cy.get(generalSelectors.closeModal).realClick()
+    cy.waitForNetworkIdle(1000, { log: false })
+    cy.get(htmlTagSelectors.tableData).then(($response) => {
+      if ($response.text().includes(serverName)) {
+        cy.deleteServer(serverName)
+      }
+    })
   })
 })

@@ -38,15 +38,14 @@ describe('login > add new server ', () => {
     cy.get(generalSelectors.textSelector).contains(label.autoDomainName).click()
     cy.waitForNetworkIdle(1000, { log: false })
     cy.get(serverSelectors.titleAddNew).click()
-    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
-    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
-    cy.waitUntil(() => cy.get(serverSelectors.spinner).should('not.be.visible'))
+    cy.get(generalSelectors.button).contains(label.next).realClick()
+    cy.get(generalSelectors.button).contains(label.next).realClick()
     cy.contains(generalSelectors.textSelector, label.StartServerAutomatically)
       .prev(htmlTagSelectors.div).click()
   })
 
   it('verify ui validation for creating new server', () => {
-    cy.get(generalSelectors.button).contains(label.next).click({ force: true })
+    cy.get(generalSelectors.button).contains(label.next).realClick()
     cy.get(serverSelectors.serverNameReqMessage).should('have.text', label.required)
     cy.get(serverSelectors.serverDataDirReqMessage).should('have.text', label.required)
     cy.get(serverSelectors.serverLogDirReqMessage).should('have.text', label.required)
@@ -54,8 +53,8 @@ describe('login > add new server ', () => {
 
   it('verify ui validation for Manual Directory Configuration', () => {
     cy.get(generalSelectors.textSelector).contains(label.serverNameText).next(htmlTagSelectors.div).type(serverDetails.serverName)
-    cy.get(serverSelectors.serviceCheckboxContainer).shadow().first().within(() => {
-      cy.get(htmlTagSelectors.div).first().click()
+    cy.get(serverSelectors.serviceCheckboxContainer).first().within(() => {
+      cy.get(htmlTagSelectors.div).click()
     })
     cy.get(serverSelectors.nextButtonContainer).contains(label.next).click()
     cy.get(serverSelectors.serverBackDir).clear()

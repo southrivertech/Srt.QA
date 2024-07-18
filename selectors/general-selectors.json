@@ -14,5 +14,6 @@
     "roleMenu":"[role='menu']",
     "typeText":"input[type='text']",
     "button":".dxbl-btn",
-    "textSelector":".dxbl-text"
+    "textSelector":".dxbl-text",
+    "modalSelector":".dxbl-modal-body"
 }

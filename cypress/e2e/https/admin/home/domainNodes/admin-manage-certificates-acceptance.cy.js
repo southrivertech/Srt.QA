@@ -41,27 +41,27 @@ describe('Login > home > domain nodes > manage certificate', () => {
     cy.get(dashboardSelectors.dashboardButton).contains(label.manageCert).click()
 
     cy.get(manageCertificate.titleUpdate).eq(0).within(() => {
-      cy.get(manageCertificate.iconSrt).click({ force: true })
+      cy.get(manageCertificate.iconSrt).realClick({ force: true })
     })
     cy.checkTextVisibility(manageCertificate.dialog, label.updateHeading)
     cy.get(manageCertificate.modalDialog).eq(1).within(() => {
-      cy.get(manageCertificate.dashboardButtonLabel).contains(label.closeText).click()
+      cy.get(manageCertificate.dashboardButtonLabel).contains(label.closeText).realClick()
     })
 
     cy.get(manageCertificate.titleExport).eq(0).within(() => {
-      cy.get(manageCertificate.iconSrt).click({ force: true })
+      cy.get(manageCertificate.iconSrt).realClick({ force: true })
     })
     cy.checkTextVisibility(manageCertificate.dialog, label.exportHeading)
     cy.get(manageCertificate.modalDialog).eq(1).within(() => {
-      cy.get(manageCertificate.dashboardButtonLabel).contains(label.closeText).click()
+      cy.get(manageCertificate.dashboardButtonLabel).contains(label.closeText).realClick()
     })
 
     cy.get(manageCertificate.titleDelete).eq(0).within(() => {
-      cy.get(manageCertificate.iconSrt).click({ force: true })
+      cy.get(manageCertificate.iconSrt).realClick({ force: true })
     })
     cy.checkTextVisibility(manageCertificate.dialog, label.deleteHeading)
     cy.get(manageCertificate.modalDialog).eq(1).within(() => {
-      cy.get(manageCertificate.dashboardButtonLabel).contains(label.no).click()
+      cy.get(manageCertificate.dashboardButtonLabel).contains(label.no).realClick()
     })
   })
 })

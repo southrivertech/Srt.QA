@@ -1,4 +1,4 @@
-import serverSelectors from '../../../../../selectors/server-selectors.json'
+import htmlSelectors from '../../../../../selectors/htlm-tag-selectors.json'
 import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description
@@ -27,7 +27,7 @@ describe('login > add new server ', () => {
   }
 
   const serverDetails = {
-    serverType: 'New member server of existing cluster.',
+    serverType: 'New standalone or primary cluster server.',
     selectDatabase: 'SQLite Database',
     serverName: `qa-auto server ${Cypress.dayjs().format('ssmmhhMMYY')}`
   }
@@ -38,11 +38,11 @@ describe('login > add new server ', () => {
 
   it('verify that admin is able to create server with required parameters', () => {
     cy.createServer(serverDetails)
-    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
+    cy.get(htmlSelectors.tableData).contains(serverDetails.serverName).should('be.visible')
   })
 
   afterEach('deleting a server', () => {
     cy.deleteServer(serverDetails.serverName)
-    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
+    cy.get(htmlSelectors.tableData).contains(serverDetails.serverName).should('not.exist')
   })
 })
