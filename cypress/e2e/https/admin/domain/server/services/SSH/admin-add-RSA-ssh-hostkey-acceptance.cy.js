@@ -1,4 +1,4 @@
-import serverSelectors from '../../../../../../../../selectors/server-selectors.json'
+import htmlSelectors from '../../../../../../../../selectors/htlm-tag-selectors.json'
 import { slowCypressDown } from 'cypress-slow-down'
 import navigationSelectors from '../../../../../../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../../../../../../fixtures/label.json'
@@ -29,6 +29,8 @@ describe('login > create new server > services > RSA > Add RSA Key', () => {
     password: adminData.adminPassword
   }
 
+  const { tableData, span } = htmlSelectors
+
   const serverDetails = {
     serverType: 'New standalone or primary cluster server.',
     selectDatabase: 'SQLite Database',
@@ -45,7 +47,6 @@ describe('login > create new server > services > RSA > Add RSA Key', () => {
     })
     cy.postCreateServerApiRequest(serverDetails)
     cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
-    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('be.visible')
     // navigate to services
     cy.get(navigationSelectors.textLabelSelector).contains(label.autoDomainName).click()
     cy.get(navigationSelectors.textLabelSelector).contains(serverDetails.serverName).should('be.visible').click()
@@ -58,19 +59,24 @@ describe('login > create new server > services > RSA > Add RSA Key', () => {
   it('verify that user can add RSA 1024 key', () => {
     hostKeyDetails.keySize = '1024'
     cy.addServerKey(hostKeyDetails)
+    cy.get(`${tableData} ${span}`).contains(hostKeyDetails.keyName).should('be.visible')
   })
 
   it('verify that user can add RSA 2048 key', () => {
     hostKeyDetails.keySize = '2048'
     cy.addServerKey(hostKeyDetails)
+    cy.get(`${tableData} ${span}`).contains(hostKeyDetails.keyName).should('be.visible')
   })
 
   it('verify that user can add RSA 4096 key', () => {
     hostKeyDetails.keySize = '4096'
     cy.addServerKey(hostKeyDetails)
+    cy.get(`${tableData} ${span}`).contains(hostKeyDetails.keyName).should('be.visible')
   })
   afterEach('deleting a server', () => {
-    cy.deleteServerApiRequest(serverDetails)
-    cy.get(serverSelectors.serverName).contains(serverDetails.serverName).should('not.exist')
+    // deleting the created server
+    cy.deleteServerApiRequest(serverDetails).then(($response) => {
+      expect($response.Result.ErrorStr).to.equal('Success')
+    })
   })
 })

@@ -152,6 +152,7 @@
   "virtualDirectoryAccess":"Virtual Directory Access",
   "keyType":"Key Type",
   "keySize":"Key Size",
+  "hostKeyName": "Host Key Name",
   "connections":"Connections",
   "welcomeMessage":"WelcomeMsg",
   "messages":"Messages",
