@@ -2,7 +2,7 @@ import serverSelectors from '../../../../../selectors/server-selectors.json'
 import label from '../../../../fixtures/label.json'
 import generalSelectors from '../../../../../selectors/general-selectors.json'
 import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
-
+import { slowCypressDown } from 'cypress-slow-down'
 /**
  * @description
  * This spec file contains a test to ensure that user can click the checkboxes after disabling the default checkbox during FTPS configuration
@@ -20,6 +20,7 @@ import htmlTagSelectors from '../../../../../selectors/htlm-tag-selectors.json'
  * - user should have valid credentials
  */
 
+slowCypressDown(100)
 // skip due to an existing bug NX-I1134
 describe('Login > Add New > Server > Database > Server Info > > FTPS Configuration', () => {
   const adminData = Cypress.env('admin')

@@ -39,9 +39,10 @@ Cypress.Commands.add('login', (baseUrl, username, password) => {
   cy.visit(loginURL)
   cy.waitForNetworkIdle(1000, { log: false })
   // Find and fill in the username and password fields
-  cy.get(loginSelectors.inputUsername).type(username)
-  cy.get(loginSelectors.inputPassword).type(password)
-  cy.get(loginSelectors.loginButton).contains(label.login).click()
+  cy.get(loginSelectors.inputUsername)
+  cy.get(loginSelectors.inputUsername).type(username, { scrollBehavior: false })
+  cy.get(loginSelectors.inputPassword).type(password, { scrollBehavior: false })
+  cy.get(loginSelectors.loginButton).contains(label.login).click({ scrollBehavior: false })
   // cy.waitForNetworkIdle('@postApiLogin', 500).its('callCount').should('equal', 1)
   cy.get(loginSelectors.profileIcon).should('be.visible')
 })

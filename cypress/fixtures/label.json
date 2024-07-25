@@ -128,6 +128,7 @@
   "regCodeValidationTextLength" : "Invalid format. Format:",
   "regCodeValidationTextFormat" : "Invalid length. Format:",
   "sshSftpText" : "SSH/SFTP",
+  "ZLIBCompressionLevel":"ZLIB Compression Level",
   "mySite" : "MySite",
   "Id":"Id",
   "services" : "Services",
