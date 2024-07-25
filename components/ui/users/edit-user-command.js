@@ -37,12 +37,12 @@ import label from '../../../cypress/fixtures/label.json'
 */
 
 Cypress.Commands.add('editUser', (username, menuOption = label.editUserAssignedGroups, assignGroup = false, password = label.password) => {
-  cy.contains(htmlTagSelectors.div, username).scrollIntoView().parents(userSelectors.parentCell)
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).should('exist')
-    .next(htmlTagSelectors.div).within(() => {
+  cy.contains(htmlTagSelectors.tableData, username).scrollIntoView()
+    .next(htmlTagSelectors.tableData).should('exist')
+    .next(htmlTagSelectors.tableData).should('exist')
+    .next(htmlTagSelectors.tableData).should('exist')
+    .next(htmlTagSelectors.tableData).should('exist')
+    .next(htmlTagSelectors.tableData).within(() => {
       cy.get(htmlTagSelectors.button).click({ force: true })
     })
 

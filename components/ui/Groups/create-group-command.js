@@ -1,6 +1,7 @@
 import label from '../../../cypress/fixtures/label.json'
 import groupSelectors from '../../../selectors/groups/groups-selectors.json'
 import generalSelectors from '../../../selectors/general-selectors.json'
+import htmlSelectors from '../../../selectors/htlm-tag-selectors.json'
 
 /**
  * group creation command
@@ -35,8 +36,8 @@ Cypress.Commands.add('createGroup', (groupDetails) => {
     cy.get(groupSelectors.parentGroup).within(() => {
       cy.get(generalSelectors.textSelector).contains(label.homeDir).next().realClick()
     })
-    cy.get(groupSelectors.dropDownOptions).contains(groupDetails.groupDirectoryOption).realClick()
-    cy.get(groupSelectors.subDir).eq(1).type(groupDetails.groupDirPath.replace(/\//g, '\\'))
+    cy.get(groupSelectors.listItem).contains(groupDetails.groupDirectoryOption).realClick()
+    cy.get(htmlSelectors.label).contains(label.subDirectory).next().type(groupDetails.groupDirPath.replace(/\//g, '\\'))
   }
   cy.get(generalSelectors.button).contains(label.next).realClick()
   cy.get(generalSelectors.button).contains(label.finish).realClick()

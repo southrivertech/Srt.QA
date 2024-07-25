@@ -14,5 +14,6 @@
     "subDir" : "[id='Sub Directory']",
     "homeDir" : "[role='button']",
     "dropParent" : "[role='listbox']",
-    "titleAdd":"[title='Add']"
+    "titleAdd":"[title='Add']",
+    "listItem": ".dxbl-listbox-item"
 }
