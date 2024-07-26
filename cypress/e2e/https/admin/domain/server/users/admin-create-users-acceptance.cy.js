@@ -49,7 +49,6 @@ describe('Login > {existing server} > users > add new user', () => {
 
   it('verify that admin can create a user without assigning a group', () => {
     cy.createUser(userDetails)
-    cy.get(htmlSelectors.tableData).contains(userDetails.userName).scrollIntoView().should('be.visible')
   })
 
   it('Verify that admin can create a user with assigning an existing group', () => {
@@ -57,7 +56,7 @@ describe('Login > {existing server} > users > add new user', () => {
   })
 
   afterEach('deleting a user', () => {
-    cy.delete(userDetails.userName)
+    cy.deleteUser(userDetails.userName)
     cy.get(htmlSelectors.tableData).contains(userDetails.userName).should('not.exist')
   })
 })

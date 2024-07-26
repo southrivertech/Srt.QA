@@ -1,6 +1,7 @@
 import userSelectors from '../../../selectors/user/user-selectors.json'
 import label from '../../../cypress/fixtures/label.json'
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
+import generalSelectors from '../../../selectors/general-selectors.json'
 /**
  * User creation command
  *
@@ -41,19 +42,21 @@ Cypress.Commands.add('createUser', (userDetails) => {
   Cypress.log({
     name: 'createUserCommand'
   })
-  cy.enterText(label.userName, userDetails.userName)
-  cy.enterText(label.password, userDetails.password)
-  cy.enterText(label.confirmPassword, userDetails.password)
+  cy.get(htmlTagSelectors.label).contains(label.userFullName).next().type(userDetails.userName)
+  cy.get(htmlTagSelectors.label).contains(label.userName).next().type(userDetails.userName)
+  cy.get(htmlTagSelectors.label).contains(label.password).next().type(userDetails.password)
+  cy.get(htmlTagSelectors.label).contains(label.confirmPassword).next().type(userDetails.password)
   cy.clickButton(label.next)
-  cy.checkTextVisibility(userSelectors.userPageHeading, label.assignToGroups)
+  cy.get(generalSelectors.textSelector).contains(label.assignMembers).should('be.visible')
   if (userDetails.groupName) {
-    cy.contains(htmlTagSelectors.div, userDetails.groupName).parents(userSelectors.parentCell)
-      .prev(htmlTagSelectors.div).click({ force: true })
+    cy.contains(htmlTagSelectors.tableData, userDetails.groupName).prev(htmlTagSelectors.tableData).within(() => {
+      cy.get(htmlTagSelectors.button).realClick()
+    })
   }
   cy.clickButton(label.next)
-  cy.checkTextVisibility(userSelectors.userPageHeading, label.configureUserOptions)
+  cy.get(generalSelectors.textSelector).contains(label.configureUserOptions).should('be.visible')
   if (userDetails.homeDirectoryOption) {
-    cy.get(userSelectors.roleBtn).contains(label.defaultHomeDir).click({ force: true })
+    cy.get(generalSelectors.typeText).realClick()
     cy.get(userSelectors.dataValue2).contains(label.customDir).click({ force: true })
     cy.get(userSelectors.homeDirInputField).clear()
     cy.get(userSelectors.homeDirInputField).type(userDetails.customDirPath.replace(/\//g, '\\'))

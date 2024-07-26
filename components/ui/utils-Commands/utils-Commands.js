@@ -1,6 +1,5 @@
 import userSelectors from '../../../selectors/user/user-selectors.json'
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
-import serverSelectors from '../../../selectors/server-selectors.json'
 import dashboardSelectors from '../../../selectors/dashboard-selectors.json'
 import label from '../../../cypress/fixtures/label.json'
 
@@ -33,7 +32,7 @@ Cypress.Commands.add('enterText', (inputField, inputText) => {
  */
 
 Cypress.Commands.add('clickButton', (buttonText) => {
-  cy.get(serverSelectors.nextButtonContainer).contains(buttonText).click()
+  cy.get(htmlTagSelectors.button).contains(buttonText).realClick()
 })
 
 /**
@@ -62,6 +61,39 @@ Cypress.Commands.add('delete', (inputName) => {
   cy.get(htmlTagSelectors.tableData).contains(inputName).scrollIntoView().next().next().within(() => {
     cy.get(userSelectors.titleDelete).realClick({ force: true })
   })
+  cy.get(dashboardSelectors.dashboardButton).contains(label.confirm).realClick()
+})
+
+/**
+* This command is used to delete a user
+*
+* This command takes group name or user name to be deleted as parameter
+*
+* @example
+* cy.delete('Group name')
+*/
+
+function clickDelete (inputName) {
+  cy.get(htmlTagSelectors.tableData).contains(inputName).scrollIntoView().next().next().next().next().next().within(() => {
+    cy.get(userSelectors.titleDelete).realClick()
+  })
+}
+
+Cypress.Commands.add('deleteUser', (inputName) => {
+  cy.get(htmlTagSelectors.tableData).then(($resp) => {
+    if ($resp.text().includes(inputName)) {
+      clickDelete(inputName)
+    } else {
+      cy.get(dashboardSelectors.changePage).eq(1).click().then(() => {
+        cy.get(htmlTagSelectors.tableData).then(($resp) => {
+          if ($resp.text().includes(inputName)) {
+            clickDelete(inputName)
+          }
+        })
+      })
+    }
+  })
+
   cy.get(dashboardSelectors.dashboardButton).contains(label.confirm).realClick()
 })
 
