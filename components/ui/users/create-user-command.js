@@ -56,12 +56,13 @@ Cypress.Commands.add('createUser', (userDetails) => {
   cy.clickButton(label.next)
   cy.get(generalSelectors.textSelector).contains(label.configureUserOptions).should('be.visible')
   if (userDetails.homeDirectoryOption) {
-    cy.get(generalSelectors.typeText).realClick()
-    cy.get(userSelectors.dataValue2).contains(label.customDir).click({ force: true })
-    cy.get(userSelectors.homeDirInputField).clear()
-    cy.get(userSelectors.homeDirInputField).type(userDetails.customDirPath.replace(/\//g, '\\'))
-    cy.contains(htmlTagSelectors.span, label.createHomeDir)
-      .prev(htmlTagSelectors.span).click()
+    cy.get(generalSelectors.typeText).eq(1).realClick()
+    cy.get(userSelectors.dropdownItem).contains(label.customDir).realClick()
+    cy.get(htmlTagSelectors.label).contains(label.customHomeDir).next().clear()
+
+    cy.get(htmlTagSelectors.label).contains(label.customHomeDir).next().type(userDetails.customDirPath.replace(/\//g, '\\'))
+    cy.contains(htmlTagSelectors.label, label.createHomeDir)
+      .prev().click()
   }
   cy.clickButton(label.finish)
 })

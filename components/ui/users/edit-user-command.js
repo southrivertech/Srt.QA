@@ -1,5 +1,6 @@
 import htmlTagSelectors from '../../../selectors/htlm-tag-selectors.json'
 import userSelectors from '../../../selectors/user/user-selectors.json'
+import dashboardSelectors from '../../../selectors/dashboard-selectors.json'
 import label from '../../../cypress/fixtures/label.json'
 /**
  * User Edit Command
@@ -37,14 +38,28 @@ import label from '../../../cypress/fixtures/label.json'
 */
 
 Cypress.Commands.add('editUser', (username, menuOption = label.editUserAssignedGroups, assignGroup = false, password = label.password) => {
-  cy.contains(htmlTagSelectors.tableData, username).scrollIntoView()
-    .next(htmlTagSelectors.tableData).should('exist')
-    .next(htmlTagSelectors.tableData).should('exist')
-    .next(htmlTagSelectors.tableData).should('exist')
-    .next(htmlTagSelectors.tableData).should('exist')
-    .next(htmlTagSelectors.tableData).within(() => {
-      cy.get(htmlTagSelectors.button).click({ force: true })
-    })
+  cy.get(htmlTagSelectors.tableData).then(($resp) => {
+    if ($resp.text().includes(username)) {
+      cy.get(htmlTagSelectors.tableData).contains(username)
+        .next(htmlTagSelectors.tableData).should('exist')
+        .next(htmlTagSelectors.tableData).should('exist')
+        .next(htmlTagSelectors.tableData).should('exist')
+        .next(htmlTagSelectors.tableData).should('exist')
+        .next(htmlTagSelectors.tableData).within(() => {
+          cy.get(userSelectors.titleEdit).click({ force: true })
+        })
+    } else {
+      cy.get(dashboardSelectors.changePage).eq(1).click()
+      cy.get(htmlTagSelectors.tableData).contains(username)
+        .next(htmlTagSelectors.tableData).should('exist')
+        .next(htmlTagSelectors.tableData).should('exist')
+        .next(htmlTagSelectors.tableData).should('exist')
+        .next(htmlTagSelectors.tableData).should('exist')
+        .next(htmlTagSelectors.tableData).within(() => {
+          cy.get(userSelectors.titleEdit).click({ force: true })
+        })
+    }
+  })
 
   switch (menuOption) {
     case label.editUserAssignedGroups:

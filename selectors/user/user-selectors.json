@@ -19,5 +19,7 @@
     "btnLabel" : ".MuiButton-label",
     "roleBtn" : "[role='button']",
     "dataValue2" : "[data-value='2']",
-    "titleDelete":"[title='Delete']"
+    "titleDelete":"[title='Delete']",
+    "titleEdit":"[title='Edit']",
+    "dropdownItem":".dxbl-listbox-item"
 }

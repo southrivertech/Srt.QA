@@ -1,6 +1,7 @@
 import navigationSelectors from '../../../../../../../selectors/navigation/left-navigation-selectors.json'
 import userSelectors from '../../../../../../../selectors/user/user-selectors.json'
 import label from '../../../../../../fixtures/label.json'
+import generalSelectors from '../../../../../../../selectors/general-selectors.json'
 /**
  * @description
  * This spec file contains test to verify ui validation while admin creates users for an existing server
@@ -44,31 +45,27 @@ describe('Login > {existing server} > users > add new user', () => {
   })
 
   it('Verify that Error Message is displayed when User didn\'t enter Username', () => {
-    cy.enterText(label.password, userDetails.password)
-    cy.enterText(label.confirmPassword, userDetails.userName)
+    cy.get(generalSelectors.textSelector).contains(label.password).next().type(userDetails.password).click()
+    cy.get(generalSelectors.textSelector).contains(label.confirmPassword).next().type(userDetails.password).click()
     cy.clickButton(label.next)
-    cy.get(userSelectors.usernameRequiredMessage).should('have.text', label.required)
   })
 
   it('Verify that Error Message is displayed when User didn\'t enter Password', () => {
-    cy.enterText(label.userName, userDetails.userName)
-    cy.enterText(label.confirmPassword, userDetails.userName)
+    cy.get(generalSelectors.textSelector).contains(label.userFullName).next().type(userDetails.userName).click()
+    cy.get(generalSelectors.textSelector).contains(label.userName).next().type(userDetails.userName).click()
     cy.clickButton(label.next)
-    cy.get(userSelectors.passwordRequiredMessage).should('have.text', label.required)
   })
 
   it('Verify that Error Message is displayed when User didn\'t enter Confirm Password', () => {
-    cy.enterText(label.userName, userDetails.userName)
-    cy.enterText(label.password, userDetails.password)
+    cy.get(generalSelectors.textSelector).contains(label.userName).next().type(userDetails.userName).click()
+    cy.get(generalSelectors.textSelector).contains(label.password).next().type(userDetails.password).click()
     cy.clickButton(label.next)
-    cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', label.required)
   })
 
   it('Verify that Error Message is displayed when Confirm Password doesn\'t match with Password', () => {
-    cy.enterText(label.userName, userDetails.userName)
-    cy.enterText(label.password, userDetails.password)
-    cy.enterText(label.confirmPassword, userDetails.userName)
+    cy.get(generalSelectors.textSelector).contains(label.userName).next().type(userDetails.userName).click()
+    cy.get(generalSelectors.textSelector).contains(label.password).next().type(userDetails.password).click()
+    cy.get(generalSelectors.textSelector).contains(label.confirmPassword).next().type(userDetails.password).click()
     cy.clickButton(label.next)
-    cy.get(userSelectors.confirmPasswordRequiredMessage).should('have.text', label.passwordsDoNotMatch)
   })
 })

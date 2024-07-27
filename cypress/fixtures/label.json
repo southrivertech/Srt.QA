@@ -47,6 +47,7 @@
   "conditions": "Conditions",
   "addCondition":"Add Condition",
   "addAction":"Add Action",
+  "customHomeDir": "Custom Home Directory",
   "actions":"Actions", 
   "checkAll":"Check All",
   "password"   : "Password",

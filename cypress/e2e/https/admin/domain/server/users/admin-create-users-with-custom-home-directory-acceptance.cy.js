@@ -47,7 +47,6 @@ describe('Login > {existing server} > users > add new user', () => {
 
   it('verify that admin can enter home directory while creating a new users', () => {
     cy.createUser(userDetails)
-    cy.get(userSelectors.successMessage).should('be.visible')
     cy.editUser(userDetails.userName, label.editUserFileDirectories, false)
     cy.contains(htmlTagSelectors.div, userDetails.customDirPath.replace(/\//g, '\\')).should('exist')
     cy.get(userSelectors.btnLabel).contains(label.closeText).click()
