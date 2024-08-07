@@ -50,15 +50,31 @@ module.exports = async (on, config) => {
 
   // sftp connection task which will create new directory using mkdir()
   on('task', {
+    // ... other tasks ...
     sftpCreateDirectory (opts) {
       return sftp.connect(opts.configSFTP)
-        .then(() => {
-          return sftp.mkdir(opts.remoteDir, true)
+        .then(() => sftp.exists(opts.remoteDir))
+        .then((exists) => {
+          if (exists) {
+            return 'directory exists' // Add this
+          }
+          return sftp.mkdir(opts.remoteDir, true).then(() => `${opts.remoteDir} directory created`)
         })
+        .finally(() => sftp.end())
     }
+    // ... other tasks ...
   })
 
   // sftp connection task which will remove directory using rmdir()
+  on('task', {
+    sftpDeleteDirectory (opts) { // Add this
+      return sftp.connect(opts.configSFTP)
+        .then(() => sftp.rmdir(opts.remoteDir, true))
+        .then(() => `Successfully deleted ${opts.remoteDir}`)
+        .finally(() => sftp.end())
+    }
+  })
+
   on('task', {
     sftpRemoveDirectory (opts) {
       return sftp.connect(opts.configSFTP)
@@ -67,7 +83,6 @@ module.exports = async (on, config) => {
         })
     }
   })
-
   // sftp connection task which will put data stream to remote location using fastPut() command
   on('task', {
     sftpUploadFile (opts) {

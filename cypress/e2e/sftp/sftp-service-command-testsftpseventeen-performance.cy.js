@@ -18,7 +18,7 @@ describe('example', () => {
   const configSFTP = {
     host: 'beta.southrivertech.com',
     port: '2200',
-    username: 'testsftpeight',
+    username: 'testsftpseventeen',
     password: '123456'
   }
   const remoteDir = '/path/to/new/dir'
@@ -26,7 +26,7 @@ describe('example', () => {
   const newRemoteDir = '/path/to/new/dir/file2.txt'
   const localPath = './../fixtures/local.txt'
   const localPath2 = './../fixtures/local2.txt'
-  const remoteDirCopy = `/path/to/new/${Cypress.dayjs().format('ssmYY')}.txt`
+  const remoteDirCopy = `/path/to/new/${Cypress.dayjs().format('ssmmhhMMYY')}.txt`
   const remoteDirPath = '/path'
 
   it.only('all sftp operations', () => {

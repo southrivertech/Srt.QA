@@ -18,7 +18,7 @@ describe('example', () => {
   const configSFTP = {
     host: 'beta.southrivertech.com',
     port: '2200',
-    username: 'testsftpeight',
+    username: 'testsftpeighteen',
     password: '123456'
   }
   const remoteDir = '/path/to/new/dir'
@@ -31,6 +31,7 @@ describe('example', () => {
 
   it.only('all sftp operations', () => {
     cy.task('sftpCurrentWorkingDirectory', configSFTP).then(p => {
+      console.log(p)
       expect(`${JSON.stringify(p)}`).to.equal('"/"')
       cy.task('endSFTPConnection')
     })

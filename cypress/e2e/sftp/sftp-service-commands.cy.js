@@ -20,7 +20,7 @@ describe.skip('example', () => {
   const newRemoteDir = '/path/to/new/dir/file2.txt'
   const localPath = './../fixtures/local.txt'
   const localPath2 = './../fixtures/local2.txt'
-  const remoteDirCopy = '/path/to/new/S.txt'
+  const remoteDirCopy = `/path/to/new/${Cypress.dayjs().format('ssmYY')}.txt`
   const remoteDirPath = '/path'
 
   it('as a sftp user, I should be able to see the current working directory', () => {

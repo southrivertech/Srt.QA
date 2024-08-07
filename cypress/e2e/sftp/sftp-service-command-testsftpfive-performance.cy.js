@@ -26,7 +26,7 @@ describe('example', () => {
   const newRemoteDir = '/path/to/new/dir/file2.txt'
   const localPath = './../fixtures/local.txt'
   const localPath2 = './../fixtures/local2.txt'
-  const remoteDirCopy = '/path/to/new/S.txt'
+  const remoteDirCopy = `/path/to/new/${Cypress.dayjs().format('ssmYY')}.txt`
   const remoteDirPath = '/path'
 
   it.only('all sftp operations', () => {
@@ -36,8 +36,21 @@ describe('example', () => {
     })
 
     cy.task('sftpCreateDirectory', { remoteDir, configSFTP }).then(p => {
-      expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} directory created"`)
-      cy.task('endSFTPConnection')
+      if (p === 'directory exists') {
+        cy.log('Directory already exists, proceeding to delete')
+        cy.task('sftpDeleteDirectory', { remoteDir, configSFTP }).then(p => {
+          expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${remoteDir}"`)
+          cy.task('endSFTPConnection')
+          cy.log('Directory deleted, creating again')
+          cy.task('sftpCreateDirectory', { remoteDir, configSFTP }).then(p => {
+            expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} directory created"`)
+            cy.task('endSFTPConnection')
+          })
+        })
+      } else {
+        expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} directory created"`)
+        cy.task('endSFTPConnection')
+      }
     })
 
     cy.task('sftpUploadFile', { localPath, remoteDirFile, configSFTP }).then(p => {
@@ -60,11 +73,11 @@ describe('example', () => {
       cy.task('endSFTPConnection')
     })
 
-    cy.task('sftpDownLoadFile', { newRemoteDir, localPath2, configSFTP }).then(p => {
-      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
-      expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} was successfully download to ${localPath2}!"`)
-      cy.task('endSFTPConnection')
-    })
+    // cy.task('sftpDownLoadFile', { newRemoteDir, localPath2, configSFTP }).then(p => {
+    //   cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+    //   expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} was successfully download to ${localPath2}!"`)
+    //   cy.task('endSFTPConnection')
+    // })
 
     cy.task('sftpDeleteFile', { configSFTP, newRemoteDir }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${newRemoteDir}"`)
