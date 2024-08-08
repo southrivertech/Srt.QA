@@ -1,7 +1,7 @@
 import navigationSelectors from '../../../selectors/navigation/left-navigation-selectors.json'
 import label from '../../fixtures/label.json'
 
-describe.skip('example', () => {
+describe('example', () => {
   const adminData = Cypress.env('admin')
   const userInfo = {
     username: adminData.adminUsername,

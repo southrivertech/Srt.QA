@@ -123,12 +123,12 @@ module.exports = async (on, config) => {
     }
   })
 
-  // sftp connection task which will delete directory
+  // sftp connection task which will download directory
   on('task', {
     sftpDownloadDirectory (opts) {
       return sftp.connect(opts.configSFTP)
         .then(() => {
-          return sftp.downloadDir(opts.remoteDirFile, opts.localPath, true)
+          return sftp.downloadDir(opts.remoteDir, opts.localPathForDownload, true)
         })
     }
   })

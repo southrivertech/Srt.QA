@@ -25,6 +25,7 @@ describe('example', () => {
   const remoteDirFile = '/path/to/new/dir/file.txt'
   const newRemoteDir = '/path/to/new/dir/file2.txt'
   const localPath = './../fixtures/local.txt'
+  const localPathForDownload = './../fixtures'
   const localPath2 = './../fixtures/local2.txt'
   const remoteDirCopy = `/path/to/new/${Cypress.dayjs().format('ssmYY')}.txt`
   const remoteDirPath = '/path'
@@ -74,11 +75,11 @@ describe('example', () => {
       cy.task('endSFTPConnection')
     })
 
-    // cy.task('sftpDownLoadFile', { newRemoteDir, localPath2, configSFTP }).then(p => {
-    //   cy.log(`Remote working directory is ${JSON.stringify(p)}`)
-    //   expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} was successfully download to ${localPath2}!"`)
-    //   cy.task('endSFTPConnection')
-    // })
+    cy.task('sftpDownloadDirectory', { remoteDir, localPathForDownload, configSFTP }).then(p => {
+      cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+      expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} downloaded to ${localPathForDownload}"`)
+      cy.task('endSFTPConnection')
+    })
 
     cy.task('sftpDeleteFile', { configSFTP, newRemoteDir }).then(p => {
       expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${newRemoteDir}"`)
