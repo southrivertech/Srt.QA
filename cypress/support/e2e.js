@@ -138,6 +138,9 @@ import '../../components/apis/requests/serversSshKeys/admin-delete-server-ssh-ke
 import '../../components/apis/requests/userCloudFolders/admin-get-user-cloud-folder-api-request'
 import '../../components/apis/requests/userCloudFolders/admin-delete-user-cloud-folder-api-request'
 
+/** sftpOperations */
+import '../../components/apis/run-all-sftp-operations-api-request'
+
 /* Importing the cypress-iframe plugin. */
 import 'cypress-iframe'
 
