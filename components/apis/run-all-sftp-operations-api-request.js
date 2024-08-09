@@ -32,9 +32,9 @@ Cypress.Commands.add('runSftpOperations', (Username) => {
   }
 
   const remoteDir = '/path/to/new/dir'
-  const remoteDirFile = '/path/to/new/dir/file.txt'
+  const remoteDirFile = '/path/to/new/dir/QM_Import Feature.mov'
   const newRemoteDir = '/path/to/new/dir/file2.txt'
-  const localPath = './../fixtures/local.txt'
+  const localPath = './../fixtures/QM_Import Feature.mov'
   const localPathForDownload = './../fixtures'
   const remoteDirCopy = `/path/to/new/${Cypress.dayjs().format('ssmYY')}.txt`
   const remoteDirPath = '/path'
