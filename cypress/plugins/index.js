@@ -50,17 +50,19 @@ module.exports = async (on, config) => {
 
   // sftp connection task which will create new directory using mkdir()
   on('task', {
+    // ... other tasks ...
     sftpCreateDirectory (opts) {
       return sftp.connect(opts.configSFTP)
         .then(() => sftp.exists(opts.remoteDir))
         .then((exists) => {
           if (exists) {
-            return 'directory exists'
+            return 'directory exists' // Add this
           }
           return sftp.mkdir(opts.remoteDir, true).then(() => `${opts.remoteDir} directory created`)
         })
         .finally(() => sftp.end())
     }
+    // ... other tasks ...
   })
 
   // sftp connection task which will remove directory using rmdir()
@@ -88,6 +90,13 @@ module.exports = async (on, config) => {
         .then(() => {
           return sftp.fastPut(opts.localPath, opts.remoteDirFile, true)
         })
+    }
+  })
+  // sftp connection task which will upload directory from remote location using fastGet() command
+  on('task', {
+    sftpUploadDirectory (opts) {
+      return sftp.connect(opts.configSFTP)
+        .then(() => sftp.uploadDir(opts.localPath, opts.remoteDirFile, true))
     }
   })
 

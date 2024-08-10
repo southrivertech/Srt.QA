@@ -32,12 +32,12 @@ Cypress.Commands.add('runSftpOperations', (Username) => {
   }
 
   const remoteDir = '/path/to/new/dir'
-  const remoteDirFile = '/path/to/new/dir/QM_Import Feature.mov'
-  // const newRemoteDir = '/path/to/new/dir/file2.txt'
-  const localPath = './../fixtures/QM_Import Feature.mov'
-  // const localPathForDownload = './../fixtures'
-  // const remoteDirCopy = `/path/to/new/${Cypress.dayjs().format('ssmYY')}.txt`
-  // const remoteDirPath = '/path'
+  const remoteDirFile = '/path/to/new/dir/local.txt'
+  const newRemoteDir = '/path/to/new/dir/file2.txt'
+  const localPath = './../fixtures/local.txt'
+  const localPathForDownload = './../fixtures'
+  const remoteDirCopy = `/path/to/new/${Cypress.dayjs().format('ssmYY')}.txt`
+  const remoteDirPath = '/path'
 
   cy.login(adminData.adminBaseUrl, userInfo.username, userInfo.password)
   // navigate to events
@@ -74,34 +74,34 @@ Cypress.Commands.add('runSftpOperations', (Username) => {
     cy.task('endSFTPConnection')
   })
 
-  // cy.task('sftpEditFile', { remoteDirFile, configSFTP }).then(p => {
-  //   expect(`${JSON.stringify(p)}`).to.equal(`"Uploaded data stream to ${remoteDirFile}"`)
-  //   cy.task('endSFTPConnection')
-  // })
+  cy.task('sftpEditFile', { remoteDirFile, configSFTP }).then(p => {
+    expect(`${JSON.stringify(p)}`).to.equal(`"Uploaded data stream to ${remoteDirFile}"`)
+    cy.task('endSFTPConnection')
+  })
 
-  // cy.task('sftpRenameFile', { remoteDirFile, newRemoteDir, configSFTP }).then(p => {
-  //   expect(`${JSON.stringify(p)}`).to.equal(`"Successfully renamed ${remoteDirFile} to ${newRemoteDir}"`)
-  //   cy.task('endSFTPConnection')
-  // })
+  cy.task('sftpRenameFile', { remoteDirFile, newRemoteDir, configSFTP }).then(p => {
+    expect(`${JSON.stringify(p)}`).to.equal(`"Successfully renamed ${remoteDirFile} to ${newRemoteDir}"`)
+    cy.task('endSFTPConnection')
+  })
 
-  // cy.task('sftpCopyFile', { newRemoteDir, remoteDirCopy, configSFTP }, { timeout: 540000 }).then(p => {
-  //   expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} copied to ${remoteDirCopy}"`)
-  //   cy.task('endSFTPConnection')
-  // })
+  cy.task('sftpCopyFile', { newRemoteDir, remoteDirCopy, configSFTP }, { timeout: 540000 }).then(p => {
+    expect(`${JSON.stringify(p)}`).to.equal(`"${newRemoteDir} copied to ${remoteDirCopy}"`)
+    cy.task('endSFTPConnection')
+  })
 
-  // cy.task('sftpDownloadDirectory', { remoteDir, localPathForDownload, configSFTP }, { timeout: 420000 }).then(p => {
-  //   cy.log(`Remote working directory is ${JSON.stringify(p)}`)
-  //   expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} downloaded to ${localPathForDownload}"`)
-  //   cy.task('endSFTPConnection')
-  // })
+  cy.task('sftpDownloadDirectory', { remoteDir, localPathForDownload, configSFTP }, { timeout: 420000 }).then(p => {
+    cy.log(`Remote working directory is ${JSON.stringify(p)}`)
+    expect(`${JSON.stringify(p)}`).to.equal(`"${remoteDir} downloaded to ${localPathForDownload}"`)
+    cy.task('endSFTPConnection')
+  })
 
-  // cy.task('sftpDeleteFile', { configSFTP, newRemoteDir }).then(p => {
-  //   expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${newRemoteDir}"`)
-  //   cy.task('endSFTPConnection')
-  // })
+  cy.task('sftpDeleteFile', { configSFTP, newRemoteDir }).then(p => {
+    expect(`${JSON.stringify(p)}`).to.equal(`"Successfully deleted ${newRemoteDir}"`)
+    cy.task('endSFTPConnection')
+  })
 
-  // cy.task('sftpRemoveDirectory', { configSFTP, remoteDirPath }).then(p => {
-  //   expect(`${JSON.stringify(p)}`).to.equal('"Successfully removed directory"')
-  //   cy.task('endSFTPConnection')
-  // })
+  cy.task('sftpRemoveDirectory', { configSFTP, remoteDirPath }).then(p => {
+    expect(`${JSON.stringify(p)}`).to.equal('"Successfully removed directory"')
+    cy.task('endSFTPConnection')
+  })
 })
