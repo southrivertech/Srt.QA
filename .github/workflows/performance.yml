@@ -7,6 +7,7 @@ on:
       - testsftpAdd
   schedule:
     - cron: '0 12-16 * * *'  #every hour from 12AM to 4:59PM EST
+
 jobs:
   performance_tests:
     runs-on: ubuntu-latest
@@ -23,6 +24,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Fetch Git LFS files
+        run: git lfs pull
 
       - name: Install dependencies
         run: npm install
